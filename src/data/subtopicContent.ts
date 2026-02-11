@@ -10981,25 +10981,6 @@ export const emtCopdVsChfContent: TopicSection[] = [
     id: "copd-chf-core-concepts",
     title: "COPD and CHF — Core Concepts",
     content: `Let's break down what's actually happening in each condition. Understanding the mechanism helps everything else make sense.`,
-    blocks: [
-      {
-        type: "tabs",
-        tabs: [
-          {
-            label: "COPD",
-            content: "COPD is a group of chronic lung diseases — mainly emphysema and chronic bronchitis. In emphysema, the tiny air sacs (alveoli) are destroyed, reducing surface area for gas exchange. In chronic bronchitis, the airways are inflamed with excess mucus. Both trap air inside the lungs, making exhalation the hard part. Patients develop barrel chests over time from chronic air trapping."
-          },
-          {
-            label: "CHF",
-            content: "CHF happens when the heart muscle weakens or stiffens and can't pump effectively. Left-sided failure causes fluid to back up into the lungs (pulmonary edema) — you'll hear crackles. Right-sided failure causes fluid to back up into the body — you'll see JVD and pedal edema. Many patients have both."
-          },
-          {
-            label: "Key Difference",
-            content: "The fundamental difference: COPD is a problem getting air OUT (obstructive). CHF is a problem with fluid IN the lungs (congestive). COPD patients exhale slowly with pursed lips. CHF patients sit bolt upright and may cough pink frothy sputum. Different mechanism, different presentation, different approach."
-          }
-        ]
-      }
-    ],
     keyPoints: [
       "COPD: air trapping, prolonged exhalation, barrel chest",
       "CHF: fluid in lungs, crackles, orthopnea",
@@ -11054,25 +11035,6 @@ export const emtCopdVsChfContent: TopicSection[] = [
     id: "copd-chf-classification",
     title: "Types and Classifications",
     content: `Both COPD and CHF have subtypes that affect how patients present in the field.`,
-    blocks: [
-      {
-        type: "tabs",
-        tabs: [
-          {
-            label: "COPD Types",
-            content: "**Emphysema ('Pink Puffers'):** Destroyed alveoli, thin body habitus, pursed-lip breathing, relatively normal color. They work hard to breathe but maintain oxygenation.\n\n**Chronic Bronchitis ('Blue Bloaters'):** Inflamed airways with excess mucus, often overweight, productive cough, may appear cyanotic. They don't ventilate as effectively and retain CO₂."
-          },
-          {
-            label: "CHF Types",
-            content: "**Left-Sided Failure:** Blood backs up into the lungs. Signs: crackles, dyspnea, orthopnea, pink frothy sputum in severe cases. This is the most common presentation you'll see.\n\n**Right-Sided Failure:** Blood backs up into the body. Signs: JVD, peripheral edema (swollen ankles/legs), hepatomegaly (enlarged liver). Often caused by left-sided failure."
-          },
-          {
-            label: "Acute vs Chronic",
-            content: "**Chronic:** The baseline — patients live with this daily. They have home medications, know their triggers, and adapt.\n\n**Acute Exacerbation:** Something pushes them past their baseline. Infections, medication non-compliance, dietary indiscretion (too much salt in CHF). This is when they call 911."
-          }
-        ]
-      }
-    ],
     keyPoints: [
       "Pink puffers (emphysema) vs. blue bloaters (chronic bronchitis)",
       "Left-sided CHF → lungs; Right-sided CHF → body",
@@ -11262,25 +11224,6 @@ Capnography gives you a window into ventilation that SpO₂ alone can't provide.
     id: "aemt-copd-chf-pathophys",
     title: "Pathophysiology — Why It Happens",
     content: `Let's dig into the mechanisms driving each condition.`,
-    blocks: [
-      {
-        type: "tabs",
-        tabs: [
-          {
-            label: "COPD Mechanism",
-            content: "**V/Q Mismatch:** In COPD, destroyed alveoli (emphysema) reduce the surface area for gas exchange. Ventilation happens but perfusion has nowhere to exchange gases — this is dead space. In chronic bronchitis, mucus and inflammation block ventilation to perfused areas — this is shunt.\n\n**Air Trapping:** Narrowed airways collapse during exhalation, trapping air. This creates auto-PEEP (intrinsic positive pressure) that makes each breath harder. Over time, the chest hyperinflates (barrel chest).\n\n**CO₂ Retention:** As the disease progresses, patients chronically retain CO₂. Their body adapts by using oxygen levels (not CO₂) as the primary breathing stimulus — the hypoxic drive."
-          },
-          {
-            label: "CHF Mechanism",
-            content: "**Pump Failure:** The left ventricle can't pump blood forward effectively. Blood backs up into the left atrium, then into the pulmonary veins, then into the pulmonary capillaries.\n\n**Starling Forces:** Increased hydrostatic pressure in pulmonary capillaries pushes fluid across the capillary membrane into the alveoli. This is pulmonary edema — fluid where air should be.\n\n**Neurohormonal Activation:** The body senses low cardiac output and activates the sympathetic nervous system (tachycardia, vasoconstriction) and RAAS (fluid retention). These compensatory mechanisms temporarily help but ultimately make the overload worse."
-          },
-          {
-            label: "Why It Matters",
-            content: "**For COPD:** Treatment targets airway opening (bronchodilators) and reducing air trapping (pursed-lip breathing, CPAP). Excess oxygen can suppress the hypoxic drive — that's why you titrate carefully.\n\n**For CHF:** Treatment targets reducing fluid in the lungs (CPAP pushes fluid out of alveoli, NTG reduces preload) and supporting the failing pump. Oxygenation is the priority.\n\n**The clinical connection:** Knowing these mechanisms helps you predict what will work, what might be harmful, and when to escalate."
-          }
-        ]
-      }
-    ],
     keyPoints: [
       "COPD: V/Q mismatch + air trapping + CO₂ retention",
       "CHF: pump failure → increased hydrostatic pressure → pulmonary edema",
@@ -11335,25 +11278,6 @@ Capnography gives you a window into ventilation that SpO₂ alone can't provide.
     id: "aemt-copd-chf-tools",
     title: "Advanced Differentiation Tools",
     content: `Your AEMT toolkit gives you objective data that transforms clinical decision-making.`,
-    blocks: [
-      {
-        type: "tabs",
-        tabs: [
-          {
-            label: "Capnography",
-            content: "**COPD:** Shark fin waveform (sloped expiratory upstroke) indicates bronchospasm and air trapping. ETCO₂ may be elevated (>45 mmHg) due to chronic CO₂ retention. Prolonged expiratory phase visible on waveform.\n\n**CHF:** Normal rectangular waveform shape, but ETCO₂ may be low-normal or slightly elevated depending on severity. No shark fin pattern unless concurrent bronchospasm.\n\n**Clinical pearl:** If you see a shark fin pattern, bronchospasm is present — regardless of whether the underlying condition is COPD, asthma, or cardiac asthma."
-          },
-          {
-            label: "Auscultation",
-            content: "**COPD:** Wheezing (expiratory > inspiratory), diminished breath sounds in severe cases, prolonged expiratory phase. Rhonchi (coarse, rattling sounds) if significant mucus production.\n\n**CHF:** Bilateral crackles, typically worse at the bases (gravity-dependent fluid). In severe CHF, crackles extend upward. Wheezing can occur ('cardiac asthma') — caused by bronchospasm from peribronchial edema.\n\n**Key:** Bilateral crackles = think fluid. Wheezing = think bronchospasm (but check for cardiac asthma)."
-          },
-          {
-            label: "Clinical Picture",
-            content: "**Integrate everything:** Medications at home tell the story. COPD patients: inhalers, nebulizers, home O₂. CHF patients: ACE inhibitors, beta-blockers, diuretics (Lasix), possibly digoxin.\n\n**Weight gain** (CHF patients gaining 2-5 lbs over days suggests fluid retention). **Recent illness** (URI can trigger COPD exacerbation). **Dietary indiscretion** (salty meal can trigger CHF exacerbation).\n\n**Don't forget:** Many patients have both. Treat the most immediately life-threatening component first."
-          }
-        ]
-      }
-    ],
     keyPoints: [
       "Shark fin on capnography = bronchospasm = COPD (not CHF)",
       "Bilateral crackles = fluid = CHF",
@@ -11553,25 +11477,6 @@ You're not just treating symptoms — you're targeting specific receptors, manag
     id: "para-copd-chf-advanced-pathophys",
     title: "Advanced Pathophysiology — Molecular and Hemodynamic",
     content: `Let's go deeper into the mechanisms that drive treatment decisions.`,
-    blocks: [
-      {
-        type: "tabs",
-        tabs: [
-          {
-            label: "COPD: Cellular Level",
-            content: "**Chronic Inflammation:** Neutrophils, macrophages, and CD8+ T-cells drive ongoing destruction. Protease-antiprotease imbalance (alpha-1 antitrypsin) destroys alveolar walls. Oxidative stress from smoking accelerates damage.\n\n**V/Q Quantification:** Dead space ventilation (V without Q) in emphysema reduces effective gas exchange. Shunt (Q without V) in mucus-plugged airways. The result: chronic hypoxemia + hypercapnia with renal bicarbonate compensation.\n\n**Acid-Base:** Chronic respiratory acidosis (elevated CO₂) with metabolic compensation (elevated HCO₃⁻). pH may be near-normal chronically. Acute exacerbation pushes pH into dangerous territory when compensation is exceeded."
-          },
-          {
-            label: "CHF: Hemodynamic",
-            content: "**Starling Equation:** Fluid movement = Kf[(Pc - Pi) - σ(πc - πi)]. In CHF, elevated capillary hydrostatic pressure (Pc) overwhelms oncotic pressure (πc), pushing fluid into alveoli. This is the mathematical basis of pulmonary edema.\n\n**Neurohormonal Cascade:** Low cardiac output triggers SNS activation (tachycardia, vasoconstriction), RAAS activation (Na⁺/H₂O retention, further vasoconstriction), and BNP release (the body's attempt at compensation through natriuresis).\n\n**Forward vs. Backward Failure:** Backward failure = congestion (crackles, edema, JVD). Forward failure = poor perfusion (fatigue, confusion, renal dysfunction). Most patients have both."
-          },
-          {
-            label: "Overlap Pathology",
-            content: "**COPD + CHF:** Chronic hypoxemia from COPD causes pulmonary vasoconstriction (hypoxic pulmonary vasoconstriction), which increases right ventricular afterload, leading to right heart failure (cor pulmonale). This is how COPD CAUSES heart failure.\n\n**Ischemia-Driven CHF:** Acute MI reduces cardiac output, causing flash pulmonary edema. The patient presents with respiratory distress that looks like CHF exacerbation but is actually an acute coronary event. The 12-lead is essential.\n\n**Competing Priorities:** Bronchodilators increase heart rate (bad for ischemia). NTG reduces preload (may worsen hypotension in dehydrated COPD patients). Every treatment has trade-offs in overlap patients."
-          }
-        ]
-      }
-    ],
     keyPoints: [
       "COPD creates chronic respiratory acidosis with metabolic compensation",
       "CHF follows the Starling equation — hydrostatic pressure overwhelms oncotic pressure",
