@@ -6694,6 +6694,38 @@ Everything you learned at EMT level still applies. Recognition, positioning, oxy
 
 **The Big Difference**
 IV fluids let you replace what's lost. But more isn't always better. Understanding shock physiology helps you give the right amount to the right patient.`,
+    blocks: [
+      {
+        type: "quiz",
+        quiz: {
+          id: "aemt-shock-intro-q1",
+          question: "What is the primary new capability that AEMT-level adds to shock management?",
+          options: [
+            "Surgical intervention",
+            "IV access for volume resuscitation",
+            "Blood transfusion",
+            "Vasopressor administration"
+          ],
+          correctIndex: 1,
+          explanation: "IV access is the key new tool at the AEMT level. It enables volume resuscitation with crystalloid fluids—replacing what's lost in hypovolemic shock. Blood transfusion and vasopressors are typically hospital-level interventions."
+        }
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "aemt-shock-intro-q2",
+          question: "When treating shock as an AEMT, your EMT-level skills:",
+          options: [
+            "Are no longer relevant",
+            "Are replaced by advanced interventions",
+            "Remain essential as the foundation",
+            "Should only be used as a last resort"
+          ],
+          correctIndex: 2,
+          explanation: "EMT fundamentals—recognition, positioning, oxygen, bleeding control—remain essential. AEMT skills add layers on top of these foundations, not replacements. You're building up, not starting over."
+        }
+      }
+    ],
     keyPoints: [
       "IV access enables volume resuscitation",
       "Physiology guides treatment decisions",
@@ -6744,6 +6776,44 @@ These buy time, but they have limits and costs. Prolonged vasoconstriction cause
       "DO₂ = CO × CaO₂ guides understanding",
       "Compensation buys time but causes damage",
       "Irreversible shock exists—early treatment prevents it"
+    ]
+  },
+  // Shock Physiology quizzes inserted after the section
+  {
+    id: "shock-physiology-quiz-inline",
+    title: "Shock Physiology – Quick Check",
+    content: "Test your understanding of shock physiology.",
+    blocks: [
+      {
+        type: "quiz",
+        quiz: {
+          id: "aemt-shock-physio-q1",
+          question: "In the oxygen delivery equation DO₂ = CO × CaO₂, what does 'CO' represent?",
+          options: [
+            "Carbon monoxide",
+            "Cardiac output",
+            "Cellular oxygenation",
+            "Coronary occlusion"
+          ],
+          correctIndex: 1,
+          explanation: "CO stands for cardiac output—the volume of blood the heart pumps per minute. If cardiac output drops (pump failure or volume loss), oxygen delivery to tissues decreases even if oxygen content in the blood is normal."
+        }
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "aemt-shock-physio-q2",
+          question: "During compensated shock, the body's sympathetic response causes:",
+          options: [
+            "Bradycardia and vasodilation",
+            "Tachycardia and vasoconstriction",
+            "Decreased glucose mobilization",
+            "Peripheral vasodilation"
+          ],
+          correctIndex: 1,
+          explanation: "The sympathetic nervous system responds to decreased perfusion with tachycardia (faster heart rate to increase output) and vasoconstriction (narrowing vessels to raise pressure). These buy time but have metabolic costs if prolonged."
+        }
+      }
     ]
   },
   {
@@ -6808,6 +6878,43 @@ In penetrating trauma, aggressive fluid resuscitation may be harmful. High BP ca
     ]
   },
   {
+    id: "iv-fluids-quiz-inline",
+    title: "IV Fluids – Quick Check",
+    content: "Test your knowledge of IV fluid resuscitation.",
+    blocks: [
+      {
+        type: "quiz",
+        quiz: {
+          id: "aemt-shock-iv-q1",
+          question: "What is the typical initial crystalloid bolus for an adult shock patient?",
+          options: [
+            "100-250 mL",
+            "500-1000 mL",
+            "2000-3000 mL",
+            "5000 mL"
+          ],
+          correctIndex: 1,
+          explanation: "The standard initial bolus is 500-1000 mL for adults. After each bolus, reassess perfusion signs before giving more. Giving too much too fast can cause fluid overload, especially in cardiac patients."
+        }
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "aemt-shock-iv-q2",
+          question: "In penetrating trauma, the target systolic BP during permissive hypotension is:",
+          options: [
+            "120-140 mmHg",
+            "100-110 mmHg",
+            "80-90 mmHg",
+            "60-70 mmHg"
+          ],
+          correctIndex: 2,
+          explanation: "Target SBP 80-90 mmHg in penetrating trauma until surgical control. Higher pressures can dislodge clots ('pop the clot') and dilute clotting factors, worsening hemorrhage."
+        }
+      }
+    ]
+  },
+  {
     id: "shock-type-management",
     title: "Shock Type-Specific Management – Matching Treatment to Cause",
     content: `Same hypotension, different treatment. The shock type determines your approach.
@@ -6842,6 +6949,43 @@ Identify the cause, then target your treatment. Hypovolemic shock needs volume. 
       "Distributive: fluids first, treat cause",
       "Cardiogenic: cautious with fluids, support pump",
       "Obstructive: relieve the obstruction"
+    ]
+  },
+  {
+    id: "shock-type-quiz-inline",
+    title: "Shock Type Management – Quick Check",
+    content: "Match the treatment to the shock type.",
+    blocks: [
+      {
+        type: "quiz",
+        quiz: {
+          id: "aemt-shock-type-q1",
+          question: "A patient in anaphylactic shock should receive which medication FIRST?",
+          options: [
+            "IV normal saline bolus",
+            "Epinephrine IM",
+            "Diphenhydramine IV",
+            "Albuterol nebulizer"
+          ],
+          correctIndex: 1,
+          explanation: "Epinephrine IM is the FIRST-LINE treatment for anaphylaxis. It reverses vasodilation, bronchospasm, and vascular permeability—all three mechanisms of anaphylactic shock. Fluids and other medications are supportive but secondary."
+        }
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "aemt-shock-type-q2",
+          question: "Why should you be cautious with large fluid boluses in cardiogenic shock?",
+          options: [
+            "Fluids cause allergic reactions",
+            "The failing heart cannot handle extra volume, worsening pulmonary edema",
+            "Crystalloids are contraindicated in cardiac patients",
+            "Fluids lower blood pressure further"
+          ],
+          correctIndex: 1,
+          explanation: "In cardiogenic shock, the pump is failing. Adding more volume to a failing pump causes backup into the lungs (pulmonary edema). Use small fluid challenges (250 mL) with careful reassessment instead of large boluses."
+        }
+      }
     ]
   },
   {
@@ -6905,6 +7049,43 @@ If perfusion doesn't improve after 2-3L crystalloid, the patient is "fluid-refra
     ]
   },
   {
+    id: "monitoring-response-quiz-inline",
+    title: "Monitoring Response – Quick Check",
+    content: "Check your understanding of treatment monitoring.",
+    blocks: [
+      {
+        type: "quiz",
+        quiz: {
+          id: "aemt-shock-monitor-q1",
+          question: "Which is the BEST early indicator that fluid resuscitation is improving perfusion?",
+          options: [
+            "Blood pressure number alone",
+            "Improved mental status",
+            "Amount of fluid given",
+            "Heart rate alone"
+          ],
+          correctIndex: 1,
+          explanation: "Improved mental status is the best early indicator—when the brain gets adequate blood flow, the patient becomes more alert and oriented. BP and HR are important but can be misleading individually. Perfusion endpoints (mentation, skin, cap refill) paint the real picture."
+        }
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "aemt-shock-monitor-q2",
+          question: "A patient who does not improve after 2-3 liters of crystalloid is considered:",
+          options: [
+            "Adequately resuscitated",
+            "Fluid-refractory",
+            "In compensated shock",
+            "Responding normally"
+          ],
+          correctIndex: 1,
+          explanation: "Fluid-refractory shock means the patient isn't responding to crystalloid resuscitation. Consider wrong diagnosis, ongoing loss faster than replacement, cardiogenic component, or need for blood products/vasopressors. Escalate care."
+        }
+      }
+    ]
+  },
+  {
     id: "aemt-clinical-scenarios",
     title: "Clinical Scenarios – Application",
     content: `Let's apply shock management to real scenarios.
@@ -6923,6 +7104,38 @@ If perfusion doesn't improve after 2-3L crystalloid, the patient is "fluid-refra
 
 **The Integration**
 Each scenario requires: recognize the type → apply appropriate treatment → monitor response → adjust or escalate.`,
+    blocks: [
+      {
+        type: "quiz",
+        quiz: {
+          id: "aemt-shock-scenario-q1",
+          question: "A 25-year-old with a stab wound, tourniquet applied, HR 124, BP 88/60. After a 1L crystalloid bolus, what is the priority?",
+          options: [
+            "Remove the tourniquet",
+            "Reassess perfusion and provide rapid transport for surgical control",
+            "Give 3 more liters of crystalloid",
+            "Wait for vital signs to normalize before transport"
+          ],
+          correctIndex: 1,
+          explanation: "This patient needs blood products and surgical bleeding control. Reassess after the initial bolus and transport rapidly. More crystalloid alone won't fix ongoing hemorrhage—it dilutes clotting factors without restoring oxygen-carrying capacity."
+        }
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "aemt-shock-scenario-q2",
+          question: "A septic patient requires approximately how much initial crystalloid per the 30 mL/kg guideline for a 70 kg patient?",
+          options: [
+            "500 mL",
+            "1000 mL",
+            "2100 mL",
+            "4000 mL"
+          ],
+          correctIndex: 2,
+          explanation: "30 mL/kg × 70 kg = 2,100 mL. Septic shock causes massive vasodilation, requiring large volumes to fill the dilated vascular bed. This initial fluid bolus is critical and may need to be followed by more based on reassessment."
+        }
+      }
+    ],
     keyPoints: [
       "Hemorrhagic: stop bleeding + volume + rapid transport",
       "Septic: early fluids + notification for antibiotics",
@@ -7836,6 +8049,38 @@ At the EMT level, you learned WHAT happens when cells are injured. Now you'll le
 Your expanded scope includes IV fluids, additional medications, and advanced monitoring. Understanding the pathophysiology behind shock, inflammation, and fluid balance tells you not just what to give — but why, how much, and when to stop.
 
 This is the difference between following protocols and understanding patient physiology.`,
+    blocks: [
+      {
+        type: "quiz",
+        quiz: {
+          id: "aemt-patho-intro-q1",
+          question: "At the AEMT level, understanding pathophysiology helps you determine:",
+          options: [
+            "Only which protocol to follow",
+            "Why, how much, and when to stop interventions",
+            "Which hospital to transport to",
+            "The patient's exact diagnosis"
+          ],
+          correctIndex: 1,
+          explanation: "Understanding the mechanisms behind shock, inflammation, and fluid balance tells you not just what to give, but why you're giving it, how much is appropriate, and when to stop. This is the difference between following protocols and understanding patient physiology."
+        }
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "aemt-patho-intro-q2",
+          question: "Compared to EMT-level pathophysiology, AEMT-level focuses more on:",
+          options: [
+            "Basic anatomy only",
+            "How cells adapt and compensate before failure",
+            "Surgical techniques",
+            "Pharmacology only"
+          ],
+          correctIndex: 1,
+          explanation: "At AEMT level, you go deeper into HOW cells adapt to stress before they fail, HOW the body compensates for inadequate perfusion, and WHEN those compensatory mechanisms become part of the problem. This cellular-level understanding guides your expanded interventions."
+        }
+      }
+    ],
     keyPoints: [
       "Building on EMT concepts with cellular-level detail",
       "Understanding mechanisms guides your expanded interventions",
@@ -7877,6 +8122,43 @@ The four types of cellular adaptation represent a spectrum from healthy response
       "Atrophy: cells shrink from disuse; Metaplasia: cell type substitution"
     ],
     rememberThis: "These adaptations happen BEFORE injury. They're the body's attempt to cope. When adaptation fails, injury begins — and that's when your patients call 911."
+  },
+  {
+    id: "cellular-adaptation-quiz-inline",
+    title: "Cellular Adaptation – Quick Check",
+    content: "Test your understanding of cellular adaptations.",
+    blocks: [
+      {
+        type: "quiz",
+        quiz: {
+          id: "aemt-patho-adapt-q1",
+          question: "A patient with chronic hypertension develops a thickened left ventricle. This is an example of:",
+          options: [
+            "Hyperplasia",
+            "Hypertrophy",
+            "Atrophy",
+            "Metaplasia"
+          ],
+          correctIndex: 1,
+          explanation: "Hypertrophy means cells get BIGGER under increased workload. The heart muscle thickens from working harder against elevated pressure. Initially adaptive, but eventually pathological—the thickened walls become stiff, impairing filling."
+        }
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "aemt-patho-adapt-q2",
+          question: "A smoker's ciliated airway cells being replaced by squamous cells is an example of:",
+          options: [
+            "Hypertrophy",
+            "Hyperplasia",
+            "Atrophy",
+            "Metaplasia"
+          ],
+          correctIndex: 3,
+          explanation: "Metaplasia is when one cell type replaces another. The ciliated respiratory epithelium is replaced by tougher squamous cells that can handle the irritation but can't clear mucus—sacrificing function for durability. Reversible if the stimulus stops."
+        }
+      }
+    ]
   },
   {
     id: "hypoperfusion-cascade",
@@ -7928,6 +8210,43 @@ The oxygen delivery equation gives you the framework: **DO₂ = CO × CaO₂**. 
     ]
   },
   {
+    id: "hypoperfusion-quiz-inline",
+    title: "Hypoperfusion Cascade – Quick Check",
+    content: "Test your understanding of the hypoperfusion cascade.",
+    blocks: [
+      {
+        type: "quiz",
+        quiz: {
+          id: "aemt-patho-hypo-q1",
+          question: "During anaerobic metabolism, cells produce only how many ATP compared to 36 in aerobic metabolism?",
+          options: [
+            "18 ATP",
+            "12 ATP",
+            "6 ATP",
+            "2 ATP"
+          ],
+          correctIndex: 3,
+          explanation: "Anaerobic metabolism produces only 2 ATP vs. 36 aerobically—a 94% drop in energy production. This massive energy deficit, plus lactate accumulation causing acidosis, is why cells cannot survive prolonged oxygen deprivation."
+        }
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "aemt-patho-hypo-q2",
+          question: "During the progressive stage of shock, what happens to capillary beds?",
+          options: [
+            "They constrict further",
+            "They begin to leak fluid (third-spacing)",
+            "They return to normal",
+            "They completely close off"
+          ],
+          correctIndex: 1,
+          explanation: "In the progressive stage, compensatory mechanisms are overwhelmed. Capillary beds begin to leak (third-spacing), blood pools in dilated vessels, and coagulation activates inappropriately. Positive feedback loops accelerate the decline toward irreversibility."
+        }
+      }
+    ]
+  },
+  {
     id: "inflammatory-immune",
     title: "Inflammatory and Immune Responses",
     content: `At the EMT level, you learned that inflammation can be helpful or harmful. Now let's understand the spectrum from local inflammation to systemic inflammatory response — and why this distinction determines treatment urgency.
@@ -7960,6 +8279,43 @@ The key concept: **local inflammation heals; systemic inflammation kills.**`,
       "Local inflammation is protective; systemic inflammation is dangerous",
       "SIRS requires 2+ criteria: temp, HR, RR, WBC abnormalities",
       "Sepsis spectrum: infection + SIRS → sepsis → severe sepsis → septic shock"
+    ]
+  },
+  {
+    id: "inflammatory-quiz-inline",
+    title: "Inflammatory Response – Quick Check",
+    content: "Test your understanding of inflammation and immune responses.",
+    blocks: [
+      {
+        type: "quiz",
+        quiz: {
+          id: "aemt-patho-inflam-q1",
+          question: "What distinguishes sepsis from SIRS?",
+          options: [
+            "Sepsis has a higher heart rate",
+            "Sepsis is SIRS caused by an infection",
+            "Sepsis only affects the lungs",
+            "SIRS is always more severe than sepsis"
+          ],
+          correctIndex: 1,
+          explanation: "SIRS can be caused by many things (trauma, burns, pancreatitis). When SIRS is caused specifically by an infection, it's called sepsis. Sepsis + organ dysfunction = severe sepsis. Sepsis + refractory hypotension = septic shock."
+        }
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "aemt-patho-inflam-q2",
+          question: "The mortality rate for septic shock is approximately:",
+          options: [
+            "5-10%",
+            "10-20%",
+            "20-30%",
+            "40-60%"
+          ],
+          correctIndex: 3,
+          explanation: "Septic shock carries a mortality rate of 40-60%. Each step up the sepsis spectrum dramatically increases mortality: sepsis ~10%, severe sepsis ~20-30%, septic shock ~40-60%. This is why early recognition at each stage saves lives."
+        }
+      }
     ]
   },
   {
@@ -8005,6 +8361,43 @@ The key concept: **local inflammation heals; systemic inflammation kills.**`,
     ]
   },
   {
+    id: "fluid-electrolyte-quiz-inline",
+    title: "Fluid & Electrolyte – Quick Check",
+    content: "Test your understanding of fluid compartments and electrolytes.",
+    blocks: [
+      {
+        type: "quiz",
+        quiz: {
+          id: "aemt-patho-fluid-q1",
+          question: "What fraction of total body water is intravascular (in blood vessels)?",
+          options: [
+            "About 2/3",
+            "About 1/3",
+            "About 1/4 of extracellular fluid (roughly 1/12 total)",
+            "About 1/2"
+          ],
+          correctIndex: 2,
+          explanation: "2/3 of body water is intracellular. Of the remaining 1/3 (extracellular), only 1/4 is intravascular. So roughly 1/12 of total body water is in blood vessels. IV fluids fill this compartment first, then redistribute."
+        }
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "aemt-patho-fluid-q2",
+          question: "A patient receiving IV fluids develops new crackles, JVD, and worsening dyspnea. This indicates:",
+          options: [
+            "Dehydration",
+            "Fluid overload",
+            "Electrolyte imbalance",
+            "Normal fluid redistribution"
+          ],
+          correctIndex: 1,
+          explanation: "Crackles (fluid in lungs), JVD (elevated venous pressure), and worsening dyspnea are classic signs of fluid overload. Stop fluids and reassess. This is especially common in cardiac patients or elderly who can't handle extra volume."
+        }
+      }
+    ]
+  },
+  {
     id: "aemt-patho-clinical",
     title: "Clinical Connections",
     content: `Let's connect these mechanisms to field presentations you'll encounter regularly.
@@ -8017,6 +8410,38 @@ Histamine release causes vasodilation (hypotension), bronchospasm (wheezing), an
 
 **Sepsis in Practice**
 That elderly patient with a UTI who's confused and tachycardic? Infection triggered SIRS. The vasodilation dropped their blood pressure. The tachycardia is compensation. Your early recognition and fluid resuscitation can interrupt the cascade before organ failure.`,
+    blocks: [
+      {
+        type: "quiz",
+        quiz: {
+          id: "aemt-patho-clinical-q1",
+          question: "In DKA, Kussmaul respirations occur because the body is:",
+          options: [
+            "Trying to warm the blood",
+            "Compensating for metabolic acidosis by blowing off CO₂",
+            "Responding to pulmonary edema",
+            "Experiencing bronchospasm"
+          ],
+          correctIndex: 1,
+          explanation: "Kussmaul respirations are deep, rapid breaths that blow off CO₂ to compensate for the metabolic acidosis caused by ketoacid production. The body uses the respiratory system to buffer the pH imbalance caused by the metabolic problem."
+        }
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "aemt-patho-clinical-q2",
+          question: "Epinephrine is the priority drug in anaphylaxis because it reverses:",
+          options: [
+            "Only bronchospasm",
+            "Only vasodilation",
+            "Vasodilation, bronchospasm, AND vascular permeability",
+            "Only the allergic rash"
+          ],
+          correctIndex: 2,
+          explanation: "Anaphylaxis is a triple threat: vasodilation (hypotension), bronchospasm (wheezing), and increased vascular permeability (swelling). Epinephrine reverses all three mechanisms simultaneously, making it the first-line treatment."
+        }
+      }
+    ],
     keyPoints: [
       "DKA: osmotic diuresis + ketoacid production + compensatory hyperventilation",
       "Anaphylaxis: vasodilation + bronchospasm + vascular permeability",
@@ -8475,6 +8900,38 @@ You're the bridge between BLS and paramedic-level care. When a patient is uncons
 **NREMT Alignment:** The XABCDE assessment sequence puts airway as the highest priority immediately after controlling life-threatening bleeding. Your advanced airway skills directly support this critical sequence.
 
 *Verify all clinical information with official NREMT guidelines and your local protocols. This content is educational only.*`,
+    blocks: [
+      {
+        type: "quiz",
+        quiz: {
+          id: "aemt-airway-intro-q1",
+          question: "At the AEMT level, which tools are added to your airway management toolkit?",
+          options: [
+            "Endotracheal intubation and RSI",
+            "Supraglottic airways and CPAP",
+            "Surgical cricothyrotomy",
+            "Video laryngoscopy"
+          ],
+          correctIndex: 1,
+          explanation: "AEMT adds supraglottic airways (King LT, i-gel) and CPAP to your toolkit. ETI, RSI, and surgical airways are paramedic-level skills. SGAs and CPAP bridge the gap between BLS and paramedic care."
+        }
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "aemt-airway-intro-q2",
+          question: "In the XABCDE assessment sequence, airway is the highest priority after:",
+          options: [
+            "Breathing assessment",
+            "Disability assessment",
+            "Life-threatening hemorrhage control",
+            "Exposure"
+          ],
+          correctIndex: 2,
+          explanation: "XABCDE places eXsanguinating hemorrhage first (the X), then Airway. You control life-threatening bleeding before addressing the airway, because a patient who bleeds out won't benefit from an open airway."
+        }
+      }
+    ],
     keyPoints: [
       "BLS airway skills are the foundation — advanced airways build on them",
       "AEMT adds supraglottic airways and CPAP to your toolkit",
@@ -8542,6 +8999,43 @@ Your airway is essentially a tube system that carries air from the outside world
     ]
   },
   {
+    id: "airway-anatomy-quiz-inline",
+    title: "Airway Anatomy – Quick Check",
+    content: "Test your anatomy knowledge.",
+    blocks: [
+      {
+        type: "quiz",
+        quiz: {
+          id: "aemt-airway-anatomy-q1",
+          question: "The most common site of airway obstruction in unconscious patients is:",
+          options: [
+            "The bronchi",
+            "The tongue falling back into the oropharynx",
+            "The trachea",
+            "The alveoli"
+          ],
+          correctIndex: 1,
+          explanation: "In unconscious patients, loss of muscle tone causes the tongue to fall backward and obstruct the oropharynx. This is why head-tilt chin-lift and jaw thrust are your first interventions—they lift the tongue forward."
+        }
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "aemt-airway-anatomy-q2",
+          question: "What is the difference between oxygenation and ventilation?",
+          options: [
+            "They are the same thing",
+            "Oxygenation delivers O₂ to blood; ventilation moves air in and out",
+            "Ventilation delivers O₂; oxygenation removes CO₂",
+            "Oxygenation is passive; ventilation is active"
+          ],
+          correctIndex: 1,
+          explanation: "Oxygenation is delivering oxygen to the blood (like delivering packages). Ventilation is moving air in and out (like the mail truck driving the route). You can have good ventilation but poor oxygenation if the alveoli are damaged."
+        }
+      }
+    ]
+  },
+  {
     id: "airway-tools-terminology",
     title: "AEMT Airway Tools and Terminology",
     content: `Let's get familiar with the specific devices and terms you'll use at the AEMT level. Each tool has a specific purpose, and knowing the vocabulary helps you communicate clearly with your team.`,
@@ -8586,6 +9080,43 @@ Your airway is essentially a tube system that carries air from the outside world
       "King LT: sized by height, requires cuff inflation",
       "i-gel: sized by weight, gel cuff molds automatically",
       "Waveform capnography is the gold standard for confirming placement"
+    ]
+  },
+  {
+    id: "airway-tools-quiz-inline",
+    title: "Airway Tools – Quick Check",
+    content: "Test your knowledge of AEMT airway devices.",
+    blocks: [
+      {
+        type: "quiz",
+        quiz: {
+          id: "aemt-airway-tools-q1",
+          question: "The King LT is sized based on the patient's:",
+          options: [
+            "Weight",
+            "Age",
+            "Height",
+            "Chest circumference"
+          ],
+          correctIndex: 2,
+          explanation: "The King LT is sized by patient HEIGHT, not weight. This is different from the i-gel, which is sized by weight. Knowing the correct sizing method prevents using the wrong size device."
+        }
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "aemt-airway-tools-q2",
+          question: "Waveform capnography confirms airway placement by measuring:",
+          options: [
+            "Oxygen levels in the blood",
+            "CO₂ in exhaled air",
+            "Air pressure in the device",
+            "Heart rate"
+          ],
+          correctIndex: 1,
+          explanation: "Capnography measures CO₂ in exhaled air. A normal square waveform means the device is in the airway (CO₂ is only present in exhaled air from lungs). A flat line means no CO₂—the device may be in the esophagus."
+        }
+      }
     ]
   },
   {
@@ -8651,6 +9182,43 @@ Your airway is essentially a tube system that carries air from the outside world
     rememberThis: "The best airway is the one that works. A well-placed OPA with good BVM technique beats a poorly placed SGA every time."
   },
   {
+    id: "bls-advanced-quiz-inline",
+    title: "BLS vs Advanced Airways – Quick Check",
+    content: "Test your airway decision-making.",
+    blocks: [
+      {
+        type: "quiz",
+        quiz: {
+          id: "aemt-airway-bls-q1",
+          question: "A conscious patient in respiratory distress with adequate blood pressure should receive:",
+          options: [
+            "Supraglottic airway",
+            "Endotracheal intubation",
+            "CPAP",
+            "OPA"
+          ],
+          correctIndex: 2,
+          explanation: "CPAP is ideal for conscious, breathing patients with adequate BP (>90 systolic) who are in respiratory distress. It splints open airways and pushes fluid out of alveoli. SGAs require an unconscious patient; OPAs require no gag reflex."
+        }
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "aemt-airway-bls-q2",
+          question: "SGAs provide a less secure airway than endotracheal tubes primarily because they:",
+          options: [
+            "Cannot deliver oxygen",
+            "Don't protect against aspiration as well",
+            "Require direct visualization to place",
+            "Cannot be used during cardiac arrest"
+          ],
+          correctIndex: 1,
+          explanation: "SGAs sit above the vocal cords and don't seal the trachea as completely as an ET tube. They don't protect against aspiration as well. However, they're much easier to place and are ideal for AEMT-level care and cardiac arrest management."
+        }
+      }
+    ]
+  },
+  {
     id: "field-assessment",
     title: "Assessing Airway Problems in the Field",
     content: `Before you grab any device, spend 10 seconds looking at your patient. Their body is telling you what it needs.
@@ -8675,6 +9243,38 @@ Your airway is essentially a tube system that carries air from the outside world
 Your assessment drives your intervention. Mild wheezing → nebulizer. Tripod positioning with one-word answers → consider CPAP. Unconscious with no gag reflex → supraglottic airway.
 
 *Always verify clinical decision-making with your local protocols and medical direction.*`,
+    blocks: [
+      {
+        type: "quiz",
+        quiz: {
+          id: "aemt-airway-assess-q1",
+          question: "Which airway sound indicates upper airway narrowing?",
+          options: [
+            "Wheezing",
+            "Crackles",
+            "Stridor",
+            "Rhonchi"
+          ],
+          correctIndex: 2,
+          explanation: "Stridor is a high-pitched sound indicating upper airway narrowing (above the vocal cords). Wheezing indicates lower airway narrowing (bronchospasm). This distinction helps you choose the right intervention—upper airway problems may need airway maneuvers or advanced airways."
+        }
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "aemt-airway-assess-q2",
+          question: "Agonal breathing is a sign that the patient is:",
+          options: [
+            "Recovering from respiratory distress",
+            "In a pre-arrest state",
+            "Hyperventilating",
+            "Sleeping normally"
+          ],
+          correctIndex: 1,
+          explanation: "Agonal breathing—slow, irregular gasping breaths—is a pre-arrest sign indicating the brainstem is failing. These are NOT effective breaths. This patient needs immediate intervention: BVM ventilation and likely advanced airway placement."
+        }
+      }
+    ],
     keyPoints: [
       "Look-listen-feel before reaching for any device",
       "Silence (no air movement) is more dangerous than noisy breathing",
@@ -8746,6 +9346,43 @@ Your assessment drives your intervention. Mild wheezing → nebulizer. Tripod po
       "Follow insertion steps in order — skipping steps leads to complications",
       "CPAP requires a conscious, breathing patient with adequate blood pressure",
       "Waveform capnography is the gold standard for confirming any advanced airway"
+    ]
+  },
+  {
+    id: "airway-interventions-quiz-inline",
+    title: "Airway Interventions – Quick Check",
+    content: "Test your procedural knowledge.",
+    blocks: [
+      {
+        type: "quiz",
+        quiz: {
+          id: "aemt-airway-interv-q1",
+          question: "Before applying CPAP, you must confirm the patient's systolic BP is at least:",
+          options: [
+            "60 mmHg",
+            "80 mmHg",
+            "90 mmHg",
+            "120 mmHg"
+          ],
+          correctIndex: 2,
+          explanation: "CPAP requires systolic BP > 90 mmHg. Positive pressure ventilation can decrease venous return and drop blood pressure further. In a hypotensive patient, CPAP could worsen hemodynamics. Ensure adequate BP before applying."
+        }
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "aemt-airway-interv-q2",
+          question: "After inserting an SGA, the first confirmation method should be:",
+          options: [
+            "Chest X-ray",
+            "Waveform capnography",
+            "Pulse oximetry",
+            "Blood gas analysis"
+          ],
+          correctIndex: 1,
+          explanation: "Waveform capnography is the gold standard for confirming airway placement. A normal CO₂ waveform confirms the device is in the airway. Also check bilateral lung sounds, chest rise, and absence of epigastric sounds."
+        }
+      }
     ]
   },
   {
@@ -9318,6 +9955,38 @@ export const aemtCardiacMonitoringContent: TopicSection[] = [
 A patient can have a normal pulse and blood pressure while their heart's electrical system is malfunctioning. By the time you feel the change in their pulse, you've lost valuable treatment time. The monitor shows you what's coming before it arrives.
 
 **Important:** This is supplemental educational content only. Not a substitute for official training, NREMT certification, or medical advice. Always follow your local protocols.`,
+    blocks: [
+      {
+        type: "quiz",
+        quiz: {
+          id: "aemt-ecg-intro-q1",
+          question: "What does an ECG (electrocardiogram) measure?",
+          options: [
+            "Blood flow through the heart",
+            "The heart's electrical activity",
+            "Blood pressure in the chambers",
+            "Oxygen levels in the blood"
+          ],
+          correctIndex: 1,
+          explanation: "An ECG captures the heart's electrical activity—every heartbeat starts as an electrical signal. It shows electrical patterns, NOT mechanical pumping or blood flow. This distinction matters because electrical problems can precede mechanical ones."
+        }
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "aemt-ecg-intro-q2",
+          question: "Why is cardiac monitoring valuable even when a patient has normal vital signs?",
+          options: [
+            "It replaces the need for a physical exam",
+            "Rhythm changes often precede vital sign changes",
+            "It eliminates the need for transport",
+            "It provides a definitive diagnosis"
+          ],
+          correctIndex: 1,
+          explanation: "Electrical malfunctions can occur before you feel changes in pulse or BP. The monitor is an early warning system—showing you what's coming before it arrives. By the time vital signs change, you've lost valuable treatment time."
+        }
+      }
+    ],
     keyPoints: [
       "ECG shows electrical activity — not mechanical pumping",
       "Rhythm changes often precede vital sign changes",
@@ -9383,6 +10052,43 @@ A patient can have a normal pulse and blood pressure while their heart's electri
     ]
   },
   {
+    id: "conduction-quiz-inline",
+    title: "Conduction System – Quick Check",
+    content: "Test your knowledge of the heart's electrical system.",
+    blocks: [
+      {
+        type: "quiz",
+        quiz: {
+          id: "aemt-ecg-conduction-q1",
+          question: "The heart's natural pacemaker is the:",
+          options: [
+            "AV node",
+            "SA node",
+            "Bundle of His",
+            "Purkinje fibers"
+          ],
+          correctIndex: 1,
+          explanation: "The SA (sinoatrial) node is the heart's natural pacemaker, located in the right atrium. It fires at 60-100 bpm, setting the pace for the entire heart. If it fails, the AV node takes over at a slower rate (40-60 bpm)."
+        }
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "aemt-ecg-conduction-q2",
+          question: "The AV node's brief delay before passing the signal to the ventricles is important because it:",
+          options: [
+            "Increases heart rate",
+            "Allows the atria to finish contracting before ventricles start",
+            "Prevents all arrhythmias",
+            "Generates the T wave"
+          ],
+          correctIndex: 1,
+          explanation: "The AV node delay (0.12-0.20 seconds, seen as the PR interval on ECG) allows the atria to complete their contraction and fill the ventricles before the ventricles contract. This coordinated timing maximizes cardiac output."
+        }
+      }
+    ]
+  },
+  {
     id: "cardiac-monitoring-terminology",
     title: "Key Terms You Need to Know",
     content: `Before we start reading strips, let's lock in the vocabulary. These terms will come up every time you discuss cardiac monitoring.`,
@@ -9403,6 +10109,43 @@ A patient can have a normal pulse and blood pressure while their heart's electri
       "Depolarization = contraction, Repolarization = reset",
       "P wave = atria, QRS = ventricles, T wave = ventricular reset",
       "PR interval measures AV node conduction time"
+    ]
+  },
+  {
+    id: "terminology-quiz-inline",
+    title: "ECG Terminology – Quick Check",
+    content: "Test your ECG vocabulary.",
+    blocks: [
+      {
+        type: "quiz",
+        quiz: {
+          id: "aemt-ecg-terms-q1",
+          question: "The QRS complex on an ECG represents:",
+          options: [
+            "Atrial depolarization",
+            "Ventricular depolarization",
+            "Ventricular repolarization",
+            "AV node conduction"
+          ],
+          correctIndex: 1,
+          explanation: "The QRS complex represents ventricular depolarization—the electrical activation causing the ventricles to contract. It should be narrow (< 0.12 sec). A wide QRS suggests the signal is taking an abnormal path through the ventricles."
+        }
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "aemt-ecg-terms-q2",
+          question: "The T wave represents:",
+          options: [
+            "Atrial contraction",
+            "Atrial repolarization",
+            "Ventricular repolarization",
+            "SA node firing"
+          ],
+          correctIndex: 2,
+          explanation: "The T wave represents ventricular repolarization—the electrical 'reset' of the ventricles preparing for the next beat. It's usually upright and rounded in Lead II. Abnormal T waves can indicate ischemia or electrolyte imbalances."
+        }
+      }
     ]
   },
   {
@@ -9467,6 +10210,43 @@ Three electrodes, each with a specific position and color. The standard memory a
     ]
   },
   {
+    id: "lead-placement-quiz-inline",
+    title: "Lead Placement – Quick Check",
+    content: "Test your knowledge of ECG lead placement.",
+    blocks: [
+      {
+        type: "quiz",
+        quiz: {
+          id: "aemt-ecg-leads-q1",
+          question: "The memory aid 'White on Right, Smoke over Fire' refers to:",
+          options: [
+            "Medication administration order",
+            "3-lead ECG electrode placement",
+            "12-lead ECG setup",
+            "Defibrillator pad placement"
+          ],
+          correctIndex: 1,
+          explanation: "This mnemonic helps remember 3-lead ECG placement: White electrode on the right shoulder, black (smoke) on the left shoulder, red (fire) on the left lower ribs. Correct placement ensures accurate rhythm monitoring."
+        }
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "aemt-ecg-leads-q2",
+          question: "A 3-lead ECG CANNOT reliably:",
+          options: [
+            "Monitor heart rate",
+            "Detect ventricular fibrillation",
+            "Diagnose a STEMI",
+            "Confirm asystole"
+          ],
+          correctIndex: 2,
+          explanation: "STEMI diagnosis requires a 12-lead ECG to identify ST elevation in specific lead groupings that localize the blocked artery. A 3-lead monitors rhythm but lacks the multiple viewing angles needed for heart attack diagnosis."
+        }
+      }
+    ]
+  },
+  {
     id: "cardiac-monitoring-assessment",
     title: "Reading a Rhythm Strip — Your 5-Step System",
     content: `Every time you look at a rhythm strip, follow the same five steps. Consistency catches problems that gut feelings miss.
@@ -9482,6 +10262,38 @@ Three electrodes, each with a specific position and color. The standard memory a
 **Step 5: Is the QRS narrow?** A normal QRS is less than 0.12 seconds (3 small boxes). Wide QRS complexes suggest the signal is taking an abnormal path through the ventricles.
 
 **The golden rule:** If you skip steps, you miss rhythms. Follow the system every time.`,
+    blocks: [
+      {
+        type: "quiz",
+        quiz: {
+          id: "aemt-ecg-reading-q1",
+          question: "Using the 300 method, if there are 4 large boxes between R waves, the heart rate is approximately:",
+          options: [
+            "100 bpm",
+            "75 bpm",
+            "60 bpm",
+            "50 bpm"
+          ],
+          correctIndex: 1,
+          explanation: "The 300 method: divide 300 by the number of large boxes between R waves. 300 ÷ 4 = 75 bpm. The sequence is: 1 box = 300, 2 = 150, 3 = 100, 4 = 75, 5 = 60, 6 = 50."
+        }
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "aemt-ecg-reading-q2",
+          question: "A wide QRS complex (> 0.12 seconds) suggests:",
+          options: [
+            "Normal conduction",
+            "The signal is taking an abnormal path through the ventricles",
+            "The SA node is firing normally",
+            "The PR interval is prolonged"
+          ],
+          correctIndex: 1,
+          explanation: "A normal QRS is < 0.12 seconds (3 small boxes), indicating rapid coordinated conduction through the bundle branches. A wide QRS means the signal is taking an abnormal, slower path—possibly a bundle branch block or ventricular origin."
+        }
+      }
+    ],
     keyPoints: [
       "5 steps: Rhythm → Rate → P waves → PR interval → QRS width",
       "Regular = consistent R-R intervals; Irregular = varying intervals",
@@ -9512,6 +10324,43 @@ Three electrodes, each with a specific position and color. The standard memory a
       "Always correlate the monitor with the patient — treat the patient, not the monitor"
     ],
     proTip: "When in doubt about a tracing, look at the patient. A patient who's talking and pink with a 'scary' strip probably has artifact. A patient who's pale and unresponsive with a 'normal' strip needs immediate assessment."
+  },
+  {
+    id: "rhythms-quiz-inline",
+    title: "Common Rhythms – Quick Check",
+    content: "Test your rhythm recognition.",
+    blocks: [
+      {
+        type: "quiz",
+        quiz: {
+          id: "aemt-ecg-rhythms-q1",
+          question: "A patient has sinus tachycardia at 120 bpm. The best approach is to:",
+          options: [
+            "Give a medication to slow the heart rate",
+            "Treat the underlying cause (pain, fever, hypovolemia)",
+            "Defibrillate immediately",
+            "Ignore it since it's a sinus rhythm"
+          ],
+          correctIndex: 1,
+          explanation: "Sinus tachycardia is almost always a response to something—pain, fever, hypovolemia, anxiety. Treat the CAUSE, not the rate. Slowing the rate without addressing the cause can be harmful, especially if the tachycardia is compensating for low volume."
+        }
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "aemt-ecg-rhythms-q2",
+          question: "You see a flat line on the monitor. Before starting CPR, you should:",
+          options: [
+            "Defibrillate immediately",
+            "Confirm in 2 leads and check connections",
+            "Give epinephrine",
+            "Wait 30 seconds for the rhythm to return"
+          ],
+          correctIndex: 1,
+          explanation: "A flat line could be true asystole or just a loose lead/connection issue. Always confirm asystole in 2 leads and check all connections before declaring cardiac arrest. 'Treat the patient, not the monitor' applies here—check the patient too."
+        }
+      }
+    ]
   },
   {
     id: "cardiac-monitoring-quiz",
