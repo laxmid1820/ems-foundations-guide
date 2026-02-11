@@ -11,6 +11,28 @@ Think of it like a house with four rooms. Two rooms upstairs (the atria) and two
 
 **Why does this matter for EMS?**
 When you're assessing a patient, understanding this basic layout helps you make sense of what you're seeing and hearing. Heart sounds, pulses, blood pressure—they all connect back to this simple pump doing its job.`,
+    blocks: [
+      {
+        type: "quiz",
+        quiz: {
+          id: "emt-heart-intro-q1",
+          question: "How many chambers does the heart have?",
+          options: ["Two", "Three", "Four", "Six"],
+          correctIndex: 2,
+          explanation: "The heart has four chambers—two atria (upper) that receive blood and two ventricles (lower) that pump blood out. Think of it like a house with four rooms."
+        }
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "emt-heart-intro-q2",
+          question: "Which chambers of the heart pump blood OUT?",
+          options: ["Atria", "Ventricles", "Valves", "Septum"],
+          correctIndex: 1,
+          explanation: "The ventricles (bottom chambers) are the pumping chambers. The atria (top chambers) receive blood. Blood flows from atria down into ventricles, then gets pumped out."
+        }
+      }
+    ],
     keyPoints: [
       "The heart is a muscular pump with four chambers",
       "Atria (top chambers) receive blood",
@@ -30,6 +52,33 @@ The right side of the heart is like a low-pressure garden hose. It receives "use
 The left side is like a fire hose. It receives oxygen-rich blood from the lungs and powerfully pumps it to every part of the body—from your brain to your toes.
 
 This is why the left ventricle has thicker walls. It needs more muscle to push blood all the way around the body.`,
+    blocks: [
+      {
+        type: "quiz",
+        quiz: {
+          id: "emt-twosides-q1",
+          question: "Which side of the heart pumps blood to the lungs?",
+          options: ["Left side", "Right side", "Both sides equally", "Neither side"],
+          correctIndex: 1,
+          explanation: "The right side is the 'lung pump'—it receives used blood from the body and sends it to the lungs to pick up fresh oxygen. Think: Right = Respiratory."
+        }
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "emt-twosides-q2",
+          question: "Why is the left ventricle's wall thicker than the right?",
+          options: [
+            "It holds more blood",
+            "It pumps blood farther—to the whole body",
+            "It beats faster",
+            "It has more valves"
+          ],
+          correctIndex: 1,
+          explanation: "The left ventricle must generate enough pressure to push blood through the entire body—a much longer trip than the right ventricle's short journey to the lungs. More work requires more muscle."
+        }
+      }
+    ],
     keyPoints: [
       "Right side: low-pressure pump to the lungs",
       "Left side: high-pressure pump to the body",
@@ -54,6 +103,28 @@ This is why the left ventricle has thicker walls. It needs more muscle to push b
 6. **Left Ventricle to Body**: The powerful left ventricle pumps oxygenated blood out through the aorta to the entire body
 
 And then the cycle repeats—over and over, every second of every day.`,
+    blocks: [
+      {
+        type: "quiz",
+        quiz: {
+          id: "emt-circuit-q1",
+          question: "After leaving the right ventricle, where does blood go?",
+          options: ["To the body via the aorta", "To the lungs via the pulmonary arteries", "To the left atrium directly", "To the brain"],
+          correctIndex: 1,
+          explanation: "The right ventricle pumps deoxygenated blood to the lungs through the pulmonary arteries. In the lungs, blood picks up oxygen and drops off carbon dioxide before returning to the heart."
+        }
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "emt-circuit-q2",
+          question: "Which large artery carries oxygenated blood from the heart to the rest of the body?",
+          options: ["Vena cava", "Pulmonary artery", "Aorta", "Pulmonary vein"],
+          correctIndex: 2,
+          explanation: "The aorta is the largest artery in the body. It receives oxygenated blood from the left ventricle and distributes it to every organ and tissue."
+        }
+      }
+    ],
     keyPoints: [
       "Blood flows in a continuous loop: body → heart → lungs → heart → body",
       "Pulmonary arteries carry blood TO the lungs",
@@ -75,6 +146,28 @@ This is the normal heart rhythm. Each sound is a valve closing:
 When these sounds are regular and consistent, that's a good sign. When they're irregular, too fast, too slow, or have extra sounds—that's information telling you something's different.
 
 For now, just focus on recognizing normal. We'll talk about abnormal rhythms later.`,
+    blocks: [
+      {
+        type: "quiz",
+        quiz: {
+          id: "emt-sounds-q1",
+          question: "What produces the normal 'lub-dub' heart sounds?",
+          options: ["Blood flowing through arteries", "Heart valves closing", "The heart muscle contracting", "Air moving through the lungs"],
+          correctIndex: 1,
+          explanation: "Heart sounds are made by valves closing. 'Lub' is the AV valves closing as ventricles contract. 'Dub' is the semilunar valves closing as ventricles relax."
+        }
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "emt-sounds-q2",
+          question: "If heart sounds are irregular instead of a steady 'lub-dub,' what does this suggest?",
+          options: ["Normal variation", "A possible rhythm abnormality", "The stethoscope is broken", "The patient is breathing too fast"],
+          correctIndex: 1,
+          explanation: "Irregular heart sounds suggest the heart's rhythm may be abnormal. While not all irregularities are dangerous, they warrant further assessment and monitoring."
+        }
+      }
+    ],
     keyPoints: [
       "Normal heart sounds: regular 'lub-dub' pattern",
       "Each sound is a valve closing",
@@ -116,6 +209,36 @@ For now, just focus on recognizing normal. We'll talk about abnormal rhythms lat
           correctIndex: 2,
           explanation: "The left ventricle has to pump blood all the way around the body—a much longer journey than the right ventricle's trip to the nearby lungs. More work = more muscle!"
         }
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "emt-heart-q3",
+          question: "What is the function of the atria?",
+          options: ["Pump blood to the body", "Receive incoming blood", "Generate electrical impulses", "Filter blood"],
+          correctIndex: 1,
+          explanation: "The atria are the receiving chambers of the heart. The right atrium receives deoxygenated blood from the body, and the left atrium receives oxygenated blood from the lungs."
+        }
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "emt-heart-q4",
+          question: "Blood returning from the body enters the heart through which vessels?",
+          options: ["Pulmonary veins", "Aorta", "Vena cava (superior and inferior)", "Coronary arteries"],
+          correctIndex: 2,
+          explanation: "The superior and inferior vena cava are large veins that return deoxygenated blood from the upper and lower body to the right atrium of the heart."
+        }
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "emt-heart-q5",
+          question: "Which circuit sends blood from the heart to the lungs and back?",
+          options: ["Systemic circuit", "Coronary circuit", "Pulmonary circuit", "Lymphatic circuit"],
+          correctIndex: 2,
+          explanation: "The pulmonary circuit moves blood from the right ventricle to the lungs for gas exchange, then back to the left atrium. The systemic circuit handles body-wide blood delivery."
+        }
       }
     ]
   },
@@ -134,6 +257,33 @@ This might seem simple, but these concepts are the building blocks for everythin
 
 **What's Next?**
 When you're ready, the AEMT section adds more detail about the electrical system and how cardiac output works. But there's no rush—make sure this foundation feels solid first.`,
+    blocks: [
+      {
+        type: "quiz",
+        quiz: {
+          id: "emt-wrapup-q1",
+          question: "Which statement best describes the heart's function?",
+          options: ["It filters blood", "It produces oxygen", "It pumps blood through the body", "It stores blood"],
+          correctIndex: 2,
+          explanation: "The heart is fundamentally a pump. It continuously pumps blood through two circuits—pulmonary (to lungs) and systemic (to body)—to deliver oxygen and remove waste."
+        }
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "emt-wrapup-q2",
+          question: "What is the correct order of blood flow through the heart?",
+          options: [
+            "Left atrium → left ventricle → lungs → right atrium → right ventricle → body",
+            "Right atrium → right ventricle → lungs → left atrium → left ventricle → body",
+            "Right ventricle → right atrium → lungs → left ventricle → left atrium → body",
+            "Left ventricle → lungs → right ventricle → body"
+          ],
+          correctIndex: 1,
+          explanation: "Deoxygenated blood flows: right atrium → right ventricle → lungs (picks up O₂) → left atrium → left ventricle → body. Then the cycle repeats."
+        }
+      }
+    ],
     keyPoints: [
       "You've learned the essential structure and function",
       "These basics support all advanced cardiac topics",
@@ -152,6 +302,33 @@ export const emtRespiratoryContent: TopicSection[] = [
 Think of your respiratory system as a delivery service. The airways are the roads, the lungs are the distribution center, and oxygen is the package being delivered to every cell in your body.
 
 When this delivery system works well, your patient looks comfortable and their color is good. When it doesn't, you'll see signs of distress—and knowing the basics helps you understand why.`,
+    blocks: [
+      {
+        type: "quiz",
+        quiz: {
+          id: "emt-resp-overview-q1",
+          question: "What are the two main jobs of the respiratory system?",
+          options: [
+            "Deliver oxygen and remove carbon dioxide",
+            "Pump blood and filter waste",
+            "Regulate temperature and produce energy",
+            "Digest food and absorb nutrients"
+          ],
+          correctIndex: 0,
+          explanation: "The respiratory system's primary functions are delivering oxygen to the body and removing carbon dioxide (a waste product of metabolism). Both are essential for cellular function."
+        }
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "emt-resp-overview-q2",
+          question: "A patient with respiratory problems will most likely show which sign?",
+          options: ["High blood pressure", "Visible signs of distress", "Fever", "Swollen ankles"],
+          correctIndex: 1,
+          explanation: "Respiratory distress produces visible signs: labored breathing, use of accessory muscles, abnormal positioning, and changes in skin color. These are often the first clues something is wrong."
+        }
+      }
+    ],
     keyPoints: [
       "The respiratory system delivers oxygen to the body",
       "It also removes carbon dioxide (a waste product)",
@@ -173,6 +350,28 @@ From the larynx, air travels down the trachea (windpipe), which splits into two 
 At the end of those tiny bronchioles are clusters of air sacs called alveoli. This is where oxygen passes into the blood and carbon dioxide passes out. Think of them like tiny balloons at the end of a branching tree.
 
 There are about 300 million alveoli in your lungs—that's a lot of surface area for gas exchange!`,
+    blocks: [
+      {
+        type: "quiz",
+        quiz: {
+          id: "emt-pathway-q1",
+          question: "Where does gas exchange actually occur in the lungs?",
+          options: ["Trachea", "Bronchi", "Bronchioles", "Alveoli"],
+          correctIndex: 3,
+          explanation: "Gas exchange happens in the alveoli—tiny air sacs at the end of the bronchiole tree. Their thin walls allow oxygen and carbon dioxide to pass between air and blood."
+        }
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "emt-pathway-q2",
+          question: "Which structure is commonly called the 'windpipe'?",
+          options: ["Pharynx", "Larynx", "Trachea", "Bronchus"],
+          correctIndex: 2,
+          explanation: "The trachea is the windpipe—a rigid tube reinforced with cartilage rings that carries air from the larynx down to where it splits into the two bronchi, one for each lung."
+        }
+      }
+    ],
     keyPoints: [
       "Upper airway: nose, mouth, pharynx, larynx",
       "Lower airway: trachea, bronchi, bronchioles",
@@ -192,6 +391,28 @@ There are about 300 million alveoli in your lungs—that's a lot of surface area
 **Color**: Normal skin color (no blue or gray tones)
 
 When you assess a patient, you're comparing what you see to this baseline. Any differences are clues about what might be wrong.`,
+    blocks: [
+      {
+        type: "quiz",
+        quiz: {
+          id: "emt-normal-breath-q1",
+          question: "What is the normal respiratory rate for a resting adult?",
+          options: ["6-10 breaths/min", "12-20 breaths/min", "22-30 breaths/min", "30-40 breaths/min"],
+          correctIndex: 1,
+          explanation: "Normal adult respiratory rate at rest is 12-20 breaths per minute. Rates outside this range may indicate a problem and warrant further assessment."
+        }
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "emt-normal-breath-q2",
+          question: "Which of these is a sign of NORMAL breathing?",
+          options: ["Wheezing sounds", "Use of neck muscles", "Quiet, effortless chest rise", "Blue-tinged lips"],
+          correctIndex: 2,
+          explanation: "Normal breathing is quiet, effortless, and produces adequate chest rise. Wheezing, accessory muscle use, and cyanosis (blue tinge) are all signs of respiratory distress."
+        }
+      }
+    ],
     keyPoints: [
       "Normal adult rate: 12-20 breaths per minute",
       "Breathing should be effortless and quiet",
@@ -232,6 +453,36 @@ When you assess a patient, you're comparing what you see to this baseline. Any d
           ],
           correctIndex: 1,
           explanation: "Normal adult respiratory rate at rest is 12-20 breaths per minute. Faster or slower can indicate a problem (or exercise, anxiety, etc.)."
+        }
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "emt-resp-q3",
+          question: "The upper airway includes all of the following EXCEPT:",
+          options: ["Nose and mouth", "Pharynx", "Larynx", "Bronchioles"],
+          correctIndex: 3,
+          explanation: "Bronchioles are part of the lower airway. The upper airway includes the nose, mouth, pharynx (throat), and larynx (voice box). The trachea marks the transition to the lower airway."
+        }
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "emt-resp-q4",
+          question: "Approximately how many alveoli are in the lungs?",
+          options: ["3,000", "30,000", "3 million", "300 million"],
+          correctIndex: 3,
+          explanation: "There are approximately 300 million alveoli in the lungs, providing an enormous surface area (about the size of a tennis court) for efficient gas exchange."
+        }
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "emt-resp-q5",
+          question: "A blue or gray skin color in a patient most likely indicates:",
+          options: ["Fever", "High blood pressure", "Inadequate oxygenation", "Dehydration"],
+          correctIndex: 2,
+          explanation: "Cyanosis (blue/gray skin color) indicates inadequate oxygenation. It means not enough oxygen is reaching the tissues and is a serious warning sign requiring immediate intervention."
         }
       }
     ]
@@ -999,172 +1250,10 @@ Before you intubate, ask: "Does this patient need an advanced airway *right now*
       }
     ],
     keyPoints: [
-      "Assess every patient for difficult airway features before attempting",
-      "Have backup plans ready before the first attempt",
-      "Sometimes the best decision is not to intubate"
+      "Anticipate difficulty before attempting intubation",
+      "LEMON assessment identifies potential problems",
+      "Always have a backup plan before you start"
     ]
-  },
-  {
-    id: "post-intubation",
-    title: "Post-Intubation Management",
-    content: `Getting the tube in is only the beginning. Post-intubation management determines patient outcomes.
-
-**Immediate Confirmation**
-• Direct visualization of tube through cords
-• ETCO₂ waveform (gold standard)
-• Bilateral breath sounds
-• Absent epigastric sounds
-• Chest rise
-• SpO₂ trending (may take time)
-
-**Initial Ventilator Settings**
-• Tidal volume: 6-8 mL/kg ideal body weight
-• Rate: 10-12 breaths/min (adjust for ETCO₂)
-• FiO₂: Start at 100%, titrate down to SpO₂ 94-98%
-• PEEP: 5 cm H₂O baseline (more if needed for oxygenation)
-
-**Ongoing Management**
-• Secure tube (commercial device preferred)
-• Sedation and analgesia
-• Monitor and troubleshoot: DOPE (Dislodged, Obstruction, Pneumothorax, Equipment)
-• Document tube depth and ETCO₂`,
-    blocks: [
-      {
-        type: "tabs",
-        tabs: [
-          {
-            label: "ETCO₂ Waveform",
-            content: "Capnography confirms tracheal placement and monitors ventilation. Normal waveform: baseline near zero, rapid rise to plateau, then drop. Flat line = esophageal or no cardiac output."
-          },
-          {
-            label: "Lung-Protective Ventilation",
-            content: "6-8 mL/kg ideal body weight prevents ventilator-induced lung injury. Permissive hypercapnia is acceptable in most patients—don't hyperventilate to normal CO₂."
-          },
-          {
-            label: "Sedation After RSI",
-            content: "Patients paralyzed for RSI will wake up! Always have sedation ready immediately post-intubation. Propofol, ketamine, midazolam/fentanyl are common choices."
-          }
-        ]
-      }
-    ],
-    keyPoints: [
-      "ETCO₂ waveform is the gold standard for tube confirmation",
-      "Lung-protective ventilation: 6-8 mL/kg IBW",
-      "DOPE mnemonic for troubleshooting deterioration"
-    ],
-    rememberThis: "A patient crashing after intubation? Before anything else: confirm the tube is still in place and patent. 'DOPE' through the problem systematically."
-  },
-  {
-    id: "cpap-bipap",
-    title: "CPAP and BiPAP – Non-Invasive Positive Pressure",
-    content: `Before you intubate, consider whether non-invasive ventilation (NIV) can turn the patient around.
-
-**CPAP (Continuous Positive Airway Pressure)**
-• Delivers constant pressure throughout breath cycle
-• Opens alveoli, improves oxygenation
-• Best for: Cardiogenic pulmonary edema (CHF)
-
-**BiPAP (Bilevel Positive Airway Pressure)**
-• Higher pressure on inhale (IPAP), lower on exhale (EPAP)
-• Assists ventilation AND oxygenation
-• Best for: COPD exacerbation, hypercapnic respiratory failure
-
-**When to Use NIV**
-• Patient is awake and cooperative
-• Can protect own airway
-• Hemodynamically stable
-• No immediate need for intubation
-• Condition likely to respond (CHF, COPD, asthma)
-
-**When NIV Fails**
-• Worsening respiratory status
-• Inability to tolerate mask
-• Declining mental status
-• Hemodynamic instability
-→ Proceed to intubation without delay`,
-    keyPoints: [
-      "CPAP: same pressure throughout—opens alveoli",
-      "BiPAP: two pressures—assists ventilation",
-      "NIV can prevent intubation in the right patients",
-      "Know when to escalate to intubation"
-    ],
-    proTip: "CHF patients on CPAP often improve dramatically within 15-20 minutes. If they're not better—or getting worse—reassess your diagnosis. Is it really CHF?"
-  },
-  {
-    id: "resp-pharmacology",
-    title: "Respiratory Pharmacology Essentials",
-    content: `Understanding the pharmacology helps you use these drugs more effectively and anticipate responses.
-
-**Bronchodilators**
-• **Albuterol (β2 agonist)**: Relaxes bronchial smooth muscle. Fast onset, short duration. May cause tachycardia.
-• **Ipratropium (anticholinergic)**: Blocks parasympathetic bronchoconstriction. Synergistic with albuterol.
-
-**Corticosteroids**
-• **Methylprednisolone/Prednisone**: Anti-inflammatory. Take 4-6 hours to work. Start early!
-• Used for asthma, COPD, anaphylaxis (airway swelling)
-
-**RSI Medications**
-• **Induction**: Ketamine (hemodynamically neutral), Etomidate (fast, short), Propofol (hypotensive)
-• **Paralytic**: Succinylcholine (fast onset, short duration, hyperkalemia risk) vs. Rocuronium (slower onset, longer duration, no hyperkalemia)`,
-    blocks: [
-      {
-        type: "quiz",
-        quiz: {
-          id: "para-resp-q1",
-          question: "A patient with COPD exacerbation is hypercapnic (high CO₂). Which NIV mode is most appropriate?",
-          options: [
-            "CPAP alone",
-            "BiPAP",
-            "High-flow nasal cannula",
-            "None—intubate immediately"
-          ],
-          correctIndex: 1,
-          explanation: "BiPAP provides inspiratory support (IPAP) to help the patient move air and blow off CO₂, plus expiratory support (EPAP) for oxygenation. CPAP only helps with oxygenation, not ventilation."
-        }
-      },
-      {
-        type: "quiz",
-        quiz: {
-          id: "para-resp-q2",
-          question: "Why should you 'start steroids early' in asthma?",
-          options: [
-            "They work immediately",
-            "They prevent future attacks",
-            "They take 4-6 hours to show effect",
-            "Protocol requirement only"
-          ],
-          correctIndex: 2,
-          explanation: "Corticosteroids take 4-6 hours for anti-inflammatory effects. Starting early means benefit arrives sooner in the patient's care—often while still in ED or even during transport for severe cases."
-        }
-      }
-    ],
-    keyPoints: [
-      "Albuterol + ipratropium are synergistic",
-      "Steroids take hours to work—start early",
-      "RSI drug selection based on patient condition"
-    ]
-  },
-  {
-    id: "para-resp-wrapup",
-    title: "Paramedic Respiratory Mastery",
-    content: `You've completed the paramedic respiratory module. Your knowledge now includes:
-
-• **Airway Decision-Making**: When to intubate vs. manage with BVM or NIV
-• **Difficult Airway**: Prediction, preparation, and backup planning
-• **Post-Intubation Care**: Confirmation, ventilator settings, troubleshooting
-• **NIV**: CPAP for CHF, BiPAP for COPD, knowing when to escalate
-• **Pharmacology**: Mechanism-based medication selection
-
-**The Paramedic Mindset**
-At this level, you're making nuanced decisions. Not every patient needs intubation. Not every intubation needs RSI. Your job is to match the intervention to the patient's actual need—and to recognize when you're in over your head.
-
-That self-awareness—knowing when to call for help, when to transport, when to use a simpler intervention—is wisdom that comes with experience. You're building the foundation for it now.`,
-    keyPoints: [
-      "Airway management is a continuum, not just 'intubate or don't'",
-      "Preparation and backup planning prevent disasters",
-      "Match intervention to patient need—not protocol reflex"
-    ],
-    rememberThis: "The paramedic who never has an intubation complication isn't necessarily good—they might just avoid intubating anyone. The excellent paramedic intubates when needed, succeeds because of preparation, and manages complications when they occur."
   }
 ];
 
@@ -1178,12 +1267,11 @@ export const emtAnatomyPhysiologyContent: TopicSection[] = [
 **Anatomy = Structure** (where things are)
 **Physiology = Function** (what they do)
 
-When you understand structure and function, you can predict what happens when things go wrong. A patient clutching their chest? You'll think about the heart's location and blood supply. Someone struggling to breathe? You'll visualize the airway and lungs.
-
-**Why This Matters in the Field**
-Every assessment you perform, every intervention you deliver, connects back to understanding how the body is built and how it works. When a patient is pale and cool with a rapid pulse, you'll recognize that as a circulation problem. When they're using accessory muscles to breathe, you'll understand the mechanics that are failing.
-
-This foundation supports everything ahead: patient assessment, shock recognition, cardiac emergencies, respiratory distress—all of it builds on what you learn here.`,
+When you understand structure and function, you can predict what happens when things go wrong. This foundation supports everything ahead: patient assessment, shock recognition, cardiac emergencies, respiratory distress—all of it builds on what you learn here.`,
+    blocks: [
+      { type: "quiz", quiz: { id: "ap-intro-q1", question: "What is the difference between anatomy and physiology?", options: ["Anatomy is about cells; physiology is about organs", "Anatomy is structure; physiology is function", "Anatomy is function; physiology is structure", "There is no difference"], correctIndex: 1, explanation: "Anatomy describes WHERE things are (structure), while physiology describes WHAT they do (function). Both are essential for understanding how the body works and what happens when it fails." } },
+      { type: "quiz", quiz: { id: "ap-intro-q2", question: "Which body systems should EMTs focus on most?", options: ["Digestive and urinary", "Cardiovascular and respiratory", "Integumentary and endocrine", "Reproductive and lymphatic"], correctIndex: 1, explanation: "Cardiovascular and respiratory are the priority because they handle oxygen delivery—the most time-critical function. When either fails, cells die quickly, especially in the brain." } }
+    ],
     keyPoints: [
       "Anatomy = structure (where things are)",
       "Physiology = function (what they do)",
@@ -1196,56 +1284,10 @@ This foundation supports everything ahead: patient assessment, shock recognition
     title: "Body Systems Overview – The Big Picture",
     content: `The human body has 11 major organ systems, each with specialized functions. They don't work in isolation—when one system fails, others are affected. For EMTs, two systems demand the most attention: **cardiovascular** and **respiratory**.
 
-These two systems work together to deliver oxygen to every cell in your body. The respiratory system brings oxygen in; the cardiovascular system delivers it. When either fails, cells begin to die—and the brain is particularly sensitive.
-
-Understanding this interconnection helps you see why problems cascade. A patient in respiratory distress develops rapid heart rate as the heart tries to compensate. A patient losing blood becomes short of breath as the body struggles to deliver what little oxygen remains.`,
+These two systems work together to deliver oxygen to every cell in your body. The respiratory system brings oxygen in; the cardiovascular system delivers it. When either fails, cells begin to die—and the brain is particularly sensitive.`,
     blocks: [
-      {
-        type: "tabs",
-        tabs: [
-          {
-            label: "Cardiovascular",
-            content: "The heart and blood vessels. Pumps oxygenated blood to tissues, returns deoxygenated blood to the lungs.",
-            bullets: [
-              "Heart: 4-chambered pump about the size of your fist",
-              "Arteries: Carry blood away from the heart",
-              "Veins: Return blood to the heart",
-              "Capillaries: Tiny vessels where gas/nutrient exchange occurs",
-              "Problems show as: pulse changes, skin signs (pale, cool, diaphoretic), altered consciousness"
-            ]
-          },
-          {
-            label: "Respiratory",
-            content: "The airways and lungs. Brings oxygen into the body, removes carbon dioxide.",
-            bullets: [
-              "Upper airway: nose, mouth, pharynx, larynx",
-              "Lower airway: trachea, bronchi, bronchioles, alveoli",
-              "Diaphragm: Primary muscle of breathing",
-              "Problems show as: breathing difficulty, abnormal sounds, cyanosis (blue color)"
-            ]
-          },
-          {
-            label: "Nervous",
-            content: "The brain, spinal cord, and nerves. Controls and coordinates all body functions.",
-            bullets: [
-              "Brain: Command center, highly sensitive to oxygen deprivation",
-              "Spinal cord: Information highway between brain and body",
-              "Nerves: Carry signals to muscles and organs",
-              "Problems show as: altered mental status, paralysis, seizures, unequal pupils"
-            ]
-          },
-          {
-            label: "Musculoskeletal",
-            content: "Bones, muscles, tendons, and ligaments. Provides structure, movement, and protection.",
-            bullets: [
-              "206 bones in the adult skeleton",
-              "Protects vital organs (skull, ribs, spine)",
-              "Enables movement and breathing mechanics",
-              "Problems show as: deformity, pain, loss of function, swelling"
-            ]
-          }
-        ]
-      }
+      { type: "quiz", quiz: { id: "ap-systems-q1", question: "When the respiratory system fails, what happens to the cardiovascular system?", options: ["Nothing—they work independently", "The heart rate increases to compensate", "Blood pressure always drops", "The heart stops immediately"], correctIndex: 1, explanation: "Body systems are interconnected. When the respiratory system can't deliver enough oxygen, the cardiovascular system compensates by increasing heart rate (tachycardia) to circulate available oxygen faster." } },
+      { type: "quiz", quiz: { id: "ap-systems-q2", question: "Altered mental status most directly indicates a problem with which system?", options: ["Musculoskeletal", "Integumentary", "Nervous", "Digestive"], correctIndex: 2, explanation: "The nervous system (brain) controls consciousness. Altered mental status—confusion, unresponsiveness, agitation—indicates the brain isn't functioning normally, often due to inadequate oxygen or blood flow." } }
     ],
     keyPoints: [
       "Systems depend on each other—failure in one affects others",
@@ -1304,7 +1346,9 @@ One-way doors between chambers and at the exits. They prevent backflow. When you
             back: "Two large veins that return deoxygenated blood from the body to the right atrium. Superior drains head/arms; Inferior drains abdomen/legs."
           }
         ]
-      }
+      },
+      { type: "quiz", quiz: { id: "ap-heart-q1", question: "What are the one-way doors between heart chambers called?", options: ["Septa", "Valves", "Nodes", "Vessels"], correctIndex: 1, explanation: "Heart valves are one-way doors that prevent blood from flowing backward. When they close, they produce the 'lub-dub' sounds you hear through a stethoscope." } },
+      { type: "quiz", quiz: { id: "ap-heart-q2", question: "The right side of the heart handles blood going to the:", options: ["Brain", "Body", "Lungs", "Liver"], correctIndex: 2, explanation: "The right side of the heart receives deoxygenated blood from the body and pumps it to the lungs to pick up oxygen. Remember: Right = Respiratory destination." } }
     ],
     keyPoints: [
       "Right side = to lungs (low pressure, thinner walls)",
@@ -1355,7 +1399,9 @@ This is the only exception in the body. The naming is based on direction (arteri
             ]
           }
         ]
-      }
+      },
+      { type: "quiz", quiz: { id: "ap-circ-q1", question: "What makes the pulmonary arteries unique compared to all other arteries?", options: ["They are the largest", "They carry deoxygenated blood", "They have no valves", "They connect to the brain"], correctIndex: 1, explanation: "Pulmonary arteries are the only arteries that carry deoxygenated blood. Arteries are named by direction (away from heart), not oxygen content. The pulmonary veins are similarly unique—they carry oxygenated blood." } },
+      { type: "quiz", quiz: { id: "ap-circ-q2", question: "A pulmonary embolism primarily disrupts which circuit?", options: ["Systemic", "Coronary", "Pulmonary", "Lymphatic"], correctIndex: 2, explanation: "A pulmonary embolism is a blood clot that blocks blood flow in the pulmonary circuit, preventing gas exchange. Blood gets to the lungs but can't pass through the blocked vessel, creating 'dead space.'" } }
     ],
     keyPoints: [
       "Pulmonary arteries carry deoxygenated blood (the one exception)",
@@ -1417,10 +1463,11 @@ Think of the airway like an upside-down tree. The trachea is the trunk. It split
             back: "Dome-shaped muscle below the lungs, separating chest from abdomen. Primary muscle of breathing. When it contracts (flattens), it creates negative pressure that draws air in."
           }
         ]
-      }
+      },
+      { type: "quiz", quiz: { id: "ap-resp-q1", question: "Why does the right mainstem bronchus receive aspirated objects more often?", options: ["It is wider and longer", "It is shorter and straighter", "It has more mucus", "It is closer to the mouth"], correctIndex: 1, explanation: "The right mainstem bronchus is shorter, wider, and more vertical than the left. This makes it the path of least resistance for foreign objects, food, or fluids that are aspirated." } },
+      { type: "quiz", quiz: { id: "ap-resp-q2", question: "What structure prevents food from entering the trachea during swallowing?", options: ["Pharynx", "Larynx", "Epiglottis", "Bronchus"], correctIndex: 2, explanation: "The epiglottis is a flap of tissue that covers the opening of the trachea during swallowing, directing food into the esophagus instead. When it fails (impaired gag reflex), aspiration can occur." } }
     ],
     keyPoints: [
-      "Upper airway: warms, moistens, and filters incoming air",
       "Lower airway: conducts air to the alveoli",
       "Alveoli: where the real work of gas exchange happens—about 300 million of them"
     ]
@@ -1454,6 +1501,10 @@ At the alveoli, gas exchange happens through diffusion. Molecules naturally move
 • Carbon dioxide: High in blood (waste product) → Low in alveoli → Diffuses OUT to be exhaled
 
 This exchange happens across alveolar walls that are only one cell thick—thin enough for gases to pass through easily.`,
+    blocks: [
+      { type: "quiz", quiz: { id: "ap-mech-q1", question: "Why is normal exhalation considered 'passive'?", options: ["The brain isn't involved", "No muscle contraction is needed—elastic recoil pushes air out", "Air leaves through the nose automatically", "The diaphragm pushes air out"], correctIndex: 1, explanation: "During normal exhalation, muscles simply relax. The natural elastic recoil of the lungs and chest wall pushes air out without requiring active muscle work. Active (forced) exhalation only occurs during distress." } },
+      { type: "quiz", quiz: { id: "ap-mech-q2", question: "If a patient is using accessory muscles to exhale, what does this suggest?", options: ["Normal breathing", "Mild exercise", "Significant respiratory distress", "Good compensation"], correctIndex: 2, explanation: "Normal exhalation is passive. If a patient is actively using muscles to exhale, it means normal mechanics have failed—this is a sign of significant respiratory distress, commonly seen in asthma and COPD." } }
+    ],
     keyPoints: [
       "Inhalation = active (diaphragm and muscles work)",
       "Exhalation = passive (muscles relax, elastic recoil)",
@@ -1510,7 +1561,9 @@ This exchange happens across alveolar walls that are only one cell thick—thin 
           correctIndex: 3,
           explanation: "Gas exchange happens in the alveoli—tiny air sacs at the end of the bronchiole tree. Their walls are only one cell thick, allowing oxygen and carbon dioxide to diffuse between air and blood. The other structures are 'conducting airways'—they move air but don't exchange gases."
         }
-      }
+      },
+      { type: "quiz", quiz: { id: "anatomy-quiz-4", question: "In the pulmonary circuit, blood travels from the right ventricle to the:", options: ["Aorta", "Vena cava", "Lungs", "Left ventricle"], correctIndex: 2, explanation: "The pulmonary circuit moves blood from the right ventricle to the lungs via pulmonary arteries. In the lungs, blood picks up oxygen and returns to the left atrium via pulmonary veins." } },
+      { type: "quiz", quiz: { id: "anatomy-quiz-5", question: "Normal inhalation begins when the diaphragm:", options: ["Relaxes and domes upward", "Contracts and flattens", "Moves sideways", "Stops moving"], correctIndex: 1, explanation: "When the diaphragm contracts, it flattens and moves downward, expanding the chest cavity. This creates negative pressure that draws air into the lungs—the start of every normal breath." } }
     ],
     keyPoints: [
       "Right atrium receives blood from the body",
@@ -2343,7 +2396,9 @@ Each intervention targets a specific physiologic problem. That's paramedic-level
           correctIndex: 1,
           explanation: "Early septic shock is characterized by massive vasodilation from inflammatory mediators—this is distributive shock. Cardiac output is often preserved or even elevated initially ('warm shock'). This is why vasopressors (norepinephrine) are a mainstay of treatment after adequate fluid resuscitation—you're treating low SVR, not low CO."
         }
-      }
+      },
+      { type: "quiz", quiz: { id: "emt-pharm-q4", question: "What is the correct dose of aspirin for suspected ACS?", options: ["81 mg swallowed", "324 mg chewed", "500 mg swallowed", "162 mg chewed"], correctIndex: 1, explanation: "The standard dose is 324 mg (four baby aspirin) CHEWED for suspected acute coronary syndrome. Chewing speeds absorption—time matters when a heart attack is occurring." } },
+      { type: "quiz", quiz: { id: "emt-pharm-q5", question: "Why should oral glucose NOT be given to an unconscious patient?", options: ["It won't work if swallowed unconsciously", "Risk of aspiration—they can't protect their airway", "It only works when awake", "The dose would be too high"], correctIndex: 1, explanation: "Unconscious patients cannot protect their airway. Putting any substance in their mouth risks aspiration into the lungs, which can cause pneumonia or obstruction—making the situation worse." } }
     ]
   },
   {
@@ -2403,6 +2458,10 @@ You might think, "I only give a few medications, how much do I really need to kn
 • The safety framework that prevents errors
 
 This foundation also prepares you for advancement. AEMT and Paramedic pharmacology builds directly on what you learn here.`,
+    blocks: [
+      { type: "quiz", quiz: { id: "pharm-intro-q1", question: "Why is pharmacology knowledge important even for EMTs with a limited medication scope?", options: ["It's not—EMTs don't need pharmacology", "Every medication interaction requires understanding for safe administration", "Only paramedics use pharmacology", "It's only important for written exams"], correctIndex: 1, explanation: "Even with a focused medication scope, every administration—oxygen, epinephrine, aspirin—requires understanding of indications, contraindications, and potential effects. Knowledge prevents errors and saves lives." } },
+      { type: "quiz", quiz: { id: "pharm-intro-q2", question: "EMT pharmacology knowledge builds toward:", options: ["Nothing—it's standalone knowledge", "Advanced certification (AEMT, Paramedic)", "Hospital pharmacy work", "Medical school only"], correctIndex: 1, explanation: "The pharmacology fundamentals you learn as an EMT directly support advancement to AEMT and Paramedic levels, where the medication toolkit expands significantly." } }
+    ],
     keyPoints: [
       "EMT-scope medications are focused but powerful",
       "Understanding pharmacology prevents errors",
@@ -2441,10 +2500,11 @@ Medications are grouped by what they do. Knowing a drug's class tells you what t
             content: "**Indications**: Reasons TO give a medication\n• Aspirin is indicated for chest pain (suspected ACS)\n• Epinephrine is indicated for anaphylaxis\n\n**Contraindications**: Reasons NOT to give a medication\n• Aspirin is contraindicated in active bleeding\n• Nitroglycerin is contraindicated with recent ED medication use\n\nBoth are equally important. Knowing when NOT to give something is as critical as knowing when to give it."
           }
         ]
-      }
+      },
+      { type: "quiz", quiz: { id: "pharm-basics-q1", question: "What is the difference between a generic name and a brand name?", options: ["There is no difference", "Generic is the scientific name; brand is the marketing name", "Brand is the scientific name; generic is the marketing name", "Generic names change by country"], correctIndex: 1, explanation: "Generic names (like epinephrine) are universal scientific names. Brand names (like EpiPen) are marketing names created by manufacturers. Same drug, different labels—EMS typically uses generic names." } },
+      { type: "quiz", quiz: { id: "pharm-basics-q2", question: "A contraindication means:", options: ["A reason TO give a medication", "A reason NOT to give a medication", "The medication is expired", "The dose needs to be doubled"], correctIndex: 1, explanation: "A contraindication is a reason NOT to give a medication—a condition that makes the drug potentially harmful. Knowing contraindications is as important as knowing indications." } }
     ],
     keyPoints: [
-      "Generic names are universal; brand names vary by manufacturer",
       "Drug class predicts expected effects",
       "Indications tell you when to give; contraindications tell you when not to"
     ]
@@ -2498,10 +2558,11 @@ The same drug given by different routes produces different results. Oral medicat
             back: "Sprayed into nose. Absorbed through nasal mucosa. Fast and needle-free. Example: naloxone (Narcan) for opioid overdose. Onset: 2-5 minutes."
           }
         ]
-      }
+      },
+      { type: "quiz", quiz: { id: "pharm-routes-q1", question: "Why is IM epinephrine used for anaphylaxis instead of oral?", options: ["It tastes bad orally", "IM provides much faster onset in an emergency", "Oral is more effective", "There is no oral form"], correctIndex: 1, explanation: "Anaphylaxis is life-threatening and requires rapid intervention. IM injection provides onset in 5-10 minutes, while oral would take 15-30+ minutes—too slow when the airway is closing." } },
+      { type: "quiz", quiz: { id: "pharm-routes-q2", question: "Sublingual medications work quickly because they:", options: ["Are chewed first", "Absorb directly into the bloodstream, bypassing digestion", "Dissolve in saliva", "Are higher doses"], correctIndex: 1, explanation: "Sublingual drugs absorb through the thin mucosa under the tongue directly into the bloodstream, completely bypassing the digestive system. This provides rapid onset—typically 1-3 minutes." } }
     ],
     keyPoints: [
-      "Route determines speed of onset",
       "Sublingual and intranasal bypass the digestive system",
       "IM and SQ require injection technique"
     ],
@@ -2547,10 +2608,11 @@ The same drug given by different routes produces different results. Oral medicat
             content: "Opioid antagonist—reverses overdose effects.\n\n**Indication**: Suspected opioid overdose with respiratory depression\n**Routes**: Intranasal (IN) or intramuscular (IM)\n**Dose**: 2-4 mg IN, 0.4-2 mg IM (follow local protocol)\n\n**Mechanism**: Blocks opioid receptors, reversing CNS and respiratory depression\n\n**Considerations**:\n• May precipitate acute withdrawal (agitation, vomiting)\n• Short half-life—overdose may return\n• Be prepared for combative patient upon awakening"
           }
         ]
-      }
+      },
+      { type: "quiz", quiz: { id: "pharm-scope-q1", question: "A conscious patient with low blood sugar needs which EMT medication?", options: ["Aspirin", "Oral glucose", "Naloxone", "Epinephrine"], correctIndex: 1, explanation: "Oral glucose is indicated for conscious patients with suspected hypoglycemia who can swallow and protect their airway. It provides simple sugar to raise blood glucose quickly." } },
+      { type: "quiz", quiz: { id: "pharm-scope-q2", question: "Naloxone reverses the effects of which type of drug?", options: ["Stimulants", "Opioids", "Benzodiazepines", "Alcohol"], correctIndex: 1, explanation: "Naloxone (Narcan) is an opioid antagonist that blocks opioid receptors, reversing respiratory depression and sedation caused by opioid overdose. It does not work on other drug classes." } }
     ],
     keyPoints: [
-      "Know indications, contraindications, and doses for each medication",
       "Oxygen is your most versatile tool",
       "Epinephrine and naloxone are true life-savers"
     ]
@@ -2582,6 +2644,10 @@ Before assisting with ANY patient medication:
 2. Is the medication indicated for this situation?
 3. Are there contraindications?
 4. Can you contact medical direction if needed?`,
+    blocks: [
+      { type: "quiz", quiz: { id: "pharm-assist-q1", question: "Before assisting with a patient's nitroglycerin, you must verify:", options: ["The patient is over 18", "The prescription belongs to this patient", "The patient has taken it before today", "The patient is standing"], correctIndex: 1, explanation: "You must confirm the nitroglycerin prescription belongs to THIS patient. Never assist with someone else's prescribed medication—different patients have different conditions and contraindications." } },
+      { type: "quiz", quiz: { id: "pharm-assist-q2", question: "What is a key contraindication for nitroglycerin?", options: ["Headache", "Recent use of erectile dysfunction medication", "Being over age 65", "Having eaten recently"], correctIndex: 1, explanation: "PDE-5 inhibitors (ED medications like sildenafil/Viagra) combined with nitroglycerin can cause severe, life-threatening hypotension. Always ask about use within the last 24-48 hours." } }
+    ],
     keyPoints: [
       "Verify prescription belongs to the patient",
       "Check for contraindications before assisting",
@@ -2625,7 +2691,9 @@ Every time you administer or assist with a medication, verify all five:`,
             back: "Some medications have timing requirements. Document when given for handoff. Repeat doses (like nitroglycerin) have specific intervals. Know your protocols."
           }
         ]
-      }
+      },
+      { type: "quiz", quiz: { id: "pharm-safety-q1", question: "Which of the Five Rights verifies you're giving the medication to the correct person?", options: ["Right Drug", "Right Dose", "Right Patient", "Right Route"], correctIndex: 2, explanation: "Right Patient means confirming the identity of the person receiving the medication. Ask the patient their name rather than suggesting it, and verify prescriptions belong to them." } },
+      { type: "quiz", quiz: { id: "pharm-safety-q2", question: "If you realize you made a medication error, you should:", options: ["Hide it to avoid discipline", "Report it immediately and care for the patient", "Wait to see if symptoms develop", "Blame the packaging"], correctIndex: 1, explanation: "Always report medication errors immediately and honestly. The patient's safety depends on transparency so appropriate monitoring and treatment can begin. A culture of safety prevents future errors." } }
     ],
     keyPoints: [
       "Verify all five rights before every medication",
@@ -2707,6 +2775,10 @@ The Five Rights are now part of your practice—a systematic approach that prote
 AEMT pharmacology expands this foundation significantly. You'll learn pharmacokinetics (what the body does to drugs), IV/IO administration, and a much larger medication toolkit. But there's no rush—make sure this foundation feels solid first.
 
 You're building skills that matter. Every medication you give with confidence and safety makes a difference for your patients.`,
+    blocks: [
+      { type: "quiz", quiz: { id: "pharm-wrap-q1", question: "Which EMT medication can be given intranasally for opioid overdose?", options: ["Epinephrine", "Aspirin", "Naloxone", "Oral glucose"], correctIndex: 2, explanation: "Naloxone (Narcan) can be given intranasally for suspected opioid overdose. The intranasal route is fast (2-5 minutes onset), needle-free, and easy to administer in the field." } },
+      { type: "quiz", quiz: { id: "pharm-wrap-q2", question: "What is the most commonly used 'medication' in EMS?", options: ["Aspirin", "Epinephrine", "Oxygen", "Naloxone"], correctIndex: 2, explanation: "Oxygen is the most commonly administered 'medication' in EMS. It's indicated for hypoxia, respiratory distress, shock, cardiac emergencies, and trauma—making it the most versatile tool in your kit." } }
+    ],
     keyPoints: [
       "EMT pharmacology is foundational but powerful",
       "Safety frameworks prevent errors",
@@ -3318,7 +3390,9 @@ When MAP is low, you either need to increase cardiac output (CO) or increase sys
           correctIndex: 2,
           explanation: "Dobutamine is a β₁ agonist that increases contractility (inotropy) without significant vasoconstriction. It's the inotrope of choice when the problem is pump failure rather than low SVR. Norepinephrine could increase afterload and make the failing heart work harder; dobutamine helps the heart pump more effectively."
         }
-      }
+      },
+      { type: "quiz", quiz: { id: "emt-resp-q4", question: "A patient with pulmonary edema is having trouble breathing. What position is most helpful?", options: ["Supine (flat on back)", "Sitting upright", "Prone (on stomach)", "Trendelenburg (feet elevated)"], correctIndex: 1, explanation: "Sitting upright reduces venous return (preload) to the heart, helping reduce fluid backup into the lungs. It also uses gravity to keep fluid in the lower lungs, improving gas exchange in the upper lung fields." } },
+      { type: "quiz", quiz: { id: "emt-resp-q5", question: "A patient has crackles, fever, and a productive cough. The most likely condition is:", options: ["Asthma", "COPD", "Pneumonia", "Pulmonary embolism"], correctIndex: 2, explanation: "Crackles (fluid in alveoli) + fever + productive cough is the classic triad for pneumonia. The infection fills alveoli with fluid and pus, creating crackles on auscultation and impairing gas exchange." } }
     ]
   },
   {
@@ -3379,6 +3453,10 @@ Remember the airway tree from Anatomy and Physiology? Air travels from nose/mout
 • Applying BLS airway interventions effectively
 
 This is where your A&P foundation becomes clinical reality.`,
+    blocks: [
+      { type: "quiz", quiz: { id: "resp-intro-q1", question: "Respiratory emergencies are among the most common EMS calls because:", options: ["They are easy to treat", "Breathing problems can rapidly become life-threatening", "They only occur in elderly patients", "They are always caused by asthma"], correctIndex: 1, explanation: "Respiratory emergencies are both common and critical. When someone can't breathe, tissue hypoxia develops rapidly, making these calls time-sensitive and high-priority." } },
+      { type: "quiz", quiz: { id: "resp-intro-q2", question: "Your understanding of airway anatomy helps with respiratory emergencies because:", options: ["You can name all the structures on a test", "You can predict where problems are occurring based on signs and symptoms", "It's not actually helpful in the field", "It helps you write better reports"], correctIndex: 1, explanation: "Knowing anatomy means that when you hear wheezing (bronchioles) vs. stridor (upper airway), you immediately know WHERE the problem is and can select appropriate interventions." } }
+    ],
     keyPoints: [
       "Respiratory emergencies are common and critical",
       "Builds on airway anatomy knowledge",
@@ -3417,10 +3495,11 @@ Any deviation from this baseline is information. The more deviations, the more c
             content: "Decreased or irregular rate, minimal effort (fatigue), cyanosis or pallor, altered mental status, only 1-2 word sentences or silent. Compensation is failing—the body can't keep up. This patient needs immediate positive pressure ventilation. Silence is NOT improvement."
           }
         ]
-      }
+      },
+      { type: "quiz", quiz: { id: "resp-baseline-q1", question: "A patient who was previously speaking in full sentences now can only say 2-3 words at a time. This indicates:", options: ["Improvement", "Worsening respiratory status", "Normal variation", "Psychological distress"], correctIndex: 1, explanation: "Decreasing ability to speak in sentences is a sign of worsening respiratory distress. The patient is using more energy to breathe, leaving less air for speech. This is a deterioration that requires escalated intervention." } },
+      { type: "quiz", quiz: { id: "resp-baseline-q2", question: "In respiratory failure, the patient's effort often DECREASES. Why is this dangerous?", options: ["It means they're getting better", "It means they're too exhausted to compensate—breathing may stop soon", "Decreased effort is always normal", "It indicates they need less oxygen"], correctIndex: 1, explanation: "Decreasing effort in respiratory failure means the patient is exhausted and can no longer compensate. This is NOT improvement—it's a sign of imminent respiratory arrest. Quiet + distressed = critical." } }
     ],
     keyPoints: [
-      "Normal: 12-20/min, effortless, full sentences",
       "Distress: increased effort, compensating",
       "Failure: decreased effort, compensation failing"
     ],
@@ -3477,7 +3556,9 @@ Cyanosis (blue discoloration) indicates significant hypoxemia. Central cyanosis 
             back: "Blue discoloration of lips, tongue, mucous membranes. Indicates significant hypoxemia—hemoglobin isn't carrying enough oxygen. Peripheral cyanosis (fingers) may be from cold or poor circulation and is less specific."
           }
         ]
-      }
+      },
+      { type: "quiz", quiz: { id: "resp-signs-q1", question: "A patient in the tripod position is most likely experiencing:", options: ["Back pain", "Nausea", "Significant respiratory distress", "Chest wall injury"], correctIndex: 2, explanation: "The tripod position (sitting upright, leaning forward, hands on knees) opens the airway and maximizes accessory muscle use. It's a classic sign of significant respiratory distress—the patient has found the position that helps them breathe." } },
+      { type: "quiz", quiz: { id: "resp-signs-q2", question: "Stridor is more urgent than wheezing because:", options: ["It's louder", "It indicates upper airway obstruction which can progress to complete blockage", "It means the patient has asthma", "It only occurs in children"], correctIndex: 1, explanation: "Stridor indicates upper airway obstruction (swelling, foreign body). The upper airway is a single tube—if it closes completely, no air gets through at all. Lower airway problems (wheezing) affect multiple bronchioles, so total obstruction is less likely." } }
     ],
     keyPoints: [
       "Position, sounds, and skin color all provide clues",
@@ -3516,7 +3597,9 @@ Each condition affects the respiratory system differently—some narrow airways,
             content: "Infection (bacterial, viral) fills alveoli with fluid/pus. Fever, productive cough, localized crackles. Creates V/Q mismatch—blood flows past flooded alveoli that can't exchange gas. Supportive care and transport. May need position of comfort."
           }
         ]
-      }
+      },
+      { type: "quiz", quiz: { id: "resp-cond-q1", question: "A patient with a known history of asthma is wheezing. The key feature of asthma is:", options: ["It is always fatal", "Airway narrowing is reversible with treatment", "It only affects children", "It causes permanent lung damage"], correctIndex: 1, explanation: "Asthma causes reversible bronchospasm—the airway narrowing can be reversed with bronchodilators. This distinguishes it from COPD, where airflow limitation is chronic and largely irreversible." } },
+      { type: "quiz", quiz: { id: "resp-cond-q2", question: "When wheezing AND stridor occur together, you should suspect:", options: ["Pneumonia", "COPD exacerbation", "Anaphylaxis", "Pulmonary edema"], correctIndex: 2, explanation: "Combined wheezing (lower airway bronchospasm) and stridor (upper airway swelling) together strongly suggest anaphylaxis—a systemic allergic reaction affecting both upper and lower airways. Epinephrine is indicated." } }
     ],
     keyPoints: [
       "Asthma: reversible, responds to bronchodilators",
@@ -3556,10 +3639,11 @@ You may have heard about 'hypoxic drive' in COPD patients. The reality: never wi
             content: "15 LPM with reservoir delivers approximately 90%+ O₂. For apneic or inadequately breathing patients. Requires good mask seal and proper technique. Ventilate at 10-12/min for adults. Watch for chest rise—if you don't see it, reposition and retry."
           }
         ]
-      }
+      },
+      { type: "quiz", quiz: { id: "resp-o2-q1", question: "What is the minimum flow rate for a simple face mask?", options: ["2 LPM", "4 LPM", "6 LPM", "10 LPM"], correctIndex: 2, explanation: "A simple face mask requires a minimum of 6 LPM to prevent CO₂ rebreathing inside the mask. Below this rate, exhaled CO₂ accumulates in the mask and the patient breathes it back in." } },
+      { type: "quiz", quiz: { id: "resp-o2-q2", question: "Should you withhold oxygen from a hypoxic COPD patient?", options: ["Yes—it will suppress their drive to breathe", "No—never withhold oxygen from a hypoxic patient", "Yes—COPD patients don't need oxygen", "Only if their SpO₂ is below 80%"], correctIndex: 1, explanation: "Never withhold oxygen from a hypoxic patient regardless of their COPD status. The 'hypoxic drive' concern is overstated—hypoxia kills faster than any theoretical suppression of respiratory drive. Monitor closely but give O₂." } }
     ],
     keyPoints: [
-      "Match device to severity: NC → Mask → NRB → BVM",
       "Non-rebreather at 15 LPM = highest FiO₂ for spontaneous breathing",
       "Never withhold O₂ from a hypoxic patient"
     ]
@@ -3579,6 +3663,10 @@ You may have heard about 'hypoxic drive' in COPD patients. The reality: never wi
 
 **Suctioning**
 When secretions, blood, or vomit block the airway, suction first. You can't ventilate through fluid. Limit each suction attempt to 10 seconds in adults.`,
+    blocks: [
+      { type: "quiz", quiz: { id: "resp-bls-q1", question: "An OPA should only be used in patients who:", options: ["Are conscious and alert", "Have no gag reflex", "Are breathing normally", "Have a spinal injury"], correctIndex: 1, explanation: "An OPA is for unresponsive patients without a gag reflex. If the patient gags, the OPA can cause vomiting and aspiration. Use an NPA instead for patients with an intact gag reflex." } },
+      { type: "quiz", quiz: { id: "resp-bls-q2", question: "Before ventilating a patient with a BVM, you should:", options: ["Give medications first", "Suction any visible fluids from the airway", "Wait for advanced providers", "Start chest compressions"], correctIndex: 1, explanation: "You can't ventilate through fluid. Suctioning the airway first ensures that air (not fluid) is delivered to the lungs. 'Suction before ventilation' is a key principle of airway management." } }
+    ],
     keyPoints: [
       "Position first: head-tilt chin-lift or jaw thrust",
       "OPA for unresponsive without gag; NPA allows gag",
@@ -3663,6 +3751,10 @@ Every sign you assess connects to the anatomy and physiology you learned. Wheezi
 The AEMT level adds advanced assessment tools (capnography) and interventions (CPAP, nebulized medications). Your EMT foundation makes those additions meaningful rather than just procedural.
 
 You're ready for the patients who can't breathe. That's a skill worth having.`,
+    blocks: [
+      { type: "quiz", quiz: { id: "resp-wrap-q1", question: "Wheezing is caused by narrowing of the:", options: ["Trachea", "Pharynx", "Bronchioles", "Alveoli"], correctIndex: 2, explanation: "Wheezing is produced by air moving through narrowed bronchioles (lower airways). This narrowing can be caused by bronchospasm (asthma), inflammation (COPD), or swelling (allergic reaction)." } },
+      { type: "quiz", quiz: { id: "resp-wrap-q2", question: "The connection between A&P and respiratory emergencies is that:", options: ["They are unrelated", "Understanding structure explains why symptoms occur", "A&P is only for written exams", "Clinical skills replace anatomy knowledge"], correctIndex: 1, explanation: "Understanding anatomy and physiology tells you WHY a symptom occurs. Wheezing = bronchiole constriction, crackles = alveolar fluid, stridor = upper airway obstruction. Structure explains the symptom." } }
+    ],
     keyPoints: [
       "Assessment, conditions, and interventions form a complete picture",
       "Signs connect directly to anatomy and physiology",
