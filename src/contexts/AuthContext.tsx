@@ -11,6 +11,9 @@ interface Profile {
   cardiac_progress: number;
   shock_progress: number;
   cardiac_arrest_sim_progress: number;
+  xp_total: number;
+  current_streak: number;
+  last_active_date: string | null;
   created_at: string;
   updated_at: string;
 }

@@ -25,7 +25,6 @@ export function TopicCard({ topic, categorySlug, categoryLevel }: TopicCardProps
   const hasContent = hasSubsections || hasRichContent;
   const firstSubsection = topic.subsections[0];
   
-  // Link to first subsection if available, otherwise just to topic level
   const href = hasSubsections 
     ? `/topics/${categorySlug}/${topic.slug}/${firstSubsection.slug}`
     : `/topics/${categorySlug}/${topic.slug}`;
@@ -36,17 +35,17 @@ export function TopicCard({ topic, categorySlug, categoryLevel }: TopicCardProps
       className="block group"
     >
       <Card className={cn(
-        "h-full transition-all duration-200 hover:shadow-md hover:border-primary/30",
+        "h-full transition-all duration-200 rounded-2xl border-2 hover:shadow-lg hover:border-primary/40 hover:-translate-y-0.5",
         !hasContent && "opacity-60"
       )}>
         <CardHeader className="pb-3">
           <div className="flex items-start justify-between gap-3">
-            <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary group-hover:bg-primary/20 transition-colors">
+            <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
               <BookOpen className="h-5 w-5" />
             </div>
             <Badge 
               variant="outline" 
-              className={cn("font-medium text-xs shrink-0", badgeConfig[categoryLevel])}
+              className={cn("font-bold text-xs shrink-0 rounded-full", badgeConfig[categoryLevel])}
             >
               {hasSubsections
                 ? `${topic.subsections.length} subsection${topic.subsections.length !== 1 ? 's' : ''}`
@@ -57,7 +56,7 @@ export function TopicCard({ topic, categorySlug, categoryLevel }: TopicCardProps
           </div>
           
           <div className="mt-3">
-            <h3 className="font-semibold text-base text-foreground group-hover:text-primary transition-colors leading-snug">
+            <h3 className="font-bold text-base text-foreground group-hover:text-primary transition-colors leading-snug">
               {topic.title}
             </h3>
             <p className="text-sm text-muted-foreground mt-1.5 line-clamp-2">
@@ -67,10 +66,9 @@ export function TopicCard({ topic, categorySlug, categoryLevel }: TopicCardProps
         </CardHeader>
 
         <CardContent className="pt-0 space-y-4">
-          {/* Subsections preview - hide for flat topics with rich content */}
           {hasSubsections && !hasRichContent && (
             <div>
-              <p className="text-xs font-medium text-foreground mb-2">In this topic</p>
+              <p className="text-xs font-bold text-foreground mb-2">In this topic</p>
               <ul className="space-y-1.5">
                 {topic.subsections.slice(0, 3).map((subsection, index) => (
                   <li key={index} className="flex items-start gap-2 text-sm text-muted-foreground">
@@ -87,7 +85,6 @@ export function TopicCard({ topic, categorySlug, categoryLevel }: TopicCardProps
             </div>
           )}
 
-          {/* Footer */}
           <div className="flex items-center justify-between pt-2 border-t border-border">
             <div className="flex items-center gap-1.5 text-muted-foreground">
               <Clock className="h-4 w-4" />
@@ -95,7 +92,12 @@ export function TopicCard({ topic, categorySlug, categoryLevel }: TopicCardProps
                 {topic.estimatedMinutes > 0 ? `${topic.estimatedMinutes} min` : "TBD"}
               </span>
             </div>
-            <div className="flex items-center gap-1 text-primary text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity">
+            <div className={cn(
+              "flex items-center gap-1 text-sm font-bold transition-all",
+              hasContent 
+                ? "bg-success text-success-foreground px-3 py-1 rounded-full opacity-0 group-hover:opacity-100" 
+                : "text-muted-foreground opacity-0 group-hover:opacity-100"
+            )}>
               {hasContent ? "Start" : "Coming soon"} <ChevronRight className="h-4 w-4" />
             </div>
           </div>

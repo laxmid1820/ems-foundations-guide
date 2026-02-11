@@ -4,17 +4,31 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { CheckCircle2, XCircle, RotateCcw } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { ConfettiEffect } from "@/components/gamification/ConfettiEffect";
+import { XPFloater } from "@/components/gamification/XPFloater";
 import type { QuizQuestion } from "@/data/topics";
 
 interface QuizBlockProps {
   question: QuizQuestion;
   onAnswer?: (questionId: string, correct: boolean) => void;
+  onXPGain?: (amount: number) => void;
 }
 
-export function QuizBlock({ question, onAnswer }: QuizBlockProps) {
+const encouragements = [
+  "You're on fire! 🔥",
+  "Nice work! 💪",
+  "Keep it up! ⭐",
+  "Nailed it! 🎯",
+];
+
+export function QuizBlock({ question, onAnswer, onXPGain }: QuizBlockProps) {
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isCorrect, setIsCorrect] = useState(false);
+  const [showConfetti, setShowConfetti] = useState(false);
+  const [shakeWrong, setShakeWrong] = useState(false);
+  const [xpGain, setXpGain] = useState<{ amount: number; ts: number } | null>(null);
+  const [isRetry, setIsRetry] = useState(false);
 
   const handleSubmit = () => {
     if (selectedIndex === null) return;
@@ -23,24 +37,42 @@ export function QuizBlock({ question, onAnswer }: QuizBlockProps) {
     setIsCorrect(correct);
     setIsSubmitted(true);
     onAnswer?.(question.id, correct);
+
+    if (correct) {
+      setShowConfetti(true);
+      const amt = isRetry ? 5 : 10;
+      setXpGain({ amount: amt, ts: Date.now() });
+      onXPGain?.(amt);
+      setTimeout(() => setShowConfetti(false), 100);
+    } else {
+      setShakeWrong(true);
+      setTimeout(() => setShakeWrong(false), 600);
+    }
   };
 
   const handleRetry = () => {
     setSelectedIndex(null);
     setIsSubmitted(false);
     setIsCorrect(false);
+    setIsRetry(true);
   };
 
+  const encouragement = encouragements[Math.floor(Math.random() * encouragements.length)];
+
   return (
-    <div className="rounded-lg border border-border bg-card overflow-hidden">
+    <div className="relative rounded-2xl border-2 border-border bg-card overflow-hidden">
+      <ConfettiEffect trigger={showConfetti} />
+      
       {/* Question Header */}
-      <div className="bg-primary/10 p-4 sm:p-5 border-b border-border">
-        <p className="text-xs font-semibold text-primary uppercase tracking-wide mb-1">Knowledge Check</p>
-        <p className="text-foreground font-medium text-lg leading-snug">{question.question}</p>
+      <div className="bg-primary/10 p-5 sm:p-6 border-b border-border">
+        <p className="text-xs font-extrabold text-primary uppercase tracking-widest mb-1.5">Knowledge Check</p>
+        <p className="text-foreground font-bold text-lg leading-snug">{question.question}</p>
       </div>
 
       {/* Options */}
-      <div className="p-4 sm:p-5">
+      <div className="p-5 sm:p-6 relative">
+        {xpGain && <XPFloater amount={xpGain.amount} timestamp={xpGain.ts} />}
+        
         <RadioGroup
           value={selectedIndex !== null ? String(selectedIndex) : undefined}
           onValueChange={(value) => !isSubmitted && setSelectedIndex(Number(value))}
@@ -54,12 +86,13 @@ export function QuizBlock({ question, onAnswer }: QuizBlockProps) {
               <div 
                 key={index}
                 className={cn(
-                  "flex items-center gap-3 p-3 rounded-lg border-2 transition-all cursor-pointer",
-                  !isSubmitted && isSelected && "border-primary bg-primary/5",
-                  !isSubmitted && !isSelected && "border-border hover:border-primary/30",
+                  "flex items-center gap-3 p-4 rounded-xl border-2 transition-all cursor-pointer",
+                  !isSubmitted && isSelected && "border-primary bg-primary/5 shadow-sm",
+                  !isSubmitted && !isSelected && "border-border hover:border-primary/40 hover:bg-primary/5",
                   isSubmitted && isCorrectOption && "border-success bg-success/10",
                   isSubmitted && isSelected && !isCorrectOption && "border-destructive bg-destructive/10",
-                  isSubmitted && "cursor-default"
+                  isSubmitted && "cursor-default",
+                  shakeWrong && isSelected && !isCorrectOption && "animate-shake"
                 )}
                 onClick={() => !isSubmitted && setSelectedIndex(index)}
               >
@@ -75,7 +108,7 @@ export function QuizBlock({ question, onAnswer }: QuizBlockProps) {
                 <Label 
                   htmlFor={`option-${question.id}-${index}`}
                   className={cn(
-                    "flex-1 cursor-pointer text-sm sm:text-base",
+                    "flex-1 cursor-pointer text-sm sm:text-base font-medium",
                     isSubmitted && "cursor-default"
                   )}
                 >
@@ -95,8 +128,8 @@ export function QuizBlock({ question, onAnswer }: QuizBlockProps) {
         {/* Feedback */}
         {isSubmitted && (
           <div className={cn(
-            "mt-4 p-4 rounded-lg",
-            isCorrect ? "bg-success/10 border border-success/30" : "bg-destructive/10 border border-destructive/30"
+            "mt-5 p-4 rounded-xl",
+            isCorrect ? "bg-success/10 border-2 border-success/30" : "bg-destructive/10 border-2 border-destructive/30"
           )}>
             <div className="flex items-start gap-2">
               {isCorrect ? (
@@ -106,10 +139,10 @@ export function QuizBlock({ question, onAnswer }: QuizBlockProps) {
               )}
               <div>
                 <p className={cn(
-                  "font-semibold text-sm",
+                  "font-extrabold text-sm",
                   isCorrect ? "text-success" : "text-destructive"
                 )}>
-                  {isCorrect ? "Correct!" : "Not quite right"}
+                  {isCorrect ? encouragement : "Almost — give it another shot!"}
                 </p>
                 <p className="text-muted-foreground text-sm mt-1">{question.explanation}</p>
               </div>
@@ -118,20 +151,23 @@ export function QuizBlock({ question, onAnswer }: QuizBlockProps) {
         )}
 
         {/* Actions */}
-        <div className="mt-4 flex gap-3">
+        <div className="mt-5 flex gap-3">
           {!isSubmitted ? (
             <Button 
+              variant="duo"
               onClick={handleSubmit} 
               disabled={selectedIndex === null}
               className="w-full sm:w-auto"
+              size="lg"
             >
-              Submit Answer
+              Check Answer
             </Button>
           ) : !isCorrect ? (
             <Button 
               variant="outline" 
               onClick={handleRetry}
               className="w-full sm:w-auto"
+              size="lg"
             >
               <RotateCcw className="h-4 w-4 mr-2" />
               Try Again

@@ -9,7 +9,8 @@ import {
   ArrowRight,
   Sparkles,
   Target,
-  Users
+  Users,
+  Zap
 } from "lucide-react";
 
 const benefits = [
@@ -45,13 +46,13 @@ const Index = () => {
         <div className="container mx-auto px-4 py-16 sm:px-6 sm:py-24 lg:px-8 lg:py-32">
           <div className="mx-auto max-w-3xl text-center">
             {/* Badge */}
-            <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/10 px-4 py-1.5 text-sm font-medium text-primary">
+            <div className="mb-6 inline-flex items-center gap-2 rounded-full border-2 border-primary/20 bg-primary/10 px-4 py-1.5 text-sm font-bold text-primary">
               <Sparkles className="h-4 w-4" />
               Built for EMS Providers
             </div>
 
             {/* Heading */}
-            <h1 className="mb-6 text-4xl font-bold tracking-tight text-foreground sm:text-5xl lg:text-6xl">
+            <h1 className="mb-6 text-4xl font-extrabold tracking-tight text-foreground sm:text-5xl lg:text-6xl">
               Prehospital{" "}
               <span className="text-primary">Foundations</span>
             </h1>
@@ -67,7 +68,7 @@ const Index = () => {
               {features.map((feature) => (
                 <div 
                   key={feature}
-                  className="flex items-center gap-2 text-sm text-muted-foreground"
+                  className="flex items-center gap-2 text-sm text-muted-foreground font-medium"
                 >
                   <CheckCircle2 className="h-4 w-4 text-success" />
                   <span>{feature}</span>
@@ -78,7 +79,7 @@ const Index = () => {
             {/* CTA Buttons */}
             <div className="flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
               <Link to="/auth">
-                <Button size="lg" className="gap-2 text-base">
+                <Button variant="duo" size="lg" className="gap-2 text-base px-10">
                   Get Started
                   <ArrowRight className="h-4 w-4" />
                 </Button>
@@ -89,6 +90,12 @@ const Index = () => {
                   Browse Topics
                 </Button>
               </Link>
+            </div>
+
+            {/* XP teaser */}
+            <div className="mt-8 inline-flex items-center gap-2 text-sm text-muted-foreground font-medium">
+              <Zap className="h-4 w-4 text-xp fill-current" />
+              Earn XP as you learn — track your progress and build streaks!
             </div>
           </div>
         </div>
@@ -103,19 +110,19 @@ const Index = () => {
           <div className="flex flex-wrap items-center justify-center gap-8 text-muted-foreground">
             <div className="flex items-center gap-2">
               <GraduationCap className="h-5 w-5 text-primary" />
-              <span className="text-sm font-medium">EMT Students</span>
+              <span className="text-sm font-bold">EMT Students</span>
             </div>
             <div className="flex items-center gap-2">
               <Stethoscope className="h-5 w-5 text-primary" />
-              <span className="text-sm font-medium">Practicing EMTs</span>
+              <span className="text-sm font-bold">Practicing EMTs</span>
             </div>
             <div className="flex items-center gap-2">
               <Users className="h-5 w-5 text-primary" />
-              <span className="text-sm font-medium">AEMTs & Paramedics</span>
+              <span className="text-sm font-bold">AEMTs & Paramedics</span>
             </div>
             <div className="flex items-center gap-2">
               <Target className="h-5 w-5 text-primary" />
-              <span className="text-sm font-medium">Career Advancers</span>
+              <span className="text-sm font-bold">Career Advancers</span>
             </div>
           </div>
         </div>
@@ -125,7 +132,7 @@ const Index = () => {
       <section className="bg-background py-16 sm:py-24">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="mx-auto mb-12 max-w-2xl text-center">
-            <h2 className="mb-4 text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
+            <h2 className="mb-4 text-3xl font-extrabold tracking-tight text-foreground sm:text-4xl">
               Why Choose Prehospital Foundations?
             </h2>
             <p className="text-lg text-muted-foreground">
@@ -138,12 +145,12 @@ const Index = () => {
             {benefits.map((benefit) => (
               <div
                 key={benefit.title}
-                className="group rounded-xl border border-border bg-card p-6 shadow-sm transition-all hover:border-primary/30 hover:shadow-md"
+                className="group rounded-2xl border-2 border-border bg-card p-6 shadow-sm transition-all hover:border-primary/40 hover:shadow-lg hover:-translate-y-0.5"
               >
-                <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10 text-primary transition-colors group-hover:bg-primary group-hover:text-primary-foreground">
+                <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary transition-colors group-hover:bg-primary group-hover:text-primary-foreground">
                   <benefit.icon className="h-6 w-6" />
                 </div>
-                <h3 className="mb-2 text-lg font-semibold text-foreground">
+                <h3 className="mb-2 text-lg font-bold text-foreground">
                   {benefit.title}
                 </h3>
                 <p className="text-muted-foreground">
@@ -156,19 +163,18 @@ const Index = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="bg-primary py-16 sm:py-20">
+      <section className="bg-success py-16 sm:py-20">
         <div className="container mx-auto px-4 text-center sm:px-6 lg:px-8">
-          <h2 className="mb-4 text-2xl font-bold text-primary-foreground sm:text-3xl">
+          <h2 className="mb-4 text-2xl font-extrabold text-success-foreground sm:text-3xl">
             Ready to strengthen your foundations?
           </h2>
-          <p className="mb-8 text-lg text-primary-foreground/80">
+          <p className="mb-8 text-lg text-success-foreground/80">
             Join fellow EMS providers on the journey to mastering prehospital medicine.
           </p>
           <Link to="/auth">
             <Button 
               size="lg" 
-              variant="secondary" 
-              className="gap-2 text-base"
+              className="gap-2 text-base bg-background text-foreground hover:bg-background/90 rounded-2xl font-extrabold shadow-[0_4px_0_hsl(101_75%_25%)] hover:shadow-[0_2px_0_hsl(101_75%_25%)] hover:translate-y-[2px]"
             >
               Start Learning Today
               <ArrowRight className="h-4 w-4" />

@@ -20,32 +20,32 @@ const calloutConfig: Record<CalloutType, {
   breakDown: {
     icon: Lightbulb,
     title: "Let's Break This Down",
-    bgClass: "bg-primary/5",
-    borderClass: "border-primary/20",
+    bgClass: "bg-primary/8",
+    borderClass: "border-primary/25",
     iconClass: "text-primary",
     titleClass: "text-primary"
   },
   proTip: {
     icon: CheckCircle,
-    title: "Pro Tip",
-    bgClass: "bg-success/5",
-    borderClass: "border-success/20",
+    title: "Pro Tip 💡",
+    bgClass: "bg-success/8",
+    borderClass: "border-success/25",
     iconClass: "text-success",
     titleClass: "text-success"
   },
   rememberThis: {
     icon: Star,
-    title: "Remember This",
-    bgClass: "bg-warning/5",
-    borderClass: "border-warning/20",
+    title: "Remember This ⭐",
+    bgClass: "bg-warning/8",
+    borderClass: "border-warning/25",
     iconClass: "text-warning",
     titleClass: "text-warning"
   },
   youveGotThis: {
     icon: Sparkles,
-    title: "You've Got This!",
-    bgClass: "bg-success/5",
-    borderClass: "border-success/20",
+    title: "You've Got This! 🎉",
+    bgClass: "bg-success/8",
+    borderClass: "border-success/25",
     iconClass: "text-success",
     titleClass: "text-success"
   }
@@ -58,7 +58,7 @@ export function TopicCallout({ type, children, className }: TopicCalloutProps) {
   return (
     <div 
       className={cn(
-        "rounded-lg border p-4 mt-4",
+        "rounded-2xl border-2 p-5 mt-4",
         config.bgClass,
         config.borderClass,
         className
@@ -69,7 +69,7 @@ export function TopicCallout({ type, children, className }: TopicCalloutProps) {
           <Icon className="h-5 w-5" />
         </div>
         <div className="min-w-0 flex-1">
-          <p className={cn("font-semibold text-sm mb-1", config.titleClass)}>
+          <p className={cn("font-bold text-sm mb-1.5", config.titleClass)}>
             {config.title}
           </p>
           <div className="text-sm text-muted-foreground leading-relaxed">
