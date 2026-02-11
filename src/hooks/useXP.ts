@@ -1,6 +1,7 @@
 import { useState, useCallback, useEffect } from "react";
 import { useAuth } from "@/contexts/AuthContext";
 import { supabase } from "@/integrations/supabase/client";
+import { useStreak } from "@/hooks/useStreak";
 
 interface XPState {
   total: number;
@@ -9,6 +10,7 @@ interface XPState {
 
 export function useXP() {
   const { profile, user } = useAuth();
+  const { recordActivity } = useStreak();
   const [xp, setXP] = useState<XPState>({
     total: profile?.xp_total ?? 0,
     lastGain: null,
@@ -22,6 +24,7 @@ export function useXP() {
 
   const addXP = useCallback(
     async (amount: number) => {
+      if (amount <= 0) return;
       const newTotal = xp.total + amount;
       setXP({ total: newTotal, lastGain: { amount, timestamp: Date.now() } });
 
@@ -31,8 +34,11 @@ export function useXP() {
           .update({ xp_total: newTotal, updated_at: new Date().toISOString() })
           .eq("user_id", user.id);
       }
+
+      // Record daily activity for streak tracking
+      recordActivity();
     },
-    [xp.total, user],
+    [xp.total, user, recordActivity],
   );
 
   const gainQuizXP = useCallback(
