@@ -506,6 +506,38 @@ Specialized cells in the heart generate electrical impulses that spread through 
 
 **Why This Matters in the Field**
 When you see an irregular rhythm on a monitor, you're seeing the electrical system malfunction. Understanding how it's *supposed* to work helps you recognize—and later, treat—what's going wrong.`,
+    blocks: [
+      {
+        type: "quiz",
+        quiz: {
+          id: "aemt-elec-q1",
+          question: "Why can a heart continue beating even when removed from the body?",
+          options: [
+            "The brain sends wireless signals",
+            "The heart has its own pacemaker cells that generate impulses",
+            "Blood pressure keeps it beating",
+            "Muscles contract automatically"
+          ],
+          correctIndex: 1,
+          explanation: "The heart has specialized pacemaker cells (SA node) that generate their own electrical impulses—it doesn't need the brain to tell it when to beat. This intrinsic automaticity is why transplanted hearts work."
+        }
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "aemt-elec-q2",
+          question: "An irregular rhythm on a cardiac monitor indicates:",
+          options: [
+            "Normal heart function",
+            "A malfunction in the electrical conduction system",
+            "The monitor is broken",
+            "The patient is exercising"
+          ],
+          correctIndex: 1,
+          explanation: "Irregular rhythms reflect problems in the heart's electrical system—the organized spread of impulses is disrupted. Understanding normal conduction helps you recognize and interpret what's going wrong."
+        }
+      }
+    ],
     keyPoints: [
       "The heart generates its own electrical impulses",
       "Specialized pacemaker cells create and conduct the signal",
@@ -532,6 +564,68 @@ The signal splits—right branch to the right ventricle, left branch to the left
 
 **5. Purkinje Fibers**
 These spread throughout both ventricles, causing them to contract together in a coordinated squeeze from bottom to top.`,
+    blocks: [
+      {
+        type: "quiz",
+        quiz: {
+          id: "aemt-conduct-q1",
+          question: "The heart's natural pacemaker fires at what resting rate?",
+          options: [
+            "20-40 bpm",
+            "40-60 bpm",
+            "60-100 bpm",
+            "100-150 bpm"
+          ],
+          correctIndex: 2,
+          explanation: "The SA (sinoatrial) node is the heart's natural pacemaker, firing at 60-100 bpm at rest. If the SA node fails, backup pacemakers take over at slower rates—AV node (40-60), ventricles (20-40)."
+        }
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "aemt-conduct-q2",
+          question: "The correct conduction pathway sequence is:",
+          options: [
+            "AV node → SA node → Bundle of His → Purkinje",
+            "SA node → AV node → Bundle of His → Bundle Branches → Purkinje",
+            "Purkinje → Bundle of His → AV node → SA node",
+            "SA node → Purkinje → AV node → Bundle of His"
+          ],
+          correctIndex: 1,
+          explanation: "SA node fires → signal travels to AV node (which delays it) → Bundle of His → right and left Bundle Branches → Purkinje fibers spread through ventricles. This organized sequence ensures coordinated contraction."
+        }
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "aemt-co-q1",
+          question: "Cardiac output equals:",
+          options: [
+            "Heart rate ÷ stroke volume",
+            "Stroke volume × heart rate",
+            "Blood pressure × heart rate",
+            "Preload + afterload"
+          ],
+          correctIndex: 1,
+          explanation: "CO = SV × HR. Stroke volume (~70 mL) times heart rate (~70 bpm) = ~5 L/min. Understanding this equation explains why the body increases heart rate (tachycardia) when stroke volume drops—it's trying to maintain cardiac output."
+        }
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "aemt-co-q2",
+          question: "Dehydration reduces cardiac output primarily by decreasing:",
+          options: [
+            "Afterload",
+            "Contractility",
+            "Preload",
+            "Heart rate"
+          ],
+          correctIndex: 2,
+          explanation: "Dehydration reduces circulating volume, meaning less blood returns to the heart (decreased preload). Less ventricular stretch means weaker contraction (Frank-Starling). This is why IV fluid boluses improve cardiac output in hypovolemia."
+        }
+      }
+    ],
     keyPoints: [
       "SA node: primary pacemaker (60-100 bpm)",
       "AV node: slows signal to allow atrial filling",
@@ -623,6 +717,36 @@ The body prioritizes vital organs (heart, brain, lungs) when perfusion drops. Sk
             back: "Uneven blood flow to skin capillaries. Blood is being diverted to core organs, causing a patchy, lacy appearance. A late and concerning sign."
           }
         ]
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "aemt-perf-q1",
+          question: "A patient with cool, pale skin and capillary refill of 4 seconds is showing signs of:",
+          options: [
+            "Good perfusion",
+            "Poor perfusion—blood shunting to vital organs",
+            "Fever",
+            "Normal aging"
+          ],
+          correctIndex: 1,
+          explanation: "Cool, pale skin and delayed cap refill (>2 sec) indicate the body is shunting blood away from periphery to vital organs. These are early and reliable signs of inadequate perfusion (shock)."
+        }
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "aemt-perf-q2",
+          question: "If you can feel a radial pulse, the systolic BP is likely at least:",
+          options: [
+            "60 mmHg",
+            "80 mmHg",
+            "100 mmHg",
+            "120 mmHg"
+          ],
+          correctIndex: 1,
+          explanation: "The radial pulse is generally palpable when systolic BP exceeds ~80 mmHg. Loss of radial pulse with preserved carotid pulse suggests significant hypotension—the carotid persists at lower pressures (~60 mmHg)."
+        }
       }
     ],
     keyPoints: [
@@ -681,6 +805,36 @@ The body prioritizes vital organs (heart, brain, lungs) when perfusion drops. Sk
           correctIndex: 2,
           explanation: "Normal adult cardiac output is approximately 5-6 L/min at rest (70 mL stroke volume × 70-80 bpm). This means your entire blood volume circulates every minute!"
         }
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "aemt-cardiac-q4",
+          question: "What is the Frank-Starling mechanism?",
+          options: [
+            "The heart beats faster when stressed",
+            "Greater ventricular stretch leads to stronger contraction",
+            "The AV node controls heart rate",
+            "Blood pressure determines heart rate"
+          ],
+          correctIndex: 1,
+          explanation: "The Frank-Starling mechanism states that more blood returning to the heart stretches the ventricle, creating a stronger contraction—up to a point. This is why fluid boluses improve cardiac output in hypovolemia: more preload = more stretch = stronger beat."
+        }
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "aemt-cardiac-q5",
+          question: "A monitor shows organized electrical activity, but you can't feel a pulse. This is called:",
+          options: [
+            "Ventricular fibrillation",
+            "Asystole",
+            "Pulseless electrical activity (PEA)",
+            "Normal sinus rhythm"
+          ],
+          correctIndex: 2,
+          explanation: "PEA (Pulseless Electrical Activity) is when the heart's electrical system fires but the muscle doesn't contract effectively—electrical activity without mechanical contraction. This is why you always check for a pulse regardless of what the monitor shows."
+        }
       }
     ]
   },
@@ -721,6 +875,68 @@ The actual gas exchange—oxygen moving from air into blood, carbon dioxide movi
 
 **Why This Matters**
 A patient can be ventilating (moving air) but not respiring adequately (gas exchange is impaired). A patient with severe pneumonia might have normal chest rise but very poor oxygen levels because the diseased alveoli can't exchange gases efficiently.`,
+    blocks: [
+      {
+        type: "quiz",
+        quiz: {
+          id: "aemt-vent-q1",
+          question: "A patient is moving air well but has an SpO₂ of 84%. The primary problem is:",
+          options: [
+            "Ventilation failure",
+            "Respiration (gas exchange) failure",
+            "Cardiac arrest",
+            "Equipment malfunction"
+          ],
+          correctIndex: 1,
+          explanation: "Good air movement = adequate ventilation. Low SpO₂ despite this = gas exchange failure. The air is getting in, but oxygen isn't transferring to the blood—possible causes include pneumonia, pulmonary edema, or PE."
+        }
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "aemt-vent-q2",
+          question: "Ventilation refers to:",
+          options: [
+            "Gas exchange at the alveoli",
+            "The mechanical movement of air in and out of the lungs",
+            "Oxygen binding to hemoglobin",
+            "Carbon dioxide production"
+          ],
+          correctIndex: 1,
+          explanation: "Ventilation is purely mechanical—the bellows action of the diaphragm and intercostals moving air. Respiration is the gas exchange that happens at the alveolar level. Both can fail independently."
+        }
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "aemt-mech-q1",
+          question: "Visible use of neck muscles during breathing indicates:",
+          options: [
+            "Normal breathing",
+            "Accessory muscle use—the patient is in distress",
+            "The patient is exercising",
+            "Good respiratory reserve"
+          ],
+          correctIndex: 1,
+          explanation: "Sternocleidomastoid (SCM) and scalene muscles are only recruited when normal respiratory muscles can't meet demand. Accessory muscle use is a red flag for respiratory distress requiring intervention."
+        }
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "aemt-mech-q2",
+          question: "Normal expiration at rest is primarily:",
+          options: [
+            "Active—requiring muscle contraction",
+            "Passive—driven by elastic recoil",
+            "Controlled by the brain",
+            "Powered by the diaphragm contracting"
+          ],
+          correctIndex: 1,
+          explanation: "At rest, expiration is passive—the lungs and chest wall simply recoil to their resting position, pushing air out. Active (forced) expiration using abdominal and internal intercostal muscles occurs during respiratory distress or exercise."
+        }
+      }
+    ],
     keyPoints: [
       "Ventilation = air movement (mechanical)",
       "Respiration = gas exchange (cellular level)",
@@ -811,6 +1027,36 @@ Gases move from areas of high concentration to low concentration. No energy requ
             back: "How efficiently gases cross the alveolar-capillary membrane. Decreased in conditions that thicken the membrane (fibrosis) or destroy surface area (emphysema)."
           }
         ]
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "aemt-gas-q1",
+          question: "Oxygen moves from alveoli into the blood by:",
+          options: [
+            "Active transport requiring energy",
+            "Passive diffusion along a concentration gradient",
+            "Being pumped by the heart",
+            "Osmosis"
+          ],
+          correctIndex: 1,
+          explanation: "Gas exchange is passive diffusion—gases move from areas of high concentration to low concentration. No energy required. Oxygen is high in alveolar air and low in blood, so it naturally moves into the blood."
+        }
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "aemt-gas-q2",
+          question: "Pulmonary edema impairs gas exchange by:",
+          options: [
+            "Constricting the airways",
+            "Creating a fluid barrier between alveoli and capillaries",
+            "Destroying the diaphragm",
+            "Increasing blood flow"
+          ],
+          correctIndex: 1,
+          explanation: "Fluid in the alveoli thickens the barrier gases must cross. Normally the alveolar-capillary membrane is one cell thick—adding fluid creates a diffusion barrier that slows oxygen transfer into the blood."
+        }
       }
     ],
     keyPoints: [
@@ -844,6 +1090,38 @@ Gases move from areas of high concentration to low concentration. No energy requ
 • Problem: Blood clot blocks pulmonary artery
 • Effect: Dead space (ventilation without perfusion)
 • Signs: Sudden dyspnea, pleuritic chest pain, clear lungs`,
+    blocks: [
+      {
+        type: "quiz",
+        quiz: {
+          id: "aemt-respcond-q1",
+          question: "Wheezing and prolonged expiration are characteristic of:",
+          options: [
+            "Pneumonia",
+            "Asthma or COPD",
+            "Pulmonary embolism",
+            "Tension pneumothorax"
+          ],
+          correctIndex: 1,
+          explanation: "Asthma and COPD cause bronchiole constriction and inflammation, creating the characteristic wheeze as air squeezes through narrowed airways. The prolonged expiratory phase reflects air trapping."
+        }
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "aemt-respcond-q2",
+          question: "Sudden dyspnea with clear lung sounds should make you consider:",
+          options: [
+            "Asthma exacerbation",
+            "Pulmonary embolism",
+            "Pneumonia",
+            "COPD"
+          ],
+          correctIndex: 1,
+          explanation: "PE causes dead space—ventilation without perfusion. The lungs sound clear because air moves normally, but a clot blocks blood flow so gas exchange can't occur in the affected area. Clear lungs + severe hypoxia = think PE."
+        }
+      }
+    ],
     keyPoints: [
       "Each condition affects a specific part of respiratory physiology",
       "Understanding the mechanism guides your assessment findings",
@@ -899,6 +1177,36 @@ Gases move from areas of high concentration to low concentration. No energy requ
           ],
           correctIndex: 2,
           explanation: "Sudden onset dyspnea with clear lungs and hypoxia is classic for pulmonary embolism. The lungs are ventilating, but a clot is preventing blood flow—creating 'dead space' where gas exchange can't occur."
+        }
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "aemt-resp-q4",
+          question: "What does V/Q mismatch mean?",
+          options: [
+            "The heart is beating irregularly",
+            "Ventilation and perfusion aren't matched in parts of the lung",
+            "The patient has a fever",
+            "Blood oxygen is too high"
+          ],
+          correctIndex: 1,
+          explanation: "V/Q mismatch occurs when areas of lung receive air but not blood (dead space—like in PE) or blood but not air (shunt—like in pneumonia). Both impair gas exchange and cause hypoxia."
+        }
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "aemt-resp-q5",
+          question: "CHF patients have crackles because:",
+          options: [
+            "Their airways are constricted",
+            "Fluid has leaked from pulmonary vessels into alveoli",
+            "They have a pneumothorax",
+            "Their diaphragm is paralyzed"
+          ],
+          correctIndex: 1,
+          explanation: "Heart failure causes fluid backup into the pulmonary circulation. The elevated pressure pushes fluid through capillary walls into alveoli, creating the crackling sounds on auscultation and impairing gas exchange."
         }
       }
     ]
@@ -2809,6 +3117,38 @@ Everything you learned at the EMT level still applies. The Five Rights, route se
 
 **Why Pharmacokinetics Matters**
 When you understand how drugs are absorbed, distributed, metabolized, and excreted, you can predict onset, duration, and potential problems. This moves you from memorizing facts to understanding principles.`,
+    blocks: [
+      {
+        type: "quiz",
+        quiz: {
+          id: "aemt-pharm-intro-q1",
+          question: "What is the primary advantage of IV/IO medication routes over oral?",
+          options: [
+            "Lower cost",
+            "Immediate onset with 100% bioavailability",
+            "Less risk of side effects",
+            "Easier to administer"
+          ],
+          correctIndex: 1,
+          explanation: "IV/IO provides immediate onset because the medication goes directly into the bloodstream (100% bioavailability). Oral medications must be absorbed through the GI tract, which takes 30-90 minutes and is affected by food and first-pass metabolism."
+        }
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "aemt-pharm-intro-q2",
+          question: "Understanding pharmacokinetics helps AEMTs:",
+          options: [
+            "Memorize more drug names",
+            "Predict onset, duration, and potential drug problems",
+            "Avoid giving any medications",
+            "Replace the need for protocols"
+          ],
+          correctIndex: 1,
+          explanation: "Pharmacokinetics (ADME) explains how drugs behave in the body. This knowledge lets you predict when a drug will start working, how long it will last, and what might alter its behavior in specific patients."
+        }
+      }
+    ],
     keyPoints: [
       "AEMT scope includes IV/IO medication administration",
       "Pharmacokinetics explains drug behavior in the body",
@@ -2845,6 +3185,36 @@ Understanding these processes helps you answer practical questions:
             content: "Drug leaving the body, primarily through the kidneys.\n\n**Key concepts**:\n• Kidneys filter drugs from blood into urine\n• **Half-life**: Time for 50% of drug to be eliminated\n• Renal impairment = drug accumulation = prolonged effects\n\n**Clinical Impact**: A patient on dialysis may have accumulated medication effects. Repeat dosing before the previous dose is eliminated can lead to toxicity."
           }
         ]
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "aemt-kinetics-q1",
+          question: "A patient in shock receives an IM injection. Why might absorption be delayed?",
+          options: [
+            "The needle is too small",
+            "Poor perfusion reduces blood flow to the injection site",
+            "IM injections are always slow",
+            "The medication expired"
+          ],
+          correctIndex: 1,
+          explanation: "In shock, blood is shunted away from peripheral tissues. Reduced blood flow at the IM injection site means the drug is absorbed slowly and unpredictably—one reason IV/IO is preferred in critical patients."
+        }
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "aemt-kinetics-q2",
+          question: "A patient with liver disease may experience prolonged drug effects because:",
+          options: [
+            "The liver produces too many enzymes",
+            "Impaired liver metabolism means drugs stay active longer",
+            "Liver disease increases drug absorption",
+            "The kidneys compensate fully"
+          ],
+          correctIndex: 1,
+          explanation: "The liver metabolizes most drugs into inactive forms. When liver function is impaired, drugs remain active in the bloodstream longer—potentially causing exaggerated or prolonged effects."
+        }
       }
     ],
     keyPoints: [
@@ -2900,6 +3270,36 @@ Both provide equivalent vascular access. IO is used when IV access is difficult 
             back: "Push 10-20 mL normal saline after medication administration. Clears the IV line and ensures the full dose reaches circulation. Standard practice after every IV push medication. Critical for medications that need to reach the heart quickly (adenosine)."
           }
         ]
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "aemt-ivio-q1",
+          question: "IO access provides equivalent drug delivery to IV because:",
+          options: [
+            "Bones absorb drugs faster",
+            "Bone marrow drains directly into central circulation",
+            "IO needles are larger",
+            "Bones filter medications"
+          ],
+          correctIndex: 1,
+          explanation: "The bone marrow space drains directly into the central venous system. Same drugs, same doses as IV—IO is used when peripheral IV access is difficult or impossible."
+        }
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "aemt-ivio-q2",
+          question: "The difference between IV bolus and IV infusion is:",
+          options: [
+            "Bolus uses a larger needle",
+            "Bolus delivers entire dose at once; infusion delivers over time",
+            "Infusion is always faster",
+            "They are the same technique"
+          ],
+          correctIndex: 1,
+          explanation: "IV bolus (push) delivers the full dose immediately—used for emergencies. IV infusion (drip) delivers medication mixed in fluid slowly over time—used for sustained effects and titration."
+        }
       }
     ],
     keyPoints: [
@@ -2942,6 +3342,36 @@ Both provide equivalent vascular access. IO is used when IV access is difficult 
             content: "**Indication**: Allergic reactions (adjunct to epinephrine in anaphylaxis)\n\n**Routes**: IV or IM\n**Dose**: 25-50 mg\n\n**Mechanism**: Histamine (H₁) blocker—reduces itching, hives, swelling\n\n**Side Effects**: Sedation (may be desired or problematic depending on situation)\n\n**Note**: Does NOT replace epinephrine in anaphylaxis—it's an adjunct. Epinephrine saves lives; diphenhydramine helps with symptoms."
           }
         ]
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "aemt-scope-q1",
+          question: "What concentration of epinephrine is used for IM injection in anaphylaxis?",
+          options: [
+            "1:10,000",
+            "1:1,000",
+            "1:100",
+            "1:100,000"
+          ],
+          correctIndex: 1,
+          explanation: "1:1,000 (1 mg/mL) is for IM injection. 1:10,000 (0.1 mg/mL) is for IV use in cardiac arrest. Giving 1:1,000 IV would be 10x too concentrated—a potentially fatal medication error. Always verify concentration."
+        }
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "aemt-scope-q2",
+          question: "Diphenhydramine in anaphylaxis is considered:",
+          options: [
+            "The primary life-saving medication",
+            "An adjunct—it does NOT replace epinephrine",
+            "More effective than epinephrine",
+            "Contraindicated in allergic reactions"
+          ],
+          correctIndex: 1,
+          explanation: "Diphenhydramine is an H1 blocker that helps with hives and itching but does NOT address the life-threatening components of anaphylaxis (bronchospasm, vasodilation). Epinephrine saves lives; diphenhydramine helps with symptoms."
+        }
       }
     ],
     keyPoints: [
@@ -2985,6 +3415,36 @@ You often need to calculate how much volume contains the dose you need.`,
             back: "(Volume × drip factor) ÷ time in minutes\n\n**Example**: 100 mL over 30 min with 10 gtt/mL set\n(100 × 10) ÷ 30 = 33 gtts/min\n\nMost EMS uses pumps, but know this formula for backup."
           }
         ]
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "aemt-calc-q1",
+          question: "A patient weighs 154 lbs. What is their weight in kg?",
+          options: [
+            "77 kg",
+            "70 kg",
+            "154 kg",
+            "100 kg"
+          ],
+          correctIndex: 1,
+          explanation: "Divide pounds by 2.2 to get kilograms: 154 ÷ 2.2 ≈ 70 kg. Always convert to kg before weight-based dosing calculations."
+        }
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "aemt-calc-q2",
+          question: "You need 40 mg of a drug that comes as 10 mg/mL. How much do you draw?",
+          options: [
+            "2 mL",
+            "4 mL",
+            "10 mL",
+            "40 mL"
+          ],
+          correctIndex: 1,
+          explanation: "Desired dose ÷ concentration = volume. 40 mg ÷ 10 mg/mL = 4 mL. Always double-check calculations before administration."
+        }
       }
     ],
     keyPoints: [
@@ -3013,6 +3473,38 @@ Patient with hives and mild throat tightness after eating shellfish. No respirat
 Patient with known asthma, diffuse wheezing, speaking in short phrases, SpO₂ 88%.
 
 *Decision*: Albuterol nebulizer (2.5 mg), high-flow oxygen, patient positioning. May need continuous albuterol if severe. Consider epinephrine if not responding.`,
+    blocks: [
+      {
+        type: "quiz",
+        quiz: {
+          id: "aemt-clinical-q1",
+          question: "A hypoglycemic patient with no IV access should receive:",
+          options: [
+            "Oral glucose tablets",
+            "Glucagon 1 mg IM",
+            "D50 orally",
+            "Insulin"
+          ],
+          correctIndex: 1,
+          explanation: "Without IV access, glucagon 1 mg IM is the appropriate treatment. It stimulates the liver to release stored glycogen as glucose. Response takes 10-15 minutes—slower than IV dextrose but effective when IV isn't available."
+        }
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "aemt-clinical-q2",
+          question: "Early epinephrine in an allergic reaction with throat tightness is important because:",
+          options: [
+            "It's required by protocol only",
+            "Early intervention prevents progression to full anaphylaxis",
+            "Epinephrine treats hives",
+            "It's less effective if given early"
+          ],
+          correctIndex: 1,
+          explanation: "Throat tightness suggests potential airway compromise. Early epinephrine addresses bronchospasm, vasodilation, and swelling before they become life-threatening. Waiting for full anaphylaxis to develop before treating means playing catch-up."
+        }
+      }
+    ],
     keyPoints: [
       "Assessment findings guide medication selection",
       "Consider patient-specific factors (allergies, conditions, current medications)",
@@ -3068,6 +3560,36 @@ Patient with known asthma, diffuse wheezing, speaking in short phrases, SpO₂ 8
           ],
           correctIndex: 1,
           explanation: "Glucagon works by stimulating the liver to release stored glycogen as glucose. Chronic alcoholism and malnutrition deplete glycogen stores, making glucagon ineffective. These patients need IV dextrose, which provides glucose directly without relying on liver stores."
+        }
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "aemt-pharm-q4",
+          question: "A medication has a concentration of 10 mg/mL. You need 25 mg. How much do you draw up?",
+          options: [
+            "1.0 mL",
+            "2.5 mL",
+            "10 mL",
+            "25 mL"
+          ],
+          correctIndex: 1,
+          explanation: "Desired dose ÷ concentration = volume. 25 mg ÷ 10 mg/mL = 2.5 mL. This is the fundamental drug calculation formula you'll use constantly: D/H × V."
+        }
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "aemt-pharm-q5",
+          question: "Why is a saline flush given after IV push medications?",
+          options: [
+            "To dilute the medication",
+            "To ensure the full dose reaches circulation",
+            "To prevent vein collapse",
+            "To test IV patency only"
+          ],
+          correctIndex: 1,
+          explanation: "A 10-20 mL saline flush after IV push clears the medication from the IV line and ensures the complete dose reaches central circulation. Critical for time-sensitive drugs like adenosine (10-second half-life) that must reach the heart quickly."
         }
       }
     ]
@@ -4464,6 +4986,36 @@ Before you touch anyone, you're gathering information: What happened? How many p
             content: "More patients = call for more resources early. Multiple patients may require triage. Don't get tunnel vision on the first patient you see—scan the entire scene. One patient down may mean others are also affected (CO poisoning, violence)."
           }
         ]
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "emt-scene-q1",
+          question: "What is the FIRST action when arriving on any scene?",
+          options: [
+            "Assess the patient",
+            "Put on BSI/PPE",
+            "Call for backup",
+            "Check vital signs"
+          ],
+          correctIndex: 1,
+          explanation: "BSI (Body Substance Isolation) / PPE comes first—before patient contact, before scene entry. Gloves at minimum, with additional PPE as indicated. You can't help anyone if you become contaminated or exposed."
+        }
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "emt-scene-q2",
+          question: "Multiple patients are found unconscious in a home. What should you suspect?",
+          options: [
+            "Food poisoning",
+            "Carbon monoxide exposure",
+            "Sleep disorder",
+            "Dehydration"
+          ],
+          correctIndex: 1,
+          explanation: "Multiple patients with altered mental status in an enclosed space should make you think environmental hazard—CO poisoning is a classic scenario. Do NOT enter without proper detection equipment and ventilation. Scene safety first."
+        }
       }
     ],
     keyPoints: [
@@ -4518,6 +5070,36 @@ X → A → B → C → D → E. Each letter is both an assessment and an interv
             back: "Expose what you need to find injuries—remove clothing to visualize significant body regions. Maintain warmth—hypothermia kills and impairs clotting. Balance thorough assessment with patient dignity and temperature management."
           }
         ]
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "emt-primary-q1",
+          question: "What does 'X' stand for in XABCDE?",
+          options: [
+            "X-ray assessment",
+            "Exsanguinating hemorrhage",
+            "External examination",
+            "Extra oxygen delivery"
+          ],
+          correctIndex: 1,
+          explanation: "X = eXsanguinating (massive) hemorrhage. The 2025 NREMT standards place hemorrhage control before airway because a patient can bleed out in 3-5 minutes from a major arterial injury—faster than airway obstruction typically kills."
+        }
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "emt-primary-q2",
+          question: "AVPU is used to assess which component of the primary survey?",
+          options: [
+            "Airway patency",
+            "Breathing adequacy",
+            "Circulation status",
+            "Disability (neurological status)"
+          ],
+          correctIndex: 3,
+          explanation: "AVPU (Alert, Verbal, Pain, Unresponsive) assesses neurological status under 'D—Disability' in the primary survey. It's a rapid tool to determine the patient's level of consciousness and brain perfusion status."
+        }
       }
     ],
     keyPoints: [
@@ -4558,6 +5140,36 @@ Only after the primary survey is complete and immediate life threats are managed
             content: "Your trauma assessment mnemonic for each body region: Deformity, Contusions, Abrasions, Punctures/Penetrations, Burns, Tenderness, Lacerations, Swelling. Palpate and inspect systematically. Any positive findings need documentation and may change treatment."
           }
         ]
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "emt-secondary-q1",
+          question: "DCAP-BTLS is used during which assessment phase?",
+          options: [
+            "Scene size-up",
+            "Primary survey",
+            "Secondary trauma assessment",
+            "Reassessment"
+          ],
+          correctIndex: 2,
+          explanation: "DCAP-BTLS (Deformity, Contusions, Abrasions, Punctures, Burns, Tenderness, Lacerations, Swelling) is your systematic trauma inspection mnemonic used at each body region during the secondary head-to-toe exam."
+        }
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "emt-secondary-q2",
+          question: "A medical patient's chief complaint is shortness of breath. Your secondary exam should focus on:",
+          options: [
+            "Full head-to-toe trauma exam",
+            "Chest, lung sounds, JVD, and peripheral edema",
+            "Extremity pulses only",
+            "Pupil response only"
+          ],
+          correctIndex: 1,
+          explanation: "Medical patients get a focused exam guided by the chief complaint. Dyspnea calls for assessment of lung sounds, JVD (heart failure indicator), peripheral edema, and respiratory effort—all related to cardiopulmonary causes of shortness of breath."
+        }
       }
     ],
     keyPoints: [
@@ -4577,6 +5189,38 @@ Open-ended questions get better information: "Tell me about your medications" vs
 
 **Documentation Matters**
 Everything you learn goes in your report. Allergies affect treatment options. Medications reveal medical history. Events leading up to the call paint the clinical picture.`,
+    blocks: [
+      {
+        type: "quiz",
+        quiz: {
+          id: "emt-sample-q1",
+          question: "What does the 'L' in SAMPLE stand for?",
+          options: [
+            "Level of consciousness",
+            "Last oral intake",
+            "Location of pain",
+            "Lab results"
+          ],
+          correctIndex: 1,
+          explanation: "L = Last oral intake. This is important for surgical planning (aspiration risk during anesthesia) and can be relevant for diabetic emergencies, dehydration assessment, and medication timing."
+        }
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "emt-sample-q2",
+          question: "A patient takes metformin and lisinopril. This medication list tells you they likely have:",
+          options: [
+            "Asthma and allergies",
+            "Diabetes and hypertension",
+            "Seizure disorder and anxiety",
+            "COPD and heart failure"
+          ],
+          correctIndex: 1,
+          explanation: "Metformin is a diabetes medication (blood sugar control) and lisinopril is an ACE inhibitor (blood pressure control). Medications reveal medical history—a key reason for gathering the 'M' in SAMPLE."
+        }
+      }
+    ],
     keyPoints: [
       "SAMPLE: Signs/Symptoms, Allergies, Medications, Past history, Last intake, Events",
       "Open-ended questions yield better information",
@@ -4625,6 +5269,36 @@ Everything you learn goes in your report. Allergies affect treatment options. Me
             back: "What does it feel like? Use the patient's words. 'Crushing' or 'pressure' chest pain = cardiac. 'Tearing' back pain = possible dissection. 'Sharp' or 'stabbing' = often musculoskeletal or pleuritic. Quality helps narrow your differential."
           }
         ]
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "emt-opqrst-q1",
+          question: "A patient describes their chest pain as 'crushing pressure.' This description corresponds to which OPQRST letter?",
+          options: [
+            "O — Onset",
+            "P — Provocation",
+            "Q — Quality",
+            "R — Region"
+          ],
+          correctIndex: 2,
+          explanation: "Q = Quality. 'Crushing' or 'pressure' describes the character/quality of the pain, which in chest pain is a classic description of cardiac origin. The quality of symptoms helps narrow your differential diagnosis."
+        }
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "emt-opqrst-q2",
+          question: "Chest pain that worsens with deep breathing is described as:",
+          options: [
+            "Cardiac pain",
+            "Pleuritic pain",
+            "Referred pain",
+            "Visceral pain"
+          ],
+          correctIndex: 1,
+          explanation: "Pleuritic pain worsens with breathing or coughing—it involves the pleura (lung lining). This is the 'P' (Provocation/Palliation) in OPQRST. Pleuritic chest pain suggests respiratory causes like pneumonia, PE, or pleurisy rather than cardiac causes."
+        }
       }
     ],
     keyPoints: [
@@ -4681,6 +5355,36 @@ Everything you learn goes in your report. Allergies affect treatment options. Me
           ],
           correctIndex: 1,
           explanation: "Scene size-up happens BEFORE patient contact. It includes safety assessment, MOI/NOI, patient count, and resource needs. Blood glucose is assessed during the secondary survey after you've made patient contact and addressed life threats."
+        }
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "emt-assess-q4",
+          question: "What does 'BSI' stand for in scene size-up, and when should it happen?",
+          options: [
+            "Basic Scene Investigation — after patient contact",
+            "Body Substance Isolation — before patient contact",
+            "Bilateral Scene Inspection — during transport",
+            "Basic Safety Instructions — at the hospital"
+          ],
+          correctIndex: 1,
+          explanation: "Body Substance Isolation (BSI) is your personal protective equipment step and happens BEFORE patient contact—gloves at minimum. It's the very first action in scene size-up to protect you from blood, body fluids, and infectious agents."
+        }
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "emt-assess-q5",
+          question: "A trauma patient has an unstable pelvis on palpation. You should:",
+          options: [
+            "Palpate it again to confirm",
+            "Compress it firmly one time only, then stabilize",
+            "Skip pelvic assessment entirely",
+            "Roll the patient to check posterior pelvis"
+          ],
+          correctIndex: 1,
+          explanation: "An unstable pelvis is palpated gently ONCE. Repeated compression can worsen hemorrhage from pelvic fractures. After identifying instability, stabilize with a pelvic binder or sheet and prioritize rapid transport—pelvic fractures can cause life-threatening internal bleeding."
         }
       }
     ]
@@ -4976,6 +5680,36 @@ Assessment isn't about collecting numbers—it's about seeing the clinical pictu
           correctIndex: 1,
           explanation: "Children compensate primarily through heart rate increase. By the time hypotension develops, they've lost 25-30% of blood volume—a very late and ominous sign. Tachycardia in a child deserves serious attention."
         }
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "aemt-assess-q4",
+          question: "A pulse pressure of 20 mmHg (BP 90/70) suggests:",
+          options: [
+            "Good cardiac output",
+            "Low stroke volume, likely hypovolemia or cardiogenic shock",
+            "High blood pressure",
+            "Normal vital signs"
+          ],
+          correctIndex: 1,
+          explanation: "Normal pulse pressure is 30-40 mmHg. Narrow pulse pressure (<25) indicates reduced stroke volume—the heart isn't ejecting much blood per beat. This is an early sign of shock, often present before systolic BP drops significantly."
+        }
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "aemt-assess-q5",
+          question: "An elderly patient on beta-blockers presents with infection. What assessment finding might be ABSENT?",
+          options: [
+            "Fever",
+            "Tachycardia",
+            "Altered mental status",
+            "Hypotension"
+          ],
+          correctIndex: 1,
+          explanation: "Beta-blockers prevent the heart from increasing its rate appropriately. An infected elderly patient on beta-blockers may not develop the tachycardia you'd expect as a compensatory response—masking a key early sign of sepsis. Don't rely on heart rate alone."
+        }
       }
     ]
   },
@@ -5145,6 +5879,36 @@ You'll develop this with experience—the ability to look at a patient and know 
             content: "STEMI (door-to-balloon time), stroke (time-to-TPA/thrombectomy), sepsis (early antibiotics), trauma with hemorrhage (OR). These have time-dependent outcomes—your recognition triggers immediate transport decisions and destination selection. 'Time is muscle/brain/life.'"
           }
         ]
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "emt-shock-comp-q1",
+          question: "A patient has tachycardia, pale skin, and normal blood pressure. This is:",
+          options: [
+            "Normal findings",
+            "Compensated shock",
+            "Decompensated shock",
+            "Cardiac arrest"
+          ],
+          correctIndex: 1,
+          explanation: "The body is compensating—tachycardia and vasoconstriction (pale skin) maintain blood pressure. This is compensated shock, your intervention window. Treat aggressively now before decompensation occurs."
+        }
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "emt-shock-comp-q2",
+          question: "Bradycardia in a shock patient is an ominous sign because it indicates:",
+          options: [
+            "The patient is relaxing",
+            "Compensation has failed",
+            "The patient is improving",
+            "A medication side effect"
+          ],
+          correctIndex: 1,
+          explanation: "In shock, the heart initially speeds up to compensate. When bradycardia develops, it means the compensatory mechanisms have failed—the heart is no longer able to maintain its increased rate. This is a pre-arrest sign requiring immediate intervention."
+        }
       }
     ],
     keyPoints: [
@@ -5196,6 +5960,36 @@ Your working diagnosis based on assessment. 'Suspected anterior STEMI' or 'Likel
             back: "Document your clinical reasoning. Why did you give that medication? What findings supported your field impression? What alternatives did you consider? Good documentation protects you legally AND informs subsequent providers."
           }
         ]
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "emt-shock-def-q1",
+          question: "Shock is best defined as:",
+          options: [
+            "Low blood pressure",
+            "Inadequate tissue perfusion",
+            "A fast heart rate",
+            "Blood loss"
+          ],
+          correctIndex: 1,
+          explanation: "Shock is inadequate tissue perfusion—cells not getting enough oxygen-rich blood. Low BP is just one sign, and it's a late one. Shock can exist with 'normal' blood pressure if the body is compensating."
+        }
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "emt-shock-def-q2",
+          question: "When cells can't get oxygen, they switch to:",
+          options: [
+            "Aerobic metabolism",
+            "Anaerobic metabolism",
+            "Photosynthesis",
+            "Gluconeogenesis"
+          ],
+          correctIndex: 1,
+          explanation: "Without oxygen, cells switch to anaerobic metabolism—a backup energy system that produces only 2 ATP instead of 36 and generates lactate as waste. This is inefficient and unsustainable, leading to acidosis and eventual cell death."
+        }
       }
     ],
     keyPoints: [
@@ -5278,6 +6072,36 @@ Each case requires synthesizing: history, physical exam, vital signs, clinical c
           ],
           correctIndex: 2,
           explanation: "Narrowing pulse pressure (decreasing SBP-DBP difference) indicates falling stroke volume—the heart is failing to move blood effectively. This is a pre-arrest warning sign. Tachycardia and tachypnea indicate compensation; narrowing pulse pressure shows the pump is failing."
+        }
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "emt-shock-q4",
+          question: "Which is the EARLIEST reliable sign of shock?",
+          options: [
+            "Hypotension",
+            "Tachycardia",
+            "Bradycardia",
+            "Absent pedal pulses"
+          ],
+          correctIndex: 1,
+          explanation: "Tachycardia is the body's first compensatory response to decreased perfusion. Blood pressure drops are a LATE sign—by the time BP falls, the patient has lost significant compensatory reserve. Always take tachycardia seriously."
+        }
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "emt-shock-q5",
+          question: "Cold blood doesn't clot well. This is why shock management includes:",
+          options: [
+            "Administering blood thinners",
+            "Preventing hypothermia",
+            "Elevating the head",
+            "Restricting oxygen"
+          ],
+          correctIndex: 1,
+          explanation: "Hypothermia impairs the coagulation cascade, worsening bleeding. Temperature management (covering the patient, warming the ambulance, removing wet clothing) is a critical but often overlooked shock intervention."
         }
       }
     ]
@@ -5371,6 +6195,36 @@ When any of these fail, delivery suffers. Cells don't get their oxygen, and they
             content: "When perfusion drops, the body compensates: heart beats faster, blood vessels constrict, blood shifts to vital organs. These compensatory signs ARE your assessment findings. Tachycardia and cool skin aren't random—they're the body fighting to survive."
           }
         ]
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "emt-shock-type-q1",
+          question: "Flat neck veins in a hypotensive patient suggest which type of shock?",
+          options: [
+            "Cardiogenic",
+            "Obstructive",
+            "Hypovolemic",
+            "Neurogenic"
+          ],
+          correctIndex: 2,
+          explanation: "Flat neck veins indicate low circulating volume—there isn't enough blood to fill the jugular veins. This is characteristic of hypovolemic shock. Cardiogenic and obstructive shock typically show JVD (distended neck veins) because blood is backing up."
+        }
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "emt-shock-type-q2",
+          question: "Warm, flushed skin in a shock patient initially suggests:",
+          options: [
+            "Hypovolemic shock",
+            "Cardiogenic shock",
+            "Distributive shock",
+            "Obstructive shock"
+          ],
+          correctIndex: 2,
+          explanation: "Warm, flushed skin indicates vasodilation—the hallmark of distributive shock (sepsis, anaphylaxis, neurogenic). The 'container' is too big for the volume. In later stages, vasoconstriction may take over and skin becomes cool."
+        }
       }
     ],
     keyPoints: [
@@ -5427,6 +6281,36 @@ Compensated shock is your intervention window. Once decompensation begins, you'r
             back: "Brain perfusion is dropping. Confusion, anxiety, combativeness, or lethargy—any mental status change in a trauma or medical patient should make you think 'shock' until proven otherwise."
           }
         ]
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "emt-shock-interv-q1",
+          question: "Why should a cardiogenic shock patient NOT have legs elevated?",
+          options: [
+            "It causes pain",
+            "Returning blood to a failing heart worsens pulmonary edema",
+            "It lowers blood pressure",
+            "It's never appropriate for any shock"
+          ],
+          correctIndex: 1,
+          explanation: "In cardiogenic shock, the heart can't pump the blood it already has. Elevating legs increases venous return (preload), which the failing heart can't handle—worsening pulmonary edema. Keep these patients sitting upright."
+        }
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "emt-shock-interv-q2",
+          question: "What is the primary reason for giving high-flow oxygen to shock patients?",
+          options: [
+            "To raise blood pressure",
+            "To maximize oxygen delivery to starving cells",
+            "To reduce heart rate",
+            "To prevent infection"
+          ],
+          correctIndex: 1,
+          explanation: "Shock means cells aren't getting enough oxygen. High-flow O₂ (15 LPM via NRB) maximizes the oxygen content of the blood, helping deliver more oxygen to tissues that are starving—even if SpO₂ appears adequate."
+        }
       }
     ],
     keyPoints: [
@@ -5492,6 +6376,38 @@ The skin is one of the first organs to show reduced perfusion. Cold, pale, clamm
 
 **Trending Tells the Story**
 One set of vitals is a snapshot. Repeated assessments show you the trajectory. Is the patient getting better, worse, or staying the same? Trends predict outcomes.`,
+    blocks: [
+      {
+        type: "quiz",
+        quiz: {
+          id: "emt-shock-assess-q1",
+          question: "Which assessment finding appears BEFORE blood pressure drops in shock?",
+          options: [
+            "Hypotension",
+            "Cool, pale, clammy skin",
+            "Bradycardia",
+            "Pupil dilation"
+          ],
+          correctIndex: 1,
+          explanation: "Skin signs are one of the earliest indicators of shock. The body shunts blood away from skin to vital organs, causing cool, pale, clammy skin BEFORE blood pressure drops. This is why skin assessment is so valuable."
+        }
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "emt-shock-assess-q2",
+          question: "Why is trending vital signs more valuable than a single measurement?",
+          options: [
+            "Single measurements are always inaccurate",
+            "Trends show the patient's trajectory—improving, worsening, or stable",
+            "Trending is required by protocol only",
+            "Single measurements don't need documentation"
+          ],
+          correctIndex: 1,
+          explanation: "A single set of vitals is a snapshot. Serial measurements reveal trajectory. A patient with BP going from 120/80 to 100/70 to 80/50 over 15 minutes is clearly deteriorating—information a single reading can't provide."
+        }
+      }
+    ],
     keyPoints: [
       "Skin signs appear before BP drops",
       "Mental status changes mean brain perfusion is dropping",
@@ -5938,6 +6854,36 @@ Each scenario requires: recognize the type → apply appropriate treatment → m
           correctIndex: 1,
           explanation: "Cardiogenic shock is tricky—the patient may need some preload, but too much worsens pulmonary edema. A small fluid challenge (250mL) with careful reassessment guides further treatment. Watch for worsening crackles or dyspnea."
         }
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "aemt-shock-q4",
+          question: "What is 'permissive hypotension' in penetrating trauma?",
+          options: [
+            "Allowing BP to drop to zero",
+            "Targeting SBP 80-90 to avoid dislodging clots",
+            "Giving no IV fluids whatsoever",
+            "Raising BP as high as possible"
+          ],
+          correctIndex: 1,
+          explanation: "In penetrating trauma, aggressive fluid resuscitation raises BP, dilutes clotting factors, and can dislodge forming clots—'popping the clot.' Target SBP 80-90 until surgical hemorrhage control. Enough to perfuse organs, not enough to worsen bleeding."
+        }
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "aemt-shock-q5",
+          question: "After a 1L fluid bolus, the BEST indicator of improvement is:",
+          options: [
+            "Blood pressure number alone",
+            "Improved mental status and warming skin",
+            "The fluid bag is empty",
+            "Heart rate unchanged"
+          ],
+          correctIndex: 1,
+          explanation: "Perfusion endpoints (mental status, skin perfusion, capillary refill) are better indicators than BP alone. Improved mentation means the brain is getting blood. Warming skin means the body is de-shunting blood back to the periphery."
+        }
       }
     ]
   },
@@ -6276,6 +7222,66 @@ Every case requires: assess → form hypothesis → intervene → monitor respon
           correctIndex: 1,
           explanation: "Adequate MAP doesn't guarantee tissue perfusion. Microcirculatory dysfunction—capillary plugging, endothelial damage, maldistribution of flow—can persist even with normal blood pressure. Rising lactate + mottling despite MAP goals indicates the resuscitation strategy needs reassessment."
         }
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "emt-patho-q4",
+          question: "Apoptosis differs from necrosis because apoptosis is:",
+          options: [
+            "Caused by trauma",
+            "Programmed and controlled cell death",
+            "Always harmful",
+            "Caused by infection"
+          ],
+          correctIndex: 1,
+          explanation: "Apoptosis is programmed cell death—the body's scheduled maintenance. Old cells retire in an orderly way to make room for new ones. Necrosis is unplanned cell death from external injury, which causes inflammation and tissue damage."
+        }
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "emt-patho-q5",
+          question: "Anaphylaxis is an example of:",
+          options: [
+            "Normal immune function",
+            "An immune system overreaction that becomes dangerous",
+            "A bacterial infection",
+            "Programmed cell death"
+          ],
+          correctIndex: 1,
+          explanation: "Anaphylaxis is the immune system's massive, life-threatening overreaction to an allergen. The defense mechanism itself becomes the disease—causing vasodilation, bronchospasm, and airway swelling that can kill if not treated with epinephrine."
+        }
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "emt-patho-homeo-q1",
+          question: "Homeostasis is best described as:",
+          options: [
+            "The body's ability to fight infection",
+            "The body's maintenance of a stable internal environment",
+            "The process of digestion",
+            "The heart's electrical system"
+          ],
+          correctIndex: 1,
+          explanation: "Homeostasis is the body's constant regulation of internal conditions—temperature, pH, blood sugar, oxygen levels—within narrow ranges. When homeostasis is disrupted, disease processes begin."
+        }
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "emt-patho-homeo-q2",
+          question: "Understanding pathophysiology helps EMTs because:",
+          options: [
+            "It replaces the need for protocols",
+            "It explains WHY signs and symptoms occur",
+            "It's only needed for paramedic-level care",
+            "It eliminates the need for assessment"
+          ],
+          correctIndex: 1,
+          explanation: "Pathophysiology explains the 'why' behind patient presentations. When you understand why a patient is tachycardic (compensating for blood loss), your assessment becomes purposeful—you're solving a puzzle, not just checking boxes."
+        }
       }
     ]
   },
@@ -6410,6 +7416,36 @@ The progression from healthy to dead follows a pattern: **hypoxia → ischemia �
             back: "Early injury: cells swell but can recover if the cause is fixed. Late injury: cell membranes break down, organelles fail. Once irreversible, the cell dies. Your interventions buy time in the reversible window."
           }
         ]
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "emt-patho-cell-q1",
+          question: "The progression from reduced oxygen to cell death follows which sequence?",
+          options: [
+            "Infarction → ischemia → hypoxia",
+            "Hypoxia → ischemia → infarction",
+            "Necrosis → apoptosis → inflammation",
+            "Inflammation → ischemia → hypoxia"
+          ],
+          correctIndex: 1,
+          explanation: "The cellular death cascade progresses: hypoxia (reduced oxygen) → ischemia (reduced blood flow + waste buildup) → infarction (irreversible tissue death). Understanding this sequence explains why time-critical interventions matter."
+        }
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "emt-patho-cell-q2",
+          question: "'Time is muscle' in heart attacks refers to which concept?",
+          options: [
+            "Exercise prevents heart attacks",
+            "Prolonged ischemia leads to irreversible infarction",
+            "The heart is a voluntary muscle",
+            "Heart attacks only occur during physical activity"
+          ],
+          correctIndex: 1,
+          explanation: "Every minute without blood flow means more cardiac muscle dies (infarction). Rapid transport and reperfusion can save tissue that's ischemic but not yet dead—the reversible injury window."
+        }
       }
     ],
     keyPoints: [
@@ -6446,6 +7482,36 @@ Understanding these defenses helps you interpret patient presentations. Redness,
             content: "Sometimes the defense causes more harm than the attacker. Anaphylaxis is the immune system's massive overreaction to an allergen. Sepsis is inflammation gone system-wide, damaging organs. Autoimmune diseases like lupus attack the body's own tissue. The defense becomes the disease."
           }
         ]
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "emt-patho-defense-q1",
+          question: "The four cardinal signs of inflammation are:",
+          options: [
+            "Fever, chills, fatigue, nausea",
+            "Redness, heat, swelling, pain",
+            "Cough, congestion, sore throat, fatigue",
+            "Pallor, diaphoresis, tachycardia, hypotension"
+          ],
+          correctIndex: 1,
+          explanation: "Redness (rubor), heat (calor), swelling (tumor), and pain (dolor) are the four cardinal signs of inflammation. These result from vasodilation, increased vascular permeability, and immune cell migration to the injury site."
+        }
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "emt-patho-defense-q2",
+          question: "A fever of 101°F in a patient with an infection indicates:",
+          options: [
+            "The infection is life-threatening",
+            "The body is actively fighting the infection",
+            "Antibiotics have failed",
+            "The patient needs immediate cooling"
+          ],
+          correctIndex: 1,
+          explanation: "Low-grade fever is the body's weapon—higher temperature speeds up immune cell activity and slows many pathogens. It's a sign the immune system is working. Very high fever (>104°F) becomes dangerous itself, but moderate fever is protective."
+        }
       }
     ],
     keyPoints: [
@@ -6467,6 +7533,38 @@ Two main categories: pump problems and pipe problems. Heart failure is a pump th
 
 **Respiratory Disease**
 Ventilation failures (can't move air) vs. oxygenation failures (can't exchange gases). Asthma constricts airways. COPD destroys alveoli. Pneumonia fills alveoli with fluid. Different mechanisms, different sounds, different treatments.`,
+    blocks: [
+      {
+        type: "quiz",
+        quiz: {
+          id: "emt-patho-disease-q1",
+          question: "Heart failure is categorized as which type of cardiovascular disease?",
+          options: [
+            "A pipe problem",
+            "A pump problem",
+            "An electrical problem",
+            "A valve problem only"
+          ],
+          correctIndex: 1,
+          explanation: "Heart failure is a pump problem—the heart can't keep up with the body's demand for blood flow. Atherosclerosis and MI are pipe problems (blocked vessels). Understanding pump vs. pipe helps guide assessment and treatment."
+        }
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "emt-patho-disease-q2",
+          question: "Asthma and COPD are primarily failures of:",
+          options: [
+            "Oxygenation (gas exchange)",
+            "Ventilation (air movement)",
+            "Circulation (blood flow)",
+            "Metabolism (energy production)"
+          ],
+          correctIndex: 1,
+          explanation: "Asthma constricts airways; COPD destroys alveoli and traps air. Both primarily impair ventilation—the mechanical movement of air. This is why bronchodilators (which open airways) are a key treatment."
+        }
+      }
+    ],
     keyPoints: [
       "Infectious disease: pathogens damage tissue or trigger harmful immune responses",
       "Cardiovascular disease: pump problems vs. pipe problems",
@@ -6507,6 +7605,36 @@ Ventilation failures (can't move air) vs. oxygenation failures (can't exchange g
             back: "Prolonged compression damages muscle. When released, cell contents flood the bloodstream: potassium (cardiac arrest risk), myoglobin (kidney damage), acids. Treat BEFORE release when possible."
           }
         ]
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "emt-patho-trauma-q1",
+          question: "Why is blunt trauma often more dangerous than it appears?",
+          options: [
+            "It always causes fractures",
+            "Internal organ damage can occur without visible external injury",
+            "It only affects the skin",
+            "It never causes bleeding"
+          ],
+          correctIndex: 1,
+          explanation: "Blunt trauma distributes energy over a wide area—the skin may look fine while organs are compressed, torn, or bleeding internally. This is why mechanism of injury is so important—it predicts hidden injuries."
+        }
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "emt-patho-trauma-q2",
+          question: "A patient trapped under debris for 2 hours is at risk for which complication upon release?",
+          options: [
+            "Hypothermia only",
+            "Crush syndrome with cardiac arrest risk",
+            "Dehydration only",
+            "Skin burns"
+          ],
+          correctIndex: 1,
+          explanation: "Crush injuries release potassium, myoglobin, and acids when pressure is removed. The sudden potassium surge can cause fatal cardiac arrhythmias. Treatment should begin BEFORE release when possible."
+        }
       }
     ],
     keyPoints: [
@@ -7544,6 +8672,36 @@ Your assessment drives your intervention. Mild wheezing → nebulizer. Tripod po
           ],
           correctIndex: 1,
           explanation: "The main difference is the cuff. King LT has an inflatable cuff you fill with a syringe. The i-gel has a thermoplastic gel cuff that molds to anatomy without inflation — like memory foam. Both are blind insertion, both sit above the vocal cords, and both come in adult and pediatric sizes."
+        }
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "aemt-patho-q4",
+          question: "Anaerobic metabolism produces how many ATP compared to aerobic?",
+          options: [
+            "The same amount",
+            "Half as many (18 ATP)",
+            "Only 2 ATP vs. 36 aerobically",
+            "More ATP but with waste products"
+          ],
+          correctIndex: 2,
+          explanation: "Anaerobic metabolism produces only 2 ATP vs. 36 ATP aerobically—a 94% drop in energy production. Plus it generates lactate as waste, contributing to acidosis. This massive energy deficit is why cells can't survive long without oxygen."
+        }
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "aemt-patho-q5",
+          question: "Metaplasia in a smoker's airways involves:",
+          options: [
+            "Cells dying from smoke damage",
+            "Ciliated cells being replaced by tougher squamous cells",
+            "Airways getting wider",
+            "New blood vessels forming"
+          ],
+          correctIndex: 1,
+          explanation: "Chronic irritation from smoking causes ciliated respiratory epithelium to be replaced by tougher squamous cells. These withstand the irritation but can't clear mucus—sacrificing function for durability. This adaptation is reversible if smoking stops."
         }
       }
     ]
