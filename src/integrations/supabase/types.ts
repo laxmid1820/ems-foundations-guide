@@ -21,11 +21,14 @@ export type Database = {
           cardiac_arrest_sim_progress: number
           cardiac_progress: number
           created_at: string
+          current_streak: number
           display_name: string | null
           id: string
+          last_active_date: string | null
           shock_progress: number
           updated_at: string
           user_id: string
+          xp_total: number
         }
         Insert: {
           airway_progress?: number
@@ -33,11 +36,14 @@ export type Database = {
           cardiac_arrest_sim_progress?: number
           cardiac_progress?: number
           created_at?: string
+          current_streak?: number
           display_name?: string | null
           id?: string
+          last_active_date?: string | null
           shock_progress?: number
           updated_at?: string
           user_id: string
+          xp_total?: number
         }
         Update: {
           airway_progress?: number
@@ -45,11 +51,14 @@ export type Database = {
           cardiac_arrest_sim_progress?: number
           cardiac_progress?: number
           created_at?: string
+          current_streak?: number
           display_name?: string | null
           id?: string
+          last_active_date?: string | null
           shock_progress?: number
           updated_at?: string
           user_id?: string
+          xp_total?: number
         }
         Relationships: []
       }

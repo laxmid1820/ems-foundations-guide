@@ -17,10 +17,8 @@ export function TopicSection({
   onCardFlip,
   onQuizAnswer 
 }: TopicSectionProps) {
-  // Helper to render content with markdown-style formatting
   const renderContent = (content: string) => {
     return content.split('\n\n').map((paragraph, i) => {
-      // Check if this is a bullet list
       if (paragraph.includes('•')) {
         const lines = paragraph.split('\n');
         return (
@@ -44,7 +42,6 @@ export function TopicSection({
         );
       }
 
-      // Check if this is a numbered list
       if (/^\d+\./.test(paragraph.trim())) {
         const lines = paragraph.split('\n');
         return (
@@ -68,7 +65,6 @@ export function TopicSection({
         );
       }
 
-      // Regular paragraph with possible bold formatting
       return (
         <p key={i} className="text-muted-foreground leading-relaxed mb-4 last:mb-0">
           {renderInlineFormatting(paragraph)}
@@ -77,7 +73,6 @@ export function TopicSection({
     });
   };
 
-  // Render inline bold formatting
   const renderInlineFormatting = (text: string) => {
     const parts = text.split(/(\*\*[^*]+\*\*)/g);
     return parts.map((part, i) => {
@@ -95,11 +90,11 @@ export function TopicSection({
   return (
     <section 
       id={section.id}
-      className="mb-6 last:mb-0 rounded-lg border border-border bg-card shadow-sm overflow-hidden"
+      className="mb-6 last:mb-0 rounded-2xl border-2 border-border bg-card shadow-sm overflow-hidden"
     >
       {/* Section Header */}
       <div className="flex items-start gap-4 p-5 sm:p-6 pb-0">
-        <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary font-semibold text-lg">
+        <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary text-primary-foreground font-extrabold text-lg shadow-sm">
           {index + 1}
         </span>
         <h2 className="text-xl sm:text-2xl font-bold text-foreground leading-tight pt-1">
@@ -109,12 +104,10 @@ export function TopicSection({
 
       {/* Main Content */}
       <div className="p-5 sm:p-6 pt-4 space-y-6">
-        {/* Body Text */}
         <div className="text-base sm:text-lg">
           {renderContent(section.content)}
         </div>
 
-        {/* Interactive Blocks */}
         {section.blocks && section.blocks.length > 0 && (
           <div className="space-y-6">
             {section.blocks.map((block, blockIndex) => (
@@ -130,10 +123,9 @@ export function TopicSection({
           </div>
         )}
 
-        {/* Key Points */}
         {section.keyPoints && section.keyPoints.length > 0 && (
-          <div className="rounded-lg bg-secondary/50 p-5 sm:p-6">
-            <p className="font-semibold text-foreground mb-3">Key Points</p>
+          <div className="rounded-xl bg-secondary/50 p-5 sm:p-6">
+            <p className="font-bold text-foreground mb-3">Key Points</p>
             <ul className="space-y-2">
               {section.keyPoints.map((point, i) => (
                 <li key={i} className="flex items-start gap-3 text-muted-foreground">
@@ -145,7 +137,6 @@ export function TopicSection({
           </div>
         )}
 
-        {/* Callouts */}
         {section.proTip && (
           <TopicCallout type="proTip">{section.proTip}</TopicCallout>
         )}
