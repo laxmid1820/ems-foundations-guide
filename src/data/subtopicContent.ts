@@ -5432,6 +5432,28 @@ AEMT assessment doesn't replace EMT skills—it adds to them. You still do scene
 
 **What You'll Learn**
 Advanced vital sign interpretation, shock assessment and differentiation, age-specific considerations, and the critical skill of reassessment and trending.`,
+    blocks: [
+      {
+        type: "quiz",
+        quiz: {
+          id: "aemt-assess-intro-q1",
+          question: "AEMT assessment differs from EMT assessment primarily by adding:",
+          options: ["Completely new assessment techniques", "Objective monitoring that quantifies clinical observations", "The ability to skip scene size-up", "Diagnostic imaging"],
+          correctIndex: 1,
+          explanation: "AEMT assessment builds ON EMT fundamentals—you still do scene size-up, XABCDE, SAMPLE/OPQRST. The key addition is objective monitoring (BP context, capnography, glucose) that quantifies what you observed qualitatively."
+        }
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "aemt-assess-intro-q2",
+          question: "'The patient looks shocky' becomes quantifiable at the AEMT level by adding:",
+          options: ["Subjective impressions only", "BP, HR, pulse pressure, and capnography readings", "X-ray findings", "Blood cultures"],
+          correctIndex: 1,
+          explanation: "At the AEMT level, clinical impressions are supported by numbers: 'BP 88/60, HR 124, narrow pulse pressure, low ETCO₂ consistent with poor perfusion.' Data confirms and quantifies your clinical impression."
+        }
+      }
+    ],
     keyPoints: [
       "AEMT assessment builds on EMT fundamentals",
       "Objective monitoring quantifies clinical observations",
@@ -5466,6 +5488,26 @@ A blood pressure of 100/70 means different things in different contexts. Calcula
             content: "Position change reveals volume status. Measure BP and HR lying, then sitting, then standing (wait 1 minute each). Positive orthostatics: >20 mmHg SBP drop OR >20 bpm HR increase. Indicates volume depletion—even when supine vitals look normal."
           }
         ]
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "aemt-vitals-q1",
+          question: "A pulse pressure of 25 mmHg suggests:",
+          options: ["Normal cardiovascular function", "Low stroke volume, possible early shock", "High cardiac output", "Vasodilation"],
+          correctIndex: 1,
+          explanation: "Normal pulse pressure is 30-40 mmHg. A narrow pulse pressure (<25) indicates the heart isn't ejecting much blood per beat—reduced stroke volume. This is an early sign of hypovolemic or cardiogenic shock, often present before systolic BP drops."
+        }
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "aemt-vitals-q2",
+          question: "A capnography waveform with a sloped upstroke ('shark fin') indicates:",
+          options: ["Normal ventilation", "Bronchospasm or air trapping", "Cardiac arrest", "Hyperventilation"],
+          correctIndex: 1,
+          explanation: "The sloped upstroke means the patient can't exhale CO₂ quickly due to narrowed airways. This is characteristic of asthma/COPD exacerbation. A normal waveform has a steep, vertical upstroke."
+        }
       }
     ],
     keyPoints: [
@@ -5517,6 +5559,26 @@ The body compensates for perfusion problems through tachycardia, vasoconstrictio
             back: "Something blocking flow (PE, tension pneumothorax, cardiac tamponade). JVD (blood backing up), muffled heart sounds (tamponade), absent breath sounds on one side (pneumo). Treatment: relieve the obstruction. Needle decompression for tension pneumo."
           }
         ]
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "aemt-shock-assess-q1",
+          question: "The FIRST sign of compensated shock is typically:",
+          options: ["Hypotension", "Tachycardia", "Altered mental status", "Cyanosis"],
+          correctIndex: 1,
+          explanation: "Tachycardia is the body's first compensatory response to decreased perfusion. Blood pressure is maintained through this compensation, which is why waiting for hypotension means you've missed the intervention window."
+        }
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "aemt-shock-assess-q2",
+          question: "Warm, flushed skin with hypotension suggests which type of shock?",
+          options: ["Hypovolemic", "Cardiogenic", "Distributive", "Obstructive"],
+          correctIndex: 2,
+          explanation: "Distributive shock (sepsis, anaphylaxis, neurogenic) causes vasodilation—the container is too big for the volume. Initially skin is warm because blood vessels are dilated, unlike hypovolemic shock where vasoconstriction makes skin cool and pale."
+        }
       }
     ],
     keyPoints: [
@@ -5554,6 +5616,26 @@ The Pediatric Assessment Triangle gives you a 30-second evaluation before you ev
             content: "Pediatrics: get on their level, use simple words, involve parents (they know normal vs. abnormal), examine less threatening areas first. Geriatric: speak clearly (not loudly), give time to respond, verify understanding, don't assume cognitive impairment, check hearing aids and glasses."
           }
         ]
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "aemt-pedgeri-q1",
+          question: "In pediatric assessment, hypotension indicates the child has lost approximately what percentage of blood volume?",
+          options: ["5-10%", "10-15%", "25-30%", "50%"],
+          correctIndex: 2,
+          explanation: "Children compensate extremely well through tachycardia. By the time hypotension develops, they've lost 25-30% of blood volume—a very late and ominous sign. Tachycardia in a child always deserves serious attention."
+        }
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "aemt-pedgeri-q2",
+          question: "An elderly patient on beta-blockers with sepsis may NOT develop which expected sign?",
+          options: ["Fever", "Tachycardia", "Confusion", "Hypotension"],
+          correctIndex: 1,
+          explanation: "Beta-blockers block the heart's ability to increase rate. An infected elderly patient on beta-blockers won't develop the compensatory tachycardia you'd expect—masking a key early sign of sepsis. Don't rely on heart rate alone in this population."
+        }
       }
     ],
     keyPoints: [
@@ -5600,6 +5682,26 @@ A single blood pressure tells you about one moment. Three blood pressures over 1
             back: "Time-stamp everything. 'BP 120/80 at 1400, 100/70 at 1410, 80/60 at 1420' tells a clear story of deterioration. Single numbers miss the trajectory. Trends communicate to receiving facilities and justify interventions."
           }
         ]
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "aemt-reass-q1",
+          question: "How often should unstable patients be reassessed?",
+          options: ["Every 30 minutes", "Every 15 minutes", "Every 5 minutes", "Only at handoff"],
+          correctIndex: 2,
+          explanation: "Unstable patients should be reassessed every 5 minutes. Stable patients every 15 minutes. After ANY intervention, reassess immediately to determine if it worked."
+        }
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "aemt-reass-q2",
+          question: "Narrowing pulse pressure over serial measurements indicates:",
+          options: ["Improving cardiac output", "Worsening shock with decreasing stroke volume", "Normal variation", "Measurement error"],
+          correctIndex: 1,
+          explanation: "A trend of narrowing pulse pressure shows the heart is ejecting less blood per beat—stroke volume is falling. This trajectory predicts decompensation and demands intervention before vital signs crash."
+        }
       }
     ],
     keyPoints: [
@@ -5624,6 +5726,28 @@ Analysis: Multiple problems. Hypoglycemia is treatable now. Hypotension and hypo
 
 **The Integration**
 Assessment isn't about collecting numbers—it's about seeing the clinical picture. Each data point adds to your understanding. Trends reveal trajectories. Patterns suggest diagnoses.`,
+    blocks: [
+      {
+        type: "quiz",
+        quiz: {
+          id: "aemt-integration-q1",
+          question: "A patient's pulse pressure narrows from 60 to 30 mmHg over 15 minutes with rising HR. This trajectory suggests:",
+          options: ["Improvement", "Decompensation toward shock", "Stable condition", "Medication effect"],
+          correctIndex: 1,
+          explanation: "Narrowing pulse pressure + rising heart rate = the body is losing its ability to compensate. Stroke volume is dropping. This patient is decompensating and needs aggressive intervention and priority transport."
+        }
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "aemt-integration-q2",
+          question: "An elderly confused patient has BP 88/52, HR 64 (on beta-blocker), glucose 45. What should you treat FIRST?",
+          options: ["Hypotension with fluids", "Hypoglycemia with glucose", "Hypothermia with warming", "Heart rate with atropine"],
+          correctIndex: 1,
+          explanation: "Hypoglycemia is immediately treatable and can be the cause of the confusion. Treating it is fast, cheap, and can dramatically improve the patient. Then address hypotension and other issues. Always check glucose in altered mental status."
+        }
+      }
+    ],
     keyPoints: [
       "Connect findings to clinical picture",
       "Trends matter more than single values",
@@ -5883,7 +6007,7 @@ You'll develop this with experience—the ability to look at a patient and know 
       {
         type: "quiz",
         quiz: {
-          id: "emt-shock-comp-q1",
+          id: "para-critical-q1",
           question: "A patient has tachycardia, pale skin, and normal blood pressure. This is:",
           options: [
             "Normal findings",
@@ -5898,7 +6022,7 @@ You'll develop this with experience—the ability to look at a patient and know 
       {
         type: "quiz",
         quiz: {
-          id: "emt-shock-comp-q2",
+          id: "para-critical-q2",
           question: "Bradycardia in a shock patient is an ominous sign because it indicates:",
           options: [
             "The patient is relaxing",
@@ -5964,31 +6088,31 @@ Your working diagnosis based on assessment. 'Suspected anterior STEMI' or 'Likel
       {
         type: "quiz",
         quiz: {
-          id: "emt-shock-def-q1",
-          question: "Shock is best defined as:",
+          id: "para-integration-q1",
+          question: "A field impression drives:",
           options: [
-            "Low blood pressure",
-            "Inadequate tissue perfusion",
-            "A fast heart rate",
-            "Blood loss"
+            "Only documentation",
+            "Treatment decisions and hospital notification",
+            "Scene size-up only",
+            "Transport mode only"
           ],
           correctIndex: 1,
-          explanation: "Shock is inadequate tissue perfusion—cells not getting enough oxygen-rich blood. Low BP is just one sign, and it's a late one. Shock can exist with 'normal' blood pressure if the body is compensating."
+          explanation: "Your field impression—'suspected anterior STEMI' or 'likely sepsis'—directly drives treatment selection, hospital destination, and pre-arrival communication. It synthesizes your assessment into actionable clinical reasoning."
         }
       },
       {
         type: "quiz",
         quiz: {
-          id: "emt-shock-def-q2",
-          question: "When cells can't get oxygen, they switch to:",
+          id: "para-integration-q2",
+          question: "When new data contradicts your initial field impression, you should:",
           options: [
-            "Aerobic metabolism",
-            "Anaerobic metabolism",
-            "Photosynthesis",
-            "Gluconeogenesis"
+            "Ignore the new data",
+            "Reassess and update your working diagnosis",
+            "Continue the original treatment plan",
+            "Wait for hospital confirmation"
           ],
           correctIndex: 1,
-          explanation: "Without oxygen, cells switch to anaerobic metabolism—a backup energy system that produces only 2 ATP instead of 36 and generates lactate as waste. This is inefficient and unsustainable, leading to acidosis and eventual cell death."
+          explanation: "Good clinicians update their thinking as new information arrives. Anchoring to a first impression despite contradicting evidence is a cognitive bias that can lead to wrong treatment. Adaptability defines expert clinical reasoning."
         }
       }
     ],
@@ -7226,61 +7350,31 @@ Every case requires: assess → form hypothesis → intervene → monitor respon
       {
         type: "quiz",
         quiz: {
-          id: "emt-patho-q4",
-          question: "Apoptosis differs from necrosis because apoptosis is:",
+          id: "para-shock-q4",
+          question: "Push-dose epinephrine is used in shock management to:",
           options: [
-            "Caused by trauma",
-            "Programmed and controlled cell death",
-            "Always harmful",
-            "Caused by infection"
+            "Replace IV fluid therapy",
+            "Bridge hemodynamic support until a vasopressor drip is established",
+            "Treat allergic reactions only",
+            "Reduce heart rate"
           ],
           correctIndex: 1,
-          explanation: "Apoptosis is programmed cell death—the body's scheduled maintenance. Old cells retire in an orderly way to make room for new ones. Necrosis is unplanned cell death from external injury, which causes inflammation and tissue damage."
+          explanation: "Push-dose epinephrine (10-20 mcg boluses of diluted epi) provides immediate hemodynamic support when a patient is crashing and a vasopressor drip isn't ready yet. It buys critical minutes by raising blood pressure through vasoconstriction and cardiac stimulation."
         }
       },
       {
         type: "quiz",
         quiz: {
-          id: "emt-patho-q5",
-          question: "Anaphylaxis is an example of:",
+          id: "para-shock-q5",
+          question: "A patient in cardiogenic shock has MAP 55 despite fluids. Which medication combination targets the underlying problem?",
           options: [
-            "Normal immune function",
-            "An immune system overreaction that becomes dangerous",
-            "A bacterial infection",
-            "Programmed cell death"
+            "Two vasopressors for maximum vasoconstriction",
+            "Dobutamine for pump support plus norepinephrine for vascular tone",
+            "High-dose fluids to increase preload",
+            "Vasopressin alone"
           ],
           correctIndex: 1,
-          explanation: "Anaphylaxis is the immune system's massive, life-threatening overreaction to an allergen. The defense mechanism itself becomes the disease—causing vasodilation, bronchospasm, and airway swelling that can kill if not treated with epinephrine."
-        }
-      },
-      {
-        type: "quiz",
-        quiz: {
-          id: "emt-patho-homeo-q1",
-          question: "Homeostasis is best described as:",
-          options: [
-            "The body's ability to fight infection",
-            "The body's maintenance of a stable internal environment",
-            "The process of digestion",
-            "The heart's electrical system"
-          ],
-          correctIndex: 1,
-          explanation: "Homeostasis is the body's constant regulation of internal conditions—temperature, pH, blood sugar, oxygen levels—within narrow ranges. When homeostasis is disrupted, disease processes begin."
-        }
-      },
-      {
-        type: "quiz",
-        quiz: {
-          id: "emt-patho-homeo-q2",
-          question: "Understanding pathophysiology helps EMTs because:",
-          options: [
-            "It replaces the need for protocols",
-            "It explains WHY signs and symptoms occur",
-            "It's only needed for paramedic-level care",
-            "It eliminates the need for assessment"
-          ],
-          correctIndex: 1,
-          explanation: "Pathophysiology explains the 'why' behind patient presentations. When you understand why a patient is tachycardic (compensating for blood loss), your assessment becomes purposeful—you're solving a puzzle, not just checking boxes."
+          explanation: "Cardiogenic shock is a pump problem (low CO). Dobutamine increases contractility while norepinephrine maintains vascular tone. Together they address both components—supporting the failing pump while maintaining adequate perfusion pressure."
         }
       }
     ]
@@ -7979,6 +8073,36 @@ That elderly patient with a UTI who's confused and tachycardic? Infection trigge
           correctIndex: 2,
           explanation: "Hypertrophy is an increase in cell SIZE (not number) in response to increased workload. The heart muscle cells enlarge to handle the higher pressure load. Initially adaptive, but eventually the thickened walls become stiff, leading to diastolic dysfunction."
         }
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "aemt-patho-q4",
+          question: "A patient with prolonged immobilization is at risk for which cellular adaptation?",
+          options: [
+            "Hypertrophy",
+            "Hyperplasia",
+            "Atrophy",
+            "Metaplasia"
+          ],
+          correctIndex: 2,
+          explanation: "Atrophy is the shrinking of cells from disuse or poor nutrition. Immobilized patients lose muscle mass because the body conserves resources it isn't using—'use it or lose it.' This increases fall risk and complicates recovery."
+        }
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "aemt-patho-q5",
+          question: "In the oxygen delivery equation (DO₂ = CO × CaO₂), a patient with severe anemia has reduced delivery because of:",
+          options: [
+            "Low cardiac output",
+            "Low oxygen content in the blood",
+            "High systemic vascular resistance",
+            "Excessive ventilation"
+          ],
+          correctIndex: 1,
+          explanation: "Anemia reduces hemoglobin, which directly reduces the oxygen content of blood (CaO₂). Even with normal cardiac output and lung function, fewer red blood cells means less oxygen carried to tissues. This is why anemic patients can present with shock-like symptoms."
+        }
       }
     ],
     keyPoints: [
@@ -8265,6 +8389,36 @@ Elderly patients with renal insufficiency can't clear drugs normally — dose ad
           ],
           correctIndex: 1,
           explanation: "Low pH (acidosis) with elevated PaCO₂ (respiratory cause) and normal HCO₃⁻ (no metabolic compensation yet) = acute respiratory acidosis. The lungs are failing to eliminate CO₂ — likely from hypoventilation due to CNS depression, COPD exacerbation, or airway obstruction. Treatment: improve ventilation."
+        }
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "para-patho-q4",
+          question: "Cytopathic hypoxia in sepsis means:",
+          options: [
+            "The lungs can't absorb oxygen",
+            "Mitochondria are damaged and can't use delivered oxygen",
+            "Hemoglobin can't bind oxygen",
+            "The airway is obstructed"
+          ],
+          correctIndex: 1,
+          explanation: "In prolonged sepsis, reactive oxygen species and inflammatory mediators damage mitochondria themselves. Even with restored oxygen delivery, cells can't use it because the 'powerhouses' are broken. This explains why some patients deteriorate despite normalized vital signs."
+        }
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "para-patho-q5",
+          question: "A patient with sickle cell disease in crisis should receive which prehospital intervention?",
+          options: [
+            "Cold packs to reduce pain",
+            "High-flow oxygen and IV hydration",
+            "Tourniquet application",
+            "Withhold oxygen to prevent sickling"
+          ],
+          correctIndex: 1,
+          explanation: "Sickle cell crisis is triggered by low oxygen conditions—abnormal hemoglobin polymerizes and blocks capillaries. High-flow O₂ prevents further sickling, and IV hydration reduces blood viscosity and improves flow through blocked vessels. Cold exposure worsens sickling."
         }
       }
     ],
