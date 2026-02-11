@@ -1287,6 +1287,15 @@ Most ACS results from atherosclerotic plaque rupture:
     proTip: "STEMI equivalents exist! Posterior MI and left main occlusion may not show classic ST elevation. Learn to recognize de Winter T-waves and Wellens' syndrome."
   },
   {
+    id: "acs-quiz-inline",
+    title: "ACS – Quick Check",
+    content: "Test your ACS knowledge.",
+    blocks: [
+      { type: "quiz", quiz: { id: "para-cardiac-acs-q1", question: "What differentiates NSTEMI from unstable angina?", options: ["ECG changes only", "Positive troponin (myocardial damage)", "Symptom duration", "Patient age"], correctIndex: 1, explanation: "Both can have similar symptoms and ECG changes, but NSTEMI has positive troponin—indicating actual myocardial cell death. Unstable angina has negative troponin because no myocardial damage has occurred yet, though the risk is high." } },
+      { type: "quiz", quiz: { id: "para-cardiac-acs-q2", question: "The underlying mechanism of most ACS events is:", options: ["Coronary artery spasm", "Atherosclerotic plaque rupture with thrombus formation", "Congenital heart defect", "Valvular disease"], correctIndex: 1, explanation: "Most ACS results from plaque rupture or erosion, triggering platelet aggregation and thrombus formation at the site. The degree of occlusion determines where on the ACS spectrum the patient falls." } }
+    ]
+  },
+  {
     id: "coronary-anatomy",
     title: "Coronary Artery Anatomy – Know the Territory",
     content: `Each coronary artery supplies specific regions of the heart. When you identify which artery is blocked, you can predict complications.
@@ -1343,6 +1352,15 @@ Splits into:
     rememberThis: "When you see an inferior MI (II, III, aVF elevation), always get a right-sided ECG. Right ventricular infarction changes your fluid management dramatically."
   },
   {
+    id: "coronary-anatomy-quiz-inline",
+    title: "Coronary Anatomy – Quick Check",
+    content: "Test your coronary anatomy.",
+    blocks: [
+      { type: "quiz", quiz: { id: "para-cardiac-coronary-q1", question: "LAD occlusion is called the 'widow maker' because it:", options: ["Affects the smallest territory", "Supplies the largest area of ventricular muscle", "Only affects women", "Is always fatal"], correctIndex: 1, explanation: "The LAD supplies the anterior wall and most of the septum—the largest territory of any coronary artery. Complete occlusion can cause massive anterior MI, leading to significant pump failure, cardiogenic shock, and high mortality." } },
+      { type: "quiz", quiz: { id: "para-cardiac-coronary-q2", question: "RCA occlusion commonly causes bradycardia because the RCA supplies:", options: ["The left ventricle only", "The SA node (60%) and AV node (90%)", "The coronary sinus", "The aortic valve"], correctIndex: 1, explanation: "The RCA supplies the SA node in ~60% and AV node in ~90% of people. Ischemia to these conduction structures causes slowed conduction, bradycardia, or heart blocks—common complications of inferior MI." } }
+    ]
+  },
+  {
     id: "cardiac-pharmacology",
     title: "Cardiac Pharmacology – Mechanism-Based Prescribing",
     content: `Let's connect the drugs you give to the pathophysiology you're treating.
@@ -1365,6 +1383,10 @@ Splits into:
 **Heparin/Anticoagulants**
 • Mechanism: Inhibits clotting cascade factors → prevents thrombus extension
 • ACS Role: Prevents the clot from growing larger while waiting for definitive care`,
+    blocks: [
+      { type: "quiz", quiz: { id: "para-cardiac-pharm-q1", question: "Why is nitroglycerin contraindicated in right ventricular infarction?", options: ["It causes bradycardia", "RV infarct patients are preload-dependent; NTG reduces preload", "It worsens coronary spasm", "It is always contraindicated in MI"], correctIndex: 1, explanation: "RV infarction causes right ventricular failure, making cardiac output dependent on adequate preload. NTG reduces preload through venodilation, which can cause severe hypotension in these patients." } },
+      { type: "quiz", quiz: { id: "para-cardiac-pharm-q2", question: "Aspirin's mechanism in ACS works by:", options: ["Dissolving existing clots", "Irreversibly inhibiting COX, blocking platelet aggregation", "Dilating coronary arteries", "Reducing heart rate"], correctIndex: 1, explanation: "Aspirin irreversibly inhibits cyclooxygenase (COX), blocking thromboxane A2 production and preventing further platelet aggregation at the thrombus site. It doesn't dissolve existing clots—it prevents new clot growth." } }
+    ],
     keyPoints: [
       "Each ACS medication targets a specific physiologic mechanism",
       "Aspirin: antiplatelet (prevention of clot growth)",
@@ -1413,6 +1435,15 @@ Splits into:
       "Each ECG component represents specific electrical activity",
       "ST elevation = acute injury requiring emergent intervention",
       "Lethal rhythms require immediate recognition and treatment"
+    ]
+  },
+  {
+    id: "rhythm-quiz-inline",
+    title: "Rhythm Recognition – Quick Check",
+    content: "Test your rhythm knowledge.",
+    blocks: [
+      { type: "quiz", quiz: { id: "para-cardiac-rhythm-q1", question: "ST elevation in 2+ contiguous leads with reciprocal depression indicates:", options: ["Normal variant", "Pericarditis", "STEMI requiring emergent catheterization", "Electrolyte abnormality"], correctIndex: 2, explanation: "ST elevation ≥1mm in 2+ contiguous leads with reciprocal depression is the hallmark of STEMI—complete coronary occlusion. This requires emergent PCI. Pericarditis shows diffuse elevation without reciprocal changes." } },
+      { type: "quiz", quiz: { id: "para-cardiac-rhythm-q2", question: "Second-degree Type II heart block differs from Type I in that it:", options: ["Has a gradually lengthening PR interval", "Drops QRS complexes without warning PR changes", "Always has a narrow QRS", "Is benign and requires no treatment"], correctIndex: 1, explanation: "Type II drops QRS complexes without preceding PR prolongation—making it unpredictable and dangerous. Type I (Wenckebach) has progressive PR lengthening before the drop, which is more predictable. Type II often requires pacing." } }
     ]
   },
   {
@@ -1510,6 +1541,10 @@ Before you intubate, ask: "Does this patient need an advanced airway *right now*
 • Patient you can oxygenate and ventilate with BVM
 • Short transport where advanced airway adds risk without benefit
 • Difficult airway features with low success probability`,
+    blocks: [
+      { type: "quiz", quiz: { id: "para-resp-decision-q1", question: "BVM ventilation is considered a valid management strategy when:", options: ["Never—always intubate", "Short transport with adequate oxygenation via BVM/SGA", "Only in pediatric patients", "Only when no other device is available"], correctIndex: 1, explanation: "BVM is not failure—it's a valid strategy. For short transports where BVM or SGA maintains adequate oxygenation, the risks of intubation may outweigh the benefits. Intubation is a means to oxygenation, not an end in itself." } },
+      { type: "quiz", quiz: { id: "para-resp-decision-q2", question: "Before intubating, the most important question to ask yourself is:", options: ["Do I have the right tube size?", "Does this patient need an advanced airway right now, or can I manage them another way?", "Is this a difficult airway?", "What paralytic should I use?"], correctIndex: 1, explanation: "The fundamental decision is whether intubation is actually needed. Many patients can be managed with BVM, SGA, or NIV. Rushing to intubate without asking this question leads to unnecessary risk. Tube size and drug choice come after the decision." } }
+    ],
     keyPoints: [
       "Intubation is a means, not an end—oxygenation is the goal",
       "Consider risk vs. benefit for each patient",
@@ -1561,6 +1596,15 @@ Before you intubate, ask: "Does this patient need an advanced airway *right now*
       "Anticipate difficulty before attempting intubation",
       "LEMON assessment identifies potential problems",
       "Always have a backup plan before you start"
+    ]
+  },
+  {
+    id: "difficult-airway-quiz-inline",
+    title: "Difficult Airway – Quick Check",
+    content: "Test your difficult airway knowledge.",
+    blocks: [
+      { type: "quiz", quiz: { id: "para-resp-difficult-q1", question: "In the LEMON assessment, the 'E' stands for:", options: ["Endotracheal tube size", "Evaluate 3-3-2 rule for mouth opening and jaw distances", "Emergency airway plan", "Epiglottis visualization"], correctIndex: 1, explanation: "E = Evaluate 3-3-2: 3 fingers mouth opening, 3 fingers hyoid to chin, 2 fingers thyroid notch to floor of mouth. These measurements assess whether there's adequate space for laryngoscopy and tube passage." } },
+      { type: "quiz", quiz: { id: "para-resp-difficult-q2", question: "The 'can't intubate, can't oxygenate' (CICO) scenario requires:", options: ["More intubation attempts", "Waiting for ALS backup", "An emergent surgical airway", "Increasing FiO₂"], correctIndex: 2, explanation: "CICO means all airway management options (ETI, SGA, BVM) have failed and the patient can't be oxygenated. This is the indication for emergent surgical cricothyrotomy—cutting a new opening through the cricothyroid membrane." } }
     ]
   }
 ];
@@ -2387,6 +2431,10 @@ This module connects cellular-level physiology to the medications and interventi
 • **Advanced Hemodynamics** — Matching medications to pathophysiology
 
 This is where science meets clinical decision-making.`,
+    blocks: [
+      { type: "quiz", quiz: { id: "para-ap-intro-q1", question: "The key difference between AEMT and Paramedic-level physiology thinking is:", options: ["Paramedics memorize more drug names", "Paramedics connect mechanisms to specific interventions and their effects", "There is no difference", "Paramedics only focus on cardiac care"], correctIndex: 1, explanation: "Paramedic-level thinking connects cellular mechanisms to the medications and interventions you use. Understanding WHY vasodilation drops SVR tells you WHY norepinephrine is first-line in sepsis." } },
+      { type: "quiz", quiz: { id: "para-ap-intro-q2", question: "Understanding pathophysiology allows a paramedic to:", options: ["Skip the assessment", "Predict medication effects and adapt to unusual presentations", "Ignore protocols", "Only treat cardiac patients"], correctIndex: 1, explanation: "When you understand mechanisms, you can predict effects before you see them, troubleshoot when expected responses don't occur, and adapt protocols to unusual presentations. This is clinical reasoning." } }
+    ],
     keyPoints: [
       "Paramedic-level thinking connects mechanisms to interventions",
       "Understanding 'why' enables better clinical decisions",
@@ -2431,6 +2479,15 @@ The body has two pathways for ATP production, and understanding both is crucial 
       "Lactate is a marker of inadequate cellular oxygen delivery"
     ],
     rememberThis: "Shock kills cells by cutting off their oxygen supply, forcing them into anaerobic metabolism. Rising lactate is your early warning that cells are starving—often before vital signs crash."
+  },
+  {
+    id: "cellular-metabolism-quiz-inline",
+    title: "Cellular Metabolism – Quick Check",
+    content: "Test your metabolism knowledge.",
+    blocks: [
+      { type: "quiz", quiz: { id: "para-ap-metab-q1", question: "A patient's lactate is 5.2 mmol/L despite SpO₂ of 98%. This could indicate:", options: ["Normal finding", "Inadequate tissue perfusion despite normal SpO₂", "Pulse oximeter error", "Hyperglycemia"], correctIndex: 1, explanation: "SpO₂ measures hemoglobin saturation but doesn't guarantee tissue-level oxygen delivery. If cardiac output is inadequate or hemoglobin is abnormal, cells may be hypoxic despite good SpO₂. Lactate > 4 = severe cellular stress." } },
+      { type: "quiz", quiz: { id: "para-ap-metab-q2", question: "Anaerobic metabolism generates lactate as a byproduct because:", options: ["The Krebs cycle speeds up", "Pyruvate cannot enter the Krebs cycle without oxygen", "Glucose is not available", "ATP production increases"], correctIndex: 1, explanation: "Without oxygen, the Krebs cycle and electron transport chain shut down. Pyruvate from glycolysis has nowhere to go, so it's converted to lactate. This produces only 2 ATP (vs 36-38 aerobically) and the lactate accumulates, causing acidosis." } }
+    ]
   },
   {
     id: "paramedic-acid-base",
@@ -2503,6 +2560,15 @@ CO₂ + H₂O ↔ H₂CO₃ ↔ H⁺ + HCO₃⁻
     proTip: "Here's your quick approach: pH tells you acidosis or alkalosis. CO₂ tells you if respiratory is the cause. If CO₂ doesn't explain the pH, look at HCO₃⁻ for a metabolic cause."
   },
   {
+    id: "acid-base-quiz-inline",
+    title: "Acid-Base – Quick Check",
+    content: "Test your acid-base knowledge.",
+    blocks: [
+      { type: "quiz", quiz: { id: "para-ap-acidbase-q1", question: "pH 7.28, PaCO₂ 30, HCO₃⁻ 14. This represents:", options: ["Respiratory acidosis", "Metabolic acidosis with respiratory compensation", "Respiratory alkalosis", "Normal values"], correctIndex: 1, explanation: "Low pH (acidosis) with low HCO₃⁻ (metabolic cause) and low PaCO₂ (lungs compensating by blowing off CO₂). The low bicarb is the primary problem; the lungs are responding quickly to try to normalize pH." } },
+      { type: "quiz", quiz: { id: "para-ap-acidbase-q2", question: "Kussmaul respirations in DKA represent:", options: ["Respiratory failure", "Respiratory compensation for metabolic acidosis", "Hyperventilation from anxiety", "Obstructive airway disease"], correctIndex: 1, explanation: "Deep, rapid Kussmaul respirations are the respiratory system's attempt to compensate for metabolic acidosis by blowing off CO₂. In DKA, ketoacids deplete bicarbonate, so the lungs compensate by eliminating the respiratory acid (CO₂)." } }
+    ]
+  },
+  {
     id: "paramedic-electrolytes",
     title: "Electrolyte Physiology — The Spark Plugs of the Cell",
     content: `Electrolytes are charged particles that drive cellular function. For paramedics, the most critical are potassium (K⁺), calcium (Ca²⁺), and sodium (Na⁺) because of their direct effects on cardiac function.
@@ -2545,6 +2611,15 @@ Cardiac cells depend on precise electrolyte gradients to generate action potenti
       "Calcium affects QT interval: ↑Ca = short QT, ↓Ca = long QT"
     ],
     rememberThis: "When you see a patient with renal failure and peaked T waves, you're looking at a time bomb. Calcium is your first-line treatment—it stabilizes the cardiac membrane while you address the underlying hyperkalemia."
+  },
+  {
+    id: "electrolytes-quiz-inline",
+    title: "Electrolytes – Quick Check",
+    content: "Test your electrolyte knowledge.",
+    blocks: [
+      { type: "quiz", quiz: { id: "para-ap-electro-q1", question: "The earliest ECG sign of hyperkalemia is:", options: ["Widened QRS", "Peaked T waves", "Sine wave pattern", "Absent P waves"], correctIndex: 1, explanation: "Peaked T waves are the earliest ECG sign of hyperkalemia. The progression is: peaked T waves → prolonged PR → widened QRS → sine wave → asystole/VF. Recognizing peaked T waves gives you the most treatment time." } },
+      { type: "quiz", quiz: { id: "para-ap-electro-q2", question: "Calcium given for hyperkalemia works by:", options: ["Lowering potassium levels directly", "Stabilizing cardiac cell membranes against arrhythmias", "Increasing urine output", "Blocking potassium channels"], correctIndex: 1, explanation: "Calcium doesn't lower potassium—it stabilizes the cardiac membrane, raising the threshold for depolarization and protecting against arrhythmias. It's a bridge while you use other treatments (insulin/glucose, dialysis) to actually lower K⁺." } }
+    ]
   },
   {
     id: "paramedic-hemodynamics",
@@ -2606,6 +2681,15 @@ MAP = CO × SVR
     proTip: "Think of septic shock as a 'leaky pipes' problem (low SVR) and cardiogenic shock as a 'weak pump' problem (low CO). The treatment targets are different even though both cause hypotension."
   },
   {
+    id: "hemodynamics-quiz-inline",
+    title: "Hemodynamics – Quick Check",
+    content: "Test your hemodynamic knowledge.",
+    blocks: [
+      { type: "quiz", quiz: { id: "para-ap-hemo-q1", question: "Patient A: BP 90/70 (MAP 77). Patient B: BP 110/40 (MAP 63). Which patient has better organ perfusion?", options: ["Patient B (higher systolic)", "Patient A (higher MAP)", "Both are equal", "Cannot determine from BP alone"], correctIndex: 1, explanation: "MAP represents average driving pressure for organ perfusion. Patient A has MAP 77 (adequate), while Patient B has MAP 63 (below the 65 threshold). Systolic BP alone can be misleading—MAP is what matters for organs." } },
+      { type: "quiz", quiz: { id: "para-ap-hemo-q2", question: "Pushing vasopressors without adequate preload is dangerous because:", options: ["It lowers blood pressure", "You're squeezing empty vessels, increasing ischemia without improving perfusion", "Vasopressors always cause bradycardia", "Fluids are always contraindicated with pressors"], correctIndex: 1, explanation: "Vasoconstrictors without volume are like wringing out a dry sponge—you increase pressure but don't improve flow. The constricted vessels may actually worsen ischemia to tissues. Adequate preload before pressors (unless cardiogenic) is essential." } }
+    ]
+  },
+  {
     id: "paramedic-clinical-integration",
     title: "Clinical Integration — Putting It All Together",
     content: `Let's trace through a complex case to see how all these concepts connect.
@@ -2647,6 +2731,10 @@ With borderline MAP, tissue perfusion may be marginal. If it continues:
 • **Antibiotics** → Address the source
 
 Each intervention targets a specific physiologic problem. That's paramedic-level thinking.`,
+    blocks: [
+      { type: "quiz", quiz: { id: "para-ap-clinical-q1", question: "A septic patient has warm, flushed skin. This indicates:", options: ["Hypovolemic shock", "Distributive shock with vasodilation", "Cardiogenic shock", "Normal perfusion"], correctIndex: 1, explanation: "Warm, flushed skin in shock = vasodilation (distributive). In hypovolemic and cardiogenic shock, vasoconstriction causes cold, pale skin. This clinical finding guides treatment: warm skin + hypotension = vasodilatory shock needing vasopressor after fluids." } },
+      { type: "quiz", quiz: { id: "para-ap-clinical-q2", question: "A fluid-refractory septic patient with MAP 55 most likely needs:", options: ["More crystalloid", "Norepinephrine to restore SVR", "Dobutamine for pump support", "Blood transfusion"], correctIndex: 1, explanation: "After adequate fluid resuscitation, persistent hypotension in sepsis is due to vasodilation (low SVR). Norepinephrine (primarily α₁) restores vascular tone. Dobutamine would be for pump failure; this is a pipe problem, not a pump problem." } }
+    ],
     keyPoints: [
       "Sepsis causes vasodilation (low SVR) → hypotension",
       "Warm, flushed skin indicates distributive shock (not cold like hypovolemic)",
@@ -3656,6 +3744,15 @@ This is where you become the clinician who understands the 'why' behind every in
     ]
   },
   {
+    id: "pharmacodynamics-quiz-inline",
+    title: "Pharmacodynamics – Quick Check",
+    content: "Test your receptor knowledge.",
+    blocks: [
+      { type: "quiz", quiz: { id: "para-pharm-dynamics-q1", question: "Naloxone reverses opioid overdose by:", options: ["Destroying the opioid molecule", "Stimulating respiration directly", "Competitively blocking opioid receptors", "Increasing metabolism of opioids"], correctIndex: 2, explanation: "Naloxone is a competitive antagonist. It binds to opioid receptors with higher affinity than opioids, blocking their access. It doesn't destroy the drug—it just prevents it from working. If naloxone wears off before the opioid, overdose symptoms return." } },
+      { type: "quiz", quiz: { id: "para-pharm-dynamics-q2", question: "A partial agonist (like buprenorphine) has a 'ceiling effect.' This means:", options: ["It works better than full agonists", "Even at high doses, the effect plateaus below maximal response", "It only works on the ceiling of the mouth", "It has no side effects"], correctIndex: 1, explanation: "Partial agonists activate receptors but cannot produce 100% of the possible effect, even at high doses. This ceiling effect makes them safer (less respiratory depression) but less effective for severe pain than full agonists." } }
+    ]
+  },
+  {
     id: "para-pharm-dynamics",
     title: "Pharmacodynamics: What Drugs Do to the Body",
     content: `If pharmacokinetics is what the body does to drugs, **pharmacodynamics** is what drugs do to the body. Understanding drug-receptor interactions lets you predict effects and choose the right medication for each situation.
@@ -3749,6 +3846,15 @@ Understanding these receptors lets you predict exactly what each medication will
     proTip: "When choosing between vasopressors, think about what your patient needs. Low SVR (sepsis)? You want α₁ (norepinephrine). Low contractility (cardiogenic shock)? You want β₁ (dobutamine). Both? Epinephrine or norepinephrine with its α₁ + some β₁."
   },
   {
+    id: "autonomic-quiz-inline",
+    title: "Autonomic Pharmacology – Quick Check",
+    content: "Test your receptor knowledge.",
+    blocks: [
+      { type: "quiz", quiz: { id: "para-pharm-auto-q1", question: "Albuterol primarily stimulates which receptor?", options: ["Alpha-1 (α₁)", "Beta-1 (β₁)", "Beta-2 (β₂)", "Muscarinic"], correctIndex: 2, explanation: "Albuterol is a selective β₂ agonist. Activation of β₂ receptors in bronchial smooth muscle causes bronchodilation. It has minimal β₁ effects (unless high doses), which explains why it opens airways without causing massive tachycardia." } },
+      { type: "quiz", quiz: { id: "para-pharm-auto-q2", question: "Atropine increases heart rate by:", options: ["Stimulating sympathetic receptors directly", "Blocking parasympathetic (vagal) tone", "Increasing calcium influx", "Releasing endogenous epinephrine"], correctIndex: 1, explanation: "Atropine is an anticholinergic (muscarinic antagonist). It blocks the 'brake' pedal (parasympathetic vagal tone), allowing the heart rate to increase. It doesn't step on the gas (sympathetic)—it just releases the brake." } }
+    ]
+  },
+  {
     id: "para-pharm-cardio",
     title: "Cardiovascular Pharmacology",
     content: `Cardiovascular drugs target specific hemodynamic variables. Matching the drug mechanism to the hemodynamic problem is the key to effective treatment.
@@ -3784,6 +3890,15 @@ When MAP is low, you either need to increase cardiac output (CO) or increase sys
       "Vasopressors increase SVR; inotropes increase contractility",
       "Match the drug mechanism to the hemodynamic problem",
       "Norepinephrine is first-line for septic shock; dobutamine for cardiogenic shock"
+    ]
+  },
+  {
+    id: "cardio-pharm-quiz-inline",
+    title: "Cardiovascular Pharmacology – Quick Check",
+    content: "Test your drug selection.",
+    blocks: [
+      { type: "quiz", quiz: { id: "para-pharm-cardio-q1", question: "Dobutamine is primarily an inotrope because it stimulates:", options: ["Alpha-1 receptors", "Beta-1 receptors", "Dopaminergic receptors", "Muscarinic receptors"], correctIndex: 1, explanation: "Dobutamine is a potent β₁ agonist, increasing cardiac contractility (inotropy). It's the drug of choice for pump failure (cardiogenic shock). It has minimal vasoconstrictive effects." } },
+      { type: "quiz", quiz: { id: "para-pharm-cardio-q2", question: "Which medication is indicated for septic shock (distributive shock)?", options: ["Dobutamine", "Atropine", "Norepinephrine", "Adenosine"], correctIndex: 2, explanation: "Sepsis causes massive vasodilation (low SVR). Norepinephrine (primarily α₁) causes vasoconstriction to restore vascular tone. It fixes the specific hemodynamic problem of distributive shock." } }
     ]
   },
   {
@@ -3835,6 +3950,15 @@ When MAP is low, you either need to increase cardiac output (CO) or increase sys
     proTip: "When you push epinephrine in cardiac arrest, you're not trying to 'restart' the heart—you're increasing coronary perfusion pressure so when you shock, the defibrillation has a better chance of working. The pharmacology explains why we give epi between shocks, not instead of them."
   },
   {
+    id: "emergency-pharm-quiz-inline",
+    title: "Emergency Pharmacology – Quick Check",
+    content: "Test your ACLS pharmacology.",
+    blocks: [
+      { type: "quiz", quiz: { id: "para-pharm-emerg-q1", question: "The primary beneficial effect of epinephrine during CPR comes from:", options: ["Beta-1 cardiac stimulation", "Alpha-1 vasoconstriction increasing coronary perfusion pressure", "Bronchodilation", "Increasing heart rate"], correctIndex: 1, explanation: "During arrest, the heart isn't beating, so you can't 'stimulate' it. Epinephrine's α₁ vasoconstriction increases systemic vascular resistance, which drives blood (from compressions) into the coronary arteries. This improves coronary perfusion pressure, making successful defibrillation more likely." } },
+      { type: "quiz", quiz: { id: "para-pharm-emerg-q2", question: "Amiodarone is given in cardiac arrest to:", options: ["Restart the heart immediately", "Stabilize electrical activity and prevent recurrent VF/VT", "Increase blood pressure", "Treat acidosis"], correctIndex: 1, explanation: "Amiodarone is an antiarrhythmic that stabilizes cardiac membranes and prolongs the refractory period. It makes the heart less likely to sustain chaotic rhythms like VF/VT. It doesn't 'restart' the heart—it prepares the electrical environment for a successful shock." } }
+    ]
+  },
+  {
     id: "para-pharm-special",
     title: "Special Pharmacology Considerations",
     content: `Not all patients respond to medications the same way. Age, organ function, and concurrent medications all affect drug behavior.
@@ -3862,6 +3986,15 @@ When MAP is low, you either need to increase cardiac output (CO) or increase sys
       "Drug interactions can be life-threatening"
     ],
     rememberThis: "The pharmacology principles are the same in every patient—but the application requires adjustment. A 2-year-old and an 82-year-old both have β₁ receptors, but the doses needed to affect them are very different."
+  },
+  {
+    id: "special-pharm-quiz-inline",
+    title: "Special Populations – Quick Check",
+    content: "Test your dosing knowledge.",
+    blocks: [
+      { type: "quiz", quiz: { id: "para-pharm-special-q1", question: "Why are geriatric patients at higher risk for drug toxicity?", options: ["They have more receptors", "Reduced renal and hepatic function slows drug clearance", "They absorb drugs faster", "They require higher doses for effect"], correctIndex: 1, explanation: "Aging reduces kidney filtration and liver metabolism. Drugs stay in the system longer and accumulate, increasing the risk of toxicity. 'Start low and go slow' is the rule for geriatric pharmacology." } },
+      { type: "quiz", quiz: { id: "para-pharm-special-q2", question: "Combining nitroglycerin with sildenafil (Viagra) can cause:", options: ["Hypertensive crisis", "Severe refractory hypotension", "Tachyarrhythmias", "Bradycardia"], correctIndex: 1, explanation: "Both drugs increase nitric oxide signaling—NTG produces it, PDE5 inhibitors prevent its breakdown. The combination causes massive, uncontrolled vasodilation and severe hypotension that is difficult to treat. Always ask about ED meds before giving NTG." } }
+    ]
   },
   {
     id: "para-pharm-quiz",
@@ -10871,6 +11004,27 @@ export const emtCopdVsChfContent: TopicSection[] = [
       "COPD: air trapping, prolonged exhalation, barrel chest",
       "CHF: fluid in lungs, crackles, orthopnea",
       "COPD = outflow problem; CHF = overflow problem"
+    ],
+    blocks: [
+      {
+        type: "tabs",
+        tabs: [
+          {
+            label: "COPD",
+            content: "COPD is a group of chronic lung diseases — mainly emphysema and chronic bronchitis. In emphysema, the tiny air sacs (alveoli) are destroyed, reducing surface area for gas exchange. In chronic bronchitis, the airways are inflamed with excess mucus. Both trap air inside the lungs, making exhalation the hard part. Patients develop barrel chests over time from chronic air trapping."
+          },
+          {
+            label: "CHF",
+            content: "CHF happens when the heart muscle weakens or stiffens and can't pump effectively. Left-sided failure causes fluid to back up into the lungs (pulmonary edema) — you'll hear crackles. Right-sided failure causes fluid to back up into the body — you'll see JVD and pedal edema. Many patients have both."
+          },
+          {
+            label: "Key Difference",
+            content: "The fundamental difference: COPD is a problem getting air OUT (obstructive). CHF is a problem with fluid IN the lungs (congestive). COPD patients exhale slowly with pursed lips. CHF patients sit bolt upright and may cough pink frothy sputum. Different mechanism, different presentation, different approach."
+          }
+        ]
+      },
+      { type: "quiz", quiz: { id: "emt-copd-chf-concepts-q1", question: "The primary problem in COPD is:", options: ["Fluid in the lungs", "Air trapping and difficulty exhaling", "Weak heart pump", "Low blood volume"], correctIndex: 1, explanation: "COPD is an obstructive disease. Inflammation and tissue destruction cause airways to collapse during exhalation, trapping air inside. This is why patients have prolonged exhalation and barrel chests." } },
+      { type: "quiz", quiz: { id: "emt-copd-chf-concepts-q2", question: "Left-sided heart failure typically causes:", options: ["Pedal edema", "JVD", "Pulmonary edema (fluid in lungs)", "Ascites"], correctIndex: 2, explanation: "The left side of the heart receives blood from the lungs. When it fails, blood backs up into the pulmonary circulation, pushing fluid into the alveoli (pulmonary edema). Right-sided failure causes backup into the body (JVD, pedal edema)." } }
     ]
   },
   {
@@ -10923,6 +11077,27 @@ export const emtCopdVsChfContent: TopicSection[] = [
       "Pink puffers (emphysema) vs. blue bloaters (chronic bronchitis)",
       "Left-sided CHF → lungs; Right-sided CHF → body",
       "Acute exacerbations on chronic disease are the most common EMS calls"
+    ],
+    blocks: [
+      {
+        type: "tabs",
+        tabs: [
+          {
+            label: "COPD Types",
+            content: "**Emphysema ('Pink Puffers'):** Destroyed alveoli, thin body habitus, pursed-lip breathing, relatively normal color. They work hard to breathe but maintain oxygenation.\n\n**Chronic Bronchitis ('Blue Bloaters'):** Inflamed airways with excess mucus, often overweight, productive cough, may appear cyanotic. They don't ventilate as effectively and retain CO₂."
+          },
+          {
+            label: "CHF Types",
+            content: "**Left-Sided Failure:** Blood backs up into the lungs. Signs: crackles, dyspnea, orthopnea, pink frothy sputum in severe cases. This is the most common presentation you'll see.\n\n**Right-Sided Failure:** Blood backs up into the body. Signs: JVD, peripheral edema (swollen ankles/legs), hepatomegaly (enlarged liver). Often caused by left-sided failure."
+          },
+          {
+            label: "Acute vs Chronic",
+            content: "**Chronic:** The baseline — patients live with this daily. They have home medications, know their triggers, and adapt.\n\n**Acute Exacerbation:** Something pushes them past their baseline. Infections, medication non-compliance, dietary indiscretion (too much salt in CHF). This is when they call 911."
+          }
+        ]
+      },
+      { type: "quiz", quiz: { id: "emt-copd-chf-types-q1", question: "A 'Blue Bloater' presentation (cyanosis, productive cough, overweight) is associated with:", options: ["Emphysema", "Chronic Bronchitis", "Left-sided CHF", "Pneumonia"], correctIndex: 1, explanation: "Chronic bronchitis patients are often called 'blue bloaters' due to cyanosis and fluid retention. They have inflamed airways and excess mucus. Emphysema patients ('pink puffers') are typically thin and pink from hyperventilation." } },
+      { type: "quiz", quiz: { id: "emt-copd-chf-types-q2", question: "Right-sided heart failure is often caused by:", options: ["Left-sided heart failure", "Pneumonia", "Asthma", "Stroke"], correctIndex: 0, explanation: "The most common cause of right-sided heart failure is left-sided heart failure. When the left side backs up into the lungs, it increases pressure in the pulmonary arteries, making it harder for the right side to pump, eventually causing it to fail too." } }
     ]
   },
   {
@@ -11110,6 +11285,27 @@ Capnography gives you a window into ventilation that SpO₂ alone can't provide.
       "COPD: V/Q mismatch + air trapping + CO₂ retention",
       "CHF: pump failure → increased hydrostatic pressure → pulmonary edema",
       "Treatment targets the specific mechanism in each condition"
+    ],
+    blocks: [
+      {
+        type: "tabs",
+        tabs: [
+          {
+            label: "COPD Mechanism",
+            content: "**V/Q Mismatch:** In COPD, destroyed alveoli (emphysema) reduce the surface area for gas exchange. Ventilation happens but perfusion has nowhere to exchange gases — this is dead space. In chronic bronchitis, mucus and inflammation block ventilation to perfused areas — this is shunt.\n\n**Air Trapping:** Narrowed airways collapse during exhalation, trapping air. This creates auto-PEEP (intrinsic positive pressure) that makes each breath harder. Over time, the chest hyperinflates (barrel chest).\n\n**CO₂ Retention:** As the disease progresses, patients chronically retain CO₂. Their body adapts by using oxygen levels (not CO₂) as the primary breathing stimulus — the hypoxic drive."
+          },
+          {
+            label: "CHF Mechanism",
+            content: "**Pump Failure:** The left ventricle can't pump blood forward effectively. Blood backs up into the left atrium, then into the pulmonary veins, then into the pulmonary capillaries.\n\n**Starling Forces:** Increased hydrostatic pressure in pulmonary capillaries pushes fluid across the capillary membrane into the alveoli. This is pulmonary edema — fluid where air should be.\n\n**Neurohormonal Activation:** The body senses low cardiac output and activates the sympathetic nervous system (tachycardia, vasoconstriction) and RAAS (fluid retention). These compensatory mechanisms temporarily help but ultimately make the overload worse."
+          },
+          {
+            label: "Why It Matters",
+            content: "**For COPD:** Treatment targets airway opening (bronchodilators) and reducing air trapping (pursed-lip breathing, CPAP). Excess oxygen can suppress the hypoxic drive — that's why you titrate carefully.\n\n**For CHF:** Treatment targets reducing fluid in the lungs (CPAP pushes fluid out of alveoli, NTG reduces preload) and supporting the failing pump. Oxygenation is the priority.\n\n**The clinical connection:** Knowing these mechanisms helps you predict what will work, what might be harmful, and when to escalate."
+          }
+        ]
+      },
+      { type: "quiz", quiz: { id: "aemt-copd-chf-patho-q1", question: "In COPD, 'auto-PEEP' refers to:", options: ["A mechanical ventilator setting", "Intrinsic positive pressure from trapped air", "Fluid pressure in the alveoli", "High blood pressure"], correctIndex: 1, explanation: "Auto-PEEP occurs when air is trapped in the lungs because exhalation isn't finished before the next breath starts. This stacking pressure makes breathing progressively harder. Pursed-lip breathing and CPAP help counteract this." } },
+      { type: "quiz", quiz: { id: "aemt-copd-chf-patho-q2", question: "Pulmonary edema in CHF is caused by:", options: ["Increased oncotic pressure", "Increased capillary hydrostatic pressure", "Decreased blood pressure", "Airway inflammation"], correctIndex: 1, explanation: "Pump failure causes blood to back up, increasing hydrostatic pressure in the pulmonary capillaries. This pressure forces fluid out of the vessels and into the alveoli (Starling forces), causing pulmonary edema." } }
     ]
   },
   {
@@ -11162,6 +11358,27 @@ Capnography gives you a window into ventilation that SpO₂ alone can't provide.
       "Shark fin on capnography = bronchospasm = COPD (not CHF)",
       "Bilateral crackles = fluid = CHF",
       "Home medications are your strongest diagnostic clue"
+    ],
+    blocks: [
+      {
+        type: "tabs",
+        tabs: [
+          {
+            label: "Capnography",
+            content: "**COPD:** Shark fin waveform (sloped expiratory upstroke) indicates bronchospasm and air trapping. ETCO₂ may be elevated (>45 mmHg) due to chronic CO₂ retention. Prolonged expiratory phase visible on waveform.\n\n**CHF:** Normal rectangular waveform shape, but ETCO₂ may be low-normal or slightly elevated depending on severity. No shark fin pattern unless concurrent bronchospasm.\n\n**Clinical pearl:** If you see a shark fin pattern, bronchospasm is present — regardless of whether the underlying condition is COPD, asthma, or cardiac asthma."
+          },
+          {
+            label: "Auscultation",
+            content: "**COPD:** Wheezing (expiratory > inspiratory), diminished breath sounds in severe cases, prolonged expiratory phase. Rhonchi (coarse, rattling sounds) if significant mucus production.\n\n**CHF:** Bilateral crackles, typically worse at the bases (gravity-dependent fluid). In severe CHF, crackles extend upward. Wheezing can occur ('cardiac asthma') — caused by bronchospasm from peribronchial edema.\n\n**Key:** Bilateral crackles = think fluid. Wheezing = think bronchospasm (but check for cardiac asthma)."
+          },
+          {
+            label: "Clinical Picture",
+            content: "**Integrate everything:** Medications at home tell the story. COPD patients: inhalers, nebulizers, home O₂. CHF patients: ACE inhibitors, beta-blockers, diuretics (Lasix), possibly digoxin.\n\n**Weight gain** (CHF patients gaining 2-5 lbs over days suggests fluid retention). **Recent illness** (URI can trigger COPD exacerbation). **Dietary indiscretion** (salty meal can trigger CHF exacerbation).\n\n**Don't forget:** Many patients have both. Treat the most immediately life-threatening component first."
+          }
+        ]
+      },
+      { type: "quiz", quiz: { id: "aemt-copd-chf-tools-q1", question: "A 'shark fin' capnography waveform indicates:", options: ["Normal ventilation", "Fluid in the alveoli", "Bronchospasm/airway obstruction", "Hyperventilation"], correctIndex: 2, explanation: "The shark fin shape appears because air is exhaled slowly through obstructed airways. It's a hallmark of bronchospasm (COPD, asthma). CHF typically shows a normal rectangular waveform unless there is also bronchospasm." } },
+      { type: "quiz", quiz: { id: "aemt-copd-chf-tools-q2", question: "Wheezing can occur in CHF. This is known as:", options: ["Cardiac asthma", "Emphysema", "Pneumonia", "Bronchitis"], correctIndex: 0, explanation: "'Cardiac asthma' is wheezing caused by peribronchial edema in CHF. Fluid accumulates around the airways, compressing them and causing spasm. Don't assume all wheezing is COPD/asthma—look for other signs of failure." } }
     ]
   },
   {
@@ -11359,6 +11576,27 @@ You're not just treating symptoms — you're targeting specific receptors, manag
       "COPD creates chronic respiratory acidosis with metabolic compensation",
       "CHF follows the Starling equation — hydrostatic pressure overwhelms oncotic pressure",
       "COPD can cause heart failure (cor pulmonale) through pulmonary vasoconstriction"
+    ],
+    blocks: [
+      {
+        type: "tabs",
+        tabs: [
+          {
+            label: "COPD: Cellular Level",
+            content: "**Chronic Inflammation:** Neutrophils, macrophages, and CD8+ T-cells drive ongoing destruction. Protease-antiprotease imbalance (alpha-1 antitrypsin) destroys alveolar walls. Oxidative stress from smoking accelerates damage.\n\n**V/Q Quantification:** Dead space ventilation (V without Q) in emphysema reduces effective gas exchange. Shunt (Q without V) in mucus-plugged airways. The result: chronic hypoxemia + hypercapnia with renal bicarbonate compensation.\n\n**Acid-Base:** Chronic respiratory acidosis (elevated CO₂) with metabolic compensation (elevated HCO₃⁻). pH may be near-normal chronically. Acute exacerbation pushes pH into dangerous territory when compensation is exceeded."
+          },
+          {
+            label: "CHF: Hemodynamic",
+            content: "**Starling Equation:** Fluid movement = Kf[(Pc - Pi) - σ(πc - πi)]. In CHF, elevated capillary hydrostatic pressure (Pc) overwhelms oncotic pressure (πc), pushing fluid into alveoli. This is the mathematical basis of pulmonary edema.\n\n**Neurohormonal Cascade:** Low cardiac output triggers SNS activation (tachycardia, vasoconstriction), RAAS activation (Na⁺/H₂O retention, further vasoconstriction), and BNP release (the body's attempt at compensation through natriuresis).\n\n**Forward vs. Backward Failure:** Backward failure = congestion (crackles, edema, JVD). Forward failure = poor perfusion (fatigue, confusion, renal dysfunction). Most patients have both."
+          },
+          {
+            label: "Overlap Pathology",
+            content: "**COPD + CHF:** Chronic hypoxemia from COPD causes pulmonary vasoconstriction (hypoxic pulmonary vasoconstriction), which increases right ventricular afterload, leading to right heart failure (cor pulmonale). This is how COPD CAUSES heart failure.\n\n**Ischemia-Driven CHF:** Acute MI reduces cardiac output, causing flash pulmonary edema. The patient presents with respiratory distress that looks like CHF exacerbation but is actually an acute coronary event. The 12-lead is essential.\n\n**Competing Priorities:** Bronchodilators increase heart rate (bad for ischemia). NTG reduces preload (may worsen hypotension in dehydrated COPD patients). Every treatment has trade-offs in overlap patients."
+          }
+        ]
+      },
+      { type: "quiz", quiz: { id: "para-copd-chf-adv-patho-q1", question: "How can chronic COPD lead to right-sided heart failure (cor pulmonale)?", options: ["By causing systemic hypertension", "Through hypoxic pulmonary vasoconstriction increasing RV afterload", "By damaging the mitral valve", "It doesn't—they are unrelated"], correctIndex: 1, explanation: "Chronic hypoxia in COPD causes the pulmonary arteries to constrict (hypoxic pulmonary vasoconstriction). This increases resistance (afterload) for the right ventricle, eventually causing it to fail. This is cor pulmonale." } },
+      { type: "quiz", quiz: { id: "para-copd-chf-adv-patho-q2", question: "A chronic COPD patient typically has which acid-base baseline?", options: ["Respiratory alkalosis", "Metabolic acidosis", "Compensated respiratory acidosis (high CO₂, high HCO₃⁻)", "Normal CO₂ and HCO₃⁻"], correctIndex: 2, explanation: "Chronic CO₂ retention leads to respiratory acidosis. The kidneys compensate by retaining bicarbonate (HCO₃⁻) to buffer the pH back to near-normal. Acute exacerbations overwhelm this compensation." } }
     ]
   },
   {
