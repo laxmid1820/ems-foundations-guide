@@ -4757,6 +4757,28 @@ Remember cellular metabolism and acid-base balance? Respiratory failure isn't ju
 • Acid-base integration with respiratory failure
 
 This is where everything connects—A&P, pharmacology, and clinical care become one integrated approach.`,
+    blocks: [
+      {
+        type: "quiz",
+        quiz: {
+          id: "para-resp-intro-q1",
+          question: "Respiratory failure impacts cellular function primarily by disrupting:",
+          options: ["Protein synthesis", "ATP production through aerobic metabolism", "Hormone regulation", "Bone marrow function"],
+          correctIndex: 1,
+          explanation: "When oxygen delivery fails, cells can't perform aerobic metabolism (36-38 ATP per glucose). They switch to anaerobic metabolism (only 2 ATP), leading to energy crisis, lactate accumulation, and organ failure."
+        }
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "para-resp-intro-q2",
+          question: "At the paramedic level, understanding V/Q mismatch helps you:",
+          options: ["Choose the correct oxygen mask size", "Match the treatment to the specific mechanism of hypoxemia", "Determine transport destination only", "Calculate drug dosages"],
+          correctIndex: 1,
+          explanation: "V/Q mismatch understanding tells you WHY the patient is hypoxic—shunt needs PEEP, dead space needs cause treatment, diffusion impairment needs high FiO₂. Matching treatment to mechanism is the hallmark of paramedic-level care."
+        }
+      }
+    ],
     keyPoints: [
       "Respiratory failure impacts cellular metabolism",
       "Deep pathophysiology drives treatment decisions",
@@ -4796,6 +4818,26 @@ When any of these fail, the specific treatment depends on which one is broken.`,
             content: "Shunt → PEEP/positive pressure to recruit alveoli. Dead space → treat underlying cause (PE anticoagulation). Diffusion → high FiO₂, consider intubation if severe. MATCH TREATMENT TO MECHANISM. A patient with massive PE won't improve with PEEP—they need perfusion restored."
           }
         ]
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "para-resp-pathophys-q1",
+          question: "A patient with massive PE has low SpO₂ despite hyperventilation and clear lung sounds. The mechanism is:",
+          options: ["Shunt", "Dead space", "Diffusion impairment", "Bronchospasm"],
+          correctIndex: 1,
+          explanation: "PE blocks perfusion to ventilated alveoli—creating dead space. Air reaches the alveoli but there's no blood to carry oxygen away. ETCO₂ is paradoxically low because exhaled air hasn't contacted blood. PEEP won't help—restore perfusion (anticoagulation/lytics)."
+        }
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "para-resp-pathophys-q2",
+          question: "A patient with pulmonary edema doesn't improve on high-flow oxygen alone because:",
+          options: ["The oxygen mask is too small", "Fluid-filled alveoli create shunt that oxygen alone can't overcome", "The patient is hyperventilating", "Dead space is the primary problem"],
+          correctIndex: 1,
+          explanation: "Pulmonary edema fills alveoli with fluid (shunt). Blood flows past but can't pick up oxygen. High FiO₂ alone doesn't help because oxygen can't reach flooded alveoli. Positive pressure (CPAP/BiPAP/PEEP) is needed to push fluid out and recruit alveoli."
+        }
       }
     ],
     keyPoints: [
@@ -4849,6 +4891,26 @@ But when airway protection is compromised or NIV is failing, don't delay definit
             back: "Waveform capnography = gold standard (sustained ETCO₂ = tube in trachea). Bilateral breath sounds (check for right mainstem). SpO₂ trend. Secure tube. Set ventilator. Watch for dislodgement during movement. Never rely on single confirmation method."
           }
         ]
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "para-resp-decision-q1",
+          question: "A patient with CHF exacerbation improves significantly on CPAP. The best next step is:",
+          options: ["Intubate anyway for definitive airway", "Continue CPAP and monitor—intubation may not be needed", "Remove CPAP and place NRB", "Sedate the patient for comfort"],
+          correctIndex: 1,
+          explanation: "If CPAP is working, continue it. Many patients improve enough on NIV to avoid intubation entirely. Intubation carries risks (aspiration, laryngeal injury, sedation) and should be reserved for NIV failure or airway protection needs."
+        }
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "para-resp-decision-q2",
+          question: "The 'look ahead' principle in airway management means:",
+          options: ["Always look at the airway before intubating", "Anticipate whether the patient will deteriorate during transport", "Look for the vocal cords before inserting the tube", "Check equipment before the call"],
+          correctIndex: 1,
+          explanation: "The 'look ahead' principle considers trajectory: Will this patient worsen during a long transport? Will access be lost in a helicopter? Sometimes early controlled intubation is better than emergent intubation later when conditions are worse."
+        }
       }
     ],
     keyPoints: [
@@ -4890,6 +4952,26 @@ That's the foundation. Everything else builds on this.`,
             content: "Positive End-Expiratory Pressure keeps alveoli from collapsing at end of exhalation. Improves oxygenation by recruiting collapsed lung units (reduces shunt). Typical starting: 5 cm H₂O. May increase to 10-15+ in ARDS. Watch: high PEEP reduces venous return → may drop blood pressure."
           }
         ]
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "para-resp-vent-q1",
+          question: "A ventilated patient has adequate SpO₂ but rising ETCO₂. Which parameter should you adjust?",
+          options: ["FiO₂", "PEEP", "Respiratory rate or tidal volume", "I:E ratio only"],
+          correctIndex: 2,
+          explanation: "ETCO₂/PaCO₂ is controlled by ventilation parameters: rate and tidal volume. Rising CO₂ means the patient isn't ventilating enough—increase rate or Vt. FiO₂ and PEEP affect oxygenation, not CO₂ elimination."
+        }
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "para-resp-vent-q2",
+          question: "Increasing PEEP to 15 cm H₂O in an ARDS patient may cause:",
+          options: ["Improved ventilation only", "Hypotension from reduced venous return", "Increased heart rate only", "No hemodynamic effects"],
+          correctIndex: 1,
+          explanation: "High PEEP increases intrathoracic pressure, which reduces venous return to the heart and can drop blood pressure. While PEEP recruits collapsed alveoli and improves oxygenation, you must monitor hemodynamics carefully—especially in hypovolemic patients."
+        }
       }
     ],
     keyPoints: [
@@ -4939,6 +5021,26 @@ Chronic COPD patients run elevated CO₂ but normal pH—their kidneys have comp
             back: "Chronic CO₂ retainers (COPD)—rapid drop causes alkalosis, confusion, arrhythmias. Routine cardiac arrest—hyperventilation impairs venous return, reduces coronary perfusion pressure. Reserve hyperventilation for specific indications (herniation syndrome)."
           }
         ]
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "para-resp-acidbase-q1",
+          question: "A COPD patient with baseline CO₂ of 55 mmHg is intubated. You should target their CO₂ at:",
+          options: ["35-40 mmHg (normal)", "55 mmHg (their baseline)", "25 mmHg (aggressive ventilation)", "70 mmHg (permissive hypercapnia)"],
+          correctIndex: 1,
+          explanation: "Chronic CO₂ retainers have renal compensation (elevated HCO₃⁻). Rapidly normalizing their CO₂ to 40 causes severe alkalosis because the elevated bicarb is no longer balanced. Target their baseline to avoid pH disasters."
+        }
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "para-resp-acidbase-q2",
+          question: "Permissive hypercapnia is used in severe asthma to:",
+          options: ["Improve oxygenation", "Prevent barotrauma from aggressive ventilation", "Increase cardiac output", "Treat metabolic alkalosis"],
+          correctIndex: 1,
+          explanation: "In severe asthma, aggressive ventilation to normalize CO₂ requires high pressures that can rupture fragile, air-trapped lungs (barotrauma). Accepting higher CO₂ (50s-60s) with tolerable pH (>7.20) prioritizes lung protection over perfect numbers."
+        }
       }
     ],
     keyPoints: [
@@ -4969,6 +5071,28 @@ Sudden dyspnea, clear lungs, low SpO₂, low ETCO₂, hyperventilating.
 • Pathophysiology: Dead space—ventilated alveoli have no perfusion (blocked by clot)
 • Treatment: Oxygen supportive, definitive = anticoagulation (or lytics if massive)
 • Key: PEEP won't help—the alveoli are open, there's just no blood flowing past them`,
+    blocks: [
+      {
+        type: "quiz",
+        quiz: {
+          id: "para-resp-integ-q1",
+          question: "A septic patient with bilateral infiltrates has SpO₂ 82% on NRB. The most effective intervention is:",
+          options: ["Increase oxygen flow rate", "Intubation with high PEEP to recruit alveoli", "Nebulized bronchodilator", "Nasal cannula at 6 LPM"],
+          correctIndex: 1,
+          explanation: "Bilateral infiltrates with refractory hypoxemia indicates ARDS/shunt physiology. Fluid-filled/inflamed alveoli don't participate in gas exchange. PEEP recruits collapsed alveoli and pushes fluid out—high FiO₂ alone can't fix shunt."
+        }
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "para-resp-integ-q2",
+          question: "A patient with sudden dyspnea has clear lung sounds, low SpO₂, and paradoxically low ETCO₂. This pattern suggests:",
+          options: ["COPD exacerbation", "Pulmonary embolism creating dead space", "Pneumonia with shunt", "Anxiety-related hyperventilation"],
+          correctIndex: 1,
+          explanation: "Clear lungs + low SpO₂ + low ETCO₂ = dead space physiology. PE blocks perfusion to ventilated alveoli—air reaches lungs but no blood carries oxygen away. Low ETCO₂ occurs because exhaled air hasn't contacted blood. PEEP won't help—perfusion must be restored."
+        }
+      }
+    ],
     keyPoints: [
       "Match pathophysiology to treatment",
       "Know the patient's baseline before normalizing values",
@@ -6014,6 +6138,28 @@ Differential diagnosis begins at dispatch. "Chest pain" triggers a mental list: 
 
 **What You'll Master**
 Differential diagnosis development, advanced physical exam with clinical correlation, critical patient recognition before decompensation, and synthesis of findings into field impressions that drive definitive care.`,
+    blocks: [
+      {
+        type: "quiz",
+        quiz: {
+          id: "para-assess-intro-q1",
+          question: "At the paramedic level, assessment is best described as:",
+          options: ["Data collection for documentation", "Hypothesis testing through differential diagnosis", "Following a checklist", "Waiting for hospital diagnosis"],
+          correctIndex: 1,
+          explanation: "Paramedic assessment is hypothesis testing. From dispatch, you build differential diagnoses and use each finding to refine your clinical picture. You're not just documenting what's wrong—you're understanding why."
+        }
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "para-assess-intro-q2",
+          question: "Differential diagnosis begins at which point in patient care?",
+          options: ["After all vitals are obtained", "During hospital handoff", "At dispatch, before patient contact", "Only after physical exam"],
+          correctIndex: 2,
+          explanation: "Differential diagnosis starts at dispatch. 'Chest pain' immediately triggers a mental list: MI, PE, dissection, pneumothorax, GERD, anxiety. Every subsequent assessment finding either supports or contradicts possibilities on your list."
+        }
+      }
+    ],
     keyPoints: [
       "Assessment is hypothesis testing, not just data collection",
       "Differential diagnosis begins before patient contact",
@@ -6048,6 +6194,26 @@ Chief complaint generates initial possibilities. History and physical exam findi
             content: "You're constantly updating probability as new data arrives. 'This is most likely... but I can't yet exclude...' Pre-test probability matters—chest pain in a 25-year-old healthy female vs. 65-year-old diabetic male with prior MI. Context shapes probability."
           }
         ]
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "para-differential-q1",
+          question: "When building a differential diagnosis, you should first rule out:",
+          options: ["The most common diagnosis", "The most expensive to treat", "Life-threatening 'can't miss' diagnoses", "The diagnosis the patient suggests"],
+          correctIndex: 2,
+          explanation: "Always rule out diagnoses that kill quickly if missed: MI, PE, aortic dissection, tension pneumothorax, ectopic pregnancy, meningitis, sepsis. Ask: 'What kills this patient if I'm wrong?' Address those first before settling on benign causes."
+        }
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "para-differential-q2",
+          question: "A normal ECG in a chest pain patient means:",
+          options: ["The patient is not having an MI", "MI is less likely but not ruled out", "You can stop the cardiac workup", "The pain is musculoskeletal"],
+          correctIndex: 1,
+          explanation: "A normal ECG doesn't rule OUT MI—but makes it less likely. Some MIs (NSTEMI, posterior MI) may not show classic changes on initial ECG. Build your case with positive AND negative findings, and get serial ECGs when suspicion remains high."
+        }
       }
     ],
     keyPoints: [
@@ -6099,6 +6265,26 @@ Every finding means something. JVD isn't just 'present'—it tells you about rig
             back: "Mottling = shock—blood being diverted from skin to vital organs. Petechiae = platelet problem or severe sepsis (meningococcemia). Skin tenting = dehydration. Diaphoresis = catecholamine surge (pain, fear, hypoglycemia, MI). The skin is an organ—read it."
           }
         ]
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "para-exam-q1",
+          question: "A hypotensive patient has flat neck veins. This finding most likely indicates:",
+          options: ["Right heart failure", "Cardiac tamponade", "Volume depletion", "Tension pneumothorax"],
+          correctIndex: 2,
+          explanation: "Flat neck veins in hypotension = the tank is empty (volume depletion). JVD would suggest the tank is backed up (right heart failure, tamponade, tension pneumo). The neck veins tell you about the right heart and circulating volume."
+        }
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "para-exam-q2",
+          question: "Unilateral leg edema in a patient with unexplained dyspnea should raise concern for:",
+          options: ["CHF", "Renal failure", "DVT with possible PE", "Liver disease"],
+          correctIndex: 2,
+          explanation: "Bilateral edema suggests systemic causes (CHF, renal, liver). Unilateral edema = DVT until proven otherwise. In a patient with unexplained dyspnea, the DVT-PE connection is critical—the clot may have traveled to the lungs."
+        }
       }
     ],
     keyPoints: [
@@ -6274,6 +6460,28 @@ Integration: Post-partum + hypertension + seizure = eclampsia. Magnesium sulfate
 
 **The Integration Skill**
 Each case requires synthesizing: history, physical exam, vital signs, clinical context. The 'right' answer comes from connecting the dots—not from pattern-matching to a single finding.`,
+    blocks: [
+      {
+        type: "quiz",
+        quiz: {
+          id: "para-complex-q1",
+          question: "A patient has 'tearing' chest pain to the back, BP 190/110 left arm, BP 150/90 right arm. You should:",
+          options: ["Activate STEMI pathway and give anticoagulants", "Suspect aortic dissection—pain control, gentle BP management, avoid anticoagulation", "Treat as musculoskeletal pain", "Give nitroglycerin for the hypertension"],
+          correctIndex: 1,
+          explanation: "Unequal BPs + tearing pain to back + severe hypertension = aortic dissection until proven otherwise. Anticoagulation could be catastrophic (worsening the tear). This is NOT a STEMI pathway—it requires pain control, gentle BP management, and rapid transport to cardiac surgery."
+        }
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "para-complex-q2",
+          question: "A post-partum patient (2 weeks) has a seizure with BP 180/120. The most likely cause is:",
+          options: ["Epilepsy", "Eclampsia", "Hypoglycemia", "Stroke"],
+          correctIndex: 1,
+          explanation: "Post-partum + hypertension + seizure = eclampsia. This requires magnesium sulfate (not standard seizure meds), BP management, and transport to an OB-capable facility. Recognizing this specific cause drives specific treatment."
+        }
+      }
+    ],
     keyPoints: [
       "Real cases involve multi-system problems",
       "Context changes interpretation of findings",
@@ -7406,6 +7614,28 @@ Everything from EMT and AEMT remains essential. Recognition, fluid resuscitation
 
 **The Challenge**
 Some patients don't respond to fluids. Some patients need pump support, not vasoconstriction. Choosing the right pharmacologic intervention requires understanding the hemodynamic problem you're treating.`,
+    blocks: [
+      {
+        type: "quiz",
+        quiz: {
+          id: "para-shock-intro-q1",
+          question: "At the paramedic level, shock management adds which key capability beyond AEMT?",
+          options: ["Oxygen administration", "IV fluid therapy", "Vasopressor and inotrope therapy", "Tourniquet application"],
+          correctIndex: 2,
+          explanation: "Paramedic-level adds vasopressor and inotrope therapy—pharmacologic hemodynamic support for patients who don't respond to fluids. This requires understanding whether the problem is the pump (inotropes) or the pipes (vasopressors)."
+        }
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "para-shock-intro-q2",
+          question: "When a patient doesn't respond to fluid resuscitation, this is called:",
+          options: ["Compensated shock", "Fluid-refractory shock", "Neurogenic shock", "Resolved shock"],
+          correctIndex: 1,
+          explanation: "Fluid-refractory shock means the patient remains hypotensive despite adequate fluid resuscitation. This is the trigger for vasopressor therapy—the next tier of intervention that paramedics can provide."
+        }
+      }
+    ],
     keyPoints: [
       "Vasopressors for fluid-refractory shock",
       "Hemodynamic reasoning guides drug selection",
@@ -7446,6 +7676,26 @@ When shock persists, organs fail sequentially. Kidneys first (oliguria), then li
             content: "Lactate reflects anaerobic metabolism—cells not getting oxygen. > 4 mmol/L = severe shock. Trending lactate guides resuscitation. Lactate clearance > 10%/hour predicts survival. Falling lactate = tissues perfusing again."
           }
         ]
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "para-shock-micro-q1",
+          question: "A patient has MAP 70 but rising lactate and mottled skin. This indicates:",
+          options: ["Adequate resuscitation", "Microcirculatory dysfunction despite adequate macrocirculation", "Normal findings", "Need for more fluids only"],
+          correctIndex: 1,
+          explanation: "Even with restored MAP, the microcirculation can fail. Capillary plugging, endothelial damage, and maldistribution of flow mean tissues don't get perfused despite 'normal' vital signs. Rising lactate + mottling = reassess strategy."
+        }
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "para-shock-micro-q2",
+          question: "In sepsis, organs typically fail in which sequence?",
+          options: ["Brain → heart → lungs", "Lungs → kidneys → liver", "Liver → brain → kidneys", "Heart → lungs → kidneys"],
+          correctIndex: 1,
+          explanation: "Multi-organ failure follows a somewhat predictable sequence: lungs first (ARDS), then kidneys (AKI/oliguria), then liver (coagulopathy). Each failing organ accelerates the cascade—prevention through early intervention is better than treatment."
+        }
       }
     ],
     keyPoints: [
@@ -7507,6 +7757,26 @@ Diluted epinephrine (10-20 mcg/mL) for hypotension emergencies. Bridge to infusi
             back: "Vasoconstrictors increase afterload—may worsen output in cardiogenic shock. Excessive vasoconstriction causes peripheral ischemia (check extremities). Use minimum effective dose to achieve targets. Pressors aren't benign—they're powerful tools requiring careful use."
           }
         ]
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "para-shock-vaso-q1",
+          question: "Succinylcholine is contraindicated in burn patients >24 hours because of risk of:",
+          options: ["Hypotension", "Fatal hyperkalemia", "Allergic reaction", "Bradycardia only"],
+          correctIndex: 1,
+          explanation: "Burns >24 hours cause upregulation of acetylcholine receptors across damaged muscle. Succinylcholine depolarizes all of them simultaneously, releasing massive potassium loads that can cause fatal cardiac arrest."
+        }
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "para-shock-vaso-q2",
+          question: "Vasopressin differs from norepinephrine in that it:",
+          options: ["Has strong cardiac stimulation", "Is a pure vasoconstrictor without cardiac effects", "Causes bronchodilation", "Is titrated based on blood pressure"],
+          correctIndex: 1,
+          explanation: "Vasopressin is a V1 receptor agonist—pure vasoconstriction without cardiac stimulation. It's given at a fixed dose (0.03-0.04 units/min) as an adjunct to norepinephrine in refractory sepsis, preserving catecholamine-depleted stores."
+        }
       }
     ],
     keyPoints: [
@@ -7550,6 +7820,26 @@ The obstruction must be relieved. Fluids and pressors can't overcome mechanical 
             content: "Tension pneumothorax: needle decompression—14g needle, 2nd intercostal space, midclavicular line. Cardiac tamponade: pericardiocentesis if trained. Massive PE: thrombolytics considered in cardiac arrest. Relieve the obstruction—pressors won't overcome mechanical blockage."
           }
         ]
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "para-shock-cardio-q1",
+          question: "In cardiogenic shock, aggressive IV fluids may:",
+          options: ["Improve cardiac output", "Worsen pulmonary edema and congestion", "Have no effect", "Reduce afterload"],
+          correctIndex: 1,
+          explanation: "Cardiogenic shock is a pump problem. The failing heart can't handle extra volume—fluids worsen congestion, back up into the lungs, and can worsen pulmonary edema. This is fundamentally different from hypovolemic shock where fluids help."
+        }
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "para-shock-cardio-q2",
+          question: "The treatment for tension pneumothorax causing obstructive shock is:",
+          options: ["Vasopressors", "IV fluid bolus", "Needle decompression", "Dobutamine"],
+          correctIndex: 2,
+          explanation: "Obstructive shock requires relieving the obstruction. No amount of fluids or vasopressors can overcome mechanical blockage. Tension pneumothorax needs needle decompression (14g, 2nd intercostal space, midclavicular line) to release trapped air."
+        }
       }
     ],
     keyPoints: [
@@ -7609,6 +7899,26 @@ Higher isn't always better. Excessive vasoconstriction causes ischemia. Excessiv
             back: "> 0.5 mL/kg/hr indicates adequate renal perfusion. Oliguria despite resuscitation = kidneys not perfusing = escalate care or reassess approach. Kidneys are sensitive perfusion monitors."
           }
         ]
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "para-shock-map-q1",
+          question: "MAP = CO × SVR. In septic shock, the primary hemodynamic problem is:",
+          options: ["Low cardiac output", "Low systemic vascular resistance from vasodilation", "High SVR from vasoconstriction", "Elevated cardiac output"],
+          correctIndex: 1,
+          explanation: "Septic shock is primarily a low SVR problem—cytokines cause massive vasodilation. That's why vasoconstrictors (norepinephrine) are first-line. Cardiogenic shock is a low CO problem requiring inotropes. Same low MAP, different mechanisms, different treatments."
+        }
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "para-shock-map-q2",
+          question: "The target MAP of ≥65 mmHg is important because below this level:",
+          options: ["The patient becomes unconscious", "Autoregulation of vital organ perfusion fails", "IV fluids stop working", "Vasopressors become ineffective"],
+          correctIndex: 1,
+          explanation: "Below MAP 65, coronary and cerebral autoregulation fails—vital organs become pressure-dependent and can't maintain their own perfusion. Target higher (80) for chronic hypertension patients whose autoregulation has reset to a higher baseline."
+        }
       }
     ],
     keyPoints: [
@@ -7637,6 +7947,28 @@ Higher isn't always better. Excessive vasoconstriction causes ischemia. Excessiv
 
 **The Integration**
 Every case requires: assess → form hypothesis → intervene → monitor response → adjust. The complexity increases, but the systematic approach remains constant.`,
+    blocks: [
+      {
+        type: "quiz",
+        quiz: {
+          id: "para-shock-clin-q1",
+          question: "A 68-year-old with UTI has AMS, HR 118, BP 72/48 despite 2L crystalloid. The next intervention is:",
+          options: ["Another 2L fluid bolus", "Start norepinephrine infusion", "Oral antibiotics", "Observation only"],
+          correctIndex: 1,
+          explanation: "This is fluid-refractory septic shock. Norepinephrine (first-line vasopressor) should be started to restore SVR and MAP ≥65. Continue fluids, notify hospital early for source control and IV antibiotics. Don't delay pressors waiting to 'finish' fluids."
+        }
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "para-shock-clin-q2",
+          question: "Post-ROSC shock is challenging because it involves:",
+          options: ["Only hypovolemia", "Multiple components: myocardial stunning + vasodilation + possible ongoing ischemia", "Only cardiogenic shock", "Only distributive shock"],
+          correctIndex: 1,
+          explanation: "Post-arrest shock has multiple components: myocardial stunning (reduced contractility), vasodilation (inflammatory response from whole-body ischemia), and possible ongoing cardiac ischemia. Treatment may require combination therapy—vasopressors + inotropes + targeted temperature management."
+        }
+      }
+    ],
     keyPoints: [
       "Septic shock: fluids + norepinephrine + source control",
       "Post-arrest: multi-component shock requiring combined approach",
@@ -8710,6 +9042,28 @@ At this level, you're not just recognizing patterns — you're predicting what c
 When you understand WHY a post-arrest patient develops reperfusion injury, you understand WHY targeted temperature management is indicated. When you can interpret acid-base disturbances, you can predict compensatory responses and guide ventilation. When you understand the SIRS-sepsis-MODS continuum, you can intervene at each stage with purpose.
 
 This is the difference between a paramedic who follows recipes and one who practices medicine.`,
+    blocks: [
+      {
+        type: "quiz",
+        quiz: {
+          id: "para-patho-intro-q1",
+          question: "Targeted temperature management post-arrest is indicated because:",
+          options: ["It prevents infection", "It reduces metabolic demand and limits reperfusion injury", "It improves drug absorption", "It increases cardiac output"],
+          correctIndex: 1,
+          explanation: "Post-arrest, restoring blood flow generates reactive oxygen species that cause reperfusion injury. Cooling reduces metabolic demand, limiting the damage from these free radicals. Understanding this mechanism explains WHY the intervention is indicated."
+        }
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "para-patho-intro-q2",
+          question: "The difference between a paramedic who follows recipes and one who practices medicine is:",
+          options: ["Years of experience only", "Understanding the pathophysiology behind treatments", "Memorizing more protocols", "Having more equipment"],
+          correctIndex: 1,
+          explanation: "Understanding mechanisms lets you adapt when protocols don't cover the situation. When you know WHY a treatment works, you can predict responses, adjust doses, and troubleshoot when things don't go as expected."
+        }
+      }
+    ],
     keyPoints: [
       "Paramedic-level pathophysiology drives differential diagnosis",
       "Understanding mechanisms prevents recipe-following",
@@ -8741,6 +9095,26 @@ This is the difference between a paramedic who follows recipes and one who pract
             content: "Paradoxically, restoring blood flow after prolonged ischemia generates reactive oxygen species (free radicals) that cause additional cellular damage. These ROS damage cell membranes, DNA, and proteins. This is why post-ROSC care includes targeted temperature management — reducing metabolic demand limits reperfusion damage. The treatment itself requires treatment."
           }
         ]
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "para-patho-cell-q1",
+          question: "Cytopathic hypoxia in sepsis means:",
+          options: ["Lungs can't absorb oxygen", "Mitochondria are damaged and can't use delivered oxygen", "Hemoglobin can't bind oxygen", "Airways are obstructed"],
+          correctIndex: 1,
+          explanation: "In prolonged sepsis, inflammatory mediators and reactive oxygen species damage mitochondria. Even with restored oxygen delivery, cells can't use it—the powerhouses are broken. This explains deterioration despite normalized vital signs."
+        }
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "para-patho-cell-q2",
+          question: "Reperfusion injury occurs because restoring blood flow:",
+          options: ["Washes away medications", "Generates reactive oxygen species that damage cells", "Causes hypothermia", "Reduces cardiac output"],
+          correctIndex: 1,
+          explanation: "Paradoxically, restoring blood flow after prolonged ischemia generates free radicals (reactive oxygen species) that damage cell membranes, DNA, and proteins. This is why post-ROSC care includes targeted temperature management."
+        }
       }
     ],
     keyPoints: [
@@ -8791,6 +9165,26 @@ The key relationship: **pH is determined by the ratio of CO₂ (respiratory) to 
             back: "Sometimes both respiratory AND metabolic problems coexist. Post-arrest: respiratory acidosis (no ventilation during arrest) + metabolic acidosis (lactate from hypoperfusion). Drug overdose with vomiting: respiratory acidosis + metabolic alkalosis. Numbers that don't fit a single pattern = mixed disorder."
           }
         ]
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "para-patho-ab-q1",
+          question: "A patient has pH 7.25, PaCO₂ 30, HCO₃⁻ 14. This represents:",
+          options: ["Respiratory acidosis", "Metabolic acidosis with respiratory compensation", "Respiratory alkalosis", "Normal acid-base balance"],
+          correctIndex: 1,
+          explanation: "Low pH (acidosis) with low HCO₃⁻ (metabolic cause) and low PaCO₂ (lungs compensating by blowing off CO₂). The lungs are trying to raise pH by removing acid. Common in shock (lactic acidosis), DKA, or renal failure."
+        }
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "para-patho-ab-q2",
+          question: "Compensation NEVER fully corrects pH. If pH is normal with abnormal CO₂ and HCO₃⁻, suspect:",
+          options: ["Normal findings", "A mixed acid-base disorder", "Equipment malfunction", "Adequate compensation"],
+          correctIndex: 1,
+          explanation: "The body's compensatory mechanisms move pH toward normal but never fully correct it. If pH is perfectly normal despite abnormal CO₂ AND HCO₃⁻, two simultaneous disorders may be occurring—like post-arrest respiratory acidosis + metabolic acidosis."
+        }
       }
     ],
     keyPoints: [
@@ -8824,6 +9218,26 @@ The key relationship: **pH is determined by the ratio of CO₂ (respiratory) to 
             content: "Early antibiotics reduce the bacterial burden driving the immune response. Fluid resuscitation restores circulating volume (targeting MAP ≥65). Vasopressors (norepinephrine first-line) restore SVR when fluids alone aren't enough. Source control (drain the abscess, remove the infected device) eliminates the trigger. Early, aggressive, targeted intervention at each stage improves survival."
           }
         ]
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "para-patho-sirs-q1",
+          question: "The cytokine storm in sepsis causes all of the following EXCEPT:",
+          options: ["Vasodilation", "Capillary leak", "Increased SVR", "Myocardial depression"],
+          correctIndex: 2,
+          explanation: "Cytokine storm causes vasodilation (DECREASED SVR), capillary leak, and myocardial depression—all simultaneously. SVR drops dramatically, which is why vasoconstrictors (norepinephrine) are first-line for septic shock."
+        }
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "para-patho-sirs-q2",
+          question: "Early antibiotics in sepsis are critical because they:",
+          options: ["Immediately cure the infection", "Reduce the bacterial burden driving the immune response", "Replace vasopressors", "Prevent all organ failure"],
+          correctIndex: 1,
+          explanation: "Antibiotics reduce the bacterial burden that triggers the cytokine storm. Combined with fluids (restore volume), vasopressors (restore SVR), and source control (eliminate the trigger), early antibiotics are part of the multi-targeted approach to sepsis management."
+        }
       }
     ],
     keyPoints: [
@@ -8871,6 +9285,26 @@ The key relationship: **pH is determined by the ratio of CO₂ (respiratory) to 
             back: "Develops after birth from environmental factors, lifestyle, or aging. Atherosclerosis from diet/lifestyle/genetics. COPD from smoking. Cirrhosis from alcohol. Type 2 diabetes from metabolic syndrome. Understanding the mechanism connects the disease to its clinical presentation and treatment approach."
           }
         ]
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "para-patho-gen-q1",
+          question: "A sickle cell patient in crisis should NOT receive:",
+          options: ["High-flow oxygen", "IV hydration", "Cold packs", "Pain management"],
+          correctIndex: 2,
+          explanation: "Cold exposure worsens sickling by causing vasoconstriction and reducing oxygen delivery to tissues. Sickle cell crisis treatment includes high-flow O₂ (prevents further sickling), IV hydration (reduces blood viscosity), and pain management."
+        }
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "para-patho-gen-q2",
+          question: "Autoimmune disease patients on immunosuppressive therapy are at increased risk for:",
+          options: ["Hyperkalemia", "Infections and impaired healing", "Hypertension only", "Improved immune response"],
+          correctIndex: 1,
+          explanation: "Treatments for autoimmune diseases (steroids, biologics) suppress the immune system to stop it from attacking self. This creates additional infection risk and impaired healing—important considerations for field assessment and wound management."
+        }
       }
     ],
     keyPoints: [
@@ -8892,6 +9326,28 @@ When you understand mechanisms, you can predict what's coming. The crush injury 
 
 **Comorbidity Compounds Everything**
 Elderly patients with renal insufficiency can't clear drugs normally — dose adjustments matter. Liver failure patients can't produce clotting factors — minor bleeding becomes major. COPD patients rely on hypoxic drive — high-flow O₂ can suppress respiratory drive (though you should never withhold oxygen from a hypoxic patient).`,
+    blocks: [
+      {
+        type: "quiz",
+        quiz: {
+          id: "para-patho-integ-q1",
+          question: "A diabetic CHF patient develops pneumonia. Fluid resuscitation for sepsis is complicated because:",
+          options: ["Diabetes prevents fluid absorption", "The failing heart can't handle extra volume", "Pneumonia doesn't cause sepsis", "Fluids are never indicated in sepsis"],
+          correctIndex: 1,
+          explanation: "CHF limits fluid tolerance—the compromised pump can't handle aggressive fluid resuscitation. Meanwhile, hyperglycemia impairs immune function (worse infection), and pneumonia impairs gas exchange. Each condition compounds the others, requiring careful balance."
+        }
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "para-patho-integ-q2",
+          question: "Before extricating a crush injury patient, you should anticipate:",
+          options: ["Immediate improvement", "Hyperkalemia causing cardiac arrest risk upon release", "Hypothermia only", "No complications"],
+          correctIndex: 1,
+          explanation: "Prolonged compression damages muscle. Upon release, cell contents flood the bloodstream: potassium (cardiac arrest risk), myoglobin (kidney damage), and acids. Anticipation of this complication—and pre-treatment when possible—defines paramedic-level care."
+        }
+      }
+    ],
     keyPoints: [
       "Multiple comorbidities interact and compound each other",
       "Understanding mechanisms lets you predict complications",
@@ -9752,6 +10208,26 @@ Endotracheal intubation is a high-risk, high-reward skill. Done right, it provid
             ]
           }
         ]
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "para-eti-q1",
+          question: "The gold standard for confirming endotracheal tube placement is:",
+          options: ["Bilateral breath sounds", "Chest rise", "Waveform capnography", "Tube fogging"],
+          correctIndex: 2,
+          explanation: "Waveform capnography showing persistent CO₂ waveform = tube in trachea. No single other method is definitive. Always use multiple confirmation methods, but capnography is the gold standard. If ANY doubt—remove the tube and ventilate with BVM."
+        }
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "para-eti-q2",
+          question: "If you cannot see the vocal cords during laryngoscopy, you should:",
+          options: ["Push the tube in blindly", "Remove the blade, ventilate with BVM, and reposition", "Switch to a surgical airway immediately", "Wait for the patient to open wider"],
+          correctIndex: 1,
+          explanation: "Never force the tube without visualization. Remove the blade, ventilate with BVM (maintaining oxygenation), reposition the patient, and reattempt. A failed attempt with good oxygenation beats a forced attempt with a dead patient."
+        }
       }
     ],
     keyPoints: [
@@ -9802,6 +10278,26 @@ Endotracheal intubation is a high-risk, high-reward skill. Done right, it provid
             back: "Given 3 minutes before induction to blunt the body's stress response to laryngoscopy. Prevents dangerous spikes in heart rate and blood pressure when the blade enters the airway. Dose: 1-3 mcg/kg IV slow push. Like putting a governor on an engine before revving it — controls the response."
           }
         ]
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "para-rsi-q1",
+          question: "Which RSI induction agent is preferred for a hypotensive patient?",
+          options: ["Etomidate", "Ketamine", "Propofol", "Midazolam"],
+          correctIndex: 1,
+          explanation: "Ketamine maintains respiratory drive and blood pressure through sympathetic stimulation. Etomidate is hemodynamically neutral but doesn't support blood pressure. Propofol and midazolam can worsen hypotension. Ketamine is ideal for hemodynamically unstable patients."
+        }
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "para-rsi-q2",
+          question: "The most important 'P' in the 7 P's of RSI is:",
+          options: ["Placement", "Paralysis", "Preoxygenation", "Post-intubation management"],
+          correctIndex: 2,
+          explanation: "Preoxygenation (3-5 min of 100% O₂) fills the lungs with an oxygen reserve, buying 3-8 minutes of apnea time before desaturation. Without adequate preoxygenation, the patient desaturates during the paralysis window—when they can't breathe on their own."
+        }
       }
     ],
     keyPoints: [
@@ -9865,6 +10361,26 @@ Endotracheal intubation is a high-risk, high-reward skill. Done right, it provid
             ]
           }
         ]
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "para-difficult-q1",
+          question: "The LEMON assessment should be performed:",
+          options: ["After giving paralytic medications", "Before any intubation attempt", "Only for known difficult airways", "During post-intubation care"],
+          correctIndex: 1,
+          explanation: "LEMON assessment must be done BEFORE giving medications. Once you've paralyzed a patient, you're committed. Predicting difficulty early lets you prepare backup plans and equipment before you start."
+        }
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "para-difficult-q2",
+          question: "In the 'Can't Intubate, Can't Oxygenate' scenario, the required intervention is:",
+          options: ["Another intubation attempt", "Surgical cricothyrotomy", "Higher-flow oxygen", "Wait for hospital resources"],
+          correctIndex: 1,
+          explanation: "CICO means all other airways have failed and the patient can't be oxygenated. Immediate surgical cricothyrotomy is mandatory—no more delays. This is the emergency exit that saves lives when every other door is blocked."
+        }
       }
     ],
     keyPoints: [
@@ -9902,6 +10418,28 @@ This connects everything you've learned:
 • Clinical Reasoning: Does this patient need a tube, or will a less invasive approach work?
 
 *Always follow your local protocols and consult medical direction when available. These guidelines are educational, not prescriptive.*`,
+    blocks: [
+      {
+        type: "quiz",
+        quiz: {
+          id: "para-decision-q1",
+          question: "A patient with severe asthma improves significantly on nebulized bronchodilators and CPAP. You should:",
+          options: ["Intubate for definitive airway", "Continue current treatment—intubation may not be needed", "Withhold further treatment", "Give paralytic medications"],
+          correctIndex: 1,
+          explanation: "Not every patient who CAN be intubated SHOULD be. If the patient is responding to less invasive measures, continue them. Intubation carries significant risks and should be reserved for NIV failure or airway protection needs."
+        }
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "para-decision-q2",
+          question: "Assessing patient trajectory means:",
+          options: ["Checking their past medical history", "Predicting whether they'll improve or deteriorate during transport", "Measuring their walking speed", "Documenting their baseline vitals"],
+          correctIndex: 1,
+          explanation: "Trajectory assessment asks: where is this patient headed? A patient with mild distress but worsening trajectory may need early intubation. A patient who looks terrible but is improving may not need a tube at all. Think ahead, not just right now."
+        }
+      }
+    ],
     keyPoints: [
       "Not every patient who CAN be intubated SHOULD be intubated",
       "Assess trajectory — where is the patient headed, not just where they are now",
@@ -9949,6 +10487,26 @@ Only in the "Can't Intubate, Can't Oxygenate" (CICO) scenario. Everything else h
             back: "The job doesn't end when the tube is in. Secure the tube (tape or commercial holder), confirm with continuous capnography, set ventilator settings (or BVM rate), provide ongoing sedation (paralyzed patients who wake up is terrifying for them), and reassess placement with every patient movement or change."
           }
         ]
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "para-surg-q1",
+          question: "The target landmark for cricothyrotomy is:",
+          options: ["The thyroid cartilage", "The cricothyroid membrane", "The hyoid bone", "The first tracheal ring"],
+          correctIndex: 1,
+          explanation: "The cricothyroid membrane—the soft spot between the thyroid cartilage (Adam's apple) and the cricoid cartilage—is the target. It's superficial and relatively avascular, making it the safest location for an emergency surgical airway."
+        }
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "para-surg-q2",
+          question: "Post-intubation management includes all of the following EXCEPT:",
+          options: ["Continuous capnography monitoring", "Ongoing sedation for paralyzed patients", "Removing the tube to check placement", "Reassessing placement with every patient movement"],
+          correctIndex: 2,
+          explanation: "Never remove a confirmed tube to 'check placement.' Use continuous capnography, bilateral breath sounds, and chest rise. Provide ongoing sedation (waking up paralyzed is terrifying), and reassess placement with every movement or change."
+        }
       }
     ],
     keyPoints: [
@@ -10628,6 +11186,28 @@ When a patient is having a STEMI (ST-Elevation Myocardial Infarction), minutes e
 This is paramedic-level thinking: you're not just managing symptoms, you're diagnosing conditions and triggering hospital-level responses from the field.
 
 **Important:** This is supplemental educational content only. Not a substitute for official training, NREMT certification, or medical advice. Always follow your local protocols.`,
+    blocks: [
+      {
+        type: "quiz",
+        quiz: {
+          id: "para-12lead-intro-q1",
+          question: "Field STEMI identification by paramedics can save how much time compared to ED-first diagnosis?",
+          options: ["5-10 minutes", "15-20 minutes", "30-60 minutes", "2-3 hours"],
+          correctIndex: 2,
+          explanation: "Paramedic 12-lead interpretation and cath lab activation from the field saves 30-60 minutes compared to waiting for the ED to acquire and interpret their own ECG."
+        }
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "para-12lead-intro-q2",
+          question: "The 12-lead ECG uses how many electrodes to create 12 views?",
+          options: ["12", "6", "10", "4"],
+          correctIndex: 2,
+          explanation: "A 12-lead ECG uses 10 electrodes (4 limb + 6 precordial) that create 12 different electrical perspectives of the heart through mathematical combinations."
+        }
+      }
+    ],
     keyPoints: [
       "12-lead ECG provides 12 different views of cardiac electrical activity",
       "Field STEMI identification saves 30-60 minutes over ED-first diagnosis",
@@ -10692,6 +11272,26 @@ The heart is a three-dimensional organ, so we need views from two planes to see 
             ]
           }
         ]
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "para-12lead-anat-q1",
+          question: "ST elevation in leads V1-V4 indicates occlusion of which artery?",
+          options: ["Right Coronary Artery (RCA)", "Left Circumflex (LCx)", "Left Anterior Descending (LAD)", "Left Main"],
+          correctIndex: 2,
+          explanation: "V1-V4 (precordial leads across the front of the chest) view the anterior wall, supplied by the LAD. Anterior STEMIs are the most dangerous because the LAD supplies the largest area of ventricular muscle—hence the name 'widow maker.'"
+        }
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "para-12lead-anat-q2",
+          question: "The inferior wall of the heart is viewed by leads:",
+          options: ["V1-V4", "I, aVL, V5-V6", "II, III, aVF", "aVR only"],
+          correctIndex: 2,
+          explanation: "Leads II, III, and aVF look at the inferior (bottom) wall of the heart, supplied by the Right Coronary Artery in ~85% of patients. ST elevation in these contiguous leads = inferior STEMI."
+        }
       }
     ],
     keyPoints: [
@@ -10715,6 +11315,26 @@ The heart is a three-dimensional organ, so we need views from two planes to see 
           { front: "Axis Deviation", back: "The overall direction of the heart's electrical activity. Normal axis points left and down. Left axis deviation (LAD) or right axis deviation (RAD) can indicate hypertrophy or conduction blocks." },
           { front: "R Wave Progression", back: "In leads V1-V6, the R wave should get progressively taller (and S wave smaller). Poor R wave progression suggests anterior wall damage or old MI." }
         ]
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "para-12lead-term-q1",
+          question: "Reciprocal changes on an ECG refer to:",
+          options: ["Identical changes in all leads", "ST depression in leads opposite to the elevation", "Normal variant findings", "Motion artifact"],
+          correctIndex: 1,
+          explanation: "Reciprocal changes are ST depression in leads looking at the opposite side of the heart from the elevation. They CONFIRM a STEMI diagnosis—like seeing the back of a hill when you're looking at the front. Their presence significantly increases diagnostic confidence."
+        }
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "para-12lead-term-q2",
+          question: "Poor R wave progression in V1-V6 may suggest:",
+          options: ["Normal finding in all patients", "Anterior wall damage or old MI", "Lead wire malfunction only", "Right axis deviation"],
+          correctIndex: 1,
+          explanation: "Normally, the R wave gets progressively taller from V1 to V6 (and S wave smaller). Poor R wave progression—where R waves fail to grow appropriately—can indicate anterior wall damage, old MI, or lead placement issues."
+        }
       }
     ],
     keyPoints: [
@@ -10772,6 +11392,26 @@ The heart is a three-dimensional organ, so we need views from two planes to see 
             ]
           }
         ]
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "para-12lead-sys-q1",
+          question: "Using the quick axis method, Lead I positive and aVF positive indicates:",
+          options: ["Left axis deviation", "Right axis deviation", "Normal axis", "Extreme axis deviation"],
+          correctIndex: 2,
+          explanation: "Quick axis check: Lead I (+) and aVF (+) = Normal axis. Lead I (+) and aVF (−) = Left axis deviation. Lead I (−) and aVF (+) = Right axis deviation. This 3-second check is step 2 of your systematic approach."
+        }
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "para-12lead-sys-q2",
+          question: "The most important step in the systematic 12-lead approach for identifying STEMI is:",
+          options: ["Rate and rhythm", "Axis determination", "ST segment analysis across all leads", "QT interval measurement"],
+          correctIndex: 2,
+          explanation: "Step 4—ST segment analysis—is where you find the STEMI. Systematically scan EVERY lead for ST elevation or depression, comparing to the baseline. Missing this step is the most common cause of missed STEMIs."
+        }
       }
     ],
     keyPoints: [
@@ -10802,6 +11442,28 @@ The heart is a three-dimensional organ, so we need views from two planes to see 
 • **Posterior STEMI**: No standard leads directly view the posterior wall. Look for ST depression in V1-V3 (mirror image) and tall R waves in V1. Confirm with posterior leads (V7-V9) if available.
 
 **Reciprocal changes are your confirmation.** If you see ST elevation in the inferior leads AND ST depression in I and aVL, that's a STEMI until proven otherwise. Activate the cath lab.`,
+    blocks: [
+      {
+        type: "quiz",
+        quiz: {
+          id: "para-12lead-stemi-q1",
+          question: "An inferior STEMI (II, III, aVF) should prompt you to also check for:",
+          options: ["Posterior involvement only", "Right ventricular MI using V4R", "Left axis deviation", "Bundle branch block"],
+          correctIndex: 1,
+          explanation: "Inferior STEMIs involve the RCA, which also supplies the right ventricle. Right-sided V4R lead can detect RV MI—critical because RV MI patients are preload-dependent and nitroglycerin can cause catastrophic hypotension."
+        }
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "para-12lead-stemi-q2",
+          question: "The most commonly missed STEMI pattern is:",
+          options: ["Anterior STEMI (V1-V4)", "Inferior STEMI (II, III, aVF)", "High lateral STEMI (I, aVL only)", "Posterior STEMI"],
+          correctIndex: 2,
+          explanation: "High lateral STEMIs involving only leads I and aVL are the most commonly missed because they're subtle—only two leads show changes. Always check these leads carefully, especially with lateral chest pain."
+        }
+      }
+    ],
     keyPoints: [
       "≥1mm ST elevation in 2+ contiguous leads = STEMI",
       "Reciprocal depression confirms the diagnosis",
@@ -10825,6 +11487,26 @@ The heart is a three-dimensional organ, so we need views from two planes to see 
           { front: "Bundle Branch Block (BBB)", back: "Wide QRS (≥0.12 sec) that alters ST segments. New LBBB with chest pain symptoms is treated as a STEMI equivalent in many systems (Sgarbossa criteria)." },
           { front: "Hyperkalemia", back: "Peaked, tent-shaped T waves → widened QRS → sine wave pattern. Life-threatening but NOT a STEMI. Treat with calcium chloride, bicarb, insulin/dextrose." }
         ]
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "para-12lead-mimic-q1",
+          question: "The key ECG finding that differentiates pericarditis from STEMI is:",
+          options: ["ST elevation magnitude", "Absence of reciprocal changes in pericarditis", "Heart rate", "QRS width"],
+          correctIndex: 1,
+          explanation: "Pericarditis shows diffuse ST elevation across most leads with NO reciprocal changes. STEMI shows localized ST elevation with reciprocal depression in opposite leads. This distinction prevents false cath lab activations."
+        }
+      },
+      {
+        type: "quiz",
+        quiz: {
+          id: "para-12lead-mimic-q2",
+          question: "Peaked, tent-shaped T waves on ECG most likely indicate:",
+          options: ["STEMI", "Pericarditis", "Hyperkalemia", "Normal variant"],
+          correctIndex: 2,
+          explanation: "Peaked, tent-shaped T waves are the hallmark of hyperkalemia—a life-threatening electrolyte emergency. This progresses to widened QRS and sine wave pattern if untreated. Treatment includes calcium chloride, bicarb, and insulin/dextrose—NOT cath lab activation."
+        }
       }
     ],
     keyPoints: [
