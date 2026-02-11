@@ -1,126 +1,79 @@
 
 
-# Duolingo-Inspired Style Evolution
+# Expand Quiz Questions Across All Topics
 
 ## Overview
-Restyle the app with Duolingo's energetic, motivating aesthetic while preserving the existing medical-credible structure (8-section modules, level tabs, flashcards, quizzes, callouts).
-
-This plan is split into two phases: **Phase 1** applies the global visual foundation, and **Phase 2** adds gamification and micro-interactions.
+Expand all Knowledge Check sections to 5 quiz questions each, and add 2 quiz questions to every content section that currently has no quiz. This applies to both `src/data/topics.ts` (3 legacy topics) and `src/data/subtopicContent.ts` (the main content file with ~11,000 lines).
 
 ---
 
-## Phase 1 -- Visual Refresh (Global)
+## Scope Summary
 
-### 1. Color Palette Update (`src/index.css`)
-Swap the current subdued blue palette for Duolingo-inspired vibrant colors:
+### File 1: `src/data/topics.ts` (3 topics)
 
-| Token | Current | New |
-|---|---|---|
-| `--primary` | `217 91% 60%` (steel blue) | `197 93% 52%` (#1CB0F6 Duo blue) |
-| `--success` | `142 76% 36%` (dark green) | `101 75% 40%` (#58CC02 Duo green) |
-| `--destructive` | `0 84% 60%` | `0 72% 51%` (#CE2029 Duo red) |
-| `--warning` | `38 92% 50%` | `40 96% 53%` (bright amber) |
-| `--background` | near-white | `0 0% 100%` (pure white) |
-| `--border` | gray | lighter, `220 20% 93%` |
+**Knowledge Check sections to expand from 3 to 5 questions:**
+- Airway Management: `knowledge-check` (3 questions, add 2)
+- Cardiac Physiology: `knowledge-check-cardiac` (3 questions, add 2)
+- Shock and Perfusion: `knowledge-check-shock` (3 questions, add 2)
 
-Dark mode will be adjusted proportionally. A new `--xp` accent token (gold/amber) will be added for gamification elements.
+**Content sections to add 2 quiz questions each:**
+- Airway: `why-airway-first`, `open-vs-closed`, `go-to-techniques`, `airway-tools`, `putting-it-together` (5 sections x 2 = 10 questions)
+- Cardiac: `meet-the-heart`, `electrical-system`, `blood-flow`, `what-normal-looks-like`, `common-questions` (5 sections x 2 = 10 questions)
+- Shock: `what-is-perfusion`, `understanding-shock`, `four-types`, `recognizing-shock`, `what-you-can-do` (5 sections x 2 = 10 questions)
 
-### 2. Border Radius and Buttons (`tailwind.config.ts`, `button.tsx`)
-- Increase `--radius` from `0.75rem` to `1rem` for rounder cards/inputs.
-- Add a `"duo"` button variant: bold background, extra-rounded (`rounded-2xl`), larger padding, uppercase tracking, drop shadow -- used for CTAs like "Continue", "Check Answer", "Start Lesson".
-- Default button gets slightly rounder corners.
+### File 2: `src/data/subtopicContent.ts` (~25+ modules across all levels)
 
-### 3. Font Weight and Spacing
-- Add `font-bold` emphasis to headings globally.
-- Increase card padding and whitespace between sections for a more airy feel.
+**Knowledge Check sections to expand to 5 questions:**
+Each module's quiz section currently has 2-3 questions. Every one needs to be brought up to 5. This includes all EMT, AEMT, and Paramedic level content across:
+- Heart/Cardiac (EMT: 2 Qs, AEMT: 3 Qs, Paramedic: 3 Qs)
+- Respiratory (EMT: 2 Qs, AEMT: 3 Qs, Paramedic: 2 Qs)
+- Anatomy and Physiology (EMT: 3 Qs, AEMT: 3 Qs, Paramedic: 3 Qs)
+- Pharmacology (EMT: 3 Qs, AEMT: 3 Qs, Paramedic: 3 Qs)
+- Respiratory Assessment (EMT: 3 Qs, AEMT: 3 Qs, Paramedic: 3 Qs)
+- Patient Assessment (EMT: 3 Qs, AEMT: 3 Qs, Paramedic: 3 Qs)
+- Shock Management (EMT: 3 Qs, AEMT: 3 Qs, Paramedic: 3 Qs)
+- Pathophysiology (EMT: 3 Qs, AEMT: 3 Qs, Paramedic: 3 Qs)
+- Airway Management (AEMT: 3 Qs, Paramedic: 3 Qs)
+- Comparison modules (PE vs Pneumonia vs Effusion: EMT 3 Qs, AEMT 3 Qs, Paramedic 3 Qs)
 
-### 4. Component-Level Tweaks
-
-| Component | Changes |
-|---|---|
-| **Navbar** | Logo icon uses Duo green background; active link gets a pill with filled primary background |
-| **TopicCard** | Rounder corners, bolder hover shadow, green "Start" pill instead of text link |
-| **TopicSection** | Section number badge becomes a filled circle (primary bg, white text) |
-| **FlashcardItem** | Thicker border, slight scale-up on hover, brighter gradient backgrounds |
-| **QuizBlock** | "Submit Answer" becomes the Duo-style CTA button; option cards get rounder corners |
-| **ContinueButton** | Uses the new `"duo"` button variant, full-width, prominent green when unlocked |
-| **LessonProgress / StickyProgressBar** | Progress bar uses Duo green; completed state gets a gold star icon |
-| **TopicCallout** | Slightly rounder, emoji-sized icon area, warmer background tints |
-| **Footer** | Lighter background, simpler divider |
+**Content sections to add 2 quiz questions each:**
+Every non-quiz section across all modules that covers testable knowledge will get a 2-question quiz block appended to its `blocks` array. This covers dozens of sections spanning all topic areas.
 
 ---
 
-## Phase 2 -- Gamification and Micro-Interactions
+## Implementation Approach
 
-### 5. XP System (new component + hook)
-- Create `src/hooks/useXP.ts` -- a lightweight local-state hook (with optional database persistence for logged-in users) that tracks:
-  - XP earned per quiz answer (+10 correct, +5 for retry correct)
-  - XP earned per section viewed (+5)
-  - XP earned per flashcard flipped (+2)
-- Create `src/components/gamification/XPCounter.tsx` -- a small pill displayed in the Navbar showing total XP with a sparkle icon.
-- On XP gain, show a brief floating "+10 XP" animation near the action.
+Due to the massive volume of content (~200+ new quiz questions), this will be implemented in batches:
 
-### 6. Streak Counter
-- Create `src/components/gamification/StreakBadge.tsx` -- displays a fire icon with current day streak count in the Navbar/Dashboard.
-- Track daily activity via a `last_active_date` field on profiles (database migration).
-- Show motivational messages: "3-day streak -- keep it up!" on the Dashboard.
+**Batch 1:** `topics.ts` -- expand 3 Knowledge Checks to 5 Qs each, add 2 Qs to all 15 content sections (36 new questions)
 
-### 7. Feedback Animations
-- **Correct quiz answer**: Green flash on the option, a brief confetti burst (CSS-only keyframe animation, no heavy library), and a "Nice work!" toast.
-- **Wrong quiz answer**: Gentle horizontal shake animation on the selected option (CSS `@keyframes shake`).
-- **Flashcard flip**: Keep existing 3D flip, add a subtle bounce on land.
-- **Section complete**: Brief scale-in checkmark animation on the progress indicator.
-- **Lesson complete**: Larger celebration -- animated stars/confetti around the completion callout, XP summary.
+**Batch 2:** `subtopicContent.ts` EMT-level modules -- expand all Knowledge Checks to 5 Qs, add 2 Qs per content section
 
-### 8. Motivational Nudges
-- Add encouraging micro-copy into existing callouts and completion states:
-  - Quiz: "You're on fire!" / "Almost -- give it another shot!"
-  - Lesson complete: "Awesome work -- you earned 50 XP!"
-  - Dashboard: "Welcome back! Your streak is alive!"
-- Use a simple EMS-themed icon (a small ambulance or stethoscope with a smiley) as a "mascot hint" next to encouragement text -- implemented as an SVG or Lucide icon composition, not a heavy image.
+**Batch 3:** `subtopicContent.ts` AEMT-level modules -- same treatment
 
-### 9. Progress Ring (Dashboard)
-- Replace the linear progress bar on the Dashboard overview card with a circular SVG progress ring showing overall completion percentage, styled in Duo green.
+**Batch 4:** `subtopicContent.ts` Paramedic-level modules -- same treatment
+
+**Batch 5:** `subtopicContent.ts` Comparison modules and any remaining content
 
 ---
 
-## Technical Details
+## Quiz Question Guidelines
 
-### Files Modified
-- `src/index.css` -- color tokens
-- `tailwind.config.ts` -- radius, new keyframes (shake, confetti, float-up), animation utilities
-- `src/components/ui/button.tsx` -- add `"duo"` variant
-- `src/components/Navbar.tsx` -- XP counter, streak badge, updated active styles
-- `src/components/topics/QuizBlock.tsx` -- Duo CTA, shake/confetti animations, motivational copy
-- `src/components/topics/FlashcardItem.tsx` -- hover scale, bounce animation
-- `src/components/topics/TopicSection.tsx` -- filled number badge, spacing
-- `src/components/topics/TopicCard.tsx` -- rounder, bolder CTA
-- `src/components/topics/ContinueButton.tsx` -- Duo-style green CTA
-- `src/components/topics/LessonProgress.tsx` -- green bar, XP display
-- `src/components/topics/StickyProgressBar.tsx` -- green bar, star icon
-- `src/components/topics/TopicCallout.tsx` -- rounder, warmer
-- `src/components/Footer.tsx` -- lighter style
-- `src/pages/Dashboard.tsx` -- progress ring, streak, XP summary
-- `src/pages/Index.tsx` -- brighter hero, Duo-style CTA buttons
+All new questions will:
+- Be medically accurate and appropriate to the certification level
+- Use 4 answer options with one correct answer
+- Include a clear explanation for the correct answer
+- Have unique IDs following existing naming patterns (e.g., `airway-q4`, `emt-heart-q3`)
+- Test recall, application, or clinical reasoning depending on level
+- Avoid trick questions -- focus on reinforcing key concepts
 
-### New Files
-- `src/hooks/useXP.ts`
-- `src/components/gamification/XPCounter.tsx`
-- `src/components/gamification/StreakBadge.tsx`
-- `src/components/gamification/ProgressRing.tsx`
-- `src/components/gamification/ConfettiEffect.tsx` (CSS-only confetti burst)
-- `src/components/gamification/XPFloater.tsx` (floating +XP animation)
+---
 
-### Database Migration
-- Add `xp_total INTEGER DEFAULT 0` to profiles table
-- Add `current_streak INTEGER DEFAULT 0` to profiles table
-- Add `last_active_date DATE` to profiles table
+## Technical Notes
 
-### What Does NOT Change
-- Content structure (8-section modules, subsections, topics data)
-- Medical accuracy and clinical tone of text content
-- Route structure and navigation hierarchy
-- EMT/AEMT/Paramedic level tabs and accordions
-- Authentication flow
-- Existing data models (only additive columns)
+- No schema or structural changes needed -- quiz blocks already support multiple questions per section
+- Sections without a `blocks` array will get one created with the quiz entries
+- All quiz IDs must be unique across the entire application
+- The `getTopicInteractiveCount` helper automatically counts quizzes, so progress tracking will update automatically
+- The existing `QuizBlock` component renders one question at a time and already handles any number of quiz blocks per section
 
