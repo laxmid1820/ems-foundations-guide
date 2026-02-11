@@ -11750,7 +11750,9 @@ export const emtAsthmaAnaphylaxisContent: TopicSection[] = [
             content: "The fundamental difference: asthma is LOCALIZED to the lower airways (bronchioles). Anaphylaxis is SYSTEMIC — it affects the entire body. An asthma patient wheezes but usually has normal skin color and stable vital signs early on. An anaphylaxis patient may wheeze too, but they also have hives, facial swelling, hypotension, and tachycardia. Different scope, different urgency, different treatment."
           }
         ]
-      }
+      },
+      { type: "quiz", quiz: { id: "emt-aa-concepts-q1", question: "Which statement best describes the difference between asthma and anaphylaxis?", options: ["Both are airway-only problems", "Asthma is localized to airways; anaphylaxis is a systemic reaction", "Anaphylaxis only affects the skin", "Asthma causes hypotension"], correctIndex: 1, explanation: "Asthma is localized bronchospasm in the lower airways. Anaphylaxis is a systemic reaction affecting skin (hives), airways (swelling), and cardiovascular system (vasodilation, hypotension) simultaneously." } },
+      { type: "quiz", quiz: { id: "emt-aa-concepts-q2", question: "In anaphylaxis, massive histamine release causes all of the following EXCEPT:", options: ["Vasodilation", "Capillary leak", "Airway swelling", "Increased blood pressure"], correctIndex: 3, explanation: "Histamine causes vasodilation (lowering BP), capillary leak (fluid shifts), and airway swelling. Blood pressure DROPS in anaphylaxis — hypotension is a hallmark." } }
     ],
     keyPoints: [
       "Asthma: bronchospasm + inflammation + mucus = localized airway obstruction",
@@ -11773,7 +11775,9 @@ export const emtAsthmaAnaphylaxisContent: TopicSection[] = [
           { front: "Epinephrine", back: "The ONLY first-line medication for anaphylaxis. Acts on alpha receptors (vasoconstriction → raises BP) and beta receptors (bronchodilation → opens airways, increases heart rate). Given via auto-injector (EpiPen) at the EMT level. 0.3 mg IM in the lateral thigh for adults." },
           { front: "Wheezing", back: "High-pitched musical sounds heard on exhalation, caused by air moving through narrowed lower airways. Classic finding in asthma. Can also occur in anaphylaxis (bronchospasm component). Listen with a stethoscope — but severe wheezing can sometimes be heard without one." }
         ]
-      }
+      },
+      { type: "quiz", quiz: { id: "emt-aa-terms-q1", question: "Stridor heard on INHALATION most likely indicates:", options: ["Lower airway bronchospasm", "Upper airway obstruction from swelling", "Fluid in the alveoli", "Normal breathing"], correctIndex: 1, explanation: "Stridor is a high-pitched inspiratory sound caused by upper airway narrowing — usually laryngeal swelling in anaphylaxis. Wheezing (expiratory) indicates lower airway obstruction." } },
+      { type: "quiz", quiz: { id: "emt-aa-terms-q2", question: "What is the ONLY first-line medication for anaphylaxis?", options: ["Albuterol", "Diphenhydramine", "Epinephrine", "Prednisone"], correctIndex: 2, explanation: "Epinephrine is the ONLY life-saving medication for anaphylaxis. It provides vasoconstriction (raises BP), bronchodilation (opens airways), and reduces capillary permeability." } }
     ],
     keyPoints: [
       "Stridor (inspiratory) = upper airway → think anaphylaxis",
@@ -11802,7 +11806,9 @@ export const emtAsthmaAnaphylaxisContent: TopicSection[] = [
             content: "**Asthma is chronic with acute exacerbations:** Patients live with the disease daily and manage it with controller medications. An 'asthma attack' is an acute worsening triggered by something specific. They've usually done this before.\n\n**Anaphylaxis is always acute:** It's a sudden, unexpected emergency. Onset is usually within minutes of exposure (sometimes up to 2 hours). Patients may or may not know their triggers. Every episode can be worse than the last."
           }
         ]
-      }
+      },
+      { type: "quiz", quiz: { id: "emt-aa-class-q1", question: "Which is the most common trigger for anaphylaxis overall?", options: ["Medications", "Insect stings", "Food (peanuts, shellfish)", "Exercise"], correctIndex: 2, explanation: "Food allergies (peanuts, tree nuts, shellfish) are the most common overall trigger for anaphylaxis, especially in children. Insect stings are second most common in adults." } },
+      { type: "quiz", quiz: { id: "emt-aa-class-q2", question: "How does asthma onset typically differ from anaphylaxis?", options: ["Both are always sudden", "Asthma builds over minutes to hours; anaphylaxis hits within minutes", "Anaphylaxis develops over days", "No difference"], correctIndex: 1, explanation: "Asthma builds gradually. Anaphylaxis strikes within minutes of exposure. Speed of onset is one of the strongest differentiating clues." } }
     ],
     keyPoints: [
       "Asthma: chronic disease with acute flare-ups — patients know their triggers",
@@ -11833,7 +11839,11 @@ export const emtAsthmaAnaphylaxisContent: TopicSection[] = [
       "Skin findings (hives, swelling) point strongly to anaphylaxis",
       "Hypotension in a wheezing patient = think anaphylaxis, not asthma"
     ],
-    rememberThis: "Always ask: 'Has this happened before?' and 'Were you exposed to anything new today — food, medication, insect sting?' These two questions can differentiate asthma from anaphylaxis faster than any physical finding."
+    rememberThis: "Always ask: 'Has this happened before?' and 'Were you exposed to anything new today — food, medication, insect sting?' These two questions can differentiate asthma from anaphylaxis faster than any physical finding.",
+    blocks: [
+      { type: "quiz", quiz: { id: "emt-aa-assess-q1", question: "A wheezing patient has normal skin, stable BP, and gradual onset. Which condition is most likely?", options: ["Anaphylaxis", "Asthma exacerbation", "Pulmonary embolism", "Pneumothorax"], correctIndex: 1, explanation: "Normal skin, stable BP, and gradual onset all point to asthma. Anaphylaxis would show skin changes (hives), hypotension, and rapid onset after exposure." } },
+      { type: "quiz", quiz: { id: "emt-aa-assess-q2", question: "Which vital sign BEST distinguishes anaphylaxis from asthma?", options: ["Tachycardia", "Tachypnea", "Hypotension", "Low SpO₂"], correctIndex: 2, explanation: "Hypotension is the key distinguishing vital sign. Asthma patients typically have normal or elevated BP. Anaphylaxis causes vasodilation and capillary leak leading to hypotension." } }
+    ]
   },
   {
     id: "asthma-anaph-interventions",
@@ -11850,7 +11860,9 @@ export const emtAsthmaAnaphylaxisContent: TopicSection[] = [
           { front: "Transport Decision", back: "Both conditions can deteriorate rapidly. Asthma: monitor for silent chest (no air movement = critical). Anaphylaxis: monitor for airway compromise and shock. Call for ALS early — these patients benefit from IV epinephrine, nebulizers, and advanced airway management. Transport immediately in anaphylaxis." },
           { front: "Communication", back: "Tell the hospital: 'I suspect asthma exacerbation' or 'I suspect anaphylaxis — epi given at [time].' Include: trigger/exposure, onset time, breath sounds, SpO₂, vitals, medications given, and response to treatment. This pre-arrival report changes their preparation." }
         ]
-      }
+      },
+      { type: "quiz", quiz: { id: "emt-aa-interv-q1", question: "For anaphylaxis, epinephrine should be administered:", options: ["Only after consulting medical control", "Immediately — 0.3 mg IM in the lateral thigh", "Only if the patient has their own EpiPen", "After giving diphenhydramine first"], correctIndex: 1, explanation: "Epinephrine should be given IMMEDIATELY in anaphylaxis. Delay increases mortality. 0.3 mg IM in the lateral thigh. Don't wait — early epinephrine saves lives." } },
+      { type: "quiz", quiz: { id: "emt-aa-interv-q2", question: "A 'silent chest' in a wheezing patient indicates:", options: ["The patient is improving", "Normal lung sounds", "Critical emergency — almost no air movement", "Stethoscope malfunction"], correctIndex: 2, explanation: "A silent chest means air movement is so severely restricted that wheezing disappears. This is WORSE than wheezing — the patient is approaching respiratory failure." } }
     ],
     keyPoints: [
       "Anaphylaxis = epinephrine auto-injector IMMEDIATELY",
@@ -11988,7 +12000,9 @@ Capnography gives you a window into ventilation that SpO₂ alone can't provide.
             content: "**For Asthma:** Treatment targets bronchospasm (albuterol = β₂ agonist) and inflammation (steroids). The pathophysiology is localized, so localized treatment works well. Capnography shows the characteristic 'shark fin' waveform from air trapping.\n\n**For Anaphylaxis:** Treatment must address MULTIPLE failing systems simultaneously — epinephrine for vasoconstriction + bronchodilation, IV fluids for volume replacement, and monitoring for biphasic reactions (second wave hours later).\n\n**The clinical connection:** Knowing these mechanisms helps you predict what will work, what might be harmful, and when to escalate. A patient who doesn't respond to albuterol might not have asthma — they might have anaphylaxis."
           }
         ]
-      }
+      },
+      { type: "quiz", quiz: { id: "aemt-aa-patho-q1", question: "The 'late phase' asthma response occurs 4-8 hours after the trigger because:", options: ["Bronchospasm worsens over time", "Inflammatory cells (eosinophils, neutrophils) flood the airways causing edema and mucus", "The inhaler wears off", "The patient stops breathing treatments"], correctIndex: 1, explanation: "The early phase is mast cell-driven bronchospasm (minutes). The late phase involves inflammatory cell infiltration — eosinophils and neutrophils cause sustained airway edema and mucus production hours later." } },
+      { type: "quiz", quiz: { id: "aemt-aa-patho-q2", question: "In anaphylaxis, up to what percentage of circulating volume can shift out of the vascular space?", options: ["5%", "15%", "35%", "75%"], correctIndex: 2, explanation: "Histamine-mediated capillary leak can cause up to 35% of circulating volume to shift into tissues (third-spacing). This is why anaphylaxis patients need aggressive IV fluid resuscitation alongside epinephrine." } }
     ],
     keyPoints: [
       "Asthma: IgE cascade → localized bronchospasm + inflammation + mucus",
@@ -12011,7 +12025,9 @@ Capnography gives you a window into ventilation that SpO₂ alone can't provide.
           { front: "Capillary Leak Syndrome", back: "In anaphylaxis, histamine makes capillary walls 'leaky,' allowing plasma to shift from blood vessels into surrounding tissues. This causes edema (visible swelling) and hypovolemia (internal volume loss). Up to 35% of circulating volume can be lost this way." },
           { front: "Shark Fin Waveform", back: "A capnography pattern where the expiratory upstroke is sloped instead of square — looks like a shark dorsal fin. Indicates air trapping and bronchospasm (asthma). The more severe the obstruction, the more pronounced the slope. This pattern helps differentiate asthma from anaphylaxis-related shock." }
         ]
-      }
+      },
+      { type: "quiz", quiz: { id: "aemt-aa-terms-q1", question: "A biphasic reaction in anaphylaxis means:", options: ["The patient has two different allergies", "Symptoms return 1-72 hours after initial resolution", "Two doses of epinephrine are always needed", "The reaction affects two organ systems"], correctIndex: 1, explanation: "Biphasic reactions occur in up to 20% of anaphylaxis cases — symptoms return hours after initial resolution. This is why all anaphylaxis patients need extended monitoring at the hospital." } },
+      { type: "quiz", quiz: { id: "aemt-aa-terms-q2", question: "Status asthmaticus is defined as:", options: ["A mild asthma attack", "A severe prolonged asthma attack that doesn't respond to standard bronchodilators", "Asthma triggered by exercise", "Asthma with normal SpO₂"], correctIndex: 1, explanation: "Status asthmaticus is a severe, life-threatening asthma attack that fails to respond to standard bronchodilator treatment. The patient is exhausting themselves and may progress to respiratory failure requiring intubation." } }
     ],
     keyPoints: [
       "Histamine drives the systemic response in anaphylaxis",
@@ -12040,7 +12056,9 @@ Capnography gives you a window into ventilation that SpO₂ alone can't provide.
             content: "**Integrate everything:** Speed of onset is critical. Asthma typically builds over minutes to hours. Anaphylaxis hits within minutes of exposure.\n\n**Medication history tells the story:** Asthma patients carry inhalers, may be on controller medications (Flovent, Singulair). Anaphylaxis patients may carry an EpiPen and know their allergens.\n\n**Skin assessment is your differentiator:** Normal skin + wheezing = probably asthma. Hives, flushing, or angioedema + any respiratory distress = anaphylaxis until proven otherwise.\n\n**Don't forget:** A patient with asthma CAN have anaphylaxis. If your asthma patient suddenly develops hives and hypotension, switch to the anaphylaxis protocol."
           }
         ]
-      }
+      },
+      { type: "quiz", quiz: { id: "aemt-aa-tools-q1", question: "A wheezing patient has a LOW/falling ETCO₂ on capnography. What should you consider?", options: ["Normal asthma pattern", "Anaphylactic shock — low CO₂ reflects poor perfusion", "Equipment malfunction", "The patient is hyperventilating from anxiety"], correctIndex: 1, explanation: "In anaphylactic shock, vasodilation and capillary leak reduce cardiac output. Less blood flowing through the lungs means less CO₂ delivered for exhalation — hence low ETCO₂. This is a perfusion problem, not a ventilation problem." } },
+      { type: "quiz", quiz: { id: "aemt-aa-tools-q2", question: "Hearing BOTH stridor AND wheezing suggests:", options: ["Asthma only", "Anaphylaxis — upper AND lower airway compromise", "Equipment error", "Normal breathing variation"], correctIndex: 1, explanation: "Stridor = upper airway (laryngeal) swelling. Wheezing = lower airway (bronchial) spasm. Both together = double airway threat, highly suspicious for anaphylaxis affecting both upper and lower airways simultaneously." } }
     ],
     keyPoints: [
       "Shark fin on capnography = bronchospasm = asthma pattern",
@@ -12079,7 +12097,11 @@ Capnography gives you a window into ventilation that SpO₂ alone can't provide.
       "Capnography adds objective ventilation data — waveform AND value",
       "Speed of onset and exposure history guide your clinical thinking"
     ],
-    rememberThis: "The patient who has had anaphylaxis before KNOWS the feeling. They'll often tell you, 'This feels like my allergic reaction.' Believe them — they know what anaphylaxis feels like better than anyone."
+    rememberThis: "The patient who has had anaphylaxis before KNOWS the feeling. They'll often tell you, 'This feels like my allergic reaction.' Believe them — they know what anaphylaxis feels like better than anyone.",
+    blocks: [
+      { type: "quiz", quiz: { id: "aemt-aa-assess-q1", question: "Your asthma patient on albuterol suddenly develops hives and hypotension. What changed?", options: ["The albuterol is causing side effects", "The asthma is getting worse", "The patient is likely developing anaphylaxis on top of asthma", "Normal progression of an asthma attack"], correctIndex: 2, explanation: "Hives and hypotension are NOT asthma features — they're systemic signs of anaphylaxis. Switch to the anaphylaxis protocol: epinephrine IM immediately, IV fluids for shock, then continue bronchodilator support." } },
+      { type: "quiz", quiz: { id: "aemt-aa-assess-q2", question: "In your systematic AEMT assessment, which tool is MOST valuable for differentiating asthma from anaphylactic shock?", options: ["Pulse oximetry alone", "Blood pressure + capnography trending together", "Temperature", "Respiratory rate"], correctIndex: 1, explanation: "Blood pressure reveals the hemodynamic component (hypotension = anaphylaxis). Capnography waveform (shark fin = bronchospasm) and ETCO₂ value (low = poor perfusion in shock). Together they differentiate localized airway disease from systemic shock." } }
+    ]
   },
   {
     id: "aemt-asthma-anaph-interventions",
@@ -12096,7 +12118,9 @@ Capnography gives you a window into ventilation that SpO₂ alone can't provide.
           { front: "Repeat Epinephrine for Biphasic Reactions", back: "Up to 20% of anaphylaxis patients experience a biphasic reaction — symptoms return hours after initial resolution. If symptoms recur during transport or monitoring, repeat epinephrine. This is why anaphylaxis patients need extended monitoring and should always go to the ED." },
           { front: "Treatment Response Monitoring", back: "After every intervention, reassess in 5 minutes: breath sounds (improving wheezing?), SpO₂ (trending up?), capnography (shark fin flattening?), vital signs (BP improving in anaphylaxis?), skin (hives resolving?). Improvement = continue current plan. No improvement = escalate — repeat epi, call for ALS, consider airway intervention." }
         ]
-      }
+      },
+      { type: "quiz", quiz: { id: "aemt-aa-interv-q1", question: "Why should anaphylaxis patients receive IV fluids in addition to epinephrine?", options: ["To dilute the allergen", "To replace volume lost through histamine-mediated capillary leak", "To prevent dehydration", "IV fluids aren't needed if epinephrine works"], correctIndex: 1, explanation: "Histamine makes capillaries leaky — up to 35% of circulating volume shifts into tissues. Epinephrine addresses vasoconstriction and bronchodilation but can't replace lost volume. IV NS bolus is essential for treating the hypovolemic component." } },
+      { type: "quiz", quiz: { id: "aemt-aa-interv-q2", question: "Combining CPAP with inline albuterol nebulizer for severe asthma works because:", options: ["CPAP delivers medication faster", "Positive pressure splints open collapsing airways while albuterol relaxes smooth muscle", "It reduces the need for epinephrine", "CPAP increases medication absorption"], correctIndex: 1, explanation: "CPAP provides mechanical airway splinting (prevents collapse during exhalation) while albuterol provides chemical bronchodilation (relaxes smooth muscle). Two different mechanisms attacking the same problem from two angles." } }
     ],
     keyPoints: [
       "IM epinephrine is the cornerstone of anaphylaxis management",
@@ -12238,7 +12262,9 @@ You're not just treating symptoms — you're targeting specific receptors, manag
             content: "**Exercise-Induced Anaphylaxis:** A rare but dangerous overlap — exercise triggers anaphylaxis, sometimes only after eating specific foods. The patient appears to have exercise-induced asthma but develops systemic signs (hives, hypotension). Treatment is epinephrine, not just bronchodilators.\n\n**Asthma + Anaphylaxis Coexistence:** Patients with asthma are at HIGHER risk of fatal anaphylaxis. Their already-reactive airways amplify the bronchospasm component. The anaphylaxis triggers both upper (laryngeal) and lower (bronchial) airway compromise on top of chronic inflammation.\n\n**Competing Priorities:** High-dose albuterol increases heart rate (dangerous if the patient is already tachycardic from anaphylaxis). IV fluids help anaphylactic shock but don't treat bronchospasm. Every treatment has trade-offs in overlap patients."
           }
         ]
-      }
+      },
+      { type: "quiz", quiz: { id: "para-aa-patho-q1", question: "Leukotrienes are significant in asthma because they are:", options: ["Weak mediators easily blocked by antihistamines", "1000x more potent than histamine at causing bronchospasm", "Only active in anaphylaxis", "Produced by the adrenal glands"], correctIndex: 1, explanation: "Leukotrienes (LTC4, LTD4, LTE4) are 1000x more potent than histamine at causing bronchospasm and also increase mucus production. This is why leukotriene receptor antagonists (montelukast) are important controller medications." } },
+      { type: "quiz", quiz: { id: "para-aa-patho-q2", question: "In severe anaphylaxis, histamine can directly suppress:", options: ["Bronchial smooth muscle", "Cardiac contractility (myocardial depression)", "Renal function only", "Skeletal muscle strength"], correctIndex: 1, explanation: "In severe anaphylaxis, histamine and other mediators directly depress myocardial contractility. Combined with hypovolemia from capillary leak and vasodilation, this creates a 'perfect storm' of cardiovascular collapse that epinephrine must address." } }
     ],
     keyPoints: [
       "Leukotrienes are 1000x more potent than histamine at causing bronchospasm",
@@ -12261,7 +12287,9 @@ You're not just treating symptoms — you're targeting specific receptors, manag
           { front: "Glucagon", back: "For beta-blocker-refractory anaphylaxis. Patients on beta-blockers may not respond to epinephrine because β receptors are blocked. Glucagon bypasses the β receptor entirely, increasing heart rate and contractility through a different pathway. 1-2 mg IV/IM. Critical rescue drug for this specific situation." },
           { front: "Ketamine", back: "Dissociative anesthetic with powerful bronchodilator properties. Used for refractory bronchospasm in status asthmaticus when albuterol, ipratropium, and magnesium have all failed. 1-2 mg/kg IV for bronchodilation (sub-dissociative doses may also work). Also useful as an RSI induction agent because it maintains respiratory drive and has bronchodilator effects." }
         ]
-      }
+      },
+      { type: "quiz", quiz: { id: "para-aa-pharm-q1", question: "Why is glucagon the rescue drug for anaphylaxis in patients on beta-blockers?", options: ["It's a stronger antihistamine", "It bypasses blocked β receptors to increase heart rate and contractility", "It's faster than epinephrine", "It directly neutralizes histamine"], correctIndex: 1, explanation: "Beta-blockers block the β receptors that epinephrine needs to work. Glucagon increases heart rate and contractility through a different intracellular pathway (cAMP via glucagon receptor), bypassing the blocked β receptors entirely." } },
+      { type: "quiz", quiz: { id: "para-aa-pharm-q2", question: "IV epinephrine for refractory anaphylaxis uses which concentration?", options: ["1:1,000 (same as IM)", "1:10,000 (0.1 mg/mL)", "1:100 (10 mg/mL)", "Any concentration is fine"], correctIndex: 1, explanation: "IV epinephrine uses 1:10,000 concentration (0.1 mg/mL) — 10x more dilute than IM. Using 1:1,000 IV would deliver a dangerously concentrated bolus causing severe tachyarrhythmias. Always verify concentration before IV administration." } }
     ],
     keyPoints: [
       "IV epinephrine uses 1:10,000 concentration — different from IM 1:1,000",
@@ -12294,7 +12322,9 @@ You're not just treating symptoms — you're targeting specific receptors, manag
             content: "**Severe Asthma:** Progresses through three phases: (1) early respiratory alkalosis (hyperventilation), (2) normal pH (exhaustion, CO₂ rising), (3) respiratory acidosis (failure, CO₂ dangerously high). A 'normal' CO₂ in a tachypneic asthma patient is a RED FLAG — they should be blowing off CO₂ but aren't.\n\n**Anaphylaxis:** Metabolic acidosis from poor perfusion (lactic acidosis). Respiratory compensation (tachypnea) may mask the severity. Treating the shock (epi + fluids) is the primary treatment for the acidosis.\n\n**Mixed:** In overlap patients, both respiratory (air trapping) and metabolic (poor perfusion) acidosis can coexist. Fixing both requires addressing both airways AND circulation simultaneously."
           }
         ]
-      }
+      },
+      { type: "quiz", quiz: { id: "para-aa-bipap-q1", question: "A 'normal' CO₂ in a tachypneic asthma patient is a red flag because:", options: ["It means the patient is stable", "The patient should be blowing off CO₂ — normal means they're fatiguing and can't compensate", "Normal CO₂ is always a good sign", "It indicates the bronchodilator is working"], correctIndex: 1, explanation: "A tachypneic patient should have LOW CO₂ from hyperventilation. A 'normal' CO₂ means they're no longer able to compensate — respiratory muscles are fatiguing and CO₂ is rising. This is the calm before the storm of respiratory failure." } },
+      { type: "quiz", quiz: { id: "para-aa-bipap-q2", question: "Why is ketamine the preferred RSI induction agent for both severe asthma and anaphylaxis?", options: ["It's the cheapest option", "It has bronchodilator properties AND supports blood pressure", "It works faster than all other agents", "It has no side effects"], correctIndex: 1, explanation: "Ketamine uniquely combines bronchodilation (helps asthma), hemodynamic support (maintains BP in anaphylaxis), and adequate sedation for RSI. Other agents like propofol or etomidate either drop BP or lack bronchodilator properties." } }
     ],
     keyPoints: [
       "BiPAP can rescue the failing asthma patient and prevent intubation",
@@ -12328,7 +12358,11 @@ You're not just treating symptoms — you're targeting specific receptors, manag
       "A 'normal' CO₂ in a tachypneic asthma patient is a danger sign",
       "Monitor for biphasic reactions for hours after initial anaphylaxis treatment"
     ],
-    rememberThis: "Serial assessment is your superpower. A single snapshot tells you where the patient IS. Trending data tells you where the patient is GOING. That's the difference between reactive and proactive care."
+    rememberThis: "Serial assessment is your superpower. A single snapshot tells you where the patient IS. Trending data tells you where the patient is GOING. That's the difference between reactive and proactive care.",
+    blocks: [
+      { type: "quiz", quiz: { id: "para-aa-assess-q1", question: "Epinephrine and high-dose albuterol both cause ECG changes. How do you distinguish treatment effects from true ischemia?", options: ["You can't — assume ischemia always", "Treatment-induced changes resolve when drugs wear off; true ischemia shows evolving ST patterns with clinical correlation", "Ignore all ECG changes during treatment", "Only look at the 12-lead after all medications are given"], correctIndex: 1, explanation: "Drug-induced tachycardia and ST changes are transient and non-evolving. True ischemia shows progressive ST elevation/depression with clinical symptoms. Serial 12-leads and clinical context help differentiate treatment effects from actual cardiac events." } },
+      { type: "quiz", quiz: { id: "para-aa-assess-q2", question: "An asthma patient progresses from respiratory alkalosis to normal pH to acidosis. The 'normal pH' phase indicates:", options: ["The patient is improving", "A good sign — treatment is working", "A warning — the patient is exhausting and losing ability to compensate", "Normal disease progression that doesn't require concern"], correctIndex: 2, explanation: "In severe asthma, the transition from alkalosis (hyperventilation) to normal pH means CO₂ is rising as respiratory muscles fatigue. This is the danger zone — the patient is losing their ability to compensate and is heading toward respiratory failure." } }
+    ]
   },
   {
     id: "para-asthma-anaph-interventions",
@@ -12345,7 +12379,9 @@ You're not just treating symptoms — you're targeting specific receptors, manag
           { front: "When Treatments Compete", back: "High-dose albuterol → tachycardia (worsens demand ischemia in anaphylaxis)\nIV fluids → help shock but don't treat bronchospasm\nEpinephrine → ideal because it treats both, but repeated doses increase cardiac workload\nMagnesium → can cause hypotension (dangerous in anaphylaxis)\n\nPrioritize: Epi addresses both conditions. Add targeted therapies based on the dominant presentation." },
           { front: "Intubation Considerations", back: "**Asthma:** Risk of breath stacking and barotrauma. Use low rate, long expiratory time, permissive hypercapnia. Ketamine is preferred induction agent (bronchodilator effect).\n\n**Anaphylaxis:** Risk of can't-intubate scenario from laryngeal edema. Intubate EARLY before swelling progresses. Have surgical airway ready. Ketamine preferred (supports BP, bronchodilates).\n\n**Key difference:** Asthma intubation is about MANAGING ventilation. Anaphylaxis intubation is about SECURING the airway before you lose it." }
         ]
-      }
+      },
+      { type: "quiz", quiz: { id: "para-aa-interv-q1", question: "When treating a patient with BOTH asthma and anaphylaxis, which medication addresses both conditions?", options: ["Albuterol only", "Diphenhydramine", "Epinephrine — bronchodilation + vasoconstriction", "Magnesium sulfate"], correctIndex: 2, explanation: "Epinephrine is the ideal overlap medication: β₂ agonism opens airways (treats asthma component), α₁ agonism causes vasoconstriction (treats anaphylaxis shock), and it reduces capillary permeability. It addresses both conditions simultaneously." } },
+      { type: "quiz", quiz: { id: "para-aa-interv-q2", question: "Permissive hypercapnia in intubated asthma patients means:", options: ["Ventilating aggressively to normalize CO₂", "Accepting elevated CO₂ to avoid dangerous breath stacking and barotrauma", "Ignoring the CO₂ completely", "Reducing FiO₂ to minimize oxygen toxicity"], correctIndex: 1, explanation: "Aggressive ventilation in air-trapping causes breath stacking (auto-PEEP) and risk of pneumothorax. Accepting CO₂ of 60-70 mmHg is safer than causing barotrauma trying to normalize it. Target pH > 7.2, not a specific CO₂ number." } }
     ],
     keyPoints: [
       "Epinephrine treats both conditions — it's the ideal overlap medication",
@@ -12516,7 +12552,9 @@ export const emtPulmonaryEdemaPneumoniaEffusionContent: TopicSection[] = [
             ]
           }
         ]
-      }
+      },
+      { type: "quiz", quiz: { id: "emt-pe-concepts-q1", question: "Pulmonary edema and pleural effusion both involve fluid, but the critical difference is:", options: ["The color of the fluid", "Edema is fluid IN the alveoli; effusion is fluid AROUND the lung", "Edema is caused by infection; effusion is not", "There is no practical difference"], correctIndex: 1, explanation: "Location matters: pulmonary edema floods the air sacs from inside (blocking gas exchange directly). Pleural effusion compresses the lung from outside (preventing full expansion). Different locations = different interventions." } },
+      { type: "quiz", quiz: { id: "emt-pe-concepts-q2", question: "Why does pneumonia typically produce FOCAL crackles rather than bilateral?", options: ["Because only one lung exists", "The infection usually starts in one lobe or segment, not both lungs equally", "Focal means the same as bilateral", "Pneumonia doesn't produce crackles"], correctIndex: 1, explanation: "Pneumonia is an infection that typically starts in one area (lobe or segment). The consolidated area produces crackles while the rest of the lung sounds normal. Bilateral crackles point to pulmonary edema where fluid floods both lungs." } }
     ],
     keyPoints: [
       "Edema = fluid IN alveoli → crackles (bilateral)",
@@ -12563,7 +12601,9 @@ export const emtPulmonaryEdemaPneumoniaEffusionContent: TopicSection[] = [
             back: "Quieter-than-normal breathing sounds on auscultation. In pleural effusion, fluid around the lung blocks sound transmission. Different from crackles — you hear LESS, not extra sounds."
           }
         ]
-      }
+      },
+      { type: "quiz", quiz: { id: "emt-pe-terms-q1", question: "Orthopnea — difficulty breathing when lying flat — is most strongly associated with:", options: ["Pneumonia", "Pleural effusion", "Pulmonary edema/CHF", "Asthma"], correctIndex: 2, explanation: "Orthopnea is a hallmark of pulmonary edema/CHF. When lying flat, gravity redistributes fluid from the legs into the lungs, worsening congestion. Ask 'How many pillows do you sleep on?' — 2-3 pillows suggests CHF." } },
+      { type: "quiz", quiz: { id: "emt-pe-terms-q2", question: "Consolidation on auscultation sounds:", options: ["Wet and crackly bilaterally", "Dull and solid with bronchial breath sounds", "Completely silent", "High-pitched and wheezy"], correctIndex: 1, explanation: "Consolidation is lung tissue filled with pus/fluid from infection. It sounds dull to percussion and transmits bronchial (tubular) breath sounds because the solid tissue conducts sound differently than air-filled lung." } }
     ]
   },
   {
@@ -12608,7 +12648,9 @@ export const emtPulmonaryEdemaPneumoniaEffusionContent: TopicSection[] = [
             ]
           }
         ]
-      }
+      },
+      { type: "quiz", quiz: { id: "emt-pe-class-q1", question: "Flash pulmonary edema is MOST commonly triggered by:", options: ["Pneumonia", "A sudden hypertensive crisis or acute MI", "Allergic reaction", "Exercise"], correctIndex: 1, explanation: "Flash pulmonary edema occurs suddenly when a hypertensive crisis or acute MI overwhelms the heart's pumping ability. Blood rapidly backs up into the lungs, flooding alveoli within minutes. This is different from gradual CHF worsening." } },
+      { type: "quiz", quiz: { id: "emt-pe-class-q2", question: "A pleural effusion caused by CHF would be classified as:", options: ["Exudative (inflammation-driven)", "Transudative (pressure-driven)", "Hemorrhagic", "Infectious"], correctIndex: 1, explanation: "CHF-related effusions are transudative — caused by increased hydrostatic pressure pushing thin, low-protein fluid into the pleural space. Exudative effusions are from inflammation (infection, cancer) and contain thick, protein-rich fluid." } }
     ],
     keyPoints: [
       "Pulmonary edema: usually heart-related, can be acute or gradual",
@@ -12640,7 +12682,11 @@ export const emtPulmonaryEdemaPneumoniaEffusionContent: TopicSection[] = [
       "Bilateral crackles = think edema; focal crackles = think pneumonia; absent sounds = think effusion",
       "Vital signs add confirmation: hypertensive (edema), febrile (pneumonia), variable (effusion)"
     ],
-    rememberThis: "The stethoscope tells you WHERE the problem is: bilateral wet sounds (edema), one-sided wet sounds (pneumonia), one-sided silence (effusion). Listen to BOTH sides and COMPARE."
+    rememberThis: "The stethoscope tells you WHERE the problem is: bilateral wet sounds (edema), one-sided wet sounds (pneumonia), one-sided silence (effusion). Listen to BOTH sides and COMPARE.",
+    blocks: [
+      { type: "quiz", quiz: { id: "emt-pe-assess-q1", question: "A patient with bilateral crackles, hypertension, and orthopnea most likely has:", options: ["Pneumonia", "Pleural effusion", "Pulmonary edema", "Asthma"], correctIndex: 2, explanation: "Bilateral crackles (fluid in both lungs), hypertension (pressure-driven edema), and orthopnea (worse lying flat) are the classic triad of pulmonary edema from CHF." } },
+      { type: "quiz", quiz: { id: "emt-pe-assess-q2", question: "Absent breath sounds on one side with dullness to percussion suggest:", options: ["Pulmonary edema", "Asthma", "Pleural effusion", "Normal findings"], correctIndex: 2, explanation: "Absent sounds + dullness = fluid blocking sound transmission. In pleural effusion, fluid around the lung prevents both air entry sounds and produces dullness (vs. pneumothorax which produces hyperresonance)." } }
+    ]
   },
   {
     id: "pe-pn-ef-interventions",
@@ -12681,7 +12727,9 @@ export const emtPulmonaryEdemaPneumoniaEffusionContent: TopicSection[] = [
             back: "Tell the hospital: 'Dyspnea patient with [bilateral crackles / focal crackles + fever / absent breath sounds on R/L side].' This tells them exactly what to prepare — diuretics, antibiotics, or thoracentesis."
           }
         ]
-      }
+      },
+      { type: "quiz", quiz: { id: "emt-pe-interv-q1", question: "CPAP is most effective for which condition?", options: ["Pneumonia", "Pleural effusion", "Pulmonary edema — positive pressure pushes fluid from alveoli", "All three equally"], correctIndex: 2, explanation: "CPAP pushes fluid from alveoli back into capillaries and recruits collapsed air sacs. This directly addresses the mechanism of pulmonary edema. It won't drain pleural fluid (outside the lung) and has limited benefit for pneumonia consolidation." } },
+      { type: "quiz", quiz: { id: "emt-pe-interv-q2", question: "A pneumonia patient with fever, hypotension, and altered mental status likely has:", options: ["Pulmonary edema", "Sepsis — requiring aggressive treatment and rapid transport", "Pleural effusion", "An anxiety attack"], correctIndex: 1, explanation: "Fever + hypotension + altered mental status in a pneumonia patient = sepsis. The infection has triggered a systemic inflammatory response causing vasodilation and organ dysfunction. This changes the emergency from respiratory to multi-system." } }
     ]
   },
   {
@@ -12831,7 +12879,9 @@ Understanding the mechanisms behind these conditions transforms your assessment 
             ]
           }
         ]
-      }
+      },
+      { type: "quiz", quiz: { id: "aemt-pe-patho-q1", question: "In pulmonary edema, fluid leaks into alveoli because:", options: ["Oncotic pressure exceeds hydrostatic pressure", "Hydrostatic pressure in pulmonary capillaries exceeds oncotic pressure", "The alveolar membrane is destroyed", "Airway inflammation pushes fluid inward"], correctIndex: 1, explanation: "Starling forces govern fluid movement. When left heart failure increases hydrostatic pressure in the pulmonary capillaries beyond the oncotic pressure holding fluid in, fluid leaks across the membrane into the alveoli." } },
+      { type: "quiz", quiz: { id: "aemt-pe-patho-q2", question: "Why does supplemental O₂ have limited effect on severe pneumonia (true shunt)?", options: ["The O₂ tank is empty", "Blood flowing past consolidated alveoli can't exchange gas regardless of O₂ concentration", "Pneumonia only affects the upper airways", "O₂ always works for all respiratory conditions"], correctIndex: 1, explanation: "True shunt = blood flows past consolidated (solid) alveoli that can't participate in gas exchange. No matter how much O₂ you deliver to working alveoli, the blood bypassing consolidated areas remains unoxygenated. This is shunt physiology." } }
     ],
     keyPoints: [
       "Edema: Starling force imbalance floods alveoli from inside",
@@ -12878,7 +12928,9 @@ Understanding the mechanisms behind these conditions transforms your assessment 
             back: "Sudden awakening from sleep with severe shortness of breath — classic for pulmonary edema. Occurs 2-4 hours after lying flat. Fluid redistributes from legs to lungs during sleep, eventually overwhelming the weakened heart."
           }
         ]
-      }
+      },
+      { type: "quiz", quiz: { id: "aemt-pe-terms-q1", question: "A transudative pleural effusion differs from an exudative effusion in that it is:", options: ["Caused by infection and contains pus", "Caused by pressure imbalances with thin, low-protein fluid", "Always associated with cancer", "More dangerous than exudative"], correctIndex: 1, explanation: "Transudative effusions are pressure-driven (CHF, liver failure) — the fluid is thin with low protein. Exudative effusions are inflammation-driven (infection, cancer) with thick, protein-rich fluid. The distinction guides treatment." } },
+      { type: "quiz", quiz: { id: "aemt-pe-terms-q2", question: "Paroxysmal Nocturnal Dyspnea (PND) occurs because:", options: ["The patient has nightmares", "Fluid redistributes from legs to lungs when lying flat during sleep", "Night air is harder to breathe", "The patient forgets their inhaler"], correctIndex: 1, explanation: "When lying flat, gravity no longer holds fluid in the dependent legs. Blood volume redistributes centrally, overwhelming the failing left ventricle. Fluid leaks into the lungs 2-4 hours into sleep, waking the patient with sudden severe dyspnea." } }
     ]
   },
   {
@@ -12923,7 +12975,9 @@ Understanding the mechanisms behind these conditions transforms your assessment 
             ]
           }
         ]
-      }
+      },
+      { type: "quiz", quiz: { id: "aemt-pe-tools-q1", question: "CPAP improves SpO₂ within 5-10 minutes in your patient. This response most strongly confirms:", options: ["Pneumonia", "Pleural effusion", "Pulmonary edema — CPAP is recruiting flooded alveoli", "Asthma"], correctIndex: 2, explanation: "Rapid improvement with CPAP confirms pulmonary edema. Positive pressure pushes fluid from alveoli back into capillaries and recruits collapsed air sacs. Pneumonia and effusion wouldn't respond this dramatically to CPAP." } },
+      { type: "quiz", quiz: { id: "aemt-pe-tools-q2", question: "E-to-A changes (egophony) on auscultation indicate:", options: ["Normal lung sounds", "Air trapping in COPD", "Lung consolidation — likely pneumonia", "Pleural effusion"], correctIndex: 2, explanation: "When consolidated lung transmits the vowel 'E' as 'A' (egophony), it confirms solid tissue replacing air. This is a specific finding for pneumonia consolidation and helps confirm your differential when focal crackles are present." } }
     ]
   },
   {
@@ -12951,7 +13005,11 @@ This is perhaps the most important differentiation at the AEMT level: the same c
       "IV fluid decisions are OPPOSITE for edema (restrict) vs. pneumonia/sepsis (give)",
       "Reassess after every intervention to confirm your working diagnosis"
     ],
-    rememberThis: "The wrong fluid decision can kill: giving fluids to a pulmonary edema patient floods the lungs further. Withholding fluids from a septic pneumonia patient lets them deteriorate. Get the diagnosis right FIRST."
+    rememberThis: "The wrong fluid decision can kill: giving fluids to a pulmonary edema patient floods the lungs further. Withholding fluids from a septic pneumonia patient lets them deteriorate. Get the diagnosis right FIRST.",
+    blocks: [
+      { type: "quiz", quiz: { id: "aemt-pe-assess-q1", question: "The most critical fluid decision at the AEMT level is:", options: ["Always give fluids to all dyspneic patients", "Restrict fluids for pulmonary edema but give aggressively for pneumonia/sepsis", "Never give fluids to respiratory patients", "Fluid decisions don't matter prehospitally"], correctIndex: 1, explanation: "Pulmonary edema = already fluid overloaded → restrict. Pneumonia with sepsis = vasodilation needs volume → give aggressively. Getting this backwards can be fatal — fluids worsen edema, withholding worsens sepsis." } },
+      { type: "quiz", quiz: { id: "aemt-pe-assess-q2", question: "JVD in a dyspneic patient suggests you should:", options: ["Give a fluid bolus immediately", "Withhold fluid boluses — JVD indicates fluid backup/overload", "Start CPAP only", "Ignore it — JVD is not relevant"], correctIndex: 1, explanation: "JVD = jugular venous distention = blood backing up into the venous system. This indicates the heart can't handle the volume it's receiving. Adding more fluid (bolus) would worsen congestion. This patient likely needs fluid restriction and possibly CPAP for edema." } }
+    ]
   },
   {
     id: "aemt-pe-pn-ef-interventions",
@@ -12992,7 +13050,9 @@ This is perhaps the most important differentiation at the AEMT level: the same c
             back: "Withhold fluid boluses when: JVD is present (fluid backed up), bilateral crackles without fever (edema, not pneumonia), known CHF with acute worsening, or when CPAP is improving the patient. Giving fluids here adds to the flood."
           }
         ]
-      }
+      },
+      { type: "quiz", quiz: { id: "aemt-pe-interv-q1", question: "A CHF patient on CPAP is improving. You should set the IV to:", options: ["Wide open bolus", "TKO rate — the patient is already fluid overloaded", "500 mL bolus", "No IV needed"], correctIndex: 1, explanation: "CPAP is working = pulmonary edema confirmed. This patient already has too much fluid. IV access is important but should be TKO (keep-open) rate only. A fluid bolus would counteract the benefit of CPAP by adding more volume." } },
+      { type: "quiz", quiz: { id: "aemt-pe-interv-q2", question: "A pneumonia patient with sepsis (BP 80/50, HR 122, temp 103°F) needs:", options: ["CPAP and fluid restriction", "Aggressive IV fluid bolus 20 mL/kg NS", "Albuterol nebulizer only", "Supine position and observation"], correctIndex: 1, explanation: "Sepsis from pneumonia causes vasodilation — the vascular 'tank' is empty. Aggressive IV NS bolus (20 mL/kg) replaces the effective volume lost to vasodilation. This is opposite to edema management, making accurate diagnosis critical." } }
     ]
   },
   {
@@ -13145,7 +13205,9 @@ As a paramedic, you'll encounter patients who have **more than one of these cond
             ]
           }
         ]
-      }
+      },
+      { type: "quiz", quiz: { id: "para-pe-patho-q1", question: "The RAAS activation in CHF initially helps but ultimately worsens edema because:", options: ["It reduces heart rate", "It causes Na⁺/H₂O retention, increasing circulating volume and worsening congestion", "It relaxes blood vessels", "It has no effect on fluid balance"], correctIndex: 1, explanation: "RAAS activation retains sodium and water to increase circulating volume (compensating for low cardiac output). But in a failing heart, this extra volume worsens pulmonary congestion — a vicious cycle that perpetuates edema." } },
+      { type: "quiz", quiz: { id: "para-pe-patho-q2", question: "A parapneumonic effusion develops when:", options: ["CHF causes bilateral fluid retention", "Pneumonia-related inflammation produces fluid in the adjacent pleural space", "The patient is overhydrated", "Air leaks into the pleural space"], correctIndex: 1, explanation: "Pneumonia can inflame the adjacent pleural membrane, causing an exudative effusion in the pleural space. This is a parapneumonic effusion — a complication of pneumonia that can progress to empyema if the effusion becomes infected." } }
     ],
     keyPoints: [
       "Starling equation governs all fluid movement across membranes",
@@ -13192,7 +13254,9 @@ As a paramedic, you'll encounter patients who have **more than one of these cond
             back: "Norepinephrine is first-line for septic shock after fluid resuscitation. α1 agonism restores vascular tone lost to inflammatory vasodilation. Dose: 0.1-0.5 mcg/kg/min. Only after adequate fluid loading (30 mL/kg). Target MAP ≥ 65 mmHg."
           }
         ]
-      }
+      },
+      { type: "quiz", quiz: { id: "para-pe-pharm-q1", question: "Furosemide helps pulmonary edema through TWO mechanisms:", options: ["Bronchodilation and anti-inflammation", "Immediate venodilation (preload reduction) followed by diuresis (volume reduction)", "Vasoconstriction and increased contractility", "Anti-infection and fever reduction"], correctIndex: 1, explanation: "Furosemide has an early venodilation effect (within 5 minutes of IV) that reduces preload before the diuretic effect kicks in. Then it blocks the Na/K/Cl cotransporter in the Loop of Henle, causing massive water excretion to reduce total body volume." } },
+      { type: "quiz", quiz: { id: "para-pe-pharm-q2", question: "Norepinephrine is first-line for septic shock because it primarily:", options: ["Causes bronchodilation", "Restores vascular tone through α₁ agonism while supporting cardiac output with mild β₁ effects", "Reduces fluid in the lungs", "Increases urine output"], correctIndex: 1, explanation: "Septic shock is distributive — vasodilation is the core problem. Norepinephrine's α₁ agonism restores vascular tone (vasoconstriction), while mild β₁ effects support cardiac output. Target MAP ≥ 65 mmHg." } }
     ]
   },
   {
@@ -13237,7 +13301,9 @@ As a paramedic, you'll encounter patients who have **more than one of these cond
             ]
           }
         ]
-      }
+      },
+      { type: "quiz", quiz: { id: "para-pe-vent-q1", question: "BiPAP is preferred over CPAP for pulmonary edema when:", options: ["The patient is conscious", "Hypercapnia is present (CO₂ > 45 mmHg)", "The patient has pneumonia instead", "There is no difference between BiPAP and CPAP"], correctIndex: 1, explanation: "BiPAP adds inspiratory pressure support (IPAP) that augments tidal volume and helps clear CO₂. When hypercapnia is present, the patient needs ventilatory assistance beyond what CPAP (which only provides EPAP) can offer." } },
+      { type: "quiz", quiz: { id: "para-pe-vent-q2", question: "CPAP/BiPAP has LIMITED benefit for pleural effusion because:", options: ["The mask doesn't fit properly", "Positive pressure can't re-expand a lung compressed by external fluid in the pleural space", "The patient can't tolerate it", "It always makes effusions worse"], correctIndex: 1, explanation: "CPAP works by pushing fluid OUT of alveoli (edema) and keeping them open. In pleural effusion, the problem is fluid OUTSIDE the lung compressing it. Positive pressure can't drain the pleural space — that requires thoracentesis at the hospital." } }
     ]
   },
   {
@@ -13272,7 +13338,11 @@ The paramedic advantage is **time with the patient**. Track trends:
       "Serial trending of SpO₂, ETCO₂, and mental status guides ongoing management",
       "Ultrasound can provide definitive visual confirmation when available"
     ],
-    rememberThis: "The paramedic who tracks trends over time makes better decisions than the one who relies on a single snapshot. Reassess, reassess, reassess."
+    rememberThis: "The paramedic who tracks trends over time makes better decisions than the one who relies on a single snapshot. Reassess, reassess, reassess.",
+    blocks: [
+      { type: "quiz", quiz: { id: "para-pe-assess-q1", question: "A 12-lead showing ST elevation in a patient with acute pulmonary edema suggests:", options: ["The edema is not serious", "An acute MI may be CAUSING the pulmonary edema", "Normal ECG variation", "The patient has pneumonia instead"], correctIndex: 1, explanation: "STEMI can cause acute left ventricular failure → flash pulmonary edema. The 12-lead ECG is essential to identify this cardiac cause. Treatment then includes both edema management AND STEMI protocol (cath lab activation)." } },
+      { type: "quiz", quiz: { id: "para-pe-assess-q2", question: "In pneumonia with sepsis, metabolic acidosis develops because:", options: ["The patient is hyperventilating", "Poor perfusion from vasodilation leads to anaerobic metabolism and lactic acid production", "The antibiotics cause acid", "Pneumonia directly produces acid in the lungs"], correctIndex: 1, explanation: "Sepsis causes vasodilation → poor tissue perfusion → cells switch to anaerobic metabolism → lactic acid accumulates → metabolic acidosis. The body tries to compensate with tachypnea (respiratory alkalosis) but may not keep up." } }
+    ]
   },
   {
     id: "para-pe-pn-ef-interventions",
@@ -13313,7 +13383,9 @@ The paramedic advantage is **time with the patient**. Track trends:
             back: "Pulmonary edema: exhaust BiPAP first; post-intubation PEEP 8-10 cmH₂O. Pneumonia: lung-protective volumes; high PEEP for recruitment. Effusion: limited benefit if fluid can't be drained; may need higher pressures. All: RSI with ketamine (bronchodilator properties) or etomidate (hemodynamic stability)."
           }
         ]
-      }
+      },
+      { type: "quiz", quiz: { id: "para-pe-interv-q1", question: "A patient has BOTH pulmonary edema AND sepsis. The fluid management conflict is best handled by:", options: ["Large fluid bolus for the sepsis", "Strict fluid restriction for the edema", "Small 250 mL boluses with reassessment + early vasopressors", "Ignoring the fluid question"], correctIndex: 2, explanation: "When edema (restrict) and sepsis (resuscitate) compete, use small boluses (250 mL) with careful reassessment after each. Start vasopressors earlier to support BP without excessive fluid loading. BiPAP bridges oxygenation while titrating carefully." } },
+      { type: "quiz", quiz: { id: "para-pe-interv-q2", question: "Nitroglycerin reduces pulmonary edema by:", options: ["Killing bacteria in the lungs", "Venodilation → reduced preload → lower pulmonary capillary pressure → less fluid leaking", "Increasing cardiac contractility", "Draining pleural fluid"], correctIndex: 1, explanation: "NTG causes venodilation → blood pools in veins → less blood returns to the heart → reduced preload → lower pulmonary capillary hydrostatic pressure → less fluid crosses into alveoli. It directly addresses the Starling force imbalance." } }
     ]
   },
   {
