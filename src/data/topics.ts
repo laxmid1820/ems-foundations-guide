@@ -89,6 +89,38 @@ Think of the airway like a garden hose. If the hose is kinked or blocked, it doe
 Without an open airway, oxygen can't reach the lungs. Without oxygen in the lungs, it can't get into the blood. And without oxygenated blood, the brain and heart start to fail—fast.
 
 This is why, no matter what else is going on, we always check and secure the airway first. It's the foundation everything else is built on.`,
+        blocks: [
+          {
+            type: "quiz",
+            quiz: {
+              id: "why-airway-q1",
+              question: "How quickly can brain damage begin without oxygen?",
+              options: [
+                "1-2 minutes",
+                "4-6 minutes",
+                "10-15 minutes",
+                "20-30 minutes"
+              ],
+              correctIndex: 1,
+              explanation: "Brain cells are extremely sensitive to oxygen deprivation. Irreversible brain damage can begin within 4-6 minutes without oxygen, which is why securing the airway is always the first priority."
+            }
+          },
+          {
+            type: "quiz",
+            quiz: {
+              id: "why-airway-q2",
+              question: "In the ABC assessment, why is airway assessed before breathing?",
+              options: [
+                "Because airway problems are more common",
+                "Because without an open airway, oxygen cannot reach the lungs",
+                "Because airway assessment is faster",
+                "Because breathing can wait"
+              ],
+              correctIndex: 1,
+              explanation: "An open airway is a prerequisite for effective breathing. If the airway is blocked, no amount of respiratory effort will get oxygen to the lungs—fixing the airway first makes everything else possible."
+            }
+          }
+        ],
         keyPoints: [
           "Airway obstruction prevents oxygen delivery to vital organs",
           "Brain damage begins within 4-6 minutes without oxygen",
@@ -132,6 +164,36 @@ A closed or partially blocked airway looks and sounds different.`,
                 imagePlaceholder: "[Diagram: Obstructed airway with tongue blocking passage]"
               }
             ]
+          },
+          {
+            type: "quiz",
+            quiz: {
+              id: "open-closed-q1",
+              question: "What is the most common cause of airway obstruction in an unconscious patient?",
+              options: [
+                "A foreign body",
+                "Swelling from allergies",
+                "The tongue falling back",
+                "Excess mucus production"
+              ],
+              correctIndex: 2,
+              explanation: "In unconscious patients, loss of muscle tone allows the tongue to fall back against the posterior pharynx, making it the single most common cause of airway obstruction."
+            }
+          },
+          {
+            type: "quiz",
+            quiz: {
+              id: "open-closed-q2",
+              question: "Which sound typically indicates a partial airway obstruction caused by the tongue?",
+              options: [
+                "Wheezing",
+                "Stridor",
+                "Snoring",
+                "Crackles"
+              ],
+              correctIndex: 2,
+              explanation: "Snoring sounds during breathing indicate the tongue is partially blocking the airway. Stridor suggests upper airway narrowing, while wheezing and crackles are lower airway sounds."
+            }
           }
         ],
         keyPoints: [
@@ -165,6 +227,36 @@ A closed or partially blocked airway looks and sounds different.`,
                 back: "Soft rubber tube through the nose. Size: nostril to earlobe. Better tolerated—can use with intact gag reflex. Avoid with skull fractures."
               }
             ]
+          },
+          {
+            type: "quiz",
+            quiz: {
+              id: "techniques-q1",
+              question: "Which airway maneuver should you use on an unresponsive patient with no suspected spinal injury?",
+              options: [
+                "Jaw thrust",
+                "Head-tilt chin-lift",
+                "Recovery position only",
+                "Finger sweep"
+              ],
+              correctIndex: 1,
+              explanation: "The head-tilt chin-lift is the primary technique for non-trauma patients. It effectively lifts the tongue away from the posterior pharynx by extending the head and lifting the chin."
+            }
+          },
+          {
+            type: "quiz",
+            quiz: {
+              id: "techniques-q2",
+              question: "Why is the jaw thrust preferred over head-tilt chin-lift in trauma patients?",
+              options: [
+                "It is easier to perform",
+                "It opens the airway wider",
+                "It maintains spinal alignment",
+                "It works on conscious patients"
+              ],
+              correctIndex: 2,
+              explanation: "The jaw thrust opens the airway by pushing the jaw forward without tilting or extending the neck, thereby maintaining cervical spine alignment in patients with suspected spinal injuries."
+            }
           }
         ],
         keyPoints: [
@@ -194,7 +286,39 @@ Sizing: Measure from the nostril to the earlobe.
 
 Use it when: Patient has an intact gag reflex, or you can't open the mouth (clenched teeth, facial trauma).
 
-Avoid in: Suspected skull fractures or severe facial trauma.`,
+        Avoid in: Suspected skull fractures or severe facial trauma.`,
+        blocks: [
+          {
+            type: "quiz",
+            quiz: {
+              id: "tools-q1",
+              question: "How do you correctly size an OPA (oropharyngeal airway)?",
+              options: [
+                "From the center of the lips to the angle of the jaw",
+                "From the corner of the mouth to the earlobe",
+                "From the nose to the chin",
+                "From the teeth to the Adam's apple"
+              ],
+              correctIndex: 1,
+              explanation: "An OPA is sized by measuring from the corner of the patient's mouth to the earlobe (or angle of the jaw). Using the wrong size can push the tongue further back or fail to hold it forward."
+            }
+          },
+          {
+            type: "quiz",
+            quiz: {
+              id: "tools-q2",
+              question: "When is an NPA (nasopharyngeal airway) preferred over an OPA?",
+              options: [
+                "When the patient is fully unresponsive",
+                "When the patient has an intact gag reflex",
+                "When the patient has a suspected skull fracture",
+                "When the patient is in cardiac arrest"
+              ],
+              correctIndex: 1,
+              explanation: "An NPA is better tolerated in patients who still have a gag reflex. An OPA would trigger gagging and potential vomiting in these patients. NPAs are also useful when the mouth cannot be opened."
+            }
+          }
+        ],
         keyPoints: [
           "OPA: for unresponsive patients without gag reflex",
           "NPA: better tolerated, useful when mouth access is limited",
@@ -250,6 +374,36 @@ Avoid in: Suspected skull fractures or severe facial trauma.`,
               correctIndex: 1,
               explanation: "An OPA should only be used in completely unresponsive patients with NO gag reflex. If a patient has an intact gag reflex, the OPA can cause vomiting and aspiration. Use an NPA instead."
             }
+          },
+          {
+            type: "quiz",
+            quiz: {
+              id: "airway-q4",
+              question: "A patient with a suspected basilar skull fracture needs an airway adjunct. Which device should you avoid?",
+              options: [
+                "OPA",
+                "NPA",
+                "Pocket mask",
+                "Bag-valve mask"
+              ],
+              correctIndex: 1,
+              explanation: "An NPA is contraindicated in patients with suspected basilar skull fractures because the tube could potentially pass through a fractured cribriform plate into the brain. Use an OPA instead if the patient has no gag reflex."
+            }
+          },
+          {
+            type: "quiz",
+            quiz: {
+              id: "airway-q5",
+              question: "You insert an OPA and the patient begins to gag. What should you do?",
+              options: [
+                "Push it in further to get past the gag",
+                "Remove it immediately and consider an NPA",
+                "Leave it in place — gagging will stop",
+                "Suction first, then reinsert"
+              ],
+              correctIndex: 1,
+              explanation: "If a patient gags on an OPA, remove it immediately. Gagging indicates the patient has enough reflexes to protect their own airway, and forcing the OPA can cause vomiting and aspiration. Consider an NPA instead."
+            }
           }
         ]
       },
@@ -271,6 +425,38 @@ Your steps:
 That's the process: recognize the problem, fix it manually, then secure it with a tool if needed.
 
 **You've covered the essentials!** Airway management gets more advanced from here, but these fundamentals are the foundation for everything else. Master these, and you're building on solid ground.`,
+        blocks: [
+          {
+            type: "quiz",
+            quiz: {
+              id: "together-q1",
+              question: "You find an unresponsive patient snoring loudly. After performing a head-tilt chin-lift the snoring stops. What should you do next?",
+              options: [
+                "Immediately begin CPR",
+                "Consider placing an OPA to maintain the airway",
+                "Administer epinephrine",
+                "Roll the patient onto their stomach"
+              ],
+              correctIndex: 1,
+              explanation: "After manually opening the airway, consider placing an OPA (if no gag reflex) to keep the airway patent hands-free while you continue your assessment of breathing and circulation."
+            }
+          },
+          {
+            type: "quiz",
+            quiz: {
+              id: "together-q2",
+              question: "Which step comes FIRST when you encounter an unresponsive patient?",
+              options: [
+                "Check blood pressure",
+                "Start chest compressions",
+                "Assess and open the airway",
+                "Attach the AED"
+              ],
+              correctIndex: 2,
+              explanation: "Following the ABC approach, airway always comes first. You must ensure the airway is open before assessing breathing or circulation—without an open airway, nothing else can be effective."
+            }
+          }
+        ],
         keyPoints: [
           "Recognize obstruction by sounds and signs",
           "Apply appropriate manual technique first",
@@ -327,6 +513,36 @@ Your heart is a pump. That's really the core of it. It's about the size of your 
                 imagePlaceholder: "[Diagram: Blood flow through heart circuits]"
               }
             ]
+          },
+          {
+            type: "quiz",
+            quiz: {
+              id: "heart-intro-q1",
+              question: "Which side of the heart receives deoxygenated blood from the body?",
+              options: [
+                "Left atrium",
+                "Left ventricle",
+                "Right atrium",
+                "Right ventricle"
+              ],
+              correctIndex: 2,
+              explanation: "The right atrium receives deoxygenated blood returning from the body via the superior and inferior vena cava. It then passes this blood to the right ventricle to be pumped to the lungs."
+            }
+          },
+          {
+            type: "quiz",
+            quiz: {
+              id: "heart-intro-q2",
+              question: "Why is the left ventricle thicker than the right ventricle?",
+              options: [
+                "It receives more blood",
+                "It must pump blood to the entire body",
+                "It contains the SA node",
+                "It is closer to the lungs"
+              ],
+              correctIndex: 1,
+              explanation: "The left ventricle must generate enough pressure to push blood through the entire systemic circulation—from head to toes. The right ventricle only pumps to the nearby lungs, requiring less force."
+            }
           }
         ],
         keyPoints: [
@@ -349,6 +565,38 @@ The electrical signal travels like this:
 3. Signal shoots down through the ventricles → ventricles contract (pumping blood out)
 
 When this system works normally, you get a nice, regular heartbeat. When it doesn't... that's when we see the arrhythmias you'll learn about later.`,
+        blocks: [
+          {
+            type: "quiz",
+            quiz: {
+              id: "electrical-q1",
+              question: "Where is the SA node located?",
+              options: [
+                "Left ventricle",
+                "Right atrium",
+                "AV junction",
+                "Interventricular septum"
+              ],
+              correctIndex: 1,
+              explanation: "The SA (sinoatrial) node is located in the upper wall of the right atrium. It serves as the heart's natural pacemaker, initiating each electrical impulse that triggers a heartbeat."
+            }
+          },
+          {
+            type: "quiz",
+            quiz: {
+              id: "electrical-q2",
+              question: "What is the purpose of the brief pause at the AV node?",
+              options: [
+                "To reset the SA node",
+                "To allow the ventricles to fill with blood",
+                "To oxygenate the heart muscle",
+                "To synchronize with breathing"
+              ],
+              correctIndex: 1,
+              explanation: "The AV node delays the electrical signal briefly so the atria have time to finish contracting and the ventricles can fill completely with blood before they contract. This ensures efficient pumping."
+            }
+          }
+        ],
         keyPoints: [
           "SA node is the heart's natural pacemaker",
           "Electrical signal triggers coordinated muscle contraction",
@@ -380,6 +628,36 @@ When this system works normally, you get a nice, regular heartbeat. When it does
                 back: "Pumps oxygenated blood to the entire body via the aorta. Has the thickest walls due to the greatest workload."
               }
             ]
+          },
+          {
+            type: "quiz",
+            quiz: {
+              id: "bloodflow-q1",
+              question: "Which blood vessels carry oxygenated blood FROM the lungs back to the heart?",
+              options: [
+                "Pulmonary arteries",
+                "Vena cava",
+                "Pulmonary veins",
+                "Coronary arteries"
+              ],
+              correctIndex: 2,
+              explanation: "The pulmonary veins are unique—they're the only veins that carry oxygenated blood. They return freshly oxygenated blood from the lungs to the left atrium of the heart."
+            }
+          },
+          {
+            type: "quiz",
+            quiz: {
+              id: "bloodflow-q2",
+              question: "Which vessel carries deoxygenated blood from the heart to the lungs?",
+              options: [
+                "Aorta",
+                "Pulmonary artery",
+                "Superior vena cava",
+                "Pulmonary vein"
+              ],
+              correctIndex: 1,
+              explanation: "The pulmonary artery carries deoxygenated blood from the right ventricle to the lungs for gas exchange. It's the only artery in the body that carries deoxygenated blood."
+            }
           }
         ],
         keyPoints: [
@@ -412,6 +690,38 @@ When this system works normally, you get a nice, regular heartbeat. When it does
 • Good capillary refill (under 2 seconds)
 
 When you see these signs, you know the pump is doing its job.`,
+        blocks: [
+          {
+            type: "quiz",
+            quiz: {
+              id: "normal-cardiac-q1",
+              question: "Which of the following is a sign of adequate cardiac output?",
+              options: [
+                "Cool, clammy skin",
+                "Capillary refill under 2 seconds",
+                "Altered mental status",
+                "Weak, thready pulses"
+              ],
+              correctIndex: 1,
+              explanation: "A capillary refill time under 2 seconds indicates good peripheral perfusion, which reflects adequate cardiac output. The other options are signs of poor perfusion."
+            }
+          },
+          {
+            type: "quiz",
+            quiz: {
+              id: "normal-cardiac-q2",
+              question: "The 'lub-dub' heart sounds are produced by:",
+              options: [
+                "Blood flowing through arteries",
+                "Heart valves closing",
+                "The SA node firing",
+                "Atrial contraction"
+              ],
+              correctIndex: 1,
+              explanation: "Heart sounds are created by valves closing. The 'lub' (S1) is the AV valves closing as the ventricles begin to contract, and the 'dub' (S2) is the semilunar valves closing as the ventricles relax."
+            }
+          }
+        ],
         keyPoints: [
           "Assess rate, rhythm, and quality of pulses",
           "Normal heart sounds are regular without extra sounds",
@@ -468,6 +778,36 @@ When you see these signs, you know the pump is doing its job.`,
               correctIndex: 1,
               explanation: "Normal resting heart rate for adults is 60-100 beats per minute. Athletes may have lower rates due to efficient hearts, while rates outside this range may indicate a problem."
             }
+          },
+          {
+            type: "quiz",
+            quiz: {
+              id: "cardiac-q4",
+              question: "What happens if the SA node fails to fire?",
+              options: [
+                "The heart stops permanently",
+                "The AV node can take over as a backup pacemaker",
+                "The lungs compensate by breathing faster",
+                "Blood pressure drops to zero immediately"
+              ],
+              correctIndex: 1,
+              explanation: "The heart has backup pacemakers. If the SA node fails, the AV node can take over at a slower rate (40-60 bpm). Even the ventricles themselves can generate impulses (20-40 bpm) as a last resort."
+            }
+          },
+          {
+            type: "quiz",
+            quiz: {
+              id: "cardiac-q5",
+              question: "A patient has warm pink skin, strong radial pulses, and a heart rate of 78. What does this indicate?",
+              options: [
+                "Early shock",
+                "Cardiac tamponade",
+                "Adequate cardiac output",
+                "Hypertensive crisis"
+              ],
+              correctIndex: 2,
+              explanation: "Warm pink skin, strong pulses, and a normal heart rate (60-100 bpm) are classic signs of adequate cardiac output and good perfusion. The heart is effectively pumping blood to meet the body's needs."
+            }
           }
         ]
       },
@@ -487,6 +827,38 @@ Not necessarily. Athletes often have resting rates in the 50s because their hear
 Everything! You'll count rates, listen to sounds, feel pulse quality, assess perfusion, and recognize when the pump isn't working right. This foundation helps you understand WHY we do those assessments.
 
 You're doing great. Cardiac physiology is a big topic, and you've just built a solid foundation to build on.`,
+        blocks: [
+          {
+            type: "quiz",
+            quiz: {
+              id: "common-cardiac-q1",
+              question: "An athlete has a resting heart rate of 52 bpm and feels fine. Is this concerning?",
+              options: [
+                "Yes — any rate below 60 is dangerous",
+                "No — trained athletes often have efficient hearts with lower resting rates",
+                "Yes — they need a pacemaker",
+                "No — but only if they are under 30 years old"
+              ],
+              correctIndex: 1,
+              explanation: "Well-trained athletes often have resting heart rates in the 50s or even 40s because their hearts pump more blood per beat (higher stroke volume). This is normal and not a cause for concern if the patient is asymptomatic."
+            }
+          },
+          {
+            type: "quiz",
+            quiz: {
+              id: "common-cardiac-q2",
+              question: "What causes the heart rate to increase during exercise?",
+              options: [
+                "The SA node slows down",
+                "The sympathetic nervous system stimulates the heart",
+                "Blood pressure decreases",
+                "The lungs signal the heart to speed up"
+              ],
+              correctIndex: 1,
+              explanation: "The sympathetic nervous system ('fight or flight') releases epinephrine and norepinephrine, which stimulate the SA node to fire faster and the heart muscle to contract more forcefully, increasing heart rate and cardiac output."
+            }
+          }
+        ],
         keyPoints: [
           "Left ventricle thickness = greater workload",
           "Heart rate adjusts to body's demands",
@@ -524,6 +896,38 @@ For this delivery service to work, you need three things:
 If any of these three fails, perfusion suffers. Cells don't get what they need. And when cells don't get what they need, they start to struggle—and eventually die.
 
 That's what shock is: inadequate perfusion to meet the body's needs.`,
+        blocks: [
+          {
+            type: "quiz",
+            quiz: {
+              id: "perfusion-q1",
+              question: "Which three components are required for adequate perfusion?",
+              options: [
+                "Brain, lungs, and kidneys",
+                "Heart (pump), blood (fluid), and vessels (pipes)",
+                "Oxygen, glucose, and water",
+                "Arteries, veins, and capillaries"
+              ],
+              correctIndex: 1,
+              explanation: "Adequate perfusion requires a working pump (heart), enough fluid (blood volume), and intact pipes (blood vessels at the right diameter). Failure of any one of these leads to shock."
+            }
+          },
+          {
+            type: "quiz",
+            quiz: {
+              id: "perfusion-q2",
+              question: "What is the simplest definition of shock?",
+              options: [
+                "Low blood pressure",
+                "Rapid heart rate",
+                "Inadequate tissue perfusion",
+                "Loss of consciousness"
+              ],
+              correctIndex: 2,
+              explanation: "Shock is defined as inadequate perfusion—when the body's cells are not receiving enough oxygen and nutrients to function. Blood pressure and heart rate are indicators, but the core problem is perfusion failure."
+            }
+          }
+        ],
         keyPoints: [
           "Perfusion = delivery of oxygen and nutrients to cells",
           "Requires: pump (heart) + fluid (blood) + pipes (vessels)",
@@ -541,6 +945,38 @@ Why does this matter so much? Because cells under stress switch to less efficien
 The key insight is this: shock is not a blood pressure number. You can be in shock with a "normal" blood pressure, at least early on. Shock is a state of inadequate tissue perfusion—and your job is to recognize it before it's too late.
 
 The earlier you catch shock, the better the outcomes. Early recognition is your superpower.`,
+        blocks: [
+          {
+            type: "quiz",
+            quiz: {
+              id: "understand-shock-q1",
+              question: "Why can a patient be in shock but still have a normal blood pressure?",
+              options: [
+                "Blood pressure machines are unreliable",
+                "The body compensates by increasing heart rate and constricting vessels",
+                "Shock only affects blood pressure in elderly patients",
+                "Normal blood pressure means the patient is not in shock"
+              ],
+              correctIndex: 1,
+              explanation: "In compensated shock, the body maintains blood pressure through increased heart rate and vasoconstriction. This is why you must look at the whole clinical picture—not just blood pressure—to identify shock early."
+            }
+          },
+          {
+            type: "quiz",
+            quiz: {
+              id: "understand-shock-q2",
+              question: "What harmful byproduct accumulates when cells are deprived of oxygen?",
+              options: [
+                "Carbon dioxide",
+                "Lactic acid",
+                "Glucose",
+                "Potassium"
+              ],
+              correctIndex: 1,
+              explanation: "When cells switch to anaerobic metabolism due to oxygen deprivation, they produce lactic acid as a byproduct. Lactic acid buildup causes acidosis, which further impairs cell function and organ performance."
+            }
+          }
+        ],
         keyPoints: [
           "Shock = inadequate oxygen delivery to tissues",
           "Can occur even with 'normal' blood pressure initially",
@@ -573,6 +1009,36 @@ The earlier you catch shock, the better the outcomes. Early recognition is your 
                 back: "\"Something's blocking the flow\" — Caused by mechanical obstruction. Examples: tension pneumothorax, cardiac tamponade, pulmonary embolism. Blood physically can't flow where it needs to."
               }
             ]
+          },
+          {
+            type: "quiz",
+            quiz: {
+              id: "types-q1",
+              question: "A patient in anaphylaxis develops low blood pressure due to widespread vasodilation. What type of shock is this?",
+              options: [
+                "Hypovolemic",
+                "Cardiogenic",
+                "Distributive",
+                "Obstructive"
+              ],
+              correctIndex: 2,
+              explanation: "Anaphylaxis causes distributive shock—massive vasodilation makes the blood vessels 'too wide,' causing blood pressure to drop even though the heart and blood volume are fine."
+            }
+          },
+          {
+            type: "quiz",
+            quiz: {
+              id: "types-q2",
+              question: "A patient had a heart attack and now has weak pulses and signs of poor perfusion. What type of shock is this?",
+              options: [
+                "Hypovolemic",
+                "Cardiogenic",
+                "Distributive",
+                "Obstructive"
+              ],
+              correctIndex: 1,
+              explanation: "Cardiogenic shock occurs when the heart itself fails as a pump. A heart attack damages heart muscle, reducing its ability to contract effectively and pump blood to meet the body's needs."
+            }
           }
         ],
         keyPoints: [
@@ -614,6 +1080,36 @@ The earlier you catch shock, the better the outcomes. Early recognition is your 
                 ]
               }
             ]
+          },
+          {
+            type: "quiz",
+            quiz: {
+              id: "recognize-q1",
+              question: "What is often the EARLIEST sign of compensated shock?",
+              options: [
+                "Falling blood pressure",
+                "Tachycardia (increased heart rate)",
+                "Unconsciousness",
+                "Cyanosis"
+              ],
+              correctIndex: 1,
+              explanation: "Tachycardia is typically the earliest sign of shock. The body increases heart rate to try to maintain adequate cardiac output when perfusion is threatened. Blood pressure changes come later."
+            }
+          },
+          {
+            type: "quiz",
+            quiz: {
+              id: "recognize-q2",
+              question: "A patient has pale, cool, clammy skin with a heart rate of 118 but a blood pressure of 120/80. What stage of shock is this most likely?",
+              options: [
+                "No shock — blood pressure is normal",
+                "Compensated shock",
+                "Decompensated shock",
+                "Irreversible shock"
+              ],
+              correctIndex: 1,
+              explanation: "This is compensated shock. The body is maintaining blood pressure through increased heart rate and vasoconstriction (causing the pale, cool skin), but these compensation mechanisms indicate perfusion is already threatened."
+            }
           }
         ],
         keyPoints: [
@@ -672,6 +1168,36 @@ The earlier you catch shock, the better the outcomes. Early recognition is your 
               correctIndex: 2,
               explanation: "Tachycardia is often the earliest sign of shock. The body speeds up the heart rate to maintain cardiac output when perfusion is threatened. Blood pressure may remain normal until late stages."
             }
+          },
+          {
+            type: "quiz",
+            quiz: {
+              id: "shock-q4",
+              question: "Which type of shock is caused by a tension pneumothorax?",
+              options: [
+                "Hypovolemic",
+                "Cardiogenic",
+                "Distributive",
+                "Obstructive"
+              ],
+              correctIndex: 3,
+              explanation: "A tension pneumothorax causes obstructive shock by physically preventing the heart from filling properly. Air trapped in the chest compresses the heart and great vessels, blocking blood flow."
+            }
+          },
+          {
+            type: "quiz",
+            quiz: {
+              id: "shock-q5",
+              question: "Sepsis-related shock falls under which category?",
+              options: [
+                "Hypovolemic",
+                "Cardiogenic",
+                "Distributive",
+                "Obstructive"
+              ],
+              correctIndex: 2,
+              explanation: "Sepsis causes distributive shock through widespread vasodilation triggered by the body's overwhelming immune response to infection. The vessels dilate, causing blood pressure to drop despite adequate blood volume."
+            }
           }
         ]
       },
@@ -706,6 +1232,38 @@ The earlier you catch shock, the better the outcomes. Early recognition is your 
 • Reassess frequently—shock can worsen quickly
 
 You now understand the what, why, and how of shock. This knowledge will guide your assessment and treatment for countless patients. Well done.`,
+        blocks: [
+          {
+            type: "quiz",
+            quiz: {
+              id: "intervention-q1",
+              question: "What is the primary reason to keep a shock patient warm?",
+              options: [
+                "To reduce pain",
+                "Because shock impairs temperature regulation",
+                "To lower heart rate",
+                "To reduce swelling"
+              ],
+              correctIndex: 1,
+              explanation: "Patients in shock lose the ability to effectively regulate body temperature. Hypothermia worsens coagulopathy and acidosis, creating a 'lethal triad' that makes shock harder to reverse."
+            }
+          },
+          {
+            type: "quiz",
+            quiz: {
+              id: "intervention-q2",
+              question: "Why is rapid transport critical for shock patients?",
+              options: [
+                "Ambulances have better heaters",
+                "Shock patients need definitive hospital care that EMS cannot provide",
+                "Movement helps circulation",
+                "It reduces the patient's anxiety"
+              ],
+              correctIndex: 1,
+              explanation: "EMT-level shock management focuses on supportive care. Definitive treatment—such as surgery for bleeding, medications for cardiogenic shock, or antibiotics for sepsis—can only be provided at the hospital."
+            }
+          }
+        ],
         keyPoints: [
           "Position appropriately, support oxygenation",
           "Control bleeding if applicable",
