@@ -164,3 +164,14 @@
 .animate-celebration-pop {
   animation: celebration-pop 0.5s ease-out forwards;
 }
+
+@keyframes xp-toast {
+  0%   { opacity: 0; transform: translateX(-50%) translateY(10px); }
+  15%  { opacity: 1; transform: translateX(-50%) translateY(0); }
+  80%  { opacity: 1; transform: translateX(-50%) translateY(0); }
+  100% { opacity: 0; transform: translateX(-50%) translateY(-10px); }
+}
+
+.animate-xp-toast {
+  animation: xp-toast 2.5s ease-in-out forwards;
+}
