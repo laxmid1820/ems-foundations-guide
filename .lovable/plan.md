@@ -1,87 +1,62 @@
 
 
-# Fix: Remove Scroll-Based XP and Correct XP Math
+# Reusable Agent Prompt: Standardize All Topics to A&P Basics Pattern
 
-## Problem
+## Key Finding
 
-Two bugs exist in both `TopicDetail.tsx` and `SubsectionDetail.tsx`:
+**No component, hook, or page-level changes are needed.** Both `TopicDetail.tsx` and `SubsectionDetail.tsx` are shared pages that already apply the full pattern (XP math, gating, ceremony, sidebar rings, badges, confetti) to every topic via slug routing.
 
-1. **Scroll-based XP**: The `IntersectionObserver` auto-masters quiz-free sections when they scroll into view, awarding +15 XP (`gainSectionMasteryXP()`) passively. This means simply scrolling through a topic awards XP for every section that has no quizzes.
+The **only issue** is that many existing content arrays in `subtopicContent.ts` have flashcard IDs that don't follow the `{sectionId}-card-{index}` convention (e.g., `"para-card-1"` instead of `"coronary-anatomy-card-0"`). This breaks flashcard XP attribution to sections, causing sidebar rings to undercount earned XP.
 
-2. **XP math mismatch**: The inline `xpTotal`/`xpEarned` values passed to each `TopicSection` component omit flashcard XP, while the `sectionXPMap` (used by `SectionNav`) correctly includes it. This causes the section cards and the sidebar to show different numbers.
+---
 
-## Root Cause
+## The Agent Prompt (Copy-Paste Ready)
 
-**Bug 1** -- In both files, the `IntersectionObserver` callback (TopicDetail line ~114, SubsectionDetail line ~143) checks `quizIds.length === 0` and immediately calls `gainSectionMasteryXP()` + marks the section mastered. This fires +15 XP just for scrolling past a text-only section.
+---
 
-**Bug 2** -- In the `.map()` render loop, `xpTotal` is calculated as `quizCount * 10 + 15` (missing `flashcardCount * 2`), and `xpEarned` is `correctCount * 10 + (mastered ? 15 : 0)` (missing `flippedInSection * 2`). The `sectionXPMap` used by `SectionNav` correctly includes both.
+**Prompt:**
 
-## Fix
+> **Task: Fix flashcard ID prefixes across ALL topic content arrays in `src/data/subtopicContent.ts`.**
+>
+> **Context:** The XP system attributes flashcard flips to sections by matching card ID prefixes: `id.startsWith(\`${sectionId}-card-\`)`. Many existing content arrays have flashcard IDs that DON'T follow this convention (e.g., `"aemt-perf-1"`, `"para-card-2"`, `"resp-fc-1"`). This means flashcard XP is not counted toward section progress rings in the sidebar.
+>
+> **What to do:**
+> For every `type: "flashcards"` block in every content array, rename each flashcard's `id` to follow the pattern: `{sectionId}-card-{zeroBasedIndex}`
+>
+> Example — if a section has `id: "coronary-anatomy"` and contains flashcards:
+> - Before: `id: "para-card-1"`, `id: "para-card-2"`, `id: "para-card-3"`
+> - After: `id: "coronary-anatomy-card-0"`, `id: "coronary-anatomy-card-1"`, `id: "coronary-anatomy-card-2"`
+>
+> **Rules:**
+> 1. ONLY change flashcard `id` fields. Do NOT change any other content (text, questions, answers, explanations, section IDs, titles, key points, callouts).
+> 2. The section ID is the `id` field of the parent section object that contains the flashcard block.
+> 3. Index is zero-based within each flashcard block.
+> 4. If a section already uses the correct `{sectionId}-card-{index}` pattern, skip it.
+> 5. Process ALL content arrays: `emtHeartContent`, `emtRespiratoryContent`, `emtPharmacologyContent`, `emtRespiratoryEmergenciesContent`, `emtPatientAssessmentContent`, `emtShockManagementContent`, `emtPathophysiologyContent`, `emtCopdVsChfContent`, `emtAsthmaAnaphylaxisContent`, `emtPulmonaryEdemaPneumoniaEffusionContent`, `emtAnatomyPhysiologyContent`, and all AEMT (`aemt*Content`) and Paramedic (`paramedic*Content`) arrays.
+> 6. Do NOT touch: `TopicDetail.tsx`, `SubsectionDetail.tsx`, `SectionNav.tsx`, `useXP.ts`, `AuthContext.tsx`, `Navbar.tsx`, or any component/hook files.
+> 7. Do NOT create database migrations.
+> 8. Do NOT delete or rewrite any content — this is a find-and-replace on flashcard IDs only.
+>
+> **Verification:** After changes, every flashcard `id` in the file should match the regex `^{its-parent-section-id}-card-\d+$`.
 
-### Rule: Section mastery (+15 XP) only for sections with quizzes, only on 100% correctness
+---
 
-- Quiz-free sections get **no mastery bonus** and **no scroll XP**
-- They can still earn flashcard XP (+2 per flip) if they contain flashcards
-- They are visually marked as "complete" (checkmark in nav) once viewed, but award 0 mastery XP
-- Their `total` XP is `flashcardCount * 2` (no +15 bonus)
-- Sections with quizzes keep: `total = quizCount * 10 + flashcardCount * 2 + 15`
+## Why This Is the Only Change Needed
 
-### Changes in both `TopicDetail.tsx` and `SubsectionDetail.tsx`:
+| Concern | Status |
+|---------|--------|
+| SectionNav sidebar with rings | Already shared via `SectionNav.tsx` -- works for all topics |
+| XP math (quiz +10, retry +5, flashcard +2, mastery +15) | Already fixed in both page files |
+| No scroll-based XP | Already removed from both page files |
+| Knowledge Check gating | Already implemented in both page files (matches section title/ID) |
+| Module Completion Ceremony | Already wired in both page files |
+| Badge awarding on ceremony | Already wired in both page files |
+| BadgeCounter in Navbar | Already rendered from `profile.badges` |
+| Confetti on section mastery | Already in `TopicSection.tsx` |
+| Desktop centering layout | Already applied in both page files |
 
-#### 1. IntersectionObserver -- Remove XP award, keep visual tracking
+The entire UX pattern is **slug-agnostic**. The only data conformance gap is flashcard ID prefixes.
 
-Remove `gainSectionMasteryXP()` from the observer. Keep `setMasteredSections` for quiz-free sections (visual checkmark only, no XP):
+## Content Arrays to Process
 
-```typescript
-// Before (awards XP on scroll):
-if (quizIds.length === 0 && !masteredRef.current.has(sectionId)) {
-  gainSectionMasteryXP();                    // REMOVE THIS
-  setMasteredSections((ms) => new Set(ms).add(sectionId));  // keep for visual
-}
-
-// After (no XP, visual only):
-if (quizIds.length === 0 && !masteredRef.current.has(sectionId)) {
-  setMasteredSections((ms) => new Set(ms).add(sectionId));
-}
-```
-
-#### 2. sectionXPMap -- Conditional mastery bonus
-
-Only include +15 in `total` when the section has quizzes:
-
-```typescript
-const masteryBonus = quizCount > 0 ? 15 : 0;
-const total = quizCount * 10 + flashcardCount * 2 + masteryBonus;
-const earned = correct * 10 + flippedInSection * 2 + (mastered && quizCount > 0 ? 15 : 0);
-```
-
-#### 3. Inline render XP values -- Include flashcards, conditional mastery
-
-Fix the `.map()` render loop to match `sectionXPMap` logic:
-
-```typescript
-const flashcardCount = section.blocks?.filter(b => b.type === "flashcards")
-  .reduce((sum, b) => sum + (b.flashcards?.length || 0), 0) || 0;
-const flippedInSection = flashcardsFlipped.filter(id => id.startsWith(`${section.id}-card-`)).length;
-// In SubsectionDetail: use Array.from(flippedCards).filter(...)
-const masteryBonus = quizCount > 0 ? 15 : 0;
-const xpTotal = quizCount * 10 + flashcardCount * 2 + masteryBonus;
-const xpEarned = correctCount * 10 + flippedInSection * 2 + (mastered && quizCount > 0 ? 15 : 0);
-```
-
-## Files Modified
-
-| File | Change |
-|------|--------|
-| `src/pages/TopicDetail.tsx` | Remove `gainSectionMasteryXP()` from observer; fix `sectionXPMap` and inline XP math |
-| `src/pages/SubsectionDetail.tsx` | Same fixes |
-
-## What Stays the Same
-
-- Quiz-based mastery (+15 XP on 100% section quiz correctness) -- unchanged
-- Flashcard XP (+2 per unique flip) -- unchanged
-- Quiz XP (+10 correct, +5 retry) -- unchanged
-- Knowledge Check gating -- unchanged
-- Done with Module ceremony (+5 and +150 XP) -- unchanged
-- Visual checkmarks for quiz-free sections in SectionNav -- unchanged (just no XP)
-
+There are ~35 content arrays across EMT, AEMT, and Paramedic levels. Each needs its flashcard IDs audited and renamed. The file is ~14,270 lines, so this should be done in batches (e.g., all EMT arrays first, then AEMT, then Paramedic).
