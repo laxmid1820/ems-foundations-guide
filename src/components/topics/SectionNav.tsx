@@ -41,7 +41,16 @@ function SectionNavList({ sections, masteredSections, activeSectionId, sectionXP
             )}>
               {mastered ? <Check className="h-3.5 w-3.5" /> : i + 1}
             </span>
-            <span className="flex-1 truncate">{s.title}</span>
+            <TooltipProvider delayDuration={300}>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <span className="flex-1 truncate cursor-default">{s.title}</span>
+                </TooltipTrigger>
+                <TooltipContent side="right" className="max-w-[280px]">
+                  {s.title}
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
             {(() => {
               const xpData = sectionXPMap?.get(s.id);
               const earned = xpData?.earned ?? (mastered ? 15 : 0);
