@@ -1,6 +1,7 @@
 import { useState, useCallback } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/contexts/AuthContext";
+import { dispatchXPGain } from "@/hooks/useXP";
 
 export interface QuizQuestion {
   id: string;
@@ -52,7 +53,7 @@ function getMockCount(level: string): number {
 }
 
 export function useQuiz() {
-  const { user } = useAuth();
+  const { user, refreshProfile } = useAuth();
   const [phase, setPhase] = useState<QuizPhase>("select");
   const [questions, setQuestions] = useState<QuizQuestion[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -193,6 +194,12 @@ export function useQuiz() {
 
       setSubmission(data as QuizSubmission);
       setPhase("results");
+
+      // Refresh profile so navbar XP updates, and broadcast toast
+      await refreshProfile();
+      if (data.xp_earned > 0) {
+        dispatchXPGain({ amount: data.xp_earned, reason: "Quiz complete!", timestamp: Date.now() });
+      }
     } catch (e: any) {
       console.error("submitQuiz error:", e);
       setError(e.message || "Failed to submit quiz");

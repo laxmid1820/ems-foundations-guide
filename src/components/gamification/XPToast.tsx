@@ -1,20 +1,21 @@
-import { useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 import { Zap } from "lucide-react";
-import { useXP } from "@/hooks/useXP";
+import { useXPListener } from "@/hooks/useXP";
 
 export function XPToast() {
-  const { lastGain } = useXP();
   const [visible, setVisible] = useState(false);
   const [current, setCurrent] = useState<{ amount: number; reason: string; timestamp: number } | null>(null);
 
-  useEffect(() => {
-    if (lastGain && lastGain.amount > 0) {
-      setCurrent(lastGain);
-      setVisible(true);
-      const timer = setTimeout(() => setVisible(false), 2500);
-      return () => clearTimeout(timer);
-    }
-  }, [lastGain?.timestamp]);
+  useXPListener(
+    useCallback((gain) => {
+      if (gain.amount > 0) {
+        setCurrent(gain);
+        setVisible(true);
+        // Auto-hide after animation completes
+        setTimeout(() => setVisible(false), 2500);
+      }
+    }, [])
+  );
 
   if (!visible || !current) return null;
 
