@@ -11,7 +11,7 @@ export function Footer() {
           <p>
             <strong className="text-foreground font-bold">Educational Content Only:</strong> This material is supplemental 
             and not a substitute for official EMT training, NREMT certification, or medical advice. 
-            Always verify with reliable sources and follow your local protocols.
+            Always verify with reliable sources and follow your local protocols. Content reflects widely accepted prehospital education standards as of 2024.
           </p>
         </div>
 
