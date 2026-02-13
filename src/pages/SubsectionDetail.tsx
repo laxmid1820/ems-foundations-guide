@@ -8,6 +8,7 @@ import { StickyProgressBar } from "@/components/topics/StickyProgressBar";
 import { SectionNav } from "@/components/topics/SectionNav";
 import { useXP } from "@/hooks/useXP";
 import { LevelProgressionButton } from "@/components/topics/LevelProgressionButton";
+import { TopicProgressRing } from "@/components/topics/TopicProgressRing";
 import { 
   getSubsectionContentFromCurriculum, 
   getAdjacentSubsection,
@@ -216,7 +217,15 @@ const SubsectionDetail = () => {
     setTabsViewed(prev => new Set(prev).add(index));
   }, []);
 
-  const progress = Math.round((sectionsViewed.size / totalSections) * 100);
+  // Weighted progress formula
+  const totalFlashcards = richSections
+    ? richSections.reduce((sum, s) =>
+        sum + (s.blocks?.filter((b: any) => b.type === 'flashcards').flatMap((b: any) => b.flashcards || []).length || 0), 0)
+    : 0;
+  const sectionWeight = totalSections > 0 ? (sectionsViewed.size / totalSections) * 40 : 40;
+  const flashcardWeight = totalFlashcards > 0 ? (flippedCards.size / totalFlashcards) * 30 : 30;
+  const quizWeight = totalQuizCount > 0 ? (answeredQuizzes.size / totalQuizCount) * 30 : 30;
+  const progress = Math.round(sectionWeight + flashcardWeight + quizWeight);
   
   const nextSubsection = level && topicSlug && subsectionSlug 
     ? getAdjacentSubsection(level, topicSlug, subsectionSlug, 'next')
@@ -272,7 +281,7 @@ const SubsectionDetail = () => {
         sectionXPMap={sectionXPMap}
       />
 
-      <div className="container mx-auto px-4 py-6 sm:py-10 sm:px-6 lg:pl-[240px] lg:pr-8 max-w-4xl lg:max-w-none pb-24">
+      <div className="container mx-auto px-4 py-6 sm:py-10 sm:px-6 lg:pl-[240px] lg:pr-8 max-w-4xl lg:max-w-[calc(240px+768px+2rem)] pb-24">
         {/* Breadcrumb */}
         <Breadcrumb className="mb-6">
           <BreadcrumbList>
@@ -309,25 +318,41 @@ const SubsectionDetail = () => {
 
         {/* Header */}
         <div className="mb-8 pb-6 border-b border-border lg:max-w-3xl">
-          <div className="flex items-start gap-4 mb-4">
-            <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-primary/10 text-primary">
-              <Icon className="h-7 w-7" />
-            </div>
-            <div className="pt-1 flex-1">
-              <Badge 
-                variant="outline" 
-                className={cn("font-medium mb-2", config.badgeClass)}
-              >
-                {config.badgeLabel}
-              </Badge>
-              <h1 className="text-2xl sm:text-3xl font-bold text-foreground leading-tight">
-                {subsection.title}
-              </h1>
-              <p className="text-sm text-muted-foreground mt-2">
-                Part of: {topic.title}
-              </p>
-            </div>
-          </div>
+          {(() => {
+            let totalEarned = 0, totalPossible = 0;
+            sectionXPMap.forEach(({ earned, total }) => { totalEarned += earned; totalPossible += total; });
+            const topicProgress = totalPossible > 0 ? (totalEarned / totalPossible) * 100 : 0;
+            const getMotivation = (p: number) => {
+              if (p <= 0) return "Start earning XP — every quiz counts!";
+              if (p < 50) return "Building strong foundations — keep going!";
+              if (p < 80) return "Halfway there — mastery is close!";
+              if (p < 100) return "Almost mastered — one more push!";
+              return "Topic complete — incredible work!";
+            };
+            return (
+              <div className="flex items-start gap-4 mb-4">
+                <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-primary/10 text-primary">
+                  <Icon className="h-7 w-7" />
+                </div>
+                <div className="pt-1 flex-1">
+                  <Badge variant="outline" className={cn("font-medium mb-2", config.badgeClass)}>
+                    {config.badgeLabel}
+                  </Badge>
+                  <h1 className="text-2xl sm:text-3xl font-bold text-foreground leading-tight">
+                    {subsection.title}
+                  </h1>
+                  <p className="text-sm text-muted-foreground mt-2">
+                    Part of: {topic.title}
+                  </p>
+                </div>
+                <div className="hidden sm:flex flex-col items-center gap-1 shrink-0">
+                  <TopicProgressRing size={80} strokeWidth={6} progress={topicProgress} showMessage={false} />
+                  <span className="text-xs font-bold text-xp">{totalEarned}/{totalPossible} XP</span>
+                  <span className="text-xs font-medium text-muted-foreground text-center max-w-[120px]">{getMotivation(topicProgress)}</span>
+                </div>
+              </div>
+            );
+          })()}
 
           <div className="flex items-center gap-4 text-sm text-muted-foreground">
             <div className="flex items-center gap-1.5">

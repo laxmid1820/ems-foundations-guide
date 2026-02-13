@@ -36,16 +36,18 @@ export function TopicProgressRing({
           strokeColor="hsl(var(--xp))"
           className="[&_.absolute]:hidden"
         />
-        <div className="absolute flex items-center justify-center">
-          <span
-            className={cn(
-              "font-extrabold text-foreground",
-              size <= 44 ? "text-[10px]" : "text-xs"
-            )}
-          >
-            {Math.round(clamped)}%
-          </span>
-        </div>
+        {size > 28 && (
+          <div className="absolute flex items-center justify-center">
+            <span
+              className={cn(
+                "font-extrabold text-foreground",
+                size <= 44 ? "text-[10px]" : "text-xs"
+              )}
+            >
+              {Math.round(clamped)}%
+            </span>
+          </div>
+        )}
       </div>
       {showMessage && (
         <span className="text-xs font-bold text-xp whitespace-nowrap">

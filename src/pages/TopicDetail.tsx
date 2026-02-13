@@ -21,6 +21,7 @@ import { LessonProgress } from "@/components/topics/LessonProgress";
 import { ContinueButton } from "@/components/topics/ContinueButton";
 import { SectionNav } from "@/components/topics/SectionNav";
 import { getTopicBySlug, getAdjacentTopics, getTopicInteractiveCount } from "@/data/topics";
+import { TopicProgressRing } from "@/components/topics/TopicProgressRing";
 import { Clock, ArrowLeft, BookOpen } from "lucide-react";
 
 // Helper: count quiz questions in a section's blocks
@@ -257,7 +258,7 @@ const TopicDetail = () => {
         sectionXPMap={sectionXPMap}
       />
 
-      <div className="container mx-auto px-4 py-6 sm:py-8 sm:px-6 lg:pl-[240px] lg:pr-8 max-w-3xl lg:max-w-none">
+      <div className="container mx-auto px-4 py-6 sm:py-8 sm:px-6 lg:pl-[240px] lg:pr-8 max-w-3xl lg:max-w-[calc(240px+768px+2rem)]">
         {/* Disclaimer Banner - Top */}
         <DisclaimerBanner variant="top" />
 
@@ -292,23 +293,42 @@ const TopicDetail = () => {
             className="mb-6"
           />
 
-          <div className="flex items-start gap-4 mb-4">
-            <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary sm:h-16 sm:w-16">
-              <Icon className="h-7 w-7 sm:h-8 sm:w-8" />
-            </div>
-            <div className="flex-1 min-w-0">
-              <div className="flex flex-wrap items-center gap-2 mb-2">
-                <DifficultyBadge difficulty={topic.difficulty} />
-                <div className="flex items-center gap-1.5 text-muted-foreground">
-                  <Clock className="h-4 w-4" />
-                  <span className="text-sm">{topic.estimatedMinutes} min read</span>
+          {(() => {
+            let totalEarned = 0, totalPossible = 0;
+            sectionXPMap.forEach(({ earned, total }) => { totalEarned += earned; totalPossible += total; });
+            const topicProgress = totalPossible > 0 ? (totalEarned / totalPossible) * 100 : 0;
+            const getMotivation = (p: number) => {
+              if (p <= 0) return "Start earning XP — every quiz counts!";
+              if (p < 50) return "Building strong foundations — keep going!";
+              if (p < 80) return "Halfway there — mastery is close!";
+              if (p < 100) return "Almost mastered — one more push!";
+              return "Topic complete — incredible work!";
+            };
+            return (
+              <div className="flex items-start gap-4 mb-4">
+                <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary sm:h-16 sm:w-16">
+                  <Icon className="h-7 w-7 sm:h-8 sm:w-8" />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <div className="flex flex-wrap items-center gap-2 mb-2">
+                    <DifficultyBadge difficulty={topic.difficulty} />
+                    <div className="flex items-center gap-1.5 text-muted-foreground">
+                      <Clock className="h-4 w-4" />
+                      <span className="text-sm">{topic.estimatedMinutes} min read</span>
+                    </div>
+                  </div>
+                  <h1 className="text-2xl font-bold tracking-tight text-foreground sm:text-3xl lg:text-4xl">
+                    {topic.title}
+                  </h1>
+                </div>
+                <div className="hidden sm:flex flex-col items-center gap-1 shrink-0">
+                  <TopicProgressRing size={80} strokeWidth={6} progress={topicProgress} showMessage={false} />
+                  <span className="text-xs font-bold text-xp">{totalEarned}/{totalPossible} XP</span>
+                  <span className="text-xs font-medium text-muted-foreground text-center max-w-[120px]">{getMotivation(topicProgress)}</span>
                 </div>
               </div>
-              <h1 className="text-2xl font-bold tracking-tight text-foreground sm:text-3xl lg:text-4xl">
-                {topic.title}
-              </h1>
-            </div>
-          </div>
+            );
+          })()}
           <p className="text-lg text-muted-foreground leading-relaxed">
             {topic.description}
           </p>
