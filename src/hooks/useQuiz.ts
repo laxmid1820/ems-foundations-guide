@@ -36,7 +36,17 @@ export interface QuizSubmission {
   results: QuizResult[];
 }
 
-type QuizPhase = "select" | "loading" | "session" | "results";
+export type QuizLength = 10 | 20 | 50 | "mock";
+type QuizPhase = "select" | "configure" | "loading" | "session" | "results";
+
+function getMockCount(level: string): number {
+  switch (level) {
+    case "emt": return Math.floor(Math.random() * 51) + 70;
+    case "aemt": return 135;
+    case "paramedic": return Math.floor(Math.random() * 41) + 110;
+    default: return 100;
+  }
+}
 
 export function useQuiz() {
   const { user } = useAuth();
@@ -48,11 +58,36 @@ export function useQuiz() {
   const [error, setError] = useState<string | null>(null);
   const [selectedLevel, setSelectedLevel] = useState<string>("");
   const [selectedDomain, setSelectedDomain] = useState<string | null>(null);
+  const [quizLength, setQuizLength] = useState<QuizLength>(20);
+  const [immediateAnswers, setImmediateAnswers] = useState(false);
+  const [bankSize, setBankSize] = useState<number | null>(null);
 
-  const startQuiz = useCallback(async (level: string, domain?: string) => {
+  const configureQuiz = useCallback(async (level: string) => {
+    setSelectedLevel(level);
+    setPhase("configure");
+    setBankSize(null);
+
+    try {
+      const { count, error: countError } = await supabase
+        .from("quiz_questions")
+        .select("id", { count: "exact", head: true })
+        .eq("level", level);
+
+      if (!countError && count !== null) {
+        setBankSize(count);
+      }
+    } catch (e) {
+      console.error("Failed to fetch bank size:", e);
+    }
+  }, [selectedLevel, quizLength]);
+
+  const startQuiz = useCallback(async (level?: string, domain?: string) => {
+    const effectiveLevel = level || selectedLevel;
+    const limit = quizLength === "mock" ? getMockCount(effectiveLevel) : quizLength;
+
     setPhase("loading");
     setError(null);
-    setSelectedLevel(level);
+    setSelectedLevel(effectiveLevel);
     setSelectedDomain(domain || null);
     setAnswers(new Map());
     setCurrentIndex(0);
@@ -60,7 +95,7 @@ export function useQuiz() {
 
     try {
       const { data, error: fnError } = await supabase.functions.invoke("get-quiz", {
-        body: { level, domain, limit: 20 },
+        body: { level: effectiveLevel, domain, limit },
       });
 
       if (fnError) throw fnError;
@@ -136,6 +171,9 @@ export function useQuiz() {
     setAnswers(new Map());
     setSubmission(null);
     setError(null);
+    setQuizLength(20);
+    setImmediateAnswers(false);
+    setBankSize(null);
   }, []);
 
   return {
@@ -147,8 +185,14 @@ export function useQuiz() {
     submission,
     error,
     selectedLevel,
+    quizLength,
+    immediateAnswers,
+    bankSize,
+    configureQuiz,
     startQuiz,
     setAnswer,
+    setQuizLength,
+    setImmediateAnswers,
     nextQuestion,
     prevQuestion,
     submitQuiz,
