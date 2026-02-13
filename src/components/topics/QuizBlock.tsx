@@ -66,6 +66,7 @@ export function QuizBlock({ question, onAnswer, onXPGain }: QuizBlockProps) {
       {/* Question Header */}
       <div className="bg-primary/10 p-5 sm:p-6 border-b border-border">
         <p className="text-xs font-extrabold text-primary uppercase tracking-widest mb-1.5">Knowledge Check</p>
+        <p className="text-[11px] text-muted-foreground font-medium mb-1">Self-assessment — confirm clinical decisions with your local protocols</p>
         <p className="text-foreground font-bold text-lg leading-snug">{question.question}</p>
       </div>
 

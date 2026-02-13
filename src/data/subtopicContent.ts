@@ -1557,7 +1557,7 @@ Before you intubate, ask: "Does this patient need an advanced airway *right now*
     title: "Predicting and Preparing for the Difficult Airway",
     content: `Field intubation is harder than the OR—suboptimal positioning, blood/vomit, limited equipment. Anticipating difficulty is half the battle.
 
-**LEMON Assessment**
+**LEMON Assessment** (adapted from Walls & Murphy, *Manual of Emergency Airway Management*)
 • **L**ook externally: Facial trauma, obesity, short neck, large tongue
 • **E**valuate 3-3-2: Mouth opening, hyoid-chin, thyroid-mouth distances
 • **M**allampati: Visualization of posterior pharynx (often impractical in field)
@@ -4376,7 +4376,7 @@ When secretions, blood, or vomit block the airway, suction first. You can't vent
             "Venturi mask at 50%"
           ],
           correctIndex: 2,
-          explanation: "A non-rebreather with reservoir at 15 LPM delivers approximately 90%+ oxygen. The reservoir stores oxygen between breaths, and one-way valves minimize room air mixing. It's the highest FiO₂ device for patients who are breathing on their own."
+          explanation: "A non-rebreather with reservoir at 15 LPM delivers approximately 90%+ oxygen. The reservoir stores oxygen between breaths, and one-way valves minimize room air mixing. It's the highest FiO₂ device for patients who are breathing on their own. Verify dosing and parameters per your agency's standing orders."
         }
       }
     ]
@@ -4775,7 +4775,7 @@ This is where everything connects—A&P, pharmacology, and clinical care become 
           question: "At the paramedic level, understanding V/Q mismatch helps you:",
           options: ["Choose the correct oxygen mask size", "Match the treatment to the specific mechanism of hypoxemia", "Determine transport destination only", "Calculate drug dosages"],
           correctIndex: 1,
-          explanation: "V/Q mismatch understanding tells you WHY the patient is hypoxic—shunt needs PEEP, dead space needs cause treatment, diffusion impairment needs high FiO₂. Matching treatment to mechanism is the hallmark of paramedic-level care."
+          explanation: "V/Q mismatch understanding tells you WHY the patient is hypoxic—shunt needs PEEP, dead space needs cause treatment, diffusion impairment needs high FiO₂. Matching treatment to mechanism is the hallmark of paramedic-level care. Verify dosing and parameters per your agency's standing orders."
         }
       }
     ],
@@ -4836,7 +4836,7 @@ When any of these fail, the specific treatment depends on which one is broken.`,
           question: "A patient with pulmonary edema doesn't improve on high-flow oxygen alone because:",
           options: ["The oxygen mask is too small", "Fluid-filled alveoli create shunt that oxygen alone can't overcome", "The patient is hyperventilating", "Dead space is the primary problem"],
           correctIndex: 1,
-          explanation: "Pulmonary edema fills alveoli with fluid (shunt). Blood flows past but can't pick up oxygen. High FiO₂ alone doesn't help because oxygen can't reach flooded alveoli. Positive pressure (CPAP/BiPAP/PEEP) is needed to push fluid out and recruit alveoli."
+          explanation: "Pulmonary edema fills alveoli with fluid (shunt). Blood flows past but can't pick up oxygen. High FiO₂ alone doesn't help because oxygen can't reach flooded alveoli. Positive pressure (CPAP/BiPAP/PEEP) is needed to push fluid out and recruit alveoli. Verify dosing and parameters per your agency's standing orders."
         }
       }
     ],
@@ -4878,7 +4878,7 @@ But when airway protection is compromised or NIV is failing, don't delay definit
           {
             id: "para-airway-4",
             front: "Difficult Airway Predictors (LEMON)",
-            back: "L = Look externally (obesity, trauma, short neck). E = Evaluate 3-3-2 (mouth opening, jaw size, hyoid position). M = Mallampati (visualization of posterior pharynx). O = Obstruction (stridor, tumor, swelling). N = Neck mobility. Multiple predictors → have backup ready, consider awake intubation."
+            back: "L = Look externally (obesity, trauma, short neck). E = Evaluate 3-3-2 (mouth opening, jaw size, hyoid position). M = Mallampati (visualization of posterior pharynx). O = Obstruction (stridor, tumor, swelling). N = Neck mobility. Multiple predictors → have backup ready, consider awake intubation. (Adapted from Walls & Murphy, Manual of Emergency Airway Management.)"
           },
           {
             id: "para-airway-5",
@@ -4960,7 +4960,7 @@ That's the foundation. Everything else builds on this.`,
           question: "A ventilated patient has adequate SpO₂ but rising ETCO₂. Which parameter should you adjust?",
           options: ["FiO₂", "PEEP", "Respiratory rate or tidal volume", "I:E ratio only"],
           correctIndex: 2,
-          explanation: "ETCO₂/PaCO₂ is controlled by ventilation parameters: rate and tidal volume. Rising CO₂ means the patient isn't ventilating enough—increase rate or Vt. FiO₂ and PEEP affect oxygenation, not CO₂ elimination."
+          explanation: "ETCO₂/PaCO₂ is controlled by ventilation parameters: rate and tidal volume. Rising CO₂ means the patient isn't ventilating enough—increase rate or Vt. FiO₂ and PEEP affect oxygenation, not CO₂ elimination. Verify dosing and parameters per your agency's standing orders."
         }
       },
       {
@@ -4970,7 +4970,7 @@ That's the foundation. Everything else builds on this.`,
           question: "Increasing PEEP to 15 cm H₂O in an ARDS patient may cause:",
           options: ["Improved ventilation only", "Hypotension from reduced venous return", "Increased heart rate only", "No hemodynamic effects"],
           correctIndex: 1,
-          explanation: "High PEEP increases intrathoracic pressure, which reduces venous return to the heart and can drop blood pressure. While PEEP recruits collapsed alveoli and improves oxygenation, you must monitor hemodynamics carefully—especially in hypovolemic patients."
+          explanation: "High PEEP increases intrathoracic pressure, which reduces venous return to the heart and can drop blood pressure. While PEEP recruits collapsed alveoli and improves oxygenation, you must monitor hemodynamics carefully—especially in hypovolemic patients. Verify dosing and parameters per your agency's standing orders."
         }
       }
     ],
@@ -5039,7 +5039,7 @@ Chronic COPD patients run elevated CO₂ but normal pH—their kidneys have comp
           question: "Permissive hypercapnia is used in severe asthma to:",
           options: ["Improve oxygenation", "Prevent barotrauma from aggressive ventilation", "Increase cardiac output", "Treat metabolic alkalosis"],
           correctIndex: 1,
-          explanation: "In severe asthma, aggressive ventilation to normalize CO₂ requires high pressures that can rupture fragile, air-trapped lungs (barotrauma). Accepting higher CO₂ (50s-60s) with tolerable pH (>7.20) prioritizes lung protection over perfect numbers."
+          explanation: "In severe asthma, aggressive ventilation to normalize CO₂ requires high pressures that can rupture fragile, air-trapped lungs (barotrauma). Accepting higher CO₂ (50s-60s) with tolerable pH (>7.20) prioritizes lung protection over perfect numbers. Verify dosing and parameters per your agency's standing orders."
         }
       }
     ],
@@ -5079,7 +5079,7 @@ Sudden dyspnea, clear lungs, low SpO₂, low ETCO₂, hyperventilating.
           question: "A septic patient with bilateral infiltrates has SpO₂ 82% on NRB. The most effective intervention is:",
           options: ["Increase oxygen flow rate", "Intubation with high PEEP to recruit alveoli", "Nebulized bronchodilator", "Nasal cannula at 6 LPM"],
           correctIndex: 1,
-          explanation: "Bilateral infiltrates with refractory hypoxemia indicates ARDS/shunt physiology. Fluid-filled/inflamed alveoli don't participate in gas exchange. PEEP recruits collapsed alveoli and pushes fluid out—high FiO₂ alone can't fix shunt."
+          explanation: "Bilateral infiltrates with refractory hypoxemia indicates ARDS/shunt physiology. Fluid-filled/inflamed alveoli don't participate in gas exchange. PEEP recruits collapsed alveoli and pushes fluid out—high FiO₂ alone can't fix shunt. Verify dosing and parameters per your agency's standing orders."
         }
       },
       {
@@ -5117,7 +5117,7 @@ Sudden dyspnea, clear lungs, low SpO₂, low ETCO₂, hyperventilating.
             "Diffusion impairment"
           ],
           correctIndex: 2,
-          explanation: "Pneumonia fills alveoli with pus/fluid—blood flows past but can't pick up oxygen (shunt). High FiO₂ doesn't help because oxygen can't reach flooded alveoli. This patient needs positive pressure (CPAP, BiPAP, or intubation with PEEP) to force alveoli open and enable gas exchange."
+          explanation: "Pneumonia fills alveoli with pus/fluid—blood flows past but can't pick up oxygen (shunt). High FiO₂ doesn't help because oxygen can't reach flooded alveoli. This patient needs positive pressure (CPAP, BiPAP, or intubation with PEEP) to force alveoli open and enable gas exchange. Verify dosing and parameters per your agency's standing orders."
         }
       },
       {
@@ -5132,7 +5132,7 @@ Sudden dyspnea, clear lungs, low SpO₂, low ETCO₂, hyperventilating.
             "I:E ratio"
           ],
           correctIndex: 2,
-          explanation: "PEEP (and FiO₂) affect oxygenation. Rate and tidal volume affect ventilation (CO₂ elimination). To improve SpO₂ without changing CO₂, increase FiO₂ or PEEP. PEEP recruits collapsed alveoli, improving V/Q matching and reducing shunt."
+          explanation: "PEEP (and FiO₂) affect oxygenation. Rate and tidal volume affect ventilation (CO₂ elimination). To improve SpO₂ without changing CO₂, increase FiO₂ or PEEP. PEEP recruits collapsed alveoli, improving V/Q matching and reducing shunt. Verify dosing and parameters per your agency's standing orders."
         }
       },
       {
@@ -5147,7 +5147,7 @@ Sudden dyspnea, clear lungs, low SpO₂, low ETCO₂, hyperventilating.
             "Decreased work of breathing"
           ],
           correctIndex: 1,
-          explanation: "The patient's kidneys have compensated for chronic hypercapnia by retaining HCO₃⁻. If you rapidly normalize CO₂, the elevated bicarb causes severe alkalosis (pH may rise to 7.55+). This causes confusion, arrhythmias, and potentially seizures. Target their baseline CO₂, not 'normal.'"
+          explanation: "The patient's kidneys have compensated for chronic hypercapnia by retaining HCO₃⁻. If you rapidly normalize CO₂, the elevated bicarb causes severe alkalosis (pH may rise to 7.55+). This causes confusion, arrhythmias, and potentially seizures. Target their baseline CO₂, not 'normal.' Verify dosing and parameters per your agency's standing orders."
         }
       }
     ]
@@ -10317,7 +10317,7 @@ Endotracheal intubation is a high-risk, high-reward skill. Done right, it provid
         tabs: [
           {
             label: "LEMON Assessment",
-            content: "LEMON is your pre-game scouting report. Each letter checks a different predictor of difficulty. Do this BEFORE giving any medications.",
+            content: "LEMON is your pre-game scouting report (adapted from Walls & Murphy, Manual of Emergency Airway Management). Each letter checks a different predictor of difficulty. Do this BEFORE giving any medications.",
             bullets: [
               "L — Look externally: facial trauma, obesity, short neck, beard, large tongue",
               "E — Evaluate 3-3-2 rule: 3 fingers mouth opening, 3 fingers hyoid to chin, 2 fingers thyroid notch to floor of mouth",
