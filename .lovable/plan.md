@@ -1,161 +1,192 @@
-Before implementing, add a motivational retake CTA in the topic completion callout when accuracy is 70–79%: "You're at X% — retake missed questions to unlock the +150 XP mastery bonus!" with a "Review Missed" duo-button that jumps to the first incorrect quiz/section.  
-  
-Section Mastery XP + Jump-To Navigation
+
+
+# Per-Section XP Display, Mastery Rings, Confetti Bursts, and Achievement Badges
 
 ## Overview
 
-Replace the current "XP on scroll" model with a mastery-based reward system: sections award +15 XP only when all embedded quiz questions are answered correctly (100%), and completing an entire topic with >80% quiz accuracy awards a +150 XP bonus. Add a persistent left-side jump-to-section sidebar that shows per-section XP status and updates live.
+Add visible XP potential and live mastery feedback at the section, topic, and quiz levels. Each section shows its total possible XP, a small progress ring that fills as quizzes are answered correctly, and a confetti burst + toast when mastery is achieved. Topic-level mastery triggers a bigger confetti burst and updates the global XP counter. New badge icons reward completed modules, topics, and quiz lengths.
+
+No big layout changes -- everything slots into existing components with amber/gold styling.
 
 ---
 
-## 1. Mastery-Based Section XP (+15 XP)
+## 1. Per-Section XP Display + Live Mastery Ring
+
+### What changes in `TopicSection.tsx`
+
+Add a footer bar inside each section card showing:
+- "Total XP: 45 XP" (sum of quiz XP + 15 mastery bonus, calculated from quiz count)
+- "Earned: 25 XP" (live counter from parent)
+- A small `TopicProgressRing` (size=36) that fills as quizzes are answered correctly
+- When mastery is achieved (ring hits 100%), trigger `ConfettiEffect` inside the section card and the ring gets a checkmark overlay
+
+### New props on `TopicSection`
+- `sectionXPEarned: number` -- current XP earned in this section (quiz correct * 10 + mastery bonus if achieved)
+- `sectionXPTotal: number` -- max possible XP (quizCount * 10 + 15 mastery)
+- `isMastered: boolean` -- whether section mastery has been achieved
+- `sectionProgress: number` -- 0-100 for the ring (correctInSection / totalInSection * 100)
+
+### Parent pages (`TopicDetail.tsx`, `SubsectionDetail.tsx`)
+Compute `sectionXPEarned`, `sectionXPTotal`, `sectionProgress`, and `isMastered` per section from existing `sectionCorrect` and `sectionQuizMap` state, then pass as props. No new state needed -- these are derived values.
+
+---
+
+## 2. Section Mastery Confetti + Toast
 
 ### Current behavior
-
-- +5 XP is awarded the moment a section scrolls into view (IntersectionObserver).
-- Quiz answers award +10/+5 XP independently.
+When all quizzes in a section are correct, `gainSectionMasteryXP()` fires the "+15 XP -- Congrats -- mastered the section!" toast. No confetti.
 
 ### New behavior
-
-- **Remove** automatic +5 XP on section view. Sections are still tracked as "viewed" for progress rings, but no XP fires on scroll.
-- Each section earns **+15 XP** when ALL quiz questions within that section are answered correctly (100%).
-- Sections with no quiz blocks are marked "mastered" automatically once viewed (still +15 XP on view, since there's nothing to test).
-- Toast: "Congrats -- mastered the section! +15 XP"
-- Retakes are allowed: if a user retries a quiz and gets it right, the section mastery still counts (but only awards once).
-
-### Implementation
-
-- Add a new `useXP` helper: `gainSectionMasteryXP()` that calls `addXP(15, "Congrats -- mastered the section!")`.
-- In `TopicDetail` and `SubsectionDetail`, track per-section quiz correctness:
-  - New state: `sectionQuizResults: Map<sectionId, { total: number, correct: Set<questionId> }>`.
-  - When `onQuizAnswer` fires with `correct: true`, update the map. If `correct.size === total` for that section, call `gainSectionMasteryXP()` and add section to `masteredSections` Set.
-- The IntersectionObserver still marks sections as "viewed" for progress tracking, but only awards XP for quiz-free sections.
-- Individual quiz answer XP (+10/+5) is kept as-is for immediate gratification.
+- Add `ConfettiEffect` inside each `TopicSection` card, triggered by `isMastered` prop
+- The confetti reuses the existing `ConfettiEffect` component (relative positioned inside the section card which already has `overflow-hidden`)
+- The ring transitions from partial fill to full fill with a brief scale-up animation (CSS `animate-scale-in`)
+- A checkmark icon replaces the percentage text inside the ring on mastery
 
 ---
 
-## 2. Topic Completion Bonus (+150 XP at >80%)
+## 3. Topic Mastery: Big Confetti + Global XP Update
+
+### Current behavior
+When accuracy exceeds 80% and all quizzes are attempted, `addXP(150, ...)` fires a toast. The navbar XP updates via `refreshProfile()`.
 
 ### New behavior
-
-- When all sections are viewed and all quizzes attempted, calculate overall accuracy: `totalCorrect / totalQuizzes`.
-- If accuracy > 80%, award **+150 XP** with toast: "Topic mastered at {accuracy}% -- +150 XP unlocked!"
-- If accuracy is 80% or below, show an encouraging callout: "You're at {accuracy}% -- retake missed questions to earn the +150 XP bonus!"
-- The bonus is awarded once per topic per session (tracked in a `topicBonusAwarded` boolean).
+- Add a full-page `ConfettiEffect` (doubled particle count: 40 pieces) in the completion callout area when `topicBonusAwarded` becomes true
+- The completion callout already shows the message; enhance it with a large `TopicProgressRing` (size=80) at 100% with a star/trophy icon
+- The existing `refreshProfile()` call already updates the navbar XP counter -- no changes needed there
 
 ### Implementation
-
-- In `TopicDetail` / `SubsectionDetail`, add a `useEffect` that watches `quizzesPassed.size` vs total quizzes.
-- When all quizzes are attempted and accuracy > 80%:
-  - Call `addXP(150,` Topic mastered at ${accuracy}% -- +150 XP unlocked!`)`.
-  - Set `topicBonusAwarded = true` to prevent double award.
-- Update the completion callout section to show accuracy percentage and bonus status.
+- In `TopicDetail.tsx` and `SubsectionDetail.tsx`, render a `ConfettiEffect` inside the completion section with `trigger={topicBonusAwarded}`
+- Create a variant of `ConfettiEffect` that accepts a `size` prop ("normal" | "big") to control particle count (20 vs 40)
 
 ---
 
-## 3. Left-Side Jump-To-Section Navigation
+## 4. SectionNav XP Badges Enhancement
 
-### New component: `SectionNav`
+### Current behavior
+SectionNav shows "15 XP" (mastered) or "0 XP" (not mastered).
 
-A fixed/sticky sidebar on the left that lists all sections in the current topic with live XP status.
+### New behavior
+Show "X/Y XP" where X is earned and Y is total possible for that section. On mastery, show a filled checkmark badge with "45 XP" in amber.
 
-### Design
+### Props change
+- `SectionNav` receives additional `sectionXPMap: Map<string, { earned: number; total: number }>` prop
+- Each nav item shows the fraction or total based on mastery state
 
-- Positioned `fixed left-0 top-[4rem]` (below navbar), width ~220px.
-- Only visible on desktop (hidden below `lg` breakpoint via `hidden lg:block`).
-- Each item shows:
-  - Section number + truncated title.
-  - XP badge: gray "0 XP" by default, amber "15 XP" with checkmark when mastered.
-  - Active section highlighted with amber left border (tracked via IntersectionObserver).
-- Clicking a section smoothly scrolls to it (`scrollIntoView({ behavior: 'smooth' })`).
-- On mobile, collapses to a small floating button that opens a sheet/drawer with the section list.
+---
 
-### Layout changes
+## 5. Achievement Badge Icons
 
-- `TopicDetail` and `SubsectionDetail` page layouts shift from `max-w-3xl` centered to a two-column layout on desktop: `lg:pl-[240px]` for content, with `SectionNav` fixed on the left.
-- Content column stays centered and readable on mobile (no change).
+### New component: `AchievementBadge.tsx`
 
-### Live updates
+A small reusable badge component with icon + label. Variants:
+- **Module Complete**: BookOpen icon with amber ring, shown on category cards when all topics in a module are done
+- **Topic Mastered**: Star icon with amber fill, shown on topic cards when >80% accuracy achieved
+- **Quiz Length Badges**: Shield icon with text overlay for quiz completions:
+  - "10Q" -- completed a 10-question quiz
+  - "20Q" -- completed a 20-question quiz
+  - "50Q" -- completed a 50-question quiz
+  - "Mock" -- completed a mock exam
 
-- `SectionNav` receives `masteredSections: Set<string>` and `activeSectionId: string` as props.
-- `activeSectionId` is tracked by the existing IntersectionObserver (whichever section is most recently intersecting).
-- When a section is mastered, the nav item transitions from gray to amber with a subtle scale animation.
+### Where badges appear
+- `QuizResults.tsx`: Show earned quiz-length badge after completing a quiz (e.g., amber shield with "20Q")
+- `QuizLevelCard.tsx`: Show small badge icons for completed quiz lengths next to the level card
+- `TopicDetail.tsx` completion callout: Show "Topic Mastered" star badge when bonus is awarded
+- Dashboard `LevelXPCard`: Show count of mastered topics per level
+
+### Badge data
+Badges are session-based for topic/section mastery (derived from state). Quiz-length badges can be derived from `quiz_attempts` table data (already queried by `useLevelXP`).
 
 ---
 
 ## Files to Create
 
-
-| File                                   | Purpose                                                  |
-| -------------------------------------- | -------------------------------------------------------- |
-| `src/components/topics/SectionNav.tsx` | Left-side jump-to-section navigation with live XP badges |
-
+| File | Purpose |
+|------|---------|
+| `src/components/gamification/AchievementBadge.tsx` | Reusable badge component with icon variants |
 
 ## Files to Modify
 
-
-| File                                     | Change                                                                                                                                                    |
-| ---------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `src/hooks/useXP.ts`                     | Add `gainSectionMasteryXP()` helper (+15 XP with mastery message)                                                                                         |
-| `src/pages/TopicDetail.tsx`              | Replace scroll-XP with mastery tracking; add per-section quiz result map; render `SectionNav`; two-column layout on desktop; topic completion bonus logic |
-| `src/pages/SubsectionDetail.tsx`         | Same mastery tracking and `SectionNav` integration                                                                                                        |
-| `src/components/topics/TopicSection.tsx` | Pass section quiz count down so parent can track per-section totals                                                                                       |
-| `src/components/topics/QuizBlock.tsx`    | Ensure `onAnswer` always fires (not just on correct) so parent can track attempts                                                                         |
-
+| File | Change |
+|------|--------|
+| `src/components/topics/TopicSection.tsx` | Add footer with XP display, progress ring, and confetti trigger |
+| `src/components/topics/SectionNav.tsx` | Show earned/total XP per section instead of just 0/15 |
+| `src/components/gamification/ConfettiEffect.tsx` | Add `size` prop for "normal" (20 pieces) vs "big" (40 pieces) |
+| `src/pages/TopicDetail.tsx` | Compute per-section XP props; add big confetti on topic mastery; show achievement badge in completion callout |
+| `src/pages/SubsectionDetail.tsx` | Same per-section XP computation and big confetti |
+| `src/components/quiz/QuizResults.tsx` | Show quiz-length achievement badge |
+| `src/components/quiz/QuizLevelCard.tsx` | Show earned quiz-length badges |
 
 ---
 
 ## Technical Details
 
-### Per-section quiz tracking
+### Per-section XP calculation (in parent pages)
 
 ```text
-State shape:
-  sectionQuizMap: Map<sectionId, { total: number, correct: Set<questionId> }>
-  masteredSections: Set<sectionId>
+For each section:
+  quizCount = sectionQuizMap.get(sectionId).length
+  sectionXPTotal = quizCount * 10 + 15  (quiz answers + mastery bonus)
+  
+  correctCount = sectionCorrect.get(sectionId)?.size || 0
+  sectionXPEarned = correctCount * 10 + (isMastered ? 15 : 0)
+  
+  sectionProgress = quizCount > 0 
+    ? (correctCount / quizCount) * 100 
+    : (isMastered ? 100 : 0)
 
-On mount: build sectionQuizMap from topic.sections by counting quiz blocks per section.
-On quiz answer (correct): add questionId to correct Set. If correct.size === total, fire gainSectionMasteryXP().
-On quiz answer (incorrect): track attempt but don't add to correct Set.
-Sections with 0 quizzes: auto-master on IntersectionObserver view.
+For quiz-free sections: sectionXPTotal = 15, sectionXPEarned = isMastered ? 15 : 0
 ```
 
-### SectionNav component
+### TopicSection footer layout
+
+```text
+<div className="flex items-center justify-between px-5 py-3 border-t border-border bg-muted/30">
+  <!-- Left: XP text -->
+  <div className="flex items-center gap-2 text-xs font-bold">
+    <Zap className="h-3.5 w-3.5 text-xp" />
+    <span>{earned}/{total} XP</span>
+  </div>
+  
+  <!-- Right: Mini progress ring -->
+  <TopicProgressRing progress={sectionProgress} size={32} strokeWidth={3} showMessage={false} />
+</div>
+
+<!-- Confetti layer (inside section card, relative positioned) -->
+<ConfettiEffect trigger={isMastered} />
+```
+
+### AchievementBadge component
 
 ```text
 Props:
-  sections: { id: string; title: string }[]
-  masteredSections: Set<string>
-  activeSectionId: string | null
+  variant: "topic-mastered" | "module-complete" | "quiz-10" | "quiz-20" | "quiz-50" | "quiz-mock"
+  size?: "sm" | "md"  (default "sm")
 
 Renders:
-  <nav className="fixed left-0 top-16 w-56 h-[calc(100vh-4rem)] overflow-y-auto hidden lg:block border-r border-border bg-background/95 backdrop-blur-sm p-4">
-    {sections.map(s => (
-      <button onClick={() => scrollTo(s.id)} className={active ? "border-l-2 border-xp" : ""}>
-        <span>{s.title}</span>
-        <Badge>{mastered ? "15 XP" : "0 XP"}</Badge>
-      </button>
-    ))}
-  </nav>
+  Amber-outlined pill with icon + label
+  topic-mastered: Star icon + "Mastered"
+  module-complete: BookOpen icon + "Complete"  
+  quiz-*: Shield icon + "10Q" / "20Q" / "50Q" / "Mock"
+  
+  Styling: rounded-full, border-xp/40, bg-xp/10, text-xp, font-bold
 ```
 
-### Topic completion bonus
+### ConfettiEffect size variant
 
 ```text
-useEffect:
-  if all quizzes attempted AND !topicBonusAwarded:
-    accuracy = correctCount / totalQuizCount * 100
-    if accuracy > 80:
-      addXP(150, `Topic mastered at ${Math.round(accuracy)}% -- +150 XP unlocked!`)
-      setTopicBonusAwarded(true)
+Add optional prop: intensity?: "normal" | "big"  (default "normal")
+- "normal": 20 pieces (current behavior)
+- "big": 40 pieces, slightly larger sizes (6-10px vs 4-6px)
 ```
 
 ### Guardrails
 
-- Section mastery XP (+15) only fires once per section per session (tracked in `masteredSections` Set).
-- Topic bonus (+150) only fires once per topic per session (boolean flag).
-- Individual quiz XP (+10/+5) continues to fire independently for immediate feedback.
-- All XP gains go through `useXP.addXP` which handles dedup, DB persistence, global event dispatch, and streak recording.
-- `SectionNav` is purely presentational -- no XP logic inside it, just reads state from parent.
-- Mobile users get the same mastery rewards without the sidebar (section nav hidden on small screens).
-- Progress rings continue using the existing weighted formula; mastery status feeds into the "quizzes correct" count.
+- All XP values are derived from existing state (sectionCorrect, masteredSections, sectionQuizMap) -- no new state or DB calls
+- Confetti reuses the existing ConfettiEffect component with minimal extension (size prop only)
+- Section footer is inside the existing card border -- no layout shift
+- Ring uses existing TopicProgressRing at smaller size -- no new SVG component
+- Achievement badges are purely visual indicators with no XP logic
+- Quiz-length badges are derived from quiz_attempts data already fetched by useLevelXP
+- Mobile: section footer stacks naturally; badges wrap; no special handling needed
+- All new amber styling uses existing `--xp` CSS variable
+
