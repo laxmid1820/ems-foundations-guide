@@ -5,7 +5,7 @@ import { ConfettiEffect } from "@/components/gamification/ConfettiEffect";
 import { XPSlam } from "@/components/gamification/XPSlam";
 import { TopicCallout } from "@/components/topics/TopicCallout";
 import { TopicSection } from "@/components/topics/TopicSection";
-import { StickyProgressBar } from "@/components/topics/StickyProgressBar";
+
 import { SectionNav } from "@/components/topics/SectionNav";
 import { useXP } from "@/hooks/useXP";
 import { LevelProgressionButton } from "@/components/topics/LevelProgressionButton";
@@ -492,12 +492,6 @@ const SubsectionDetail = () => {
         </div>
       </div>
 
-      {/* Sticky Progress Bar */}
-      <StickyProgressBar 
-        progress={progress}
-        sectionsViewed={sectionsViewed.size}
-        totalSections={totalSections}
-      />
     </Layout>
   );
 };

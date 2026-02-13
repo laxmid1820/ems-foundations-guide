@@ -4,7 +4,7 @@ import { Layout } from "@/components/Layout";
 import { TopicSection } from "@/components/topics/TopicSection";
 import { TopicCallout } from "@/components/topics/TopicCallout";
 import { LearningObjectives } from "@/components/topics/LearningObjectives";
-import { StickyProgressBar } from "@/components/topics/StickyProgressBar";
+
 import { getSubtopic } from "@/data/categories";
 import { getSubtopicContent } from "@/data/subtopicContent";
 import { useLessonProgress, useSectionObserver } from "@/hooks/useLessonProgress";
@@ -250,12 +250,6 @@ const SubtopicDetail = () => {
         </div>
       </div>
 
-      {/* Sticky Progress Bar */}
-      <StickyProgressBar 
-        progress={progress}
-        sectionsViewed={sectionsViewed.size}
-        totalSections={totalSections}
-      />
     </Layout>
   );
 };
