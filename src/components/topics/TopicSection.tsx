@@ -1,10 +1,17 @@
 import { TopicCallout } from "./TopicCallout";
 import { LessonBlock } from "./LessonBlock";
+import { TopicProgressRing } from "./TopicProgressRing";
+import { ConfettiEffect } from "@/components/gamification/ConfettiEffect";
+import { Zap, Check } from "lucide-react";
 import type { TopicSection as TopicSectionType } from "@/data/topics";
 
 interface TopicSectionProps {
   section: TopicSectionType;
   index: number;
+  sectionXPEarned?: number;
+  sectionXPTotal?: number;
+  sectionProgress?: number;
+  isMastered?: boolean;
   onTabViewed?: (index: number) => void;
   onCardFlip?: (cardId: string) => void;
   onQuizAnswer?: (questionId: string, correct: boolean) => void;
@@ -13,6 +20,10 @@ interface TopicSectionProps {
 export function TopicSection({ 
   section, 
   index,
+  sectionXPEarned = 0,
+  sectionXPTotal = 0,
+  sectionProgress = 0,
+  isMastered = false,
   onTabViewed,
   onCardFlip,
   onQuizAnswer 
@@ -90,7 +101,7 @@ export function TopicSection({
   return (
     <section 
       id={section.id}
-      className="mb-6 last:mb-0 rounded-2xl border-2 border-border bg-card shadow-sm overflow-hidden"
+      className="mb-6 last:mb-0 rounded-2xl border-2 border-border bg-card shadow-sm overflow-hidden relative"
     >
       {/* Section Header */}
       <div className="flex items-start gap-4 p-5 sm:p-6 pb-0">
@@ -145,6 +156,34 @@ export function TopicSection({
           <TopicCallout type="rememberThis">{section.rememberThis}</TopicCallout>
         )}
       </div>
+
+      {/* XP Footer */}
+      {sectionXPTotal > 0 && (
+        <div className="flex items-center justify-between px-5 py-3 border-t border-border bg-muted/30">
+          <div className="flex items-center gap-2 text-xs font-bold">
+            <Zap className="h-3.5 w-3.5 text-xp" />
+            <span className="text-muted-foreground">
+              {sectionXPEarned}/{sectionXPTotal} XP
+            </span>
+          </div>
+          <div className="relative">
+            <TopicProgressRing
+              progress={sectionProgress}
+              size={32}
+              strokeWidth={3}
+              showMessage={false}
+            />
+            {isMastered && (
+              <div className="absolute inset-0 flex items-center justify-center">
+                <Check className="h-3.5 w-3.5 text-xp" />
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+
+      {/* Confetti on mastery */}
+      <ConfettiEffect trigger={isMastered} />
     </section>
   );
 }
