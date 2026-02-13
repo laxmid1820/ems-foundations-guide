@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 import { useParams, Link } from "react-router-dom";
+import { useXP } from "@/hooks/useXP";
 import { Layout } from "@/components/Layout";
 import { Button } from "@/components/ui/button";
 import {
@@ -46,6 +47,8 @@ const TopicDetail = () => {
     setQuizzesPassed([]);
   }, [slug]);
 
+  const { gainSectionXP, gainFlashcardXP, gainQuizXP } = useXP();
+
   // Intersection Observer for section tracking
   useEffect(() => {
     if (!topic) return;
@@ -55,40 +58,42 @@ const TopicDetail = () => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             const sectionId = entry.target.id;
-            setSectionsViewed((prev) => 
-              prev.includes(sectionId) ? prev : [...prev, sectionId]
-            );
+            setSectionsViewed((prev) => {
+              if (prev.includes(sectionId)) return prev;
+              gainSectionXP();
+              return [...prev, sectionId];
+            });
           }
         });
       },
       { threshold: 0.5 }
     );
 
-    // Observe all section elements
     topic.sections.forEach((section) => {
       const element = document.getElementById(section.id);
-      if (element) {
-        observer.observe(element);
-      }
+      if (element) observer.observe(element);
     });
 
     return () => observer.disconnect();
-  }, [topic]);
+  }, [topic, gainSectionXP]);
 
   // Handlers for interactive elements
   const handleCardFlip = useCallback((cardId: string) => {
-    setFlashcardsFlipped((prev) => 
-      prev.includes(cardId) ? prev : [...prev, cardId]
-    );
-  }, []);
+    setFlashcardsFlipped((prev) => {
+      if (prev.includes(cardId)) return prev;
+      gainFlashcardXP();
+      return [...prev, cardId];
+    });
+  }, [gainFlashcardXP]);
 
   const handleQuizAnswer = useCallback((questionId: string, correct: boolean) => {
     if (correct) {
       setQuizzesPassed((prev) => 
         prev.includes(questionId) ? prev : [...prev, questionId]
       );
+      gainQuizXP(true);
     }
-  }, []);
+  }, [gainQuizXP]);
 
   const handleTabViewed = useCallback((index: number) => {
     // Tab viewing is tracked but doesn't affect completion
