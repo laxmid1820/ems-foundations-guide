@@ -6,6 +6,8 @@ import { Button } from "@/components/ui/button";
 import { ConfettiEffect } from "@/components/gamification/ConfettiEffect";
 import { XPSlam } from "@/components/gamification/XPSlam";
 import { AchievementBadge } from "@/components/gamification/AchievementBadge";
+import { ModuleCompletionCeremony } from "@/components/gamification/ModuleCompletionCeremony";
+import { Lock } from "lucide-react";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -174,18 +176,45 @@ const TopicDetail = () => {
     }
   }, [gainQuizXP, sectionQuizMap, gainSectionMasteryXP]);
 
-  // Topic completion bonus (+150 XP at >80%)
-  useEffect(() => {
-    if (topicBonusAwarded || totalQuizCount === 0) return;
-    // Check if all quizzes attempted
-    if (allQuizAnswers.size < totalQuizCount) return;
-    const correctCount = Array.from(allQuizAnswers.values()).filter(Boolean).length;
-    const accuracy = (correctCount / totalQuizCount) * 100;
-    if (accuracy > 80) {
-      addXP(150, `Topic mastered at ${Math.round(accuracy)}% — +150 XP unlocked!`);
-      setTopicBonusAwarded(true);
+  // Ceremony state
+  const [showCeremony, setShowCeremony] = useState(false);
+
+  const handleModuleComplete = useCallback(() => {
+    addXP(5, "Module completed!");
+    setShowCeremony(true);
+  }, [addXP]);
+
+  const handleCeremonyComplete = useCallback(() => {
+    addXP(150, "Topic mastered — +150 XP unlocked!");
+    setTopicBonusAwarded(true);
+    setShowCeremony(false);
+  }, [addXP]);
+
+  // Gate last section behind prior quiz mastery
+  const allPriorQuizzesPerfect = useMemo(() => {
+    const sections = topic?.sections;
+    if (!sections || sections.length < 2) return true;
+    const priorSections = sections.slice(0, -1);
+    for (const s of priorSections) {
+      const quizIds = sectionQuizMap.get(s.id) || [];
+      const correctSet = sectionCorrect.get(s.id);
+      if (quizIds.length > 0 && (!correctSet || correctSet.size < quizIds.length)) {
+        return false;
+      }
     }
-  }, [allQuizAnswers, totalQuizCount, topicBonusAwarded, addXP]);
+    return true;
+  }, [topic, sectionQuizMap, sectionCorrect]);
+
+  // Check if last section quizzes are all perfect
+  const lastSectionPerfect = useMemo(() => {
+    const sections = topic?.sections;
+    if (!sections || sections.length === 0) return false;
+    const lastSection = sections[sections.length - 1];
+    const quizIds = sectionQuizMap.get(lastSection.id) || [];
+    if (quizIds.length === 0) return false;
+    const correctSet = sectionCorrect.get(lastSection.id);
+    return correctSet ? correctSet.size >= quizIds.length : false;
+  }, [topic, sectionQuizMap, sectionCorrect]);
 
   const handleTabViewed = useCallback((index: number) => {
     console.log("Tab viewed:", index);
@@ -333,6 +362,19 @@ const TopicDetail = () => {
         {/* Linear Scrolling Sections */}
         <div className="mb-10 lg:max-w-3xl">
           {topic.sections.map((section, index) => {
+              const isLast = index === topic.sections.length - 1;
+              // Gate last section
+              if (isLast && !allPriorQuizzesPerfect) {
+                return (
+                  <section key={section.id} className="mb-6 rounded-2xl border-2 border-dashed border-xp/30 bg-xp/5 p-8 text-center">
+                    <Lock className="h-8 w-8 text-xp/50 mx-auto mb-3" />
+                    <p className="font-bold text-foreground mb-1">Final Knowledge Check</p>
+                    <p className="text-sm text-muted-foreground">
+                      Answer all section quizzes correctly to unlock
+                    </p>
+                  </section>
+                );
+              }
               const quizIds = sectionQuizMap.get(section.id) || [];
               const quizCount = quizIds.length;
               const xpTotal = quizCount * 10 + 15;
@@ -355,43 +397,35 @@ const TopicDetail = () => {
                 />
               );
             })}
+
+            {/* Done with Module button */}
+            {allPriorQuizzesPerfect && lastSectionPerfect && !topicBonusAwarded && (
+              <div className="mt-8 space-y-3">
+                <p className="text-sm font-medium text-muted-foreground text-center">
+                  Finish strong! Completing the module unlocks your +150 XP mastery bonus and badge.
+                </p>
+                <Button
+                  size="lg"
+                  className="w-full bg-xp text-xp-foreground hover:bg-xp/90 rounded-2xl uppercase tracking-wide font-extrabold shadow-[0_4px_0_hsl(var(--xp)/0.6)] hover:shadow-[0_2px_0_hsl(var(--xp)/0.6)] hover:translate-y-[2px] active:shadow-none active:translate-y-[4px] transition-all"
+                  onClick={handleModuleComplete}
+                >
+                  Done with Module
+                </Button>
+              </div>
+            )}
         </div>
 
         {/* Completion Section */}
         <div className="mb-10 py-8 border-t border-border space-y-6 lg:max-w-3xl relative">
-          {/* Big confetti on topic mastery */}
-          <ConfettiEffect trigger={topicBonusAwarded} intensity="big" />
-          <XPSlam trigger={topicBonusAwarded} amount={150} />
+          {/* Module Completion Ceremony */}
+          <ModuleCompletionCeremony trigger={showCeremony} onComplete={handleCeremonyComplete} />
 
-          {isComplete && topicBonusAwarded ? (
+          {topicBonusAwarded ? (
             <TopicCallout type="youveGotThis">
               <div className="space-y-3">
-                <p>🎉 Excellent work! You mastered {topic.title.toLowerCase()} at {accuracy}% accuracy and earned the +150 XP bonus!</p>
+                <p>🎉 Excellent work! You mastered {topic.title.toLowerCase()} and earned the +150 XP bonus!</p>
                 <AchievementBadge variant="topic-mastered" size="md" />
               </div>
-            </TopicCallout>
-          ) : isComplete && allQuizzesAttempted && accuracy > 80 ? (
-            <TopicCallout type="youveGotThis">
-              🎉 Excellent work! You've completed all sections for {topic.title.toLowerCase()}. You're ready to move on!
-            </TopicCallout>
-          ) : allQuizzesAttempted && accuracy >= 70 && accuracy <= 79 ? (
-            <TopicCallout type="rememberThis">
-              <div className="space-y-3">
-                <p>You're at {accuracy}% — retake missed questions to unlock the +150 XP mastery bonus!</p>
-                {firstIncorrectSectionId && (
-                  <Button
-                    variant="duo"
-                    size="sm"
-                    onClick={() => document.getElementById(firstIncorrectSectionId)?.scrollIntoView({ behavior: "smooth" })}
-                  >
-                    Review Missed
-                  </Button>
-                )}
-              </div>
-            </TopicCallout>
-          ) : allQuizzesAttempted && accuracy <= 80 ? (
-            <TopicCallout type="rememberThis">
-              You're at {accuracy}% — retake missed questions to earn the +150 XP bonus!
             </TopicCallout>
           ) : (
             <TopicCallout type="rememberThis">

@@ -8,7 +8,7 @@ export function XPToast() {
 
   useXPListener(
     useCallback((gain) => {
-      if (gain.amount > 0) {
+      if (gain.amount > 0 && gain.reason) {
         setCurrent(gain);
         setVisible(true);
         // Auto-hide after animation completes
