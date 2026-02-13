@@ -1322,22 +1322,22 @@ Splits into:
         type: "flashcards",
         flashcards: [
           {
-            id: "para-card-1",
+            id: "coronary-anatomy-card-0",
             front: "Inferior STEMI on ECG—which leads show ST elevation?",
             back: "Leads II, III, and aVF. These leads 'look at' the inferior (diaphragmatic) surface of the heart, supplied by the RCA (usually)."
           },
           {
-            id: "para-card-2",
+            id: "coronary-anatomy-card-1",
             front: "Why does RCA occlusion often cause bradycardia?",
             back: "The RCA supplies the SA node in 60% and AV node in 90% of people. Ischemia to these structures causes slowed conduction or heart blocks."
           },
           {
-            id: "para-card-3",
+            id: "coronary-anatomy-card-2",
             front: "What makes LAD occlusion so dangerous?",
             back: "The LAD supplies the largest territory—anterior wall and septum. Large MI → significant pump failure, cardiogenic shock, and high mortality."
           },
           {
-            id: "para-card-4",
+            id: "coronary-anatomy-card-3",
             front: "Which leads show lateral wall changes?",
             back: "Leads I, aVL, V5, and V6. Lateral wall is typically supplied by LCx or diagonal branches of LAD."
           }
@@ -1575,17 +1575,17 @@ Before you intubate, ask: "Does this patient need an advanced airway *right now*
         type: "flashcards",
         flashcards: [
           {
-            id: "para-resp-1",
+            id: "difficult-airway-prediction-card-0",
             front: "What does the 3-3-2 rule assess?",
             back: "3 fingers mouth opening, 3 fingers hyoid to chin, 2 fingers thyroid to floor of mouth. Assesses for adequate space for laryngoscopy and tube passage."
           },
           {
-            id: "para-resp-2",
+            id: "difficult-airway-prediction-card-1",
             front: "Why is obesity a difficult airway predictor?",
             back: "Reduced functional residual capacity (faster desaturation), excess pharyngeal tissue, limited neck extension, and difficult mask seal. Ramped positioning helps."
           },
           {
-            id: "para-resp-3",
+            id: "difficult-airway-prediction-card-2",
             front: "What is the 'can't intubate, can't oxygenate' (CICO) scenario?",
             back: "Failed intubation AND failed BVM/supraglottic device. The emergent surgical airway situation. Rare but must be prepared for it."
           }
@@ -1668,32 +1668,32 @@ One-way doors between chambers and at the exits. They prevent backflow. When you
         type: "flashcards",
         flashcards: [
           {
-            id: "anatomy-fc-ra",
+            id: "heart-anatomy-card-0",
             front: "Right Atrium",
             back: "Upper right chamber. Receives deoxygenated blood from the body via the superior and inferior vena cava. Thin-walled receiving chamber."
           },
           {
-            id: "anatomy-fc-rv",
+            id: "heart-anatomy-card-1",
             front: "Right Ventricle",
             back: "Lower right chamber. Pumps blood to the lungs via the pulmonary arteries. Lower pressure than the left side. Wall is thinner than left ventricle."
           },
           {
-            id: "anatomy-fc-la",
+            id: "heart-anatomy-card-2",
             front: "Left Atrium",
             back: "Upper left chamber. Receives oxygen-rich blood from the lungs via the pulmonary veins (4 total). Thin-walled receiving chamber."
           },
           {
-            id: "anatomy-fc-lv",
+            id: "heart-anatomy-card-3",
             front: "Left Ventricle",
             back: "Lower left chamber. Pumps oxygenated blood to the entire body via the aorta. Thickest wall of all chambers—works the hardest."
           },
           {
-            id: "anatomy-fc-aorta",
+            id: "heart-anatomy-card-4",
             front: "Aorta",
             back: "Largest artery in the body. Carries oxygenated blood from the left ventricle to all body tissues. Arches up and curves down through the chest and abdomen."
           },
           {
-            id: "anatomy-fc-vc",
+            id: "heart-anatomy-card-5",
             front: "Vena Cava (Superior & Inferior)",
             back: "Two large veins that return deoxygenated blood from the body to the right atrium. Superior drains head/arms; Inferior drains abdomen/legs."
           }
@@ -1785,32 +1785,32 @@ Think of the airway like an upside-down tree. The trachea is the trunk. It split
         type: "flashcards",
         flashcards: [
           {
-            id: "resp-fc-pharynx",
+            id: "respiratory-anatomy-card-0",
             front: "Pharynx",
             back: "The throat. Shared pathway for air and food. Divided into nasopharynx (behind nose), oropharynx (behind mouth), and laryngopharynx. Common site of obstruction in unconscious patients."
           },
           {
-            id: "resp-fc-larynx",
+            id: "respiratory-anatomy-card-1",
             front: "Larynx",
             back: "Voice box. Contains the vocal cords and epiglottis. The epiglottis covers the airway during swallowing to prevent aspiration. Key landmark for airway management."
           },
           {
-            id: "resp-fc-trachea",
+            id: "respiratory-anatomy-card-2",
             front: "Trachea",
             back: "Windpipe. Tube of C-shaped cartilage rings connecting larynx to bronchi. About 4-5 inches long in adults. Cartilage keeps it open; open side faces the esophagus."
           },
           {
-            id: "resp-fc-bronchi",
+            id: "respiratory-anatomy-card-3",
             front: "Bronchi",
             back: "Two main tubes (left and right mainstem) branching from the trachea. Each leads to one lung. Right bronchus is shorter and straighter—aspirated objects often go here."
           },
           {
-            id: "resp-fc-alveoli",
+            id: "respiratory-anatomy-card-4",
             front: "Alveoli",
             back: "Tiny air sacs at the end of bronchioles. Where gas exchange happens—O₂ in, CO₂ out. About 300 million in your lungs. Walls are one cell thick to allow diffusion."
           },
           {
-            id: "resp-fc-diaphragm",
+            id: "respiratory-anatomy-card-5",
             front: "Diaphragm",
             back: "Dome-shaped muscle below the lungs, separating chest from abdomen. Primary muscle of breathing. When it contracts (flattens), it creates negative pressure that draws air in."
           }
@@ -2167,22 +2167,27 @@ These compensatory mechanisms are remarkably effective—they can maintain blood
         type: "flashcards",
         flashcards: [
           {
+            id: "shock-physiology-card-0",
             front: "Why is blood pressure a 'late' sign of shock?",
             back: "Compensatory mechanisms (vasoconstriction, tachycardia) maintain BP until ~30% blood volume is lost. By the time BP drops, the patient is severely compromised. Look for earlier signs: anxiety, tachycardia, pale/cool skin."
           },
           {
+            id: "shock-physiology-card-1",
             front: "What causes the tachycardia seen in early shock?",
             back: "Sympathetic nervous system activation releases catecholamines (epinephrine, norepinephrine), which increase heart rate to maintain cardiac output despite reduced stroke volume. It's a compensatory mechanism."
           },
           {
+            id: "shock-physiology-card-2",
             front: "Why does skin become pale and cool in shock?",
             back: "Vasoconstriction shunts blood away from skin and extremities to preserve flow to vital organs (heart, brain, lungs). The body sacrifices the periphery to protect the core."
           },
           {
+            id: "shock-physiology-card-3",
             front: "What does altered mental status indicate in shock?",
             back: "The brain is exquisitely sensitive to hypoperfusion. Altered mental status (confusion, agitation, lethargy) indicates inadequate cerebral perfusion—a critical warning sign that compensatory mechanisms are failing."
           },
           {
+            id: "shock-physiology-card-4",
             front: "What is 'mottled' skin and what does it indicate?",
             back: "Patchy, lacy discoloration from uneven blood flow to skin capillaries. Indicates severe vasoconstriction and shunting. This is a late, ominous sign of decompensating shock."
           }
