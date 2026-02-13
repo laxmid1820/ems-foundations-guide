@@ -44,7 +44,6 @@ const Quizzes = () => {
 
   const handleSubmit = async () => {
     await quiz.submitQuiz();
-    // XP is awarded server-side, profile will refresh
   };
 
   if (!user) {
