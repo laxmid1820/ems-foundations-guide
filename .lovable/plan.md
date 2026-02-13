@@ -1,56 +1,113 @@
+Before implementing, add a brief "Badge unlocked!" toast (amber background, fades out after 2–3s) when the badge is awarded in handleCeremonyComplete. Reuse/extend XPToast or XPFloater. Example: "Topic mastered badge unlocked! +1 badge". Keep it subtle and encouraging.  
+  
+Badge System: Topic Mastery Badges with Navbar Counter
 
+## Overview
 
-# Fix: Topic XP Ring Premature 100%
+Add a persistent badge tracking system that awards a "topic-mastered" badge when the +150 XP ceremony fires, stores badges in the database, and displays a live amber badge counter next to the XP counter in the navbar.
 
-## Problem
+## Architecture Decision: Database vs Local State
 
-The large Topic XP ring in the SectionNav hits 100% as soon as all section quizzes and flashcards are completed, **before** the user clicks "Done with Module." This undermines the ceremony's suspenseful ring-fill moment.
+Badges should be stored in the **database** (not local state) so they persist across sessions and devices. The simplest approach: add a `badges` column (JSONB array) to the existing `profiles` table.
 
-**Root cause**: `topicXPTotal` is the sum of all per-section totals (`quizCount * 10 + flashcardCount * 2 + 15`). Once all sections are mastered, `topicXPEarned` equals `topicXPTotal` -- the +5 completion bonus isn't factored in.
+## Changes Required
 
-## Fix
+### 1. Database Migration
 
-Add a +5 "module completion" slot to the ring's total, and only credit it to earned after the button is clicked.
+Add a `badges` JSONB column to `profiles`:
 
-### Changes in `TopicDetail.tsx` (lines 309-321)
-
-Where the SectionNav is rendered, add +5 to `totalPossible`, and +5 to `totalEarned` only when `topicBonusAwarded` is true:
-
-```typescript
-{(() => {
-  let totalEarned = 0, totalPossible = 0;
-  sectionXPMap.forEach(({ earned, total }) => { totalEarned += earned; totalPossible += total; });
-  // Reserve +5 for module completion button
-  totalPossible += 5;
-  if (topicBonusAwarded) totalEarned += 5;
-  return (
-    <SectionNav
-      sections={navSections}
-      masteredSections={masteredSections}
-      activeSectionId={activeSectionId}
-      sectionXPMap={sectionXPMap}
-      topicXPEarned={totalEarned}
-      topicXPTotal={totalPossible}
-    />
-  );
-})()}
+```sql
+ALTER TABLE public.profiles
+ADD COLUMN badges jsonb DEFAULT '[]'::jsonb;
 ```
 
-This means:
-- Before button click: ring maxes at `totalSectionXP / (totalSectionXP + 5)` -- e.g., 97-99%
-- On button click: `handleModuleComplete` sets `topicBonusAwarded` (indirectly via ceremony), ring jumps to 100%
+Each badge entry:
 
-### Same change in `SubsectionDetail.tsx`
+```json
+{ "type": "topic-mastered", "topicSlug": "airway-management", "awardedAt": "2026-02-13T..." }
+```
 
-Apply the identical +5 logic wherever the SectionNav `topicXPEarned`/`topicXPTotal` are computed.
+### 2. Update AuthContext (`src/contexts/AuthContext.tsx`)
+
+Add `badges` to the `Profile` interface:
+
+```typescript
+badges: Array<{ type: string; topicSlug: string; awardedAt: string }>;
+```
+
+### 3. Create `BadgeCounter` Component (`src/components/gamification/BadgeCounter.tsx`)
+
+A small amber pill next to the XP counter showing badge count:
+
+```typescript
+// Amber/gold pill with Star icon + count
+// Style: rounded-full bg-amber-500/10 text-amber-500 font-bold
+// Shows "2" (count of badges array)
+// Animate scale-in on increment
+```
+
+### 4. Update `handleCeremonyComplete` in `TopicDetail.tsx` and `SubsectionDetail.tsx`
+
+After awarding +150 XP, write the badge to the database:
+
+```typescript
+const handleCeremonyComplete = useCallback(async () => {
+  addXP(150, "Topic mastered — +150 XP unlocked!");
+  setTopicBonusAwarded(true);
+  setShowCeremony(false);
+
+  // Award badge
+  if (user && profile) {
+    const newBadge = { type: "topic-mastered", topicSlug: slug, awardedAt: new Date().toISOString() };
+    const existingBadges = profile.badges || [];
+    // Prevent duplicates
+    if (!existingBadges.some(b => b.type === "topic-mastered" && b.topicSlug === slug)) {
+      await supabase
+        .from("profiles")
+        .update({ badges: [...existingBadges, newBadge] })
+        .eq("user_id", user.id);
+      refreshProfile();
+    }
+  }
+}, [addXP, user, profile, slug, refreshProfile]);
+```
+
+### 5. Update Navbar (`src/components/Navbar.tsx`)
+
+Add `BadgeCounter` next to `XPCounter` and `StreakBadge`:
+
+```tsx
+{user && profile && (
+  <>
+    <XPCounter xp={profile.xp_total} />
+    <BadgeCounter count={(profile.badges || []).length} />
+    <StreakBadge streak={profile.current_streak} />
+  </>
+)}
+```
+
+Same update in the mobile menu section.
+
+### 6. Update Dashboard (`src/pages/Dashboard.tsx`)
+
+Show earned badges in the XP Headquarters or as a dedicated section.
 
 ## Files Modified
 
-| File | Change |
-|------|--------|
-| `src/pages/TopicDetail.tsx` | Add +5 to `totalPossible`, conditionally to `totalEarned` |
-| `src/pages/SubsectionDetail.tsx` | Same |
 
-## Result
+| File                                           | Change                                            |
+| ---------------------------------------------- | ------------------------------------------------- |
+| Database migration                             | Add `badges` JSONB column to `profiles`           |
+| `src/contexts/AuthContext.tsx`                 | Add `badges` to Profile interface                 |
+| `src/components/gamification/BadgeCounter.tsx` | **New file** -- amber pill with Star icon + count |
+| `src/components/Navbar.tsx`                    | Add BadgeCounter next to XPCounter                |
+| `src/pages/TopicDetail.tsx`                    | Write badge on ceremony complete                  |
+| `src/pages/SubsectionDetail.tsx`               | Same badge write logic                            |
 
-The ring stays at ~97-99% until the user clicks "Done with Module," preserving the suspenseful ceremony moment where it fills to 100%.
+
+## Visual Design
+
+- **BadgeCounter**: Amber/gold pill matching Duolingo aesthetic -- `bg-amber-500/10 text-amber-500` with a Star icon and count number
+- On new badge: brief `animate-scale-in` pulse
+- Counter only renders when count > 0
+- Uses the existing `xp` CSS variable color for consistency with the amber theme
