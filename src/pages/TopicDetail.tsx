@@ -309,6 +309,9 @@ const TopicDetail = () => {
       {(() => {
         let totalEarned = 0, totalPossible = 0;
         sectionXPMap.forEach(({ earned, total }) => { totalEarned += earned; totalPossible += total; });
+        // Reserve +5 for module completion button
+        totalPossible += 5;
+        if (topicBonusAwarded) totalEarned += 5;
         return (
           <SectionNav
             sections={navSections}
