@@ -4,6 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger, SheetTitle } from "@/components/ui/sheet";
 import { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider } from "@/components/ui/tooltip";
+import { TopicProgressRing } from "@/components/topics/TopicProgressRing";
 import { cn } from "@/lib/utils";
 
 interface SectionNavProps {
@@ -35,12 +36,27 @@ function SectionNavList({ sections, masteredSections, activeSectionId, sectionXP
               !active && "border-l-[3px] border-transparent hover:bg-muted/50",
             )}
           >
-            <span className={cn(
-              "flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-xs font-bold",
-              mastered ? "bg-xp text-xp-foreground" : "bg-muted text-muted-foreground"
-            )}>
-              {mastered ? <Check className="h-3.5 w-3.5" /> : i + 1}
-            </span>
+            {(() => {
+              const xpData = sectionXPMap?.get(s.id);
+              const earned = xpData?.earned ?? 0;
+              const total = xpData?.total ?? 15;
+              const sectionProgress = total > 0 ? (earned / total) * 100 : 0;
+              if (mastered) {
+                return (
+                  <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-xp text-xp-foreground text-xs font-bold">
+                    <Check className="h-3.5 w-3.5" />
+                  </span>
+                );
+              }
+              if (earned > 0) {
+                return <TopicProgressRing size={24} strokeWidth={3} progress={sectionProgress} showMessage={false} className="shrink-0" />;
+              }
+              return (
+                <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-muted text-muted-foreground text-xs font-bold">
+                  {i + 1}
+                </span>
+              );
+            })()}
             <TooltipProvider delayDuration={300}>
               <Tooltip>
                 <TooltipTrigger asChild>
