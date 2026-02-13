@@ -10,6 +10,9 @@ import { TopicSection } from "@/components/topics/TopicSection";
 
 import { SectionNav } from "@/components/topics/SectionNav";
 import { useXP } from "@/hooks/useXP";
+import { useAuth } from "@/contexts/AuthContext";
+import { supabase } from "@/integrations/supabase/client";
+import { toast } from "@/hooks/use-toast";
 import { LevelProgressionButton } from "@/components/topics/LevelProgressionButton";
 import { 
   getSubsectionContentFromCurriculum, 
@@ -211,11 +214,31 @@ const SubsectionDetail = () => {
     setShowCeremony(true);
   }, [addXP]);
 
-  const handleCeremonyComplete = useCallback(() => {
+  const { user: authUser, profile: authProfile, refreshProfile } = useAuth();
+
+  const handleCeremonyComplete = useCallback(async () => {
     addXP(150, "Topic mastered — +150 XP unlocked!");
     setTopicBonusAwarded(true);
     setShowCeremony(false);
-  }, [addXP]);
+
+    // Award badge
+    if (authUser && authProfile) {
+      const badgeSlug = `${level}-${topicSlug}-${subsectionSlug}`;
+      const existingBadges = (authProfile.badges as any[]) || [];
+      if (!existingBadges.some((b: any) => b.type === "topic-mastered" && b.topicSlug === badgeSlug)) {
+        const newBadge = { type: "topic-mastered", topicSlug: badgeSlug, awardedAt: new Date().toISOString() };
+        await supabase
+          .from("profiles")
+          .update({ badges: [...existingBadges, newBadge] } as any)
+          .eq("user_id", authUser.id);
+        refreshProfile();
+        toast({
+          title: "🏅 Badge unlocked!",
+          description: "Topic mastered badge unlocked! +1 badge",
+        });
+      }
+    }
+  }, [addXP, authUser, authProfile, level, topicSlug, subsectionSlug, refreshProfile]);
 
   // Find Knowledge Check section by pattern (not array position)
   const knowledgeCheckIndex = useMemo(() => {
