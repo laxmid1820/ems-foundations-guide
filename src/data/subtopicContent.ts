@@ -702,17 +702,17 @@ The body prioritizes vital organs (heart, brain, lungs) when perfusion drops. Sk
         type: "flashcards",
         flashcards: [
           {
-            id: "aemt-perf-1",
+            id: "perfusion-assessment-card-0",
             front: "What does delayed capillary refill indicate?",
             back: "Poor peripheral perfusion. Blood isn't returning quickly to the capillary beds, suggesting the body is shunting blood to vital organs. Consider shock."
           },
           {
-            id: "aemt-perf-2",
+            id: "perfusion-assessment-card-1",
             front: "Why check peripheral vs. central pulses?",
             back: "Peripheral pulses (radial) disappear first when perfusion drops. If you can feel a radial pulse, BP is likely > 80 systolic. Central pulses (carotid) persist longer."
           },
           {
-            id: "aemt-perf-3",
+            id: "perfusion-assessment-card-2",
             front: "What causes mottled skin?",
             back: "Uneven blood flow to skin capillaries. Blood is being diverted to core organs, causing a patchy, lacy appearance. A late and concerning sign."
           }
@@ -1012,17 +1012,17 @@ Gases move from areas of high concentration to low concentration. No energy requ
         type: "flashcards",
         flashcards: [
           {
-            id: "aemt-resp-1",
+            id: "gas-exchange-detailed-card-0",
             front: "What is V/Q mismatch?",
             back: "Ventilation/Perfusion mismatch. Occurs when areas of the lung receive air but not blood (dead space) or blood but not air (shunt). Both impair gas exchange."
           },
           {
-            id: "aemt-resp-2",
+            id: "gas-exchange-detailed-card-1",
             front: "Why do CHF patients have crackles?",
             back: "Heart failure causes fluid backup into the pulmonary circulation. This fluid leaks into alveoli, creating crackles when you auscultate and impairing gas exchange."
           },
           {
-            id: "aemt-resp-3",
+            id: "gas-exchange-detailed-card-2",
             front: "What does diffusion capacity mean?",
             back: "How efficiently gases cross the alveolar-capillary membrane. Decreased in conditions that thicken the membrane (fibrosis) or destroy surface area (emphysema)."
           }
