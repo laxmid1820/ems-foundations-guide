@@ -10,7 +10,7 @@ export function XPHeadquarters() {
   const { profile } = useAuth();
   const { levelXP, domainXP, isLoading } = useLevelXP();
 
-  if (!profile || isLoading) return null;
+  if (!profile) return null;
 
   return (
     <section className="space-y-6 mb-8">
