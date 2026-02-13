@@ -62,6 +62,129 @@ export type Database = {
         }
         Relationships: []
       }
+      quiz_attempts: {
+        Row: {
+          completed_at: string | null
+          domain_filter: string | null
+          id: string
+          level: string
+          score: number
+          started_at: string
+          total: number
+          user_id: string
+          xp_earned: number
+        }
+        Insert: {
+          completed_at?: string | null
+          domain_filter?: string | null
+          id?: string
+          level: string
+          score?: number
+          started_at?: string
+          total?: number
+          user_id: string
+          xp_earned?: number
+        }
+        Update: {
+          completed_at?: string | null
+          domain_filter?: string | null
+          id?: string
+          level?: string
+          score?: number
+          started_at?: string
+          total?: number
+          user_id?: string
+          xp_earned?: number
+        }
+        Relationships: []
+      }
+      quiz_questions: {
+        Row: {
+          correct_answer: string
+          created_at: string
+          difficulty: number
+          domain: string
+          explanation: string
+          id: string
+          level: string
+          nremt_domain: string
+          options: Json
+          question_text: string
+          question_type: string
+          tags: string[] | null
+        }
+        Insert: {
+          correct_answer: string
+          created_at?: string
+          difficulty: number
+          domain: string
+          explanation: string
+          id?: string
+          level: string
+          nremt_domain: string
+          options: Json
+          question_text: string
+          question_type: string
+          tags?: string[] | null
+        }
+        Update: {
+          correct_answer?: string
+          created_at?: string
+          difficulty?: number
+          domain?: string
+          explanation?: string
+          id?: string
+          level?: string
+          nremt_domain?: string
+          options?: Json
+          question_text?: string
+          question_type?: string
+          tags?: string[] | null
+        }
+        Relationships: []
+      }
+      quiz_responses: {
+        Row: {
+          attempt_id: string
+          created_at: string
+          id: string
+          is_correct: boolean
+          question_id: string
+          selected_answer: string
+        }
+        Insert: {
+          attempt_id: string
+          created_at?: string
+          id?: string
+          is_correct: boolean
+          question_id: string
+          selected_answer: string
+        }
+        Update: {
+          attempt_id?: string
+          created_at?: string
+          id?: string
+          is_correct?: boolean
+          question_id?: string
+          selected_answer?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "quiz_responses_attempt_id_fkey"
+            columns: ["attempt_id"]
+            isOneToOne: false
+            referencedRelation: "quiz_attempts"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "quiz_responses_question_id_fkey"
+            columns: ["question_id"]
+            isOneToOne: false
+            referencedRelation: "quiz_questions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
