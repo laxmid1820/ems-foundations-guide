@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 
 interface ConfettiEffectProps {
   trigger: boolean;
+  intensity?: "normal" | "big";
 }
 
 const COLORS = [
@@ -12,17 +13,20 @@ const COLORS = [
   "hsl(280 70% 55%)", // purple
 ];
 
-export function ConfettiEffect({ trigger }: ConfettiEffectProps) {
+export function ConfettiEffect({ trigger, intensity = "normal" }: ConfettiEffectProps) {
   const [pieces, setPieces] = useState<Array<{ id: number; left: number; delay: number; color: string; size: number }>>([]);
 
   useEffect(() => {
     if (trigger) {
-      const newPieces = Array.from({ length: 20 }, (_, i) => ({
+      const count = intensity === "big" ? 40 : 20;
+      const minSize = intensity === "big" ? 6 : 4;
+      const maxSize = intensity === "big" ? 10 : 6;
+      const newPieces = Array.from({ length: count }, (_, i) => ({
         id: Date.now() + i,
         left: Math.random() * 100,
         delay: Math.random() * 0.5,
         color: COLORS[Math.floor(Math.random() * COLORS.length)],
-        size: 4 + Math.random() * 6,
+        size: minSize + Math.random() * (maxSize - minSize),
       }));
       setPieces(newPieces);
       const timer = setTimeout(() => setPieces([]), 2000);

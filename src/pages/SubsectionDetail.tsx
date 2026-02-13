@@ -1,6 +1,7 @@
 import { useParams, Link, Navigate, useNavigate } from "react-router-dom";
 import { useEffect, useState, useCallback, useMemo, useRef } from "react";
 import { Layout } from "@/components/Layout";
+import { ConfettiEffect } from "@/components/gamification/ConfettiEffect";
 import { TopicCallout } from "@/components/topics/TopicCallout";
 import { TopicSection } from "@/components/topics/TopicSection";
 import { StickyProgressBar } from "@/components/topics/StickyProgressBar";
@@ -228,6 +229,22 @@ const SubsectionDetail = () => {
     navigate(path);
   }, [navigate]);
 
+  // Section XP map (before early return for hooks order)
+  const sectionXPMap = useMemo(() => {
+    const m = new Map<string, { earned: number; total: number }>();
+    if (!richSections) return m;
+    richSections.forEach((s) => {
+      const quizIds = sectionQuizMap.get(s.id) || [];
+      const quizCount = quizIds.length;
+      const total = quizCount * 10 + 15;
+      const correct = sectionCorrect.get(s.id)?.size || 0;
+      const mastered = masteredSections.has(s.id);
+      const earned = correct * 10 + (mastered ? 15 : 0);
+      m.set(s.id, { earned, total });
+    });
+    return m;
+  }, [richSections, sectionQuizMap, sectionCorrect, masteredSections]);
+
   if (!data) {
     return <Navigate to="/topics" replace />;
   }
@@ -236,7 +253,6 @@ const SubsectionDetail = () => {
   const config = levelConfig[category.level];
   const Icon = config.icon;
 
-  // Nav sections for SectionNav
   const navSections = richSections
     ? richSections.map((s) => ({ id: s.id, title: s.title }))
     : [
@@ -253,6 +269,7 @@ const SubsectionDetail = () => {
         sections={navSections}
         masteredSections={masteredSections}
         activeSectionId={activeSectionId}
+        sectionXPMap={sectionXPMap}
       />
 
       <div className="container mx-auto px-4 py-6 sm:py-10 sm:px-6 lg:pl-[240px] lg:pr-8 max-w-4xl lg:max-w-none pb-24">
@@ -323,16 +340,29 @@ const SubsectionDetail = () => {
         {/* Content Blocks */}
         <div className="space-y-8 lg:max-w-3xl">
           {richSections ? (
-            richSections.map((section, index) => (
-              <TopicSection
-                key={section.id}
-                section={section}
-                index={index}
-                onTabViewed={handleTabViewed}
-                onCardFlip={handleCardFlip}
-                onQuizAnswer={handleQuizAnswer}
-              />
-            ))
+            richSections.map((section, index) => {
+              const quizIds = sectionQuizMap.get(section.id) || [];
+              const quizCount = quizIds.length;
+              const xpTotal = quizCount * 10 + 15;
+              const correctCount = sectionCorrect.get(section.id)?.size || 0;
+              const mastered = masteredSections.has(section.id);
+              const xpEarned = correctCount * 10 + (mastered ? 15 : 0);
+              const progress = quizCount > 0 ? (correctCount / quizCount) * 100 : (mastered ? 100 : 0);
+              return (
+                <TopicSection
+                  key={section.id}
+                  section={section}
+                  index={index}
+                  sectionXPEarned={xpEarned}
+                  sectionXPTotal={xpTotal}
+                  sectionProgress={progress}
+                  isMastered={mastered}
+                  onTabViewed={handleTabViewed}
+                  onCardFlip={handleCardFlip}
+                  onQuizAnswer={handleQuizAnswer}
+                />
+              );
+            })
           ) : (
             <>
               <section id="objective-section" className="rounded-lg border border-border bg-card shadow-sm p-5 sm:p-6">

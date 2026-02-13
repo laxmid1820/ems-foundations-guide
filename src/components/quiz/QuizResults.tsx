@@ -3,6 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ProgressRing } from "@/components/gamification/ProgressRing";
 import { ConfettiEffect } from "@/components/gamification/ConfettiEffect";
+import { AchievementBadge } from "@/components/gamification/AchievementBadge";
 import { Zap, RotateCcw, ArrowLeft, CheckCircle2, XCircle } from "lucide-react";
 import { cn } from "@/lib/utils";
 import type { QuizSubmission } from "@/hooks/useQuiz";
@@ -19,6 +20,9 @@ export function QuizResults({ submission, level, onRetry, onBack, immediateMode 
   const { score, total, xp_earned, results } = submission;
   const pct = Math.round((score / total) * 100);
   const passed = pct >= 70;
+
+  // Determine quiz-length badge
+  const quizBadgeVariant = total >= 50 ? "quiz-50" : total >= 20 ? "quiz-20" : total >= 10 ? "quiz-10" : null;
 
   // Domain breakdown
   const domainMap = new Map<string, { correct: number; total: number }>();
@@ -50,6 +54,9 @@ export function QuizResults({ submission, level, onRetry, onBack, immediateMode 
               <Zap className="h-5 w-5 fill-current" />
               +{xp_earned} XP earned
             </div>
+            {quizBadgeVariant && (
+              <AchievementBadge variant={quizBadgeVariant} size="md" />
+            )}
           </div>
 
           <p className="text-sm text-muted-foreground max-w-md">

@@ -3,6 +3,8 @@ import { useParams, Link } from "react-router-dom";
 import { useXP } from "@/hooks/useXP";
 import { Layout } from "@/components/Layout";
 import { Button } from "@/components/ui/button";
+import { ConfettiEffect } from "@/components/gamification/ConfettiEffect";
+import { AchievementBadge } from "@/components/gamification/AchievementBadge";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -200,6 +202,22 @@ const TopicDetail = () => {
     return null;
   }, [sectionQuizMap, allQuizAnswers]);
 
+  // Section XP map for nav (must be before early return)
+  const sectionXPMap = useMemo(() => {
+    const m = new Map<string, { earned: number; total: number }>();
+    if (!topic) return m;
+    topic.sections.forEach((s) => {
+      const quizIds = sectionQuizMap.get(s.id) || [];
+      const quizCount = quizIds.length;
+      const total = quizCount * 10 + 15;
+      const correct = sectionCorrect.get(s.id)?.size || 0;
+      const mastered = masteredSections.has(s.id);
+      const earned = correct * 10 + (mastered ? 15 : 0);
+      m.set(s.id, { earned, total });
+    });
+    return m;
+  }, [topic, sectionQuizMap, sectionCorrect, masteredSections]);
+
   if (!topic) {
     return (
       <Layout>
@@ -227,7 +245,6 @@ const TopicDetail = () => {
   const accuracy = totalQuizCount > 0 ? Math.round((correctCount / totalQuizCount) * 100) : 0;
   const allQuizzesAttempted = totalAnswered >= totalQuizCount && totalQuizCount > 0;
 
-  // Section data for nav
   const navSections = topic.sections.map((s) => ({ id: s.id, title: s.title }));
 
   return (
@@ -237,6 +254,7 @@ const TopicDetail = () => {
         sections={navSections}
         masteredSections={masteredSections}
         activeSectionId={activeSectionId}
+        sectionXPMap={sectionXPMap}
       />
 
       <div className="container mx-auto px-4 py-6 sm:py-8 sm:px-6 lg:pl-[240px] lg:pr-8 max-w-3xl lg:max-w-none">
@@ -298,23 +316,42 @@ const TopicDetail = () => {
 
         {/* Linear Scrolling Sections */}
         <div className="mb-10 lg:max-w-3xl">
-          {topic.sections.map((section, index) => (
-            <TopicSection
-              key={section.id}
-              section={section}
-              index={index}
-              onTabViewed={handleTabViewed}
-              onCardFlip={handleCardFlip}
-              onQuizAnswer={handleQuizAnswer}
-            />
-          ))}
+          {topic.sections.map((section, index) => {
+              const quizIds = sectionQuizMap.get(section.id) || [];
+              const quizCount = quizIds.length;
+              const xpTotal = quizCount * 10 + 15;
+              const correctCount = sectionCorrect.get(section.id)?.size || 0;
+              const mastered = masteredSections.has(section.id);
+              const xpEarned = correctCount * 10 + (mastered ? 15 : 0);
+              const progress = quizCount > 0 ? (correctCount / quizCount) * 100 : (mastered ? 100 : 0);
+              return (
+                <TopicSection
+                  key={section.id}
+                  section={section}
+                  index={index}
+                  sectionXPEarned={xpEarned}
+                  sectionXPTotal={xpTotal}
+                  sectionProgress={progress}
+                  isMastered={mastered}
+                  onTabViewed={handleTabViewed}
+                  onCardFlip={handleCardFlip}
+                  onQuizAnswer={handleQuizAnswer}
+                />
+              );
+            })}
         </div>
 
         {/* Completion Section */}
-        <div className="mb-10 py-8 border-t border-border space-y-6 lg:max-w-3xl">
+        <div className="mb-10 py-8 border-t border-border space-y-6 lg:max-w-3xl relative">
+          {/* Big confetti on topic mastery */}
+          <ConfettiEffect trigger={topicBonusAwarded} intensity="big" />
+
           {isComplete && topicBonusAwarded ? (
             <TopicCallout type="youveGotThis">
-              🎉 Excellent work! You mastered {topic.title.toLowerCase()} at {accuracy}% accuracy and earned the +150 XP bonus! You're ready to move on!
+              <div className="space-y-3">
+                <p>🎉 Excellent work! You mastered {topic.title.toLowerCase()} at {accuracy}% accuracy and earned the +150 XP bonus!</p>
+                <AchievementBadge variant="topic-mastered" size="md" />
+              </div>
             </TopicCallout>
           ) : isComplete && allQuizzesAttempted && accuracy > 80 ? (
             <TopicCallout type="youveGotThis">

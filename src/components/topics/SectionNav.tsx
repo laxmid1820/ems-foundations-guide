@@ -9,9 +9,10 @@ interface SectionNavProps {
   sections: { id: string; title: string }[];
   masteredSections: Set<string>;
   activeSectionId: string | null;
+  sectionXPMap?: Map<string, { earned: number; total: number }>;
 }
 
-function SectionNavList({ sections, masteredSections, activeSectionId, onSelect }: SectionNavProps & { onSelect?: () => void }) {
+function SectionNavList({ sections, masteredSections, activeSectionId, sectionXPMap, onSelect }: SectionNavProps & { onSelect?: () => void }) {
   const scrollTo = useCallback((id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
     onSelect?.();
@@ -40,17 +41,24 @@ function SectionNavList({ sections, masteredSections, activeSectionId, onSelect 
               {mastered ? <Check className="h-3.5 w-3.5" /> : i + 1}
             </span>
             <span className="flex-1 truncate">{s.title}</span>
-            <Badge
-              variant="outline"
-              className={cn(
-                "text-[10px] font-bold px-1.5 py-0 shrink-0 transition-all",
-                mastered
-                  ? "border-xp/40 bg-xp/10 text-xp"
-                  : "border-border text-muted-foreground"
-              )}
-            >
-              {mastered ? "15 XP" : "0 XP"}
-            </Badge>
+            {(() => {
+              const xpData = sectionXPMap?.get(s.id);
+              const earned = xpData?.earned ?? (mastered ? 15 : 0);
+              const total = xpData?.total ?? 15;
+              return (
+                <Badge
+                  variant="outline"
+                  className={cn(
+                    "text-[10px] font-bold px-1.5 py-0 shrink-0 transition-all",
+                    mastered
+                      ? "border-xp/40 bg-xp/10 text-xp"
+                      : "border-border text-muted-foreground"
+                  )}
+                >
+                  {mastered ? `${total} XP` : `${earned}/${total} XP`}
+                </Badge>
+              );
+            })()}
           </button>
         );
       })}
