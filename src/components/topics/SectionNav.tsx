@@ -3,6 +3,7 @@ import { Check, List } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger, SheetTitle } from "@/components/ui/sheet";
+import { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider } from "@/components/ui/tooltip";
 import { cn } from "@/lib/utils";
 
 interface SectionNavProps {
@@ -45,18 +46,31 @@ function SectionNavList({ sections, masteredSections, activeSectionId, sectionXP
               const xpData = sectionXPMap?.get(s.id);
               const earned = xpData?.earned ?? (mastered ? 15 : 0);
               const total = xpData?.total ?? 15;
+              const quizCount = Math.round((total - 15) / 10);
+              const tooltipText = quizCount > 0
+                ? `${quizCount} question${quizCount !== 1 ? 's' : ''} × 10 XP + 15 mastery bonus = ${total} XP`
+                : "View this section to earn 15 mastery XP!";
               return (
-                <Badge
-                  variant="outline"
-                  className={cn(
-                    "text-[10px] font-bold px-1.5 py-0 shrink-0 transition-all",
-                    mastered
-                      ? "border-xp/40 bg-xp/10 text-xp"
-                      : "border-border text-muted-foreground"
-                  )}
-                >
-                  {mastered ? `${total} XP` : `${earned}/${total} XP`}
-                </Badge>
+                <TooltipProvider delayDuration={300}>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <Badge
+                        variant="outline"
+                        className={cn(
+                          "text-[10px] font-bold px-1.5 py-0 shrink-0 transition-all cursor-help",
+                          mastered
+                            ? "border-xp/40 bg-xp/10 text-xp"
+                            : "border-border text-muted-foreground"
+                        )}
+                      >
+                        {mastered ? `${total} XP` : `${earned}/${total} XP`}
+                      </Badge>
+                    </TooltipTrigger>
+                    <TooltipContent side="right" className="max-w-[240px] text-center">
+                      {tooltipText}
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
               );
             })()}
           </button>
