@@ -7,10 +7,10 @@ import { Zap } from "lucide-react";
 const LEVELS = ["emt", "aemt", "paramedic"] as const;
 
 export function XPHeadquarters() {
-  const { profile } = useAuth();
-  const { levelXP, domainXP, isLoading } = useLevelXP();
+  const { profile, user } = useAuth();
+  const { levelXP, domainXP } = useLevelXP();
 
-  if (!profile) return null;
+  if (!user || !profile) return null;
 
   return (
     <section className="space-y-6 mb-8">

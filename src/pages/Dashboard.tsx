@@ -81,7 +81,7 @@ const Dashboard = () => {
         </div>
 
         {/* XP Headquarters */}
-        {user && profile && <XPHeadquarters />}
+        {user && <XPHeadquarters />}
 
         {/* Progress Overview (non-logged-in) */}
         {!user && (
