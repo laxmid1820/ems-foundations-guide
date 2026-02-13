@@ -112,7 +112,7 @@ export function useQuiz() {
       setError(e.message || "Failed to load quiz");
       setPhase("select");
     }
-  }, []);
+  }, [selectedLevel, quizLength]);
 
   const setAnswer = useCallback((questionId: string, answer: string) => {
     setAnswers((prev) => {
