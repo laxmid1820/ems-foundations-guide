@@ -1,153 +1,134 @@
-Before implementing, add a small motivational label under the large topic XP ring (size 80) in the header that updates dynamically with progress tiers (0%: "Start earning XP — every quiz counts!", 1–49%: "Building strong foundations — keep going!", 50–79%: "Halfway there — mastery is close!", 80–99%: "Almost mastered — one more push!", 100%: "Topic complete — incredible work!"). Use text-xs font-medium text-muted-foreground for subtlety.  
+Before implementing, add a subtle floating toast notification (amber background, fades out after 2–3 seconds) every time XP is gained, using/extending XPFloater. Examples: "+15 XP — section mastered!", "+150 XP — topic complete! Badge unlocked!". Keep it non-intrusive and encouraging.  
   
-Layout, XP Rings, and Completion Fix
+Declutter Sections, Relocate Topic Ring, Replace XP Badges with Rings, Add Slam Animation
 
 ## Overview
 
-Four targeted fixes to improve the desktop layout, add visual XP progress rings, and fix the completion calculation so topics can actually reach 100%.
+Four focused changes: remove the bottom XP footer from each section card (the sidebar already shows per-section XP), move the large topic XP ring from the page header down to the bottom of the SectionNav sidebar, replace the text XP badges in nav items with small amber progress rings (size 24), and add a "slam" animation that fires on topic mastery (+150 XP) where a badge visually flies toward the global XP counter in the navbar.
 
 ---
 
-## 1. Center Main Content on Desktop
+## 1. Remove Section Footer from TopicSection.tsx
 
-**Problem**: The main content container uses `lg:pl-[240px] lg:max-w-none`, which pushes content to start after the sidebar but lets it stretch to the full viewport width. This makes the content area look off-center and too wide.
+**What**: Delete the entire XP footer block (lines 161-199) -- the `border-t bg-muted/30` bar showing `{earned}/{total} XP`, the mini progress ring, and the checkmark overlay. Keep the `ConfettiEffect` on mastery (line 202) since that fires independently.
 
-**Fix in `SubsectionDetail.tsx` and `TopicDetail.tsx**`: Replace the current layout approach with a properly centered content column.
+**Why**: The SectionNav sidebar already shows per-section XP progress with rings and badges. The footer is redundant visual noise inside each card.
 
-```text
-Current:  lg:pl-[240px] lg:pr-8 max-w-4xl lg:max-w-none
-Proposed: lg:pl-[240px] lg:pr-8 lg:max-w-[calc(240px+768px+2rem)]
-```
+**Props kept**: `sectionXPEarned`, `sectionXPTotal`, `sectionProgress`, `isMastered` remain on the component interface -- they are still passed by parent pages and used for confetti triggering. No parent changes needed.
 
-This constrains the content to ~768px wide (readable width) while accounting for the sidebar offset, keeping it visually centered in the remaining viewport space. The `lg:max-w-3xl` constraints on inner sections can then be removed since the container itself is bounded.
-
-**Files**: `src/pages/SubsectionDetail.tsx` (line 275), `src/pages/TopicDetail.tsx` (line 260)
+**File**: `src/components/topics/TopicSection.tsx` -- remove lines 160-199
 
 ---
 
-## 2. Mini XP Progress Ring in SectionNav
+## 2. Move Large Topic XP Ring to Bottom of SectionNav Sidebar
 
-**What**: Add a tiny `TopicProgressRing` (size 24, strokeWidth 3) to each section nav item, replacing the numbered circle when progress exists.
+**What**: Remove the `TopicProgressRing` (size 80) from the page header in both `TopicDetail.tsx` and `SubsectionDetail.tsx`, and instead render it at the bottom of the `SectionNav` sidebar.
 
-**How**: In `SectionNavList`, for each section, compute progress from `sectionXPMap` (earned/total). Show the mini ring between the number badge and the title. The ring uses amber (`hsl(var(--xp))`) and shows no percentage text at this size -- just a visual fill indicator.
+**How**:
 
-**Layout**: Replace the current number circle (`h-6 w-6`) with:
+- Add two new props to `SectionNavProps`: `topicXPEarned?: number` and `topicXPTotal?: number`
+- In the `SectionNavList` component, after the section list, render a divider + the ring block:
+  ```
+  {topicXPTotal > 0 && (
+    <div className="mt-4 pt-4 border-t border-border flex flex-col items-center gap-1.5">
+      <TopicProgressRing size={80} strokeWidth={6} progress={topicProgress} showMessage={false} />
+      <span className="text-xs font-bold text-xp">{topicXPEarned}/{topicXPTotal} XP</span>
+      <span className="text-xs font-medium text-muted-foreground text-center max-w-[140px]">
+        {motivationalLabel}
+      </span>
+    </div>
+  )}
+  ```
+- Motivational labels (same tiers as before): 0% = "Start earning XP -- every quiz counts!", <50% = "Building strong foundations -- keep going!", <80% = "Halfway there -- mastery is close!", <100% = "Almost mastered -- one more push!", 100% = "Topic complete -- incredible work!"
+- In `TopicDetail.tsx` header (lines 307-329): remove the `hidden sm:flex` div containing the ring, keep the icon + title block unchanged
+- In `SubsectionDetail.tsx` header (lines 348-352): same removal
+- Pass `topicXPEarned` and `topicXPTotal` from both pages when rendering `<SectionNav>`
 
-- If mastered: keep the green checkmark circle (current behavior)
-- If in-progress (earned > 0 but not mastered): show `TopicProgressRing` (size 24, no message, no percentage text)
-- If not started: keep the numbered circle (current behavior)
+**Files**: `src/components/topics/SectionNav.tsx`, `src/pages/TopicDetail.tsx`, `src/pages/SubsectionDetail.tsx`
+
+---
+
+## 3. Replace XP Text Badges with Small Amber Rings in SectionNav
+
+**What**: Replace the `<Badge>` showing `"10/25 XP"` or `"25 XP"` (lines 78-99 in SectionNav.tsx) with a `TopicProgressRing` (size 24, strokeWidth 3, amber, no text/message). This replaces text with a purely visual ring that fills as XP is earned.
+
+**Current behavior**: Each nav item shows three possible states via the left icon (number / ring / check) AND a right-side XP badge. The badge is redundant with the ring.
+
+**New behavior**:
+
+- Remove the entire right-side Badge + Tooltip block (lines 70-100)
+- The left-side icon already shows: number (unstarted), ring (in-progress), check (mastered) -- this is sufficient
+- Add XP tooltip to the existing left-side ring/check icon so users can still see exact XP on hover
+- For the mastered state, keep the amber check circle but wrap it in a tooltip showing `"{total} XP earned"`
+- For the in-progress state, wrap the existing ring in a tooltip showing `"{earned}/{total} XP"`
 
 **File**: `src/components/topics/SectionNav.tsx`
 
 ---
 
-## 3. Topic Header XP Ring (size 80)
+## 4. "Slam" Animation on Topic Mastery
 
-**What**: Add a large `TopicProgressRing` (size 80, strokeWidth 6) to the topic header area, showing overall topic XP progress.
+**What**: When the +150 XP topic mastery bonus fires, animate a badge/XP icon that scales up at the center of the viewport, then "slams" (shrinks + translates) toward the top-right navbar XP counter position.
 
-**How**: Compute total earned XP and total possible XP across all sections from `sectionXPMap`. Display the ring in the header next to (or replacing) the icon area.
+**How**:
 
-**Layout**: Place the ring in the header section of both `SubsectionDetail.tsx` and `TopicDetail.tsx`, to the right of the title block, aligned with the top. Shows `{totalEarned}/{totalPossible} XP` below the ring in small amber text.
+- Create a new component `src/components/gamification/XPSlam.tsx`
+- Props: `trigger: boolean`, `amount: number` (default 150)
+- When `trigger` flips to true:
+  1. Render a fixed-position overlay element at viewport center with the Zap icon + "+150 XP" text
+  2. Apply a two-phase CSS animation:
+    - Phase 1 (0-400ms): scale from 0 to 1.2 with opacity fade-in (the "pop")
+    - Phase 2 (400-800ms): scale down to 0.3, translate to top-right corner (approximate navbar XP counter position: `top: 16px, right: 120px`), then fade out
+  3. After 1s, unmount
+- Add keyframes to `tailwind.config.ts`:
+  ```
+  "xp-slam": {
+    "0%": { transform: "translate(-50%, -50%) scale(0)", opacity: "0" },
+    "40%": { transform: "translate(-50%, -50%) scale(1.3)", opacity: "1" },
+    "100%": { transform: "translate(calc(50vw - 120px), calc(-50vh + 24px)) scale(0.3)", opacity: "0" }
+  }
+  ```
+  And animation: `"xp-slam": "xp-slam 0.9s cubic-bezier(0.34, 1.56, 0.64, 1) forwards"`
+- Usage: In both `TopicDetail.tsx` and `SubsectionDetail.tsx`, render `<XPSlam trigger={topicBonusAwarded} amount={150} />` alongside the existing `<ConfettiEffect trigger={topicBonusAwarded} intensity="big" />`
 
-**Derived values** (no new state):
-
-```text
-totalEarnedXP = sum of all sectionXPMap entries' earned values
-totalPossibleXP = sum of all sectionXPMap entries' total values
-topicProgress = (totalEarnedXP / totalPossibleXP) * 100
-```
-
-**Files**: `src/pages/SubsectionDetail.tsx`, `src/pages/TopicDetail.tsx`
-
----
-
-## 4. Fix Completion Not Reaching 100%
-
-**Problem**: In `SubsectionDetail.tsx`, the progress calculation (line 219) only considers sections viewed:
-
-```
-progress = (sectionsViewed.size / totalSections) * 100
-```
-
-This ignores flashcards flipped and quizzes answered, so even after completing everything, the weighted progress never accounts for interactive elements.
-
-**Fix**: Apply the same weighted formula used in `LessonProgress.tsx`:
-
-```text
-sectionWeight  = (sectionsViewed / totalSections) * 40
-flashcardWeight = (flippedCards / totalFlashcards) * 30   (or 30 if no flashcards)
-quizWeight      = (answeredQuizzes / totalQuizzes) * 30   (or 30 if no quizzes)
-progress = sectionWeight + flashcardWeight + quizWeight
-```
-
-This requires counting total flashcards and quizzes from `richSections` blocks (similar to `getTopicInteractiveCount` used in `TopicDetail.tsx`).
-
-**File**: `src/pages/SubsectionDetail.tsx`
+**File**: new `src/components/gamification/XPSlam.tsx`, `tailwind.config.ts`, `src/pages/TopicDetail.tsx`, `src/pages/SubsectionDetail.tsx`
 
 ---
 
-## Files to Modify
+## Files Summary
 
 
-| File                                          | Changes                                                               |
-| --------------------------------------------- | --------------------------------------------------------------------- |
-| `src/pages/SubsectionDetail.tsx`              | Fix container width classes; add header XP ring; fix progress formula |
-| `src/pages/TopicDetail.tsx`                   | Fix container width classes; add header XP ring                       |
-| `src/components/topics/SectionNav.tsx`        | Add mini XP ring per section item                                     |
-| `src/components/topics/TopicProgressRing.tsx` | Add variant for tiny size (hide percentage text when size <= 28)      |
+| File                                     | Changes                                                                                                                   |
+| ---------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- |
+| `src/components/topics/TopicSection.tsx` | Remove XP footer block (lines 160-199), keep confetti                                                                     |
+| `src/components/topics/SectionNav.tsx`   | Add topic ring at sidebar bottom; replace XP badges with tooltip-wrapped icons; new props `topicXPEarned`, `topicXPTotal` |
+| `src/pages/TopicDetail.tsx`              | Remove header ring; pass topic XP totals to SectionNav; add XPSlam                                                        |
+| `src/pages/SubsectionDetail.tsx`         | Remove header ring; pass topic XP totals to SectionNav; add XPSlam                                                        |
+| `src/components/gamification/XPSlam.tsx` | New component -- slam animation on mastery                                                                                |
+| `tailwind.config.ts`                     | Add `xp-slam` keyframe + animation                                                                                        |
 
 
 ---
 
-## Technical Details
+## Technical Notes
 
-### TopicProgressRing size adaptation
+### XPSlam animation mechanics
 
-The component already handles `size <= 44` for smaller text. Add a condition: when `size <= 28`, hide the percentage text entirely and just show the ring fill. This keeps the ring clean at nav-item scale.
+The component uses a single CSS animation with `forwards` fill mode. The translate values use viewport-relative calc() to target the approximate position of the navbar XP counter (top-right area). The cubic-bezier curve gives an elastic "pop" feel consistent with the Duolingo aesthetic.
 
-### SectionNav ring placement
+### SectionNav prop additions
 
-```text
-<span className="shrink-0">
-  {mastered ? (
-    <CheckCircle in green>
-  ) : earnedXP > 0 ? (
-    <TopicProgressRing size={24} strokeWidth={3} showMessage={false} />
-  ) : (
-    <NumberCircle>{index + 1}</NumberCircle>
-  )}
-</span>
+```typescript
+interface SectionNavProps {
+  sections: { id: string; title: string }[];
+  masteredSections: Set<string>;
+  activeSectionId: string | null;
+  sectionXPMap?: Map<string, { earned: number; total: number }>;
+  topicXPEarned?: number;   // NEW
+  topicXPTotal?: number;    // NEW
+}
 ```
 
-### Header ring placement (both pages)
+### TopicSection interface unchanged
 
-```text
-<div className="flex items-start gap-4 mb-4">
-  <!-- existing icon + title block -->
-  <div className="flex-1 min-w-0">...</div>
-  
-  <!-- New: Topic XP ring, right-aligned -->
-  <div className="hidden sm:flex flex-col items-center gap-1 shrink-0">
-    <TopicProgressRing size={80} strokeWidth={6} progress={topicProgress} showMessage={false} />
-    <span className="text-xs font-bold text-xp">{totalEarned}/{totalPossible} XP</span>
-  </div>
-</div>
-```
-
-Hidden on mobile (`hidden sm:flex`) to avoid crowding the header.
-
-### Completion progress fix
-
-Add to `SubsectionDetail.tsx`:
-
-```text
-const totalFlashcards = richSections
-  ? richSections.reduce((sum, s) => 
-      sum + (s.blocks?.filter(b => b.type === 'flashcards').flatMap(b => b.flashcards || []).length || 0), 0)
-  : 0;
-
-const sectionWeight = totalSections > 0 ? (sectionsViewed.size / totalSections) * 40 : 40;
-const flashcardWeight = totalFlashcards > 0 ? (flippedCards.size / totalFlashcards) * 30 : 30;
-const quizWeight = totalQuizCount > 0 ? (answeredQuizzes.size / totalQuizCount) * 30 : 30;
-const progress = Math.round(sectionWeight + flashcardWeight + quizWeight);
-```
+All XP props remain on TopicSectionProps -- only the JSX rendering of the footer is removed. This avoids any breaking changes in parent components.
