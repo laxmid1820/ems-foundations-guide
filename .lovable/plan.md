@@ -1,62 +1,119 @@
 
 
-# Reusable Agent Prompt: Standardize All Topics to A&P Basics Pattern
+# Script to Fix All Flashcard IDs in subtopicContent.ts
 
-## Key Finding
+## Approach
 
-**No component, hook, or page-level changes are needed.** Both `TopicDetail.tsx` and `SubsectionDetail.tsx` are shared pages that already apply the full pattern (XP math, gating, ceremony, sidebar rings, badges, confetti) to every topic via slug routing.
+A Node.js script that reads `subtopicContent.ts` as raw text and uses a two-pass regex strategy to find every flashcard block, determine its parent section ID, and rewrite the card `id` fields in place.
 
-The **only issue** is that many existing content arrays in `subtopicContent.ts` have flashcard IDs that don't follow the `{sectionId}-card-{index}` convention (e.g., `"para-card-1"` instead of `"coronary-anatomy-card-0"`). This breaks flashcard XP attribution to sections, causing sidebar rings to undercount earned XP.
+## Why a text-based approach (not import)
 
----
+The file uses TypeScript types (`TopicSection[]`) and path aliases (`@/data/topics`), so it can't be directly `require()`d by Node. A regex-based find-and-replace on the raw file text is the safest and simplest approach.
 
-## The Agent Prompt (Copy-Paste Ready)
+## Script logic
 
----
+1. Read `src/data/subtopicContent.ts` as a UTF-8 string
+2. Build a map of every section's `id` by scanning for the pattern: `{\n    id: "some-section-id",` (top-level section objects)
+3. For each `type: "flashcards"` block, walk backwards to find the nearest parent section `id`
+4. Within each flashcards array, find every card `id: "..."` and replace it with `{sectionId}-card-{index}`
+5. Skip cards already matching `{sectionId}-card-\d+`
+6. Write the result to `src/data/subtopicContent.fixed.ts` for review (not overwriting the original)
+7. Print a summary: how many blocks processed, how many IDs renamed, how many skipped
 
-**Prompt:**
+## The script file
 
-> **Task: Fix flashcard ID prefixes across ALL topic content arrays in `src/data/subtopicContent.ts`.**
->
-> **Context:** The XP system attributes flashcard flips to sections by matching card ID prefixes: `id.startsWith(\`${sectionId}-card-\`)`. Many existing content arrays have flashcard IDs that DON'T follow this convention (e.g., `"aemt-perf-1"`, `"para-card-2"`, `"resp-fc-1"`). This means flashcard XP is not counted toward section progress rings in the sidebar.
->
-> **What to do:**
-> For every `type: "flashcards"` block in every content array, rename each flashcard's `id` to follow the pattern: `{sectionId}-card-{zeroBasedIndex}`
->
-> Example — if a section has `id: "coronary-anatomy"` and contains flashcards:
-> - Before: `id: "para-card-1"`, `id: "para-card-2"`, `id: "para-card-3"`
-> - After: `id: "coronary-anatomy-card-0"`, `id: "coronary-anatomy-card-1"`, `id: "coronary-anatomy-card-2"`
->
-> **Rules:**
-> 1. ONLY change flashcard `id` fields. Do NOT change any other content (text, questions, answers, explanations, section IDs, titles, key points, callouts).
-> 2. The section ID is the `id` field of the parent section object that contains the flashcard block.
-> 3. Index is zero-based within each flashcard block.
-> 4. If a section already uses the correct `{sectionId}-card-{index}` pattern, skip it.
-> 5. Process ALL content arrays: `emtHeartContent`, `emtRespiratoryContent`, `emtPharmacologyContent`, `emtRespiratoryEmergenciesContent`, `emtPatientAssessmentContent`, `emtShockManagementContent`, `emtPathophysiologyContent`, `emtCopdVsChfContent`, `emtAsthmaAnaphylaxisContent`, `emtPulmonaryEdemaPneumoniaEffusionContent`, `emtAnatomyPhysiologyContent`, and all AEMT (`aemt*Content`) and Paramedic (`paramedic*Content`) arrays.
-> 6. Do NOT touch: `TopicDetail.tsx`, `SubsectionDetail.tsx`, `SectionNav.tsx`, `useXP.ts`, `AuthContext.tsx`, `Navbar.tsx`, or any component/hook files.
-> 7. Do NOT create database migrations.
-> 8. Do NOT delete or rewrite any content — this is a find-and-replace on flashcard IDs only.
->
-> **Verification:** After changes, every flashcard `id` in the file should match the regex `^{its-parent-section-id}-card-\d+$`.
+Create: `scripts/fix-flashcard-ids.mjs` (ES module, runs with `node scripts/fix-flashcard-ids.mjs`)
 
----
+```javascript
+import { readFileSync, writeFileSync } from 'fs';
+import { resolve } from 'path';
 
-## Why This Is the Only Change Needed
+const filePath = resolve('src/data/subtopicContent.ts');
+let src = readFileSync(filePath, 'utf-8');
 
-| Concern | Status |
-|---------|--------|
-| SectionNav sidebar with rings | Already shared via `SectionNav.tsx` -- works for all topics |
-| XP math (quiz +10, retry +5, flashcard +2, mastery +15) | Already fixed in both page files |
-| No scroll-based XP | Already removed from both page files |
-| Knowledge Check gating | Already implemented in both page files (matches section title/ID) |
-| Module Completion Ceremony | Already wired in both page files |
-| Badge awarding on ceremony | Already wired in both page files |
-| BadgeCounter in Navbar | Already rendered from `profile.badges` |
-| Confetti on section mastery | Already in `TopicSection.tsx` |
-| Desktop centering layout | Already applied in both page files |
+let totalRenamed = 0;
+let totalSkipped = 0;
+let blocksProcessed = 0;
 
-The entire UX pattern is **slug-agnostic**. The only data conformance gap is flashcard ID prefixes.
+// Match each flashcards block with its flashcards array content
+// Strategy: find `type: "flashcards"` then capture the flashcards array
+const flashcardsBlockRe = /type:\s*"flashcards",\s*\n\s*flashcards:\s*\[([\s\S]*?)\]\s*\n\s*\}/g;
 
-## Content Arrays to Process
+let match;
+while ((match = flashcardsBlockRe.exec(src)) !== null) {
+  const blockStart = match.index;
+  
+  // Walk backwards from blockStart to find the parent section id
+  const preceding = src.slice(0, blockStart);
+  const sectionIdMatch = preceding.match(/id:\s*"([^"]+)"[^]*$/);
+  
+  // Find the nearest section-level id (indented at 4 spaces, top-level in array)
+  const allSectionIds = [...preceding.matchAll(/^\s{4}id:\s*"([^"]+)"/gm)];
+  const parentSectionId = allSectionIds.length > 0 
+    ? allSectionIds[allSectionIds.length - 1][1] 
+    : null;
+  
+  if (!parentSectionId) continue;
+  
+  blocksProcessed++;
+  
+  // Find all card ids within this flashcards array
+  const arrayContent = match[1];
+  let cardIndex = 0;
+  const fixedArray = arrayContent.replace(/id:\s*"([^"]+)"/g, (idMatch, oldId) => {
+    const correctId = `${parentSectionId}-card-${cardIndex}`;
+    cardIndex++;
+    if (oldId === correctId) {
+      totalSkipped++;
+      return idMatch;
+    }
+    totalRenamed++;
+    return `id: "${correctId}"`;
+  });
+  
+  // Replace the array content in the source
+  src = src.slice(0, match.index + match[0].indexOf(arrayContent)) 
+      + fixedArray 
+      + src.slice(match.index + match[0].indexOf(arrayContent) + arrayContent.length);
+}
 
-There are ~35 content arrays across EMT, AEMT, and Paramedic levels. Each needs its flashcard IDs audited and renamed. The file is ~14,270 lines, so this should be done in batches (e.g., all EMT arrays first, then AEMT, then Paramedic).
+// Write to .fixed.ts for review
+const outPath = resolve('src/data/subtopicContent.fixed.ts');
+writeFileSync(outPath, src, 'utf-8');
+
+console.log(`Done!`);
+console.log(`Blocks processed: ${blocksProcessed}`);
+console.log(`IDs renamed: ${totalRenamed}`);  
+console.log(`IDs already correct (skipped): ${totalSkipped}`);
+console.log(`Output: ${outPath}`);
+console.log(`\nReview the .fixed.ts file, then rename it to replace the original.`);
+```
+
+## How to apply safely
+
+1. Run: `node scripts/fix-flashcard-ids.mjs`
+2. Review `src/data/subtopicContent.fixed.ts` -- diff it against the original
+3. Verify no content (text, questions, answers) was changed -- only `id: "..."` fields inside flashcard objects
+4. Replace: `mv src/data/subtopicContent.fixed.ts src/data/subtopicContent.ts`
+5. Test in browser: open any topic, flip flashcards, confirm sidebar rings update correctly
+6. Delete the script: `rm scripts/fix-flashcard-ids.mjs`
+
+## Files created
+
+| File | Purpose |
+|------|---------|
+| `scripts/fix-flashcard-ids.mjs` | One-time fix script |
+
+## Files NOT touched
+
+- `TopicDetail.tsx`, `SubsectionDetail.tsx`, `SectionNav.tsx`
+- Any hooks, components, or UI files
+- No database migrations
+- The original `subtopicContent.ts` is not overwritten (script outputs to `.fixed.ts`)
+
+## Edge cases handled
+
+- Cards already matching the correct pattern are skipped (idempotent)
+- Multiple flashcard blocks in the same section get independent zero-based indexing per block
+- Section IDs at different nesting levels (the script matches 4-space indented `id:` lines, which are the section-level objects in the arrays)
+
