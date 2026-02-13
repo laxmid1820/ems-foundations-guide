@@ -6,8 +6,6 @@ import { Badge } from "@/components/ui/badge";
 import { useAuth } from "@/contexts/AuthContext";
 import { topics } from "@/data/topics";
 import { ProgressRing } from "@/components/gamification/ProgressRing";
-import { XPCounter } from "@/components/gamification/XPCounter";
-import { StreakBadge } from "@/components/gamification/StreakBadge";
 import {
   BookOpen,
   Heart,
@@ -15,10 +13,9 @@ import {
   LogOut,
   Sparkles,
   Play,
-  Flame,
-  Zap,
 } from "lucide-react";
 import { RecentQuizzes } from "@/components/dashboard/RecentQuizzes";
+import { XPHeadquarters } from "@/components/dashboard/XPHeadquarters";
 
 const progressFieldMap: Record<string, "airway_progress" | "cardiac_progress" | "shock_progress"> = {
   "airway-management": "airway_progress",
@@ -83,38 +80,8 @@ const Dashboard = () => {
           )}
         </div>
 
-        {/* Stats Row */}
-        {user && profile && (
-          <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 mb-8">
-            <Card className="rounded-2xl border-2">
-              <CardContent className="p-5 flex items-center gap-3">
-                <div className="h-10 w-10 rounded-xl bg-xp/10 flex items-center justify-center">
-                  <Zap className="h-5 w-5 text-xp fill-current" />
-                </div>
-                <div>
-                  <p className="text-2xl font-extrabold text-foreground">{profile.xp_total}</p>
-                  <p className="text-xs text-muted-foreground font-medium">Total XP</p>
-                </div>
-              </CardContent>
-            </Card>
-            <Card className="rounded-2xl border-2">
-              <CardContent className="p-5 flex items-center gap-3">
-                <div className="h-10 w-10 rounded-xl bg-destructive/10 flex items-center justify-center">
-                  <Flame className="h-5 w-5 text-destructive fill-current" />
-                </div>
-                <div>
-                  <p className="text-2xl font-extrabold text-foreground">{profile.current_streak}</p>
-                  <p className="text-xs text-muted-foreground font-medium">Day Streak</p>
-                </div>
-              </CardContent>
-            </Card>
-            <Card className="rounded-2xl border-2 col-span-2 sm:col-span-1">
-              <CardContent className="p-5 flex items-center justify-center">
-                <ProgressRing progress={overallProgress} size={80} strokeWidth={8} />
-              </CardContent>
-            </Card>
-          </div>
-        )}
+        {/* XP Headquarters */}
+        {user && profile && <XPHeadquarters />}
 
         {/* Progress Overview (non-logged-in) */}
         {!user && (
