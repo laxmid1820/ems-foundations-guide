@@ -1,88 +1,120 @@
 
 
-# UX Enhancements for Quiz Configuration
+# Dashboard XP Breakdown -- Refined with Motivational Polish
 
-Three small additions to the Quiz Config Panel (from the approved plan), all positive and encouraging in tone.
+## Overview
 
-## 1. Dynamic Mock Count Display
+Add a "XP Headquarters" section to the Dashboard with a global XP ring, three certification-level cards, and per-domain breakdowns. All data derived from existing `profiles.xp_total` and `quiz_attempts` tables -- no migrations needed.
 
-After the user selects "Full Mock," the pill button updates to show the randomized count:
+## Refinements Applied
 
-**Full Mock (87)**
+### 1. Warmer Milestone Messages (Global Ring)
 
-This count is computed immediately on selection using the existing `getMockCount()` logic and displayed in parentheses on the pill itself.
+Tiered messages displayed beneath the global XP ring:
 
-## 2. Bank Size Fallback Note
+- 0: "Your journey starts now -- every question counts!"
+- 1-99: "First steps taken -- you're already ahead of most!"
+- 100-249: "First 100 down -- momentum is building!"
+- 250-499: "Quarter-thousand club -- seriously impressive!"
+- 500-999: "Halfway to a thousand -- unstoppable!"
+- 1000-2499: "1,000+ EXP -- future paramedic energy!"
+- 2500+: "Legend status -- you're inspiring others!"
 
-When Full Mock is selected, if the question bank for that level has fewer questions than the minimum mock range (EMT: 70, AEMT: 135, Paramedic: 110), show a friendly note below the pills:
+### 2. Locked EXP Tooltip on Global XP
 
-> "You'll get every question we have -- great for a full review!"
+Next to the global XP number, a small Lock icon wrapped in a Tooltip:
 
-To determine this, `get-quiz` already returns however many questions are available. The client computes the mock count, passes it as `limit`, and if the returned question count is less than requested, the note appears on the session screen header. Alternatively, a lightweight count query can be done at configure time.
+"Total locked EXP -- includes quizzes, content progress, and flashcards."
 
-**Recommended approach:** When entering the configure phase, run a quick count query against `quiz_questions` for the selected level. Store it in `useQuiz` state as `bankSize`. Then in `QuizConfigPanel`:
+Uses the existing `Tooltip` / `TooltipTrigger` / `TooltipContent` components and the `Lock` icon from lucide-react. Keeps tone informative and positive.
 
-- If `bankSize < mockCount`, show the note
-- The pill still shows the target count but with the note clarifying the actual availability
+### 3. Encouraging Empty State per Level
 
-## 3. Tooltip on Immediate-Answers Toggle
+When a level has 0 quiz XP, the level card shows a friendly empty state instead of empty bars:
 
-Wrap the toggle label or an info icon next to it with the existing `Tooltip` component from `@/components/ui/tooltip`:
+- EMT: "Ready to earn your first EMT XP? Dive into a quiz now!"
+- AEMT: "Ready to earn your first AEMT XP? Dive into a quiz now!"
+- Paramedic: "Ready to earn your first Paramedic XP? Dive into a quiz now!"
 
-> "See explanations instantly to reinforce learning -- turn off for timed simulation."
+Each includes a small "Start Quiz" button linking to `/quizzes`. The domain breakdown is hidden when XP is 0 to keep it clean.
 
-Uses the existing `Tooltip`, `TooltipTrigger`, `TooltipContent`, and `TooltipProvider` components already in the project.
+### 4. Mobile-First Level Card Layout
+
+Level cards use `grid-cols-1 sm:grid-cols-3` so they stack vertically on mobile and sit side-by-side on desktop. Each card gets full width on small screens with consistent padding.
 
 ## Technical Details
 
-### Files affected (all within the upcoming implementation)
+### Files to create
+
+| File | Purpose |
+|---|---|
+| `src/hooks/useLevelXP.ts` | React Query hook aggregating quiz XP by level and domain |
+| `src/components/dashboard/XPHeadquarters.tsx` | Main wrapper: global card + level cards grid |
+| `src/components/dashboard/GlobalXPCard.tsx` | Hero ring with amber accents, locked EXP tooltip, milestone message |
+| `src/components/dashboard/LevelXPCard.tsx` | Per-level card with domain bars or empty state |
+
+### Files to modify
 
 | File | Change |
 |---|---|
-| `src/hooks/useQuiz.ts` | Add `bankSize` state; fetch count when entering configure phase |
-| `src/components/quiz/QuizConfigPanel.tsx` | (1) Show computed mock count on pill, (2) conditionally render bank-size note, (3) add Tooltip to toggle |
+| `src/components/gamification/ProgressRing.tsx` | Add optional `strokeColor` prop (default: success, override: xp amber) |
+| `src/pages/Dashboard.tsx` | Replace stats row with `<XPHeadquarters />` |
 
-### `useQuiz.ts` additions
+### `useLevelXP` hook
 
-- New state: `bankSize: number | null`
-- In `configureQuiz(level)`: query `select count from quiz_questions where level = $level` via Supabase client, store result in `bankSize`
-- Expose `bankSize` from the hook
-
-### `QuizConfigPanel.tsx` additions
-
-**Mock count on pill:**
 ```text
-quizLength === "mock"
-  ? `Full Mock (${mockCount})`
-  : "Full Mock"
-```
-Where `mockCount` is computed once on selection and held in local state.
-
-**Bank size note (conditionally rendered):**
-```text
-{quizLength === "mock" && bankSize !== null && bankSize < mockCount && (
-  <p className="text-sm text-muted-foreground ...">
-    You'll get every question we have -- great for a full review!
-  </p>
-)}
+SELECT level, domain_filter, SUM(xp_earned) as xp
+FROM quiz_attempts
+WHERE user_id = $userId
+GROUP BY level, domain_filter
 ```
 
-**Tooltip on toggle:**
+Returns `{ levelXP, domainXP, isLoading }`. Uses `@tanstack/react-query` with key `["level-xp", userId]`.
+
+### ProgressRing change
+
+Add `strokeColor?: string` prop. Defaults to `hsl(var(--success))`. GlobalXPCard passes `hsl(var(--xp))` for gold/amber.
+
+### Milestone progress calculation
+
 ```text
-<TooltipProvider>
-  <Tooltip>
-    <TooltipTrigger asChild>
-      <Info className="h-4 w-4 text-muted-foreground cursor-help" />
-    </TooltipTrigger>
-    <TooltipContent>
-      See explanations instantly to reinforce learning --
-      turn off for timed simulation.
-    </TooltipContent>
-  </Tooltip>
-</TooltipProvider>
+const nextMilestone = Math.ceil(xp / 500) * 500 || 500;
+const milestoneProgress = (xp / nextMilestone) * 100;
 ```
 
-### Sequencing
+Ring fills toward milestones at 500, 1000, 1500, etc.
 
-These are incorporated directly into the implementation of `QuizConfigPanel.tsx` and `useQuiz.ts` from the main plan -- no separate steps needed. They will be built as part of steps 2 and 3 of the existing plan sequence.
+### GlobalXPCard structure
+
+- Large ProgressRing (size 140, amber stroke)
+- XP number with Lock icon + Tooltip beside it
+- Milestone message below in `text-muted-foreground`
+- Streak badge integrated in top-right corner
+
+### LevelXPCard structure
+
+- Level badge header (EMT / AEMT / Paramedic)
+- If XP > 0: total XP number + domain breakdown bars (amber fill, proportional to max domain)
+- If XP = 0: encouraging message + "Start Quiz" link button
+- Motivational tagline when XP > 0 (e.g., "You're crushing EMT Foundations!")
+
+### Domain breakdown bars
+
+Horizontal bars for each NREMT domain within a level. Gold/amber fill using `bg-xp`. Width proportional to the highest-XP domain in that level. Labels: domain name left, XP number right.
+
+### Visual tokens used
+
+- `text-xp`, `bg-xp/10`, `bg-xp/20` for amber accents
+- `border-2 rounded-2xl` card style
+- `font-extrabold` for numbers
+- `p-6` / `gap-6` spacing
+
+### Implementation sequence
+
+1. Add `strokeColor` prop to ProgressRing
+2. Create `useLevelXP` hook
+3. Create GlobalXPCard with milestone messages and locked tooltip
+4. Create LevelXPCard with empty state and domain bars
+5. Create XPHeadquarters wrapper
+6. Update Dashboard to use XPHeadquarters, remove old stats row
 
