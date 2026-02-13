@@ -1,134 +1,195 @@
-Before implementing, add a subtle floating toast notification (amber background, fades out after 2–3 seconds) every time XP is gained, using/extending XPFloater. Examples: "+15 XP — section mastered!", "+150 XP — topic complete! Badge unlocked!". Keep it non-intrusive and encouraging.  
+Before implementing, add a short motivational teaser above or next to the "Done with Module" button when it appears: "Finish strong! Completing the module unlocks your +150 XP mastery bonus and badge." Use text-sm font-medium text-muted-foreground for subtlety.  
   
-Declutter Sections, Relocate Topic Ring, Replace XP Badges with Rings, Add Slam Animation
+Silent Flashcard XP, Gated Last Section, Module Completion Ceremony
 
 ## Overview
 
-Four focused changes: remove the bottom XP footer from each section card (the sidebar already shows per-section XP), move the large topic XP ring from the page header down to the bottom of the SectionNav sidebar, replace the text XP badges in nav items with small amber progress rings (size 24), and add a "slam" animation that fires on topic mastery (+150 XP) where a badge visually flies toward the global XP counter in the navbar.
+Five changes: silence the flashcard toast, gate the final "Knowledge Check" section behind prior quiz mastery, show a "Done with Module" button after the last knowledge check is 100%, and on click trigger a full-screen completion ceremony (suspenseful ring fill to 100%, confetti, congrats message, badge award, +150 XP slam to navbar).
 
 ---
 
-## 1. Remove Section Footer from TopicSection.tsx
+## 1. Silence Flashcard Toast
 
-**What**: Delete the entire XP footer block (lines 161-199) -- the `border-t bg-muted/30` bar showing `{earned}/{total} XP`, the mini progress ring, and the checkmark overlay. Keep the `ConfettiEffect` on mastery (line 202) since that fires independently.
+**What**: Change the `gainFlashcardXP` reason from `"Flashcard mastered!"` to an empty string or a silent marker so `XPToast` skips it. The +2 XP award stays.
 
-**Why**: The SectionNav sidebar already shows per-section XP progress with rings and badges. The footer is redundant visual noise inside each card.
+**How**: In `src/hooks/useXP.ts` line 82, change the reason to `""`. Then in `src/components/gamification/XPToast.tsx`, add a guard: only show the toast when `gain.reason` is non-empty (line 11: `if (gain.amount > 0 && gain.reason)`).
 
-**Props kept**: `sectionXPEarned`, `sectionXPTotal`, `sectionProgress`, `isMastered` remain on the component interface -- they are still passed by parent pages and used for confetti triggering. No parent changes needed.
-
-**File**: `src/components/topics/TopicSection.tsx` -- remove lines 160-199
+**Files**: `src/hooks/useXP.ts`, `src/components/gamification/XPToast.tsx`
 
 ---
 
-## 2. Move Large Topic XP Ring to Bottom of SectionNav Sidebar
+## 2. Gate the Last Section Behind Prior Knowledge Checks
 
-**What**: Remove the `TopicProgressRing` (size 80) from the page header in both `TopicDetail.tsx` and `SubsectionDetail.tsx`, and instead render it at the bottom of the `SectionNav` sidebar.
+**What**: The last section in every module is a "Knowledge Check" (the title always contains "Knowledge Check" and it is always the final section). Hide it until all quiz questions in ALL prior sections are answered 100% correctly.
 
-**How**:
+**How**: In both `TopicDetail.tsx` and `SubsectionDetail.tsx`, compute a boolean `allPriorQuizzesPerfect`:
 
-- Add two new props to `SectionNavProps`: `topicXPEarned?: number` and `topicXPTotal?: number`
-- In the `SectionNavList` component, after the section list, render a divider + the ring block:
-  ```
-  {topicXPTotal > 0 && (
-    <div className="mt-4 pt-4 border-t border-border flex flex-col items-center gap-1.5">
-      <TopicProgressRing size={80} strokeWidth={6} progress={topicProgress} showMessage={false} />
-      <span className="text-xs font-bold text-xp">{topicXPEarned}/{topicXPTotal} XP</span>
-      <span className="text-xs font-medium text-muted-foreground text-center max-w-[140px]">
-        {motivationalLabel}
-      </span>
-    </div>
-  )}
-  ```
-- Motivational labels (same tiers as before): 0% = "Start earning XP -- every quiz counts!", <50% = "Building strong foundations -- keep going!", <80% = "Halfway there -- mastery is close!", <100% = "Almost mastered -- one more push!", 100% = "Topic complete -- incredible work!"
-- In `TopicDetail.tsx` header (lines 307-329): remove the `hidden sm:flex` div containing the ring, keep the icon + title block unchanged
-- In `SubsectionDetail.tsx` header (lines 348-352): same removal
-- Pass `topicXPEarned` and `topicXPTotal` from both pages when rendering `<SectionNav>`
-
-**Files**: `src/components/topics/SectionNav.tsx`, `src/pages/TopicDetail.tsx`, `src/pages/SubsectionDetail.tsx`
-
----
-
-## 3. Replace XP Text Badges with Small Amber Rings in SectionNav
-
-**What**: Replace the `<Badge>` showing `"10/25 XP"` or `"25 XP"` (lines 78-99 in SectionNav.tsx) with a `TopicProgressRing` (size 24, strokeWidth 3, amber, no text/message). This replaces text with a purely visual ring that fills as XP is earned.
-
-**Current behavior**: Each nav item shows three possible states via the left icon (number / ring / check) AND a right-side XP badge. The badge is redundant with the ring.
-
-**New behavior**:
-
-- Remove the entire right-side Badge + Tooltip block (lines 70-100)
-- The left-side icon already shows: number (unstarted), ring (in-progress), check (mastered) -- this is sufficient
-- Add XP tooltip to the existing left-side ring/check icon so users can still see exact XP on hover
-- For the mastered state, keep the amber check circle but wrap it in a tooltip showing `"{total} XP earned"`
-- For the in-progress state, wrap the existing ring in a tooltip showing `"{earned}/{total} XP"`
-
-**File**: `src/components/topics/SectionNav.tsx`
-
----
-
-## 4. "Slam" Animation on Topic Mastery
-
-**What**: When the +150 XP topic mastery bonus fires, animate a badge/XP icon that scales up at the center of the viewport, then "slams" (shrinks + translates) toward the top-right navbar XP counter position.
-
-**How**:
-
-- Create a new component `src/components/gamification/XPSlam.tsx`
-- Props: `trigger: boolean`, `amount: number` (default 150)
-- When `trigger` flips to true:
-  1. Render a fixed-position overlay element at viewport center with the Zap icon + "+150 XP" text
-  2. Apply a two-phase CSS animation:
-    - Phase 1 (0-400ms): scale from 0 to 1.2 with opacity fade-in (the "pop")
-    - Phase 2 (400-800ms): scale down to 0.3, translate to top-right corner (approximate navbar XP counter position: `top: 16px, right: 120px`), then fade out
-  3. After 1s, unmount
-- Add keyframes to `tailwind.config.ts`:
-  ```
-  "xp-slam": {
-    "0%": { transform: "translate(-50%, -50%) scale(0)", opacity: "0" },
-    "40%": { transform: "translate(-50%, -50%) scale(1.3)", opacity: "1" },
-    "100%": { transform: "translate(calc(50vw - 120px), calc(-50vh + 24px)) scale(0.3)", opacity: "0" }
+```
+const allPriorQuizzesPerfect = useMemo(() => {
+  if (!sections || sections.length < 2) return true;
+  const priorSections = sections.slice(0, -1);
+  for (const s of priorSections) {
+    const quizIds = sectionQuizMap.get(s.id) || [];
+    const correctSet = sectionCorrect.get(s.id);
+    if (quizIds.length > 0 && (!correctSet || correctSet.size < quizIds.length)) {
+      return false;
+    }
   }
-  ```
-  And animation: `"xp-slam": "xp-slam 0.9s cubic-bezier(0.34, 1.56, 0.64, 1) forwards"`
-- Usage: In both `TopicDetail.tsx` and `SubsectionDetail.tsx`, render `<XPSlam trigger={topicBonusAwarded} amount={150} />` alongside the existing `<ConfettiEffect trigger={topicBonusAwarded} intensity="big" />`
+  return true;
+}, [sections, sectionQuizMap, sectionCorrect]);
+```
 
-**File**: new `src/components/gamification/XPSlam.tsx`, `tailwind.config.ts`, `src/pages/TopicDetail.tsx`, `src/pages/SubsectionDetail.tsx`
+Then in the sections `.map()`, for the last section (index === sections.length - 1), conditionally render:
+
+- If `!allPriorQuizzesPerfect`: show a locked placeholder card (amber border, lock icon, "Complete all knowledge checks above to unlock the final quiz")
+- If unlocked: render the normal `TopicSection`
+
+**Files**: `src/pages/TopicDetail.tsx`, `src/pages/SubsectionDetail.tsx`
+
+---
+
+## 3. "Done with Module" Button After Last Knowledge Check
+
+**What**: After the last section is unlocked AND all its quizzes are answered 100% correctly, show a prominent "Done with Module" button below the last section.
+
+**How**: Compute `lastSectionPerfect` -- check if the last section's quiz IDs are all in `sectionCorrect`. When both `allPriorQuizzesPerfect` and `lastSectionPerfect` are true, and `topicBonusAwarded` is false, render:
+
+```
+<Button variant="duo" size="lg" className="w-full" onClick={handleModuleComplete}>
+  Done with Module
+</Button>
+```
+
+The button is amber-styled (variant="duo" already uses the brand green -- may need a new `variant="xp"` or inline amber styling: `bg-xp text-xp-foreground hover:bg-xp/90`).
+
+**Files**: `src/pages/TopicDetail.tsx`, `src/pages/SubsectionDetail.tsx`
+
+---
+
+## 4. Module Completion Ceremony (on button click)
+
+**What**: Clicking "Done with Module" triggers a multi-step celebration sequence:
+
+1. **+5 XP** awarded immediately (module completion tap reward)
+2. **Full-screen overlay** appears with a large `TopicProgressRing` (size 160) that animates from current progress to 100% over ~2 seconds (suspenseful fill)
+3. After ring hits 100%: **confetti burst** (big intensity) + congratulations message ("Module complete -- incredible work!") fades in
+4. **Achievement badge** ("topic-mastered") appears with scale-in animation
+5. After 1s pause: **+150 XP slam** animation fires (existing `XPSlam` component) -- bounces from center toward top-right global XP counter
+6. After slam completes (~1s): overlay fades out, `topicBonusAwarded` is set to true
+
+**How**: Create a new component `ModuleCompletionCeremony`:
+
+```typescript
+interface ModuleCompletionCeremonyProps {
+  trigger: boolean;
+  onComplete: () => void;
+}
+```
+
+Internal state machine with phases: `idle` -> `ring-fill` -> `celebrate` -> `slam` -> `done`
+
+- `ring-fill` (0-2s): Render full-screen backdrop with centered ring, animate progress from current to 100 using `requestAnimationFrame` or CSS transition
+- `celebrate` (2-3.5s): Show confetti + congrats text + badge with fade-in
+- `slam` (3.5-4.5s): Trigger `XPSlam` component
+- `done` (4.5s): Call `onComplete()`, unmount
+
+The ring animation uses a state variable that increments from `currentProgress` to 100 over 2 seconds via `useEffect` + `setInterval(16ms)`.
+
+**File**: New `src/components/gamification/ModuleCompletionCeremony.tsx`
+
+---
+
+## 5. Wire It All Together
+
+In `TopicDetail.tsx` and `SubsectionDetail.tsx`:
+
+```typescript
+const [showCeremony, setShowCeremony] = useState(false);
+
+const handleModuleComplete = useCallback(() => {
+  addXP(5, "Module completed!");
+  setShowCeremony(true);
+}, [addXP]);
+
+const handleCeremonyComplete = useCallback(() => {
+  addXP(150, "Topic mastered — +150 XP unlocked!");
+  setTopicBonusAwarded(true);
+  setShowCeremony(false);
+}, [addXP]);
+```
+
+Remove the existing auto-trigger `useEffect` for topicBonusAwarded (the one that checks `allQuizAnswers.size >= totalQuizCount && accuracy > 80`). The bonus is now only awarded through the ceremony flow.
+
+Render:
+
+```
+<ModuleCompletionCeremony trigger={showCeremony} onComplete={handleCeremonyComplete} />
+```
+
+**Files**: `src/pages/TopicDetail.tsx`, `src/pages/SubsectionDetail.tsx`
 
 ---
 
 ## Files Summary
 
 
-| File                                     | Changes                                                                                                                   |
-| ---------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- |
-| `src/components/topics/TopicSection.tsx` | Remove XP footer block (lines 160-199), keep confetti                                                                     |
-| `src/components/topics/SectionNav.tsx`   | Add topic ring at sidebar bottom; replace XP badges with tooltip-wrapped icons; new props `topicXPEarned`, `topicXPTotal` |
-| `src/pages/TopicDetail.tsx`              | Remove header ring; pass topic XP totals to SectionNav; add XPSlam                                                        |
-| `src/pages/SubsectionDetail.tsx`         | Remove header ring; pass topic XP totals to SectionNav; add XPSlam                                                        |
-| `src/components/gamification/XPSlam.tsx` | New component -- slam animation on mastery                                                                                |
-| `tailwind.config.ts`                     | Add `xp-slam` keyframe + animation                                                                                        |
+| File                                                       | Changes                                                                                   |
+| ---------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
+| `src/hooks/useXP.ts`                                       | Change flashcard reason to "" (silent)                                                    |
+| `src/components/gamification/XPToast.tsx`                  | Skip toast when reason is empty                                                           |
+| `src/pages/TopicDetail.tsx`                                | Gate last section, add "Done with Module" button, wire ceremony, remove auto-bonus effect |
+| `src/pages/SubsectionDetail.tsx`                           | Same gating + button + ceremony wiring                                                    |
+| `src/components/gamification/ModuleCompletionCeremony.tsx` | New -- full-screen ceremony overlay with phased animations                                |
 
 
 ---
 
-## Technical Notes
+## Technical Details
 
-### XPSlam animation mechanics
+### Gated section locked placeholder
 
-The component uses a single CSS animation with `forwards` fill mode. The translate values use viewport-relative calc() to target the approximate position of the navbar XP counter (top-right area). The cubic-bezier curve gives an elastic "pop" feel consistent with the Duolingo aesthetic.
-
-### SectionNav prop additions
-
-```typescript
-interface SectionNavProps {
-  sections: { id: string; title: string }[];
-  masteredSections: Set<string>;
-  activeSectionId: string | null;
-  sectionXPMap?: Map<string, { earned: number; total: number }>;
-  topicXPEarned?: number;   // NEW
-  topicXPTotal?: number;    // NEW
-}
+```text
+<section className="mb-6 rounded-2xl border-2 border-dashed border-xp/30 bg-xp/5 p-8 text-center">
+  <Lock className="h-8 w-8 text-xp/50 mx-auto mb-3" />
+  <p className="font-bold text-foreground mb-1">Final Knowledge Check</p>
+  <p className="text-sm text-muted-foreground">
+    Answer all section quizzes correctly to unlock
+  </p>
+</section>
 ```
 
-### TopicSection interface unchanged
+### ModuleCompletionCeremony animation phases
 
-All XP props remain on TopicSectionProps -- only the JSX rendering of the footer is removed. This avoids any breaking changes in parent components.
+```text
+Phase timeline:
+0ms      -> ring-fill starts (progress animates currentProg -> 100)
+2000ms   -> confetti + "Module complete!" + badge fade in
+3500ms   -> XPSlam fires (+150 XP)
+4500ms   -> overlay fades out, onComplete() called
+```
+
+The ring fill uses:
+
+```typescript
+useEffect(() => {
+  if (phase !== 'ring-fill') return;
+  const start = Date.now();
+  const duration = 2000;
+  const startProg = initialProgress;
+  const interval = setInterval(() => {
+    const elapsed = Date.now() - start;
+    const t = Math.min(elapsed / duration, 1);
+    const eased = 1 - Math.pow(1 - t, 3); // ease-out cubic
+    setRingProgress(startProg + (100 - startProg) * eased);
+    if (t >= 1) {
+      clearInterval(interval);
+      setPhase('celebrate');
+    }
+  }, 16);
+  return () => clearInterval(interval);
+}, [phase]);
+```
+
+### Preserving existing completion callouts
+
+The existing completion callout section (lines 360-400 in TopicDetail.tsx) should be simplified: remove the accuracy-based conditional branches and just show the ceremony trigger or post-ceremony badge. After `topicBonusAwarded` is true, show the existing mastery callout with the `AchievementBadge`.
