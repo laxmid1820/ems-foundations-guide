@@ -18,6 +18,7 @@ import {
   Flame,
   Zap,
 } from "lucide-react";
+import { RecentQuizzes } from "@/components/dashboard/RecentQuizzes";
 
 const progressFieldMap: Record<string, "airway_progress" | "cardiac_progress" | "shock_progress"> = {
   "airway-management": "airway_progress",
@@ -239,6 +240,9 @@ const Dashboard = () => {
             );
           })}
         </div>
+
+        {/* Recent Quizzes */}
+        {user && <RecentQuizzes />}
 
         {/* Quick Actions */}
         <div className="flex flex-wrap gap-3 justify-center">
