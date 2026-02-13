@@ -1,6 +1,7 @@
 import { Layout } from "@/components/Layout";
 import { useQuiz } from "@/hooks/useQuiz";
 import { QuizLevelCard } from "@/components/quiz/QuizLevelCard";
+import { QuizConfigPanel } from "@/components/quiz/QuizConfigPanel";
 import { QuizSession } from "@/components/quiz/QuizSession";
 import { QuizResults } from "@/components/quiz/QuizResults";
 import { useXP } from "@/hooks/useXP";
@@ -104,11 +105,26 @@ const Quizzes = () => {
                 <QuizLevelCard
                   key={l.level}
                   {...l}
-                  onClick={() => quiz.startQuiz(l.level)}
+                  onClick={() => quiz.configureQuiz(l.level)}
                 />
               ))}
             </div>
           </div>
+        )}
+
+        {/* Configure phase */}
+        {quiz.phase === "configure" && (
+          <QuizConfigPanel
+            level={quiz.selectedLevel}
+            levelLabel={LEVELS.find((l) => l.level === quiz.selectedLevel)?.label || quiz.selectedLevel}
+            bankSize={quiz.bankSize}
+            quizLength={quiz.quizLength}
+            immediateAnswers={quiz.immediateAnswers}
+            onQuizLengthChange={quiz.setQuizLength}
+            onImmediateAnswersChange={quiz.setImmediateAnswers}
+            onStart={() => quiz.startQuiz()}
+            onBack={quiz.resetQuiz}
+          />
         )}
 
         {/* Active quiz session */}
