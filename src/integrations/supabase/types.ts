@@ -18,6 +18,7 @@ export type Database = {
         Row: {
           airway_progress: number
           avatar_url: string | null
+          badges: Json | null
           cardiac_arrest_sim_progress: number
           cardiac_progress: number
           created_at: string
@@ -33,6 +34,7 @@ export type Database = {
         Insert: {
           airway_progress?: number
           avatar_url?: string | null
+          badges?: Json | null
           cardiac_arrest_sim_progress?: number
           cardiac_progress?: number
           created_at?: string
@@ -48,6 +50,7 @@ export type Database = {
         Update: {
           airway_progress?: number
           avatar_url?: string | null
+          badges?: Json | null
           cardiac_arrest_sim_progress?: number
           cardiac_progress?: number
           created_at?: string

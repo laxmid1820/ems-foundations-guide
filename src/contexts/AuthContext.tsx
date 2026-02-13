@@ -14,6 +14,7 @@ interface Profile {
   xp_total: number;
   current_streak: number;
   last_active_date: string | null;
+  badges: Array<{ type: string; topicSlug: string; awardedAt: string }>;
   created_at: string;
   updated_at: string;
 }

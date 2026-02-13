@@ -1,6 +1,9 @@
 import { useState, useEffect, useCallback, useMemo, useRef } from "react";
 import { useParams, Link } from "react-router-dom";
 import { useXP } from "@/hooks/useXP";
+import { useAuth } from "@/contexts/AuthContext";
+import { supabase } from "@/integrations/supabase/client";
+import { toast } from "@/hooks/use-toast";
 import { Layout } from "@/components/Layout";
 import { Button } from "@/components/ui/button";
 import { ConfettiEffect } from "@/components/gamification/ConfettiEffect";
@@ -184,11 +187,30 @@ const TopicDetail = () => {
     setShowCeremony(true);
   }, [addXP]);
 
-  const handleCeremonyComplete = useCallback(() => {
+  const { user, profile, refreshProfile } = useAuth();
+
+  const handleCeremonyComplete = useCallback(async () => {
     addXP(150, "Topic mastered — +150 XP unlocked!");
     setTopicBonusAwarded(true);
     setShowCeremony(false);
-  }, [addXP]);
+
+    // Award badge
+    if (user && profile) {
+      const existingBadges = (profile.badges as any[]) || [];
+      if (!existingBadges.some((b: any) => b.type === "topic-mastered" && b.topicSlug === slug)) {
+        const newBadge = { type: "topic-mastered", topicSlug: slug, awardedAt: new Date().toISOString() };
+        await supabase
+          .from("profiles")
+          .update({ badges: [...existingBadges, newBadge] } as any)
+          .eq("user_id", user.id);
+        refreshProfile();
+        toast({
+          title: "🏅 Badge unlocked!",
+          description: "Topic mastered badge unlocked! +1 badge",
+        });
+      }
+    }
+  }, [addXP, user, profile, slug, refreshProfile]);
 
   // Find Knowledge Check section by pattern (not array position)
   const knowledgeCheckIndex = useMemo(() => {

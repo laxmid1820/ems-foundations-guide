@@ -6,6 +6,7 @@ import { cn } from "@/lib/utils";
 import { useAuth } from "@/contexts/AuthContext";
 import { XPCounter } from "@/components/gamification/XPCounter";
 import { StreakBadge } from "@/components/gamification/StreakBadge";
+import { BadgeCounter } from "@/components/gamification/BadgeCounter";
 
 const navLinks = [
   { name: "Home", path: "/" },
@@ -65,6 +66,7 @@ export function Navbar() {
             {user && profile && (
               <>
                 <XPCounter xp={profile.xp_total} />
+                <BadgeCounter count={((profile.badges as any[]) || []).length} />
                 <StreakBadge streak={profile.current_streak} />
               </>
             )}
@@ -111,6 +113,7 @@ export function Navbar() {
             {user && profile && (
               <div className="flex items-center gap-2 px-4 py-2">
                 <XPCounter xp={profile.xp_total} />
+                <BadgeCounter count={((profile.badges as any[]) || []).length} />
                 <StreakBadge streak={profile.current_streak} />
               </div>
             )}
