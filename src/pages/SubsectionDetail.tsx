@@ -217,29 +217,47 @@ const SubsectionDetail = () => {
     setShowCeremony(false);
   }, [addXP]);
 
-  // Gate last section behind prior quiz mastery
+  // Find Knowledge Check section by pattern (not array position)
+  const knowledgeCheckIndex = useMemo(() => {
+    if (!richSections) return -1;
+    return richSections.findIndex(
+      (s) =>
+        s.title.toLowerCase().includes("knowledge check") ||
+        s.id.includes("knowledge-check") ||
+        s.id.endsWith("-quiz")
+    );
+  }, [richSections]);
+
+  // Gate Knowledge Check behind prior quiz mastery
   const allPriorQuizzesPerfect = useMemo(() => {
-    if (!richSections || richSections.length < 2) return true;
-    const priorSections = richSections.slice(0, -1);
+    if (!richSections || knowledgeCheckIndex < 1) return true;
+    const priorSections = richSections.slice(0, knowledgeCheckIndex);
+    console.log('[GATE DEBUG] priorSections:', priorSections.length,
+      'knowledgeCheckIndex:', knowledgeCheckIndex);
     for (const s of priorSections) {
       const quizIds = sectionQuizMap.get(s.id) || [];
       const correctSet = sectionCorrect.get(s.id);
+      console.log(`  section ${s.id}: quizIds=${quizIds.length}, correct=${correctSet?.size || 0}`);
       if (quizIds.length > 0 && (!correctSet || correctSet.size < quizIds.length)) {
         return false;
       }
     }
     return true;
-  }, [richSections, sectionQuizMap, sectionCorrect]);
+  }, [richSections, knowledgeCheckIndex, sectionQuizMap, sectionCorrect]);
 
-  // Check if last section quizzes are all perfect
-  const lastSectionPerfect = useMemo(() => {
-    if (!richSections || richSections.length === 0) return false;
-    const lastSection = richSections[richSections.length - 1];
-    const quizIds = sectionQuizMap.get(lastSection.id) || [];
+  // Check if Knowledge Check quizzes are all perfect
+  const knowledgeCheckPerfect = useMemo(() => {
+    if (!richSections || knowledgeCheckIndex < 0) return false;
+    const kcSection = richSections[knowledgeCheckIndex];
+    const quizIds = sectionQuizMap.get(kcSection.id) || [];
     if (quizIds.length === 0) return false;
-    const correctSet = sectionCorrect.get(lastSection.id);
-    return correctSet ? correctSet.size >= quizIds.length : false;
-  }, [richSections, sectionQuizMap, sectionCorrect]);
+    const correctSet = sectionCorrect.get(kcSection.id);
+    const result = correctSet ? correctSet.size >= quizIds.length : false;
+    console.log('[KC DEBUG] kcSection:', kcSection.id,
+      'quizIds:', quizIds.length, 'correct:', correctSet?.size || 0,
+      'perfect:', result);
+    return result;
+  }, [richSections, knowledgeCheckIndex, sectionQuizMap, sectionCorrect]);
 
   const handleTabViewed = useCallback((index: number) => {
     setTabsViewed(prev => new Set(prev).add(index));
@@ -389,15 +407,15 @@ const SubsectionDetail = () => {
           {richSections ? (
             <>
               {richSections.map((section, index) => {
-                const isLast = index === richSections.length - 1;
-                // Gate last section
-                if (isLast && !allPriorQuizzesPerfect) {
+                const isKnowledgeCheck = index === knowledgeCheckIndex;
+                // Gate Knowledge Check section
+                if (isKnowledgeCheck && !allPriorQuizzesPerfect) {
                   return (
                     <section key={section.id} className="mb-6 rounded-2xl border-2 border-dashed border-xp/30 bg-xp/5 p-8 text-center">
                       <Lock className="h-8 w-8 text-xp/50 mx-auto mb-3" />
                       <p className="font-bold text-foreground mb-1">Final Knowledge Check</p>
                       <p className="text-sm text-muted-foreground">
-                        Answer all section quizzes correctly to unlock
+                        Complete all prior knowledge checks 100% to unlock the final Knowledge Check section!
                       </p>
                     </section>
                   );
@@ -426,7 +444,7 @@ const SubsectionDetail = () => {
               })}
 
               {/* Done with Module button */}
-              {allPriorQuizzesPerfect && lastSectionPerfect && !topicBonusAwarded && (
+              {allPriorQuizzesPerfect && knowledgeCheckPerfect && !topicBonusAwarded && (
                 <div className="mt-8 space-y-3">
                   <p className="text-sm font-medium text-muted-foreground text-center">
                     Finish strong! Completing the module unlocks your +150 XP mastery bonus and badge.
