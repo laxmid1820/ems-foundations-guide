@@ -1,113 +1,87 @@
-Before implementing, add a brief "Badge unlocked!" toast (amber background, fades out after 2–3s) when the badge is awarded in handleCeremonyComplete. Reuse/extend XPToast or XPFloater. Example: "Topic mastered badge unlocked! +1 badge". Keep it subtle and encouraging.  
-  
-Badge System: Topic Mastery Badges with Navbar Counter
 
-## Overview
 
-Add a persistent badge tracking system that awards a "topic-mastered" badge when the +150 XP ceremony fires, stores badges in the database, and displays a live amber badge counter next to the XP counter in the navbar.
+# Fix: Remove Scroll-Based XP and Correct XP Math
 
-## Architecture Decision: Database vs Local State
+## Problem
 
-Badges should be stored in the **database** (not local state) so they persist across sessions and devices. The simplest approach: add a `badges` column (JSONB array) to the existing `profiles` table.
+Two bugs exist in both `TopicDetail.tsx` and `SubsectionDetail.tsx`:
 
-## Changes Required
+1. **Scroll-based XP**: The `IntersectionObserver` auto-masters quiz-free sections when they scroll into view, awarding +15 XP (`gainSectionMasteryXP()`) passively. This means simply scrolling through a topic awards XP for every section that has no quizzes.
 
-### 1. Database Migration
+2. **XP math mismatch**: The inline `xpTotal`/`xpEarned` values passed to each `TopicSection` component omit flashcard XP, while the `sectionXPMap` (used by `SectionNav`) correctly includes it. This causes the section cards and the sidebar to show different numbers.
 
-Add a `badges` JSONB column to `profiles`:
+## Root Cause
 
-```sql
-ALTER TABLE public.profiles
-ADD COLUMN badges jsonb DEFAULT '[]'::jsonb;
-```
+**Bug 1** -- In both files, the `IntersectionObserver` callback (TopicDetail line ~114, SubsectionDetail line ~143) checks `quizIds.length === 0` and immediately calls `gainSectionMasteryXP()` + marks the section mastered. This fires +15 XP just for scrolling past a text-only section.
 
-Each badge entry:
+**Bug 2** -- In the `.map()` render loop, `xpTotal` is calculated as `quizCount * 10 + 15` (missing `flashcardCount * 2`), and `xpEarned` is `correctCount * 10 + (mastered ? 15 : 0)` (missing `flippedInSection * 2`). The `sectionXPMap` used by `SectionNav` correctly includes both.
 
-```json
-{ "type": "topic-mastered", "topicSlug": "airway-management", "awardedAt": "2026-02-13T..." }
-```
+## Fix
 
-### 2. Update AuthContext (`src/contexts/AuthContext.tsx`)
+### Rule: Section mastery (+15 XP) only for sections with quizzes, only on 100% correctness
 
-Add `badges` to the `Profile` interface:
+- Quiz-free sections get **no mastery bonus** and **no scroll XP**
+- They can still earn flashcard XP (+2 per flip) if they contain flashcards
+- They are visually marked as "complete" (checkmark in nav) once viewed, but award 0 mastery XP
+- Their `total` XP is `flashcardCount * 2` (no +15 bonus)
+- Sections with quizzes keep: `total = quizCount * 10 + flashcardCount * 2 + 15`
 
-```typescript
-badges: Array<{ type: string; topicSlug: string; awardedAt: string }>;
-```
+### Changes in both `TopicDetail.tsx` and `SubsectionDetail.tsx`:
 
-### 3. Create `BadgeCounter` Component (`src/components/gamification/BadgeCounter.tsx`)
+#### 1. IntersectionObserver -- Remove XP award, keep visual tracking
 
-A small amber pill next to the XP counter showing badge count:
+Remove `gainSectionMasteryXP()` from the observer. Keep `setMasteredSections` for quiz-free sections (visual checkmark only, no XP):
 
 ```typescript
-// Amber/gold pill with Star icon + count
-// Style: rounded-full bg-amber-500/10 text-amber-500 font-bold
-// Shows "2" (count of badges array)
-// Animate scale-in on increment
+// Before (awards XP on scroll):
+if (quizIds.length === 0 && !masteredRef.current.has(sectionId)) {
+  gainSectionMasteryXP();                    // REMOVE THIS
+  setMasteredSections((ms) => new Set(ms).add(sectionId));  // keep for visual
+}
+
+// After (no XP, visual only):
+if (quizIds.length === 0 && !masteredRef.current.has(sectionId)) {
+  setMasteredSections((ms) => new Set(ms).add(sectionId));
+}
 ```
 
-### 4. Update `handleCeremonyComplete` in `TopicDetail.tsx` and `SubsectionDetail.tsx`
+#### 2. sectionXPMap -- Conditional mastery bonus
 
-After awarding +150 XP, write the badge to the database:
+Only include +15 in `total` when the section has quizzes:
 
 ```typescript
-const handleCeremonyComplete = useCallback(async () => {
-  addXP(150, "Topic mastered — +150 XP unlocked!");
-  setTopicBonusAwarded(true);
-  setShowCeremony(false);
-
-  // Award badge
-  if (user && profile) {
-    const newBadge = { type: "topic-mastered", topicSlug: slug, awardedAt: new Date().toISOString() };
-    const existingBadges = profile.badges || [];
-    // Prevent duplicates
-    if (!existingBadges.some(b => b.type === "topic-mastered" && b.topicSlug === slug)) {
-      await supabase
-        .from("profiles")
-        .update({ badges: [...existingBadges, newBadge] })
-        .eq("user_id", user.id);
-      refreshProfile();
-    }
-  }
-}, [addXP, user, profile, slug, refreshProfile]);
+const masteryBonus = quizCount > 0 ? 15 : 0;
+const total = quizCount * 10 + flashcardCount * 2 + masteryBonus;
+const earned = correct * 10 + flippedInSection * 2 + (mastered && quizCount > 0 ? 15 : 0);
 ```
 
-### 5. Update Navbar (`src/components/Navbar.tsx`)
+#### 3. Inline render XP values -- Include flashcards, conditional mastery
 
-Add `BadgeCounter` next to `XPCounter` and `StreakBadge`:
+Fix the `.map()` render loop to match `sectionXPMap` logic:
 
-```tsx
-{user && profile && (
-  <>
-    <XPCounter xp={profile.xp_total} />
-    <BadgeCounter count={(profile.badges || []).length} />
-    <StreakBadge streak={profile.current_streak} />
-  </>
-)}
+```typescript
+const flashcardCount = section.blocks?.filter(b => b.type === "flashcards")
+  .reduce((sum, b) => sum + (b.flashcards?.length || 0), 0) || 0;
+const flippedInSection = flashcardsFlipped.filter(id => id.startsWith(`${section.id}-card-`)).length;
+// In SubsectionDetail: use Array.from(flippedCards).filter(...)
+const masteryBonus = quizCount > 0 ? 15 : 0;
+const xpTotal = quizCount * 10 + flashcardCount * 2 + masteryBonus;
+const xpEarned = correctCount * 10 + flippedInSection * 2 + (mastered && quizCount > 0 ? 15 : 0);
 ```
-
-Same update in the mobile menu section.
-
-### 6. Update Dashboard (`src/pages/Dashboard.tsx`)
-
-Show earned badges in the XP Headquarters or as a dedicated section.
 
 ## Files Modified
 
+| File | Change |
+|------|--------|
+| `src/pages/TopicDetail.tsx` | Remove `gainSectionMasteryXP()` from observer; fix `sectionXPMap` and inline XP math |
+| `src/pages/SubsectionDetail.tsx` | Same fixes |
 
-| File                                           | Change                                            |
-| ---------------------------------------------- | ------------------------------------------------- |
-| Database migration                             | Add `badges` JSONB column to `profiles`           |
-| `src/contexts/AuthContext.tsx`                 | Add `badges` to Profile interface                 |
-| `src/components/gamification/BadgeCounter.tsx` | **New file** -- amber pill with Star icon + count |
-| `src/components/Navbar.tsx`                    | Add BadgeCounter next to XPCounter                |
-| `src/pages/TopicDetail.tsx`                    | Write badge on ceremony complete                  |
-| `src/pages/SubsectionDetail.tsx`               | Same badge write logic                            |
+## What Stays the Same
 
+- Quiz-based mastery (+15 XP on 100% section quiz correctness) -- unchanged
+- Flashcard XP (+2 per unique flip) -- unchanged
+- Quiz XP (+10 correct, +5 retry) -- unchanged
+- Knowledge Check gating -- unchanged
+- Done with Module ceremony (+5 and +150 XP) -- unchanged
+- Visual checkmarks for quiz-free sections in SectionNav -- unchanged (just no XP)
 
-## Visual Design
-
-- **BadgeCounter**: Amber/gold pill matching Duolingo aesthetic -- `bg-amber-500/10 text-amber-500` with a Star icon and count number
-- On new badge: brief `animate-scale-in` pulse
-- Counter only renders when count > 0
-- Uses the existing `xp` CSS variable color for consistency with the amber theme
