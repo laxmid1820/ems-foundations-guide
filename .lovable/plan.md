@@ -1,120 +1,105 @@
 
-
-# Dashboard XP Breakdown -- Refined with Motivational Polish
+# XP Toast Notification -- Contextual Messages
 
 ## Overview
 
-Add a "XP Headquarters" section to the Dashboard with a global XP ring, three certification-level cards, and per-domain breakdowns. All data derived from existing `profiles.xp_total` and `quiz_attempts` tables -- no migrations needed.
+Extend the existing `XPFloater` component and `useXP` hook so that every XP gain shows a small floating toast with a contextual message (e.g., "+5 XP -- Section viewed!"). The toast uses amber/gold styling, fades out after 2.5 seconds, and stays non-intrusive. No new libraries needed.
 
-## Refinements Applied
+## What Changes
 
-### 1. Warmer Milestone Messages (Global Ring)
+### 1. Extend `useXP` hook to carry a reason string
 
-Tiered messages displayed beneath the global XP ring:
+The `lastGain` object currently stores `{ amount, timestamp }`. Add a `reason` field so downstream components know what to display.
 
-- 0: "Your journey starts now -- every question counts!"
-- 1-99: "First steps taken -- you're already ahead of most!"
-- 100-249: "First 100 down -- momentum is building!"
-- 250-499: "Quarter-thousand club -- seriously impressive!"
-- 500-999: "Halfway to a thousand -- unstoppable!"
-- 1000-2499: "1,000+ EXP -- future paramedic energy!"
-- 2500+: "Legend status -- you're inspiring others!"
+- `gainSectionXP()` sets reason to `"Section viewed!"`
+- `gainFlashcardXP()` sets reason to `"Flashcard mastered!"`
+- `gainQuizXP(correct, isRetry)` sets reason to `"Great answer!"` (correct) or `"Nice retry!"` (retry correct)
+- `addXP(amount, reason?)` accepts an optional reason string
 
-### 2. Locked EXP Tooltip on Global XP
+### 2. Create `XPToast` -- a global fixed-position notification
 
-Next to the global XP number, a small Lock icon wrapped in a Tooltip:
+A new component `src/components/gamification/XPToast.tsx` that:
 
-"Total locked EXP -- includes quizzes, content progress, and flashcards."
+- Is rendered once at the app level (in `Layout.tsx` or `App.tsx`)
+- Listens to `useXP().lastGain` changes
+- Shows a small pill in the bottom-center of the screen: amber background, Zap icon, "+5 XP -- Section viewed!"
+- Fades in, holds for ~2 seconds, then fades out (total ~2.5s visible)
+- Uses `position: fixed; bottom: 1.5rem; left: 50%; transform: translateX(-50%)` so it floats above content without blocking interaction
+- `pointer-events-none` to stay non-intrusive
+- Stacks with the existing inline `XPFloater` (which stays as the local "+X XP" bubble on quiz blocks)
 
-Uses the existing `Tooltip` / `TooltipTrigger` / `TooltipContent` components and the `Lock` icon from lucide-react. Keeps tone informative and positive.
+### 3. Add fade-in-out keyframe animation
 
-### 3. Encouraging Empty State per Level
+Add to `src/index.css`:
 
-When a level has 0 quiz XP, the level card shows a friendly empty state instead of empty bars:
+```text
+@keyframes xp-toast {
+  0%   { opacity: 0; transform: translateX(-50%) translateY(10px); }
+  15%  { opacity: 1; transform: translateX(-50%) translateY(0); }
+  80%  { opacity: 1; transform: translateX(-50%) translateY(0); }
+  100% { opacity: 0; transform: translateX(-50%) translateY(-10px); }
+}
 
-- EMT: "Ready to earn your first EMT XP? Dive into a quiz now!"
-- AEMT: "Ready to earn your first AEMT XP? Dive into a quiz now!"
-- Paramedic: "Ready to earn your first Paramedic XP? Dive into a quiz now!"
+.animate-xp-toast {
+  animation: xp-toast 2.5s ease-in-out forwards;
+}
+```
 
-Each includes a small "Start Quiz" button linking to `/quizzes`. The domain breakdown is hidden when XP is 0 to keep it clean.
+### 4. Render `XPToast` globally
 
-### 4. Mobile-First Level Card Layout
-
-Level cards use `grid-cols-1 sm:grid-cols-3` so they stack vertically on mobile and sit side-by-side on desktop. Each card gets full width on small screens with consistent padding.
+Add `<XPToast />` inside `Layout.tsx` so it appears on every page without needing per-page wiring.
 
 ## Technical Details
+
+### useXP changes
+
+```text
+interface LastGain {
+  amount: number;
+  timestamp: number;
+  reason: string;        // NEW
+}
+
+addXP(amount, reason = "XP earned!")   // optional reason param
+gainSectionXP()     -> addXP(5, "Section viewed!")
+gainFlashcardXP()   -> addXP(2, "Flashcard mastered!")
+gainQuizXP(correct, isRetry)  -> addXP(10, "Great answer!") or addXP(5, "Nice retry!")
+```
+
+### XPToast component structure
+
+```text
+- fixed bottom-6 left-1/2 z-[60]
+- pointer-events-none
+- Pill: bg-xp text-xp-foreground rounded-full px-4 py-2 shadow-xl
+- Content: <Zap icon> +{amount} XP -- {reason}
+- Uses animate-xp-toast class
+- Visible for 2.5s, auto-hides via state + timeout
+- Keyed by timestamp to restart animation on each new gain
+```
 
 ### Files to create
 
 | File | Purpose |
 |---|---|
-| `src/hooks/useLevelXP.ts` | React Query hook aggregating quiz XP by level and domain |
-| `src/components/dashboard/XPHeadquarters.tsx` | Main wrapper: global card + level cards grid |
-| `src/components/dashboard/GlobalXPCard.tsx` | Hero ring with amber accents, locked EXP tooltip, milestone message |
-| `src/components/dashboard/LevelXPCard.tsx` | Per-level card with domain bars or empty state |
+| `src/components/gamification/XPToast.tsx` | Global fixed-position XP notification |
 
 ### Files to modify
 
 | File | Change |
 |---|---|
-| `src/components/gamification/ProgressRing.tsx` | Add optional `strokeColor` prop (default: success, override: xp amber) |
-| `src/pages/Dashboard.tsx` | Replace stats row with `<XPHeadquarters />` |
+| `src/hooks/useXP.ts` | Add `reason` to `lastGain`, thread reason through `addXP`/`gainSectionXP`/etc. |
+| `src/index.css` | Add `@keyframes xp-toast` and `.animate-xp-toast` |
+| `src/components/Layout.tsx` | Render `<XPToast />` once globally |
 
-### `useLevelXP` hook
+### Existing XPFloater unchanged
 
-```text
-SELECT level, domain_filter, SUM(xp_earned) as xp
-FROM quiz_attempts
-WHERE user_id = $userId
-GROUP BY level, domain_filter
-```
+The inline `XPFloater` (positioned absolutely inside quiz blocks) stays as-is for local feedback. `XPToast` is the new global overlay for all XP sources.
 
-Returns `{ levelXP, domainXP, isLoading }`. Uses `@tanstack/react-query` with key `["level-xp", userId]`.
+### Guardrails
 
-### ProgressRing change
-
-Add `strokeColor?: string` prop. Defaults to `hsl(var(--success))`. GlobalXPCard passes `hsl(var(--xp))` for gold/amber.
-
-### Milestone progress calculation
-
-```text
-const nextMilestone = Math.ceil(xp / 500) * 500 || 500;
-const milestoneProgress = (xp / nextMilestone) * 100;
-```
-
-Ring fills toward milestones at 500, 1000, 1500, etc.
-
-### GlobalXPCard structure
-
-- Large ProgressRing (size 140, amber stroke)
-- XP number with Lock icon + Tooltip beside it
-- Milestone message below in `text-muted-foreground`
-- Streak badge integrated in top-right corner
-
-### LevelXPCard structure
-
-- Level badge header (EMT / AEMT / Paramedic)
-- If XP > 0: total XP number + domain breakdown bars (amber fill, proportional to max domain)
-- If XP = 0: encouraging message + "Start Quiz" link button
-- Motivational tagline when XP > 0 (e.g., "You're crushing EMT Foundations!")
-
-### Domain breakdown bars
-
-Horizontal bars for each NREMT domain within a level. Gold/amber fill using `bg-xp`. Width proportional to the highest-XP domain in that level. Labels: domain name left, XP number right.
-
-### Visual tokens used
-
-- `text-xp`, `bg-xp/10`, `bg-xp/20` for amber accents
-- `border-2 rounded-2xl` card style
-- `font-extrabold` for numbers
-- `p-6` / `gap-6` spacing
-
-### Implementation sequence
-
-1. Add `strokeColor` prop to ProgressRing
-2. Create `useLevelXP` hook
-3. Create GlobalXPCard with milestone messages and locked tooltip
-4. Create LevelXPCard with empty state and domain bars
-5. Create XPHeadquarters wrapper
-6. Update Dashboard to use XPHeadquarters, remove old stats row
-
+- Toast only shows for amounts > 0
+- Each toast is keyed by `timestamp` so rapid gains re-trigger the animation
+- `pointer-events-none` ensures it never blocks clicks
+- 2.5s duration keeps it subtle -- long enough to notice, short enough to not annoy
+- No new dependencies required
