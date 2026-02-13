@@ -17,6 +17,9 @@ export interface QuizQuestion {
   nremt_domain: string;
   difficulty: number;
   tags: string[];
+  // Only present when include_answers=true
+  correct_answer?: string;
+  explanation?: string;
 }
 
 export interface QuizResult {
@@ -61,6 +64,7 @@ export function useQuiz() {
   const [quizLength, setQuizLength] = useState<QuizLength>(20);
   const [immediateAnswers, setImmediateAnswers] = useState(false);
   const [bankSize, setBankSize] = useState<number | null>(null);
+  const [immediateResults, setImmediateResults] = useState<Map<string, QuizResult>>(new Map());
 
   const configureQuiz = useCallback(async (level: string) => {
     setSelectedLevel(level);
@@ -79,7 +83,7 @@ export function useQuiz() {
     } catch (e) {
       console.error("Failed to fetch bank size:", e);
     }
-  }, [selectedLevel, quizLength]);
+  }, []);
 
   const startQuiz = useCallback(async (level?: string, domain?: string) => {
     const effectiveLevel = level || selectedLevel;
@@ -92,10 +96,11 @@ export function useQuiz() {
     setAnswers(new Map());
     setCurrentIndex(0);
     setSubmission(null);
+    setImmediateResults(new Map());
 
     try {
       const { data, error: fnError } = await supabase.functions.invoke("get-quiz", {
-        body: { level: effectiveLevel, domain, limit },
+        body: { level: effectiveLevel, domain, limit, include_answers: immediateAnswers },
       });
 
       if (fnError) throw fnError;
@@ -112,7 +117,7 @@ export function useQuiz() {
       setError(e.message || "Failed to load quiz");
       setPhase("select");
     }
-  }, [selectedLevel, quizLength]);
+  }, [selectedLevel, quizLength, immediateAnswers]);
 
   const setAnswer = useCallback((questionId: string, answer: string) => {
     setAnswers((prev) => {
@@ -121,6 +126,37 @@ export function useQuiz() {
       return next;
     });
   }, []);
+
+  /** Local grading for immediate mode — returns the result */
+  const checkAnswer = useCallback((questionId: string, selectedAnswer: string): QuizResult | null => {
+    const question = questions.find((q) => q.id === questionId);
+    if (!question || !question.correct_answer) return null;
+
+    const isCorrect = question.correct_answer === selectedAnswer;
+    const result: QuizResult = {
+      question_id: questionId,
+      selected_answer: selectedAnswer,
+      is_correct: isCorrect,
+      correct_answer: question.correct_answer,
+      explanation: question.explanation || "",
+      nremt_domain: question.nremt_domain,
+    };
+
+    setImmediateResults((prev) => {
+      const next = new Map(prev);
+      next.set(questionId, result);
+      return next;
+    });
+
+    // Also record the answer
+    setAnswers((prev) => {
+      const next = new Map(prev);
+      next.set(questionId, selectedAnswer);
+      return next;
+    });
+
+    return result;
+  }, [questions]);
 
   const nextQuestion = useCallback(() => {
     setCurrentIndex((prev) => Math.min(prev + 1, questions.length - 1));
@@ -174,6 +210,7 @@ export function useQuiz() {
     setQuizLength(20);
     setImmediateAnswers(false);
     setBankSize(null);
+    setImmediateResults(new Map());
   }, []);
 
   return {
@@ -188,11 +225,13 @@ export function useQuiz() {
     quizLength,
     immediateAnswers,
     bankSize,
+    immediateResults,
     configureQuiz,
     startQuiz,
     setAnswer,
     setQuizLength,
     setImmediateAnswers,
+    checkAnswer,
     nextQuestion,
     prevQuestion,
     submitQuiz,

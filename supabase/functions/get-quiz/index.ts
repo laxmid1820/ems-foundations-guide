@@ -10,7 +10,7 @@ serve(async (req) => {
   if (req.method === "OPTIONS") return new Response(null, { headers: corsHeaders });
 
   try {
-    const { level, domain, limit = 20 } = await req.json();
+    const { level, domain, limit = 20, include_answers = false } = await req.json();
 
     if (!level || !["emt", "aemt", "paramedic"].includes(level)) {
       return new Response(JSON.stringify({ error: "Invalid level" }), {
@@ -24,9 +24,13 @@ serve(async (req) => {
       Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!
     );
 
+    const selectFields = include_answers
+      ? "id, level, domain, question_type, question_text, options, nremt_domain, difficulty, tags, correct_answer, explanation"
+      : "id, level, domain, question_type, question_text, options, nremt_domain, difficulty, tags";
+
     let query = supabase
       .from("quiz_questions")
-      .select("id, level, domain, question_type, question_text, options, nremt_domain, difficulty, tags")
+      .select(selectFields)
       .eq("level", level);
 
     if (domain) {
