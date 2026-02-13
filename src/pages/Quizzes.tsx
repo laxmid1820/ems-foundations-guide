@@ -137,6 +137,9 @@ const Quizzes = () => {
             onNext={quiz.nextQuestion}
             onPrev={quiz.prevQuestion}
             onSubmit={handleSubmit}
+            immediateAnswers={quiz.immediateAnswers}
+            immediateResults={quiz.immediateResults}
+            onCheckAnswer={quiz.checkAnswer}
           />
         )}
 
@@ -147,6 +150,7 @@ const Quizzes = () => {
             level={quiz.selectedLevel}
             onRetry={() => quiz.startQuiz(quiz.selectedLevel)}
             onBack={quiz.resetQuiz}
+            immediateMode={quiz.immediateAnswers}
           />
         )}
       </div>

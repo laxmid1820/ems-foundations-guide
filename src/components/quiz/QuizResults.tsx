@@ -12,9 +12,10 @@ interface QuizResultsProps {
   level: string;
   onRetry: () => void;
   onBack: () => void;
+  immediateMode?: boolean;
 }
 
-export function QuizResults({ submission, level, onRetry, onBack }: QuizResultsProps) {
+export function QuizResults({ submission, level, onRetry, onBack, immediateMode = false }: QuizResultsProps) {
   const { score, total, xp_earned, results } = submission;
   const pct = Math.round((score / total) * 100);
   const passed = pct >= 70;
@@ -52,6 +53,9 @@ export function QuizResults({ submission, level, onRetry, onBack }: QuizResultsP
           </div>
 
           <p className="text-sm text-muted-foreground max-w-md">
+            {immediateMode && (
+              <span className="block mb-1 font-medium text-foreground">Answers were reviewed during the quiz.</span>
+            )}
             Your score reflects practice performance only. Official NREMT certification requires
             approved coursework and proctored examination.
           </p>
