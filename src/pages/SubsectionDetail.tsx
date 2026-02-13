@@ -245,14 +245,19 @@ const SubsectionDetail = () => {
     richSections.forEach((s) => {
       const quizIds = sectionQuizMap.get(s.id) || [];
       const quizCount = quizIds.length;
-      const total = quizCount * 10 + 15;
+      const flashcardCount = s.blocks?.filter((b: any) => b.type === "flashcards")
+        .reduce((sum: number, b: any) => sum + (b.flashcards?.length || 0), 0) || 0;
+      const flippedInSection = Array.from(flippedCards).filter(
+        (id) => id.startsWith(`${s.id}-card-`)
+      ).length;
+      const total = quizCount * 10 + flashcardCount * 2 + 15;
       const correct = sectionCorrect.get(s.id)?.size || 0;
       const mastered = masteredSections.has(s.id);
-      const earned = correct * 10 + (mastered ? 15 : 0);
+      const earned = correct * 10 + flippedInSection * 2 + (mastered ? 15 : 0);
       m.set(s.id, { earned, total });
     });
     return m;
-  }, [richSections, sectionQuizMap, sectionCorrect, masteredSections]);
+  }, [richSections, sectionQuizMap, sectionCorrect, masteredSections, flippedCards]);
 
   if (!data) {
     return <Navigate to="/topics" replace />;
