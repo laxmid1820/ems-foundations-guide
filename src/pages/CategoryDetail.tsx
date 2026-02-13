@@ -3,6 +3,8 @@ import { Layout } from "@/components/Layout";
 import { TopicCard } from "@/components/topics/TopicCard";
 import { getCategoryContentBySlug, CategoryLevel } from "@/data/topicsContent";
 import { Badge } from "@/components/ui/badge";
+import { TopicProgressRing } from "@/components/topics/TopicProgressRing";
+import { useCategoryProgress } from "@/hooks/useCategoryProgress";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -48,6 +50,7 @@ const CategoryDetail = () => {
   const { level } = useParams<{ level: string }>();
   
   const category = level ? getCategoryContentBySlug(level) : undefined;
+  const { progress: categoryProgress } = useCategoryProgress(level);
   
   if (!category) {
     return <Navigate to="/topics" replace />;
@@ -82,7 +85,7 @@ const CategoryDetail = () => {
             <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-primary/10 text-primary">
               <Icon className="h-7 w-7" />
             </div>
-            <div className="pt-1">
+            <div className="pt-1 flex-1">
               <Badge 
                 variant="outline" 
                 className={cn("font-medium mb-2", config.badgeClass)}
@@ -93,6 +96,14 @@ const CategoryDetail = () => {
                 {category.title}
               </h1>
             </div>
+            {/* Category progress ring */}
+            <TopicProgressRing
+              progress={categoryProgress}
+              size={72}
+              strokeWidth={6}
+              showMessage={categoryProgress > 0}
+              className="shrink-0"
+            />
           </div>
           
           <p className="text-lg text-muted-foreground leading-relaxed mb-4">

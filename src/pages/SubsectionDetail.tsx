@@ -4,6 +4,7 @@ import { Layout } from "@/components/Layout";
 import { TopicCallout } from "@/components/topics/TopicCallout";
 import { TopicSection } from "@/components/topics/TopicSection";
 import { StickyProgressBar } from "@/components/topics/StickyProgressBar";
+import { useXP } from "@/hooks/useXP";
 import { LevelProgressionButton } from "@/components/topics/LevelProgressionButton";
 import { 
   getSubsectionContentFromCurriculum, 
@@ -81,20 +82,27 @@ const SubsectionDetail = () => {
     setTabsViewed(new Set());
   }, [subsectionSlug, topicSlug]);
 
+  const { gainSectionXP, gainFlashcardXP, gainQuizXP } = useXP();
+
   // Track section visibility
   useEffect(() => {
+    const viewedRef = sectionsViewed;
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setSectionsViewed(prev => new Set(prev).add(entry.target.id));
+          if (entry.isIntersecting && !viewedRef.has(entry.target.id)) {
+            setSectionsViewed(prev => {
+              const next = new Set(prev);
+              next.add(entry.target.id);
+              return next;
+            });
+            gainSectionXP();
           }
         });
       },
       { threshold: 0.3 }
     );
 
-    // Observe either rich sections or default 4-block layout
     if (richSections) {
       richSections.forEach(section => {
         const el = document.getElementById(section.id);
@@ -109,16 +117,21 @@ const SubsectionDetail = () => {
     }
 
     return () => observer.disconnect();
-  }, [subsectionSlug, topicSlug, richSections]);
+  }, [subsectionSlug, topicSlug, richSections, gainSectionXP]);
 
   // Handler callbacks for interactive elements
   const handleCardFlip = useCallback((cardId: string) => {
-    setFlippedCards(prev => new Set(prev).add(cardId));
-  }, []);
+    setFlippedCards(prev => {
+      if (prev.has(cardId)) return prev;
+      gainFlashcardXP();
+      return new Set(prev).add(cardId);
+    });
+  }, [gainFlashcardXP]);
 
   const handleQuizAnswer = useCallback((questionId: string, correct: boolean) => {
     setAnsweredQuizzes(prev => new Set(prev).add(questionId));
-  }, []);
+    if (correct) gainQuizXP(true);
+  }, [gainQuizXP]);
 
   const handleTabViewed = useCallback((index: number) => {
     setTabsViewed(prev => new Set(prev).add(index));

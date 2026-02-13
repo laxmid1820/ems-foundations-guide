@@ -1,5 +1,6 @@
 import { cn } from "@/lib/utils";
 import { CheckCircle, Star } from "lucide-react";
+import { TopicProgressRing } from "./TopicProgressRing";
 
 interface StickyProgressBarProps {
   progress: number;
@@ -27,16 +28,22 @@ export function StickyProgressBar({
       )}
     >
       <div className="container mx-auto px-4 py-3 max-w-4xl">
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-3">
+          {/* Compact progress ring */}
+          <TopicProgressRing
+            progress={clampedProgress}
+            size={40}
+            strokeWidth={4}
+            showMessage={false}
+          />
+
           <div className="flex items-center gap-2 min-w-0">
             {isComplete ? (
-              <Star className="h-5 w-5 text-xp fill-current shrink-0" />
-            ) : (
-              <div className="h-5 w-5 rounded-full border-2 border-primary/30 shrink-0" />
-            )}
+              <Star className="h-4 w-4 text-xp fill-current shrink-0" />
+            ) : null}
             <span className={cn(
-              "text-sm font-bold truncate",
-              isComplete ? "text-success" : "text-foreground"
+              "text-xs font-bold truncate",
+              isComplete ? "text-success" : "text-muted-foreground"
             )}>
               {isComplete 
                 ? "Lesson Complete! ⭐" 
