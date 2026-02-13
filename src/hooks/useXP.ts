@@ -78,7 +78,8 @@ export function useXP() {
   );
 
   const gainSectionXP = useCallback(() => addXP(5, "Section viewed!"), [addXP]);
+  const gainSectionMasteryXP = useCallback(() => addXP(15, "Congrats — mastered the section!"), [addXP]);
   const gainFlashcardXP = useCallback(() => addXP(2, "Flashcard mastered!"), [addXP]);
 
-  return { xp: xp.total, lastGain: xp.lastGain, gainQuizXP, gainSectionXP, gainFlashcardXP, addXP };
+  return { xp: xp.total, lastGain: xp.lastGain, gainQuizXP, gainSectionXP, gainSectionMasteryXP, gainFlashcardXP, addXP };
 }
