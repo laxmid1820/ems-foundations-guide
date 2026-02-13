@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useMemo, useRef } from "react";
 import { useParams, Link } from "react-router-dom";
 import { useXP } from "@/hooks/useXP";
 import { Layout } from "@/components/Layout";
@@ -17,8 +17,17 @@ import { TopicCallout } from "@/components/topics/TopicCallout";
 import { DisclaimerBanner } from "@/components/topics/DisclaimerBanner";
 import { LessonProgress } from "@/components/topics/LessonProgress";
 import { ContinueButton } from "@/components/topics/ContinueButton";
+import { SectionNav } from "@/components/topics/SectionNav";
 import { getTopicBySlug, getAdjacentTopics, getTopicInteractiveCount } from "@/data/topics";
 import { Clock, ArrowLeft, BookOpen } from "lucide-react";
+
+// Helper: count quiz questions in a section's blocks
+function countSectionQuizzes(section: { blocks?: { type: string; quiz?: { id: string } }[] }): string[] {
+  if (!section.blocks) return [];
+  return section.blocks
+    .filter((b) => b.type === "quiz" && b.quiz?.id)
+    .map((b) => b.quiz!.id);
+}
 
 const TopicDetail = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -30,12 +39,34 @@ const TopicDetail = () => {
   const [flashcardsFlipped, setFlashcardsFlipped] = useState<string[]>([]);
   const [quizzesPassed, setQuizzesPassed] = useState<string[]>([]);
 
+  // Mastery tracking
+  const [masteredSections, setMasteredSections] = useState<Set<string>>(new Set());
+  const [sectionCorrect, setSectionCorrect] = useState<Map<string, Set<string>>>(new Map());
+  const [allQuizAnswers, setAllQuizAnswers] = useState<Map<string, boolean>>(new Map());
+  const [topicBonusAwarded, setTopicBonusAwarded] = useState(false);
+  const [activeSectionId, setActiveSectionId] = useState<string | null>(null);
+
   // Get interactive element counts
   const interactiveCount = topic ? getTopicInteractiveCount(topic) : { flashcards: 0, quizzes: 0 };
   const totalSections = topic?.sections.length || 0;
 
+  // Build section quiz map once
+  const sectionQuizMap = useMemo(() => {
+    if (!topic) return new Map<string, string[]>();
+    const m = new Map<string, string[]>();
+    topic.sections.forEach((s) => m.set(s.id, countSectionQuizzes(s)));
+    return m;
+  }, [topic]);
+
+  // Total quiz count across topic
+  const totalQuizCount = useMemo(() => {
+    let c = 0;
+    sectionQuizMap.forEach((ids) => (c += ids.length));
+    return c;
+  }, [sectionQuizMap]);
+
   // Check if lesson is complete
-  const isComplete = 
+  const isComplete =
     sectionsViewed.length >= totalSections &&
     flashcardsFlipped.length >= interactiveCount.flashcards &&
     quizzesPassed.length >= interactiveCount.quizzes;
@@ -45,11 +76,20 @@ const TopicDetail = () => {
     setSectionsViewed([]);
     setFlashcardsFlipped([]);
     setQuizzesPassed([]);
+    setMasteredSections(new Set());
+    setSectionCorrect(new Map());
+    setAllQuizAnswers(new Map());
+    setTopicBonusAwarded(false);
+    setActiveSectionId(null);
   }, [slug]);
 
-  const { gainSectionXP, gainFlashcardXP, gainQuizXP } = useXP();
+  const { gainSectionMasteryXP, gainFlashcardXP, gainQuizXP, addXP } = useXP();
 
-  // Intersection Observer for section tracking
+  // Ref to avoid stale closure for mastered set
+  const masteredRef = useRef(masteredSections);
+  masteredRef.current = masteredSections;
+
+  // Intersection Observer for section tracking — no XP on scroll for quiz sections
   useEffect(() => {
     if (!topic) return;
 
@@ -58,15 +98,21 @@ const TopicDetail = () => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             const sectionId = entry.target.id;
+            setActiveSectionId(sectionId);
             setSectionsViewed((prev) => {
               if (prev.includes(sectionId)) return prev;
-              gainSectionXP();
+              // Auto-master quiz-free sections on view
+              const quizIds = sectionQuizMap.get(sectionId) || [];
+              if (quizIds.length === 0 && !masteredRef.current.has(sectionId)) {
+                gainSectionMasteryXP();
+                setMasteredSections((ms) => new Set(ms).add(sectionId));
+              }
               return [...prev, sectionId];
             });
           }
         });
       },
-      { threshold: 0.5 }
+      { threshold: 0.3 }
     );
 
     topic.sections.forEach((section) => {
@@ -75,7 +121,7 @@ const TopicDetail = () => {
     });
 
     return () => observer.disconnect();
-  }, [topic, gainSectionXP]);
+  }, [topic, sectionQuizMap, gainSectionMasteryXP]);
 
   // Handlers for interactive elements
   const handleCardFlip = useCallback((cardId: string) => {
@@ -87,18 +133,72 @@ const TopicDetail = () => {
   }, [gainFlashcardXP]);
 
   const handleQuizAnswer = useCallback((questionId: string, correct: boolean) => {
+    // Track all answers for accuracy
+    setAllQuizAnswers((prev) => {
+      const next = new Map(prev);
+      // Only upgrade to correct, never downgrade
+      if (!next.has(questionId) || correct) {
+        next.set(questionId, correct);
+      }
+      return next;
+    });
+
     if (correct) {
-      setQuizzesPassed((prev) => 
+      setQuizzesPassed((prev) =>
         prev.includes(questionId) ? prev : [...prev, questionId]
       );
       gainQuizXP(true);
+
+      // Check section mastery
+      for (const [sectionId, quizIds] of sectionQuizMap.entries()) {
+        if (quizIds.includes(questionId)) {
+          setSectionCorrect((prev) => {
+            const next = new Map(prev);
+            const set = new Set(next.get(sectionId) || []);
+            set.add(questionId);
+            next.set(sectionId, set);
+
+            // Check if all quizzes in this section are correct
+            if (set.size === quizIds.length && !masteredRef.current.has(sectionId)) {
+              gainSectionMasteryXP();
+              setMasteredSections((ms) => new Set(ms).add(sectionId));
+            }
+            return next;
+          });
+          break;
+        }
+      }
     }
-  }, [gainQuizXP]);
+  }, [gainQuizXP, sectionQuizMap, gainSectionMasteryXP]);
+
+  // Topic completion bonus (+150 XP at >80%)
+  useEffect(() => {
+    if (topicBonusAwarded || totalQuizCount === 0) return;
+    // Check if all quizzes attempted
+    if (allQuizAnswers.size < totalQuizCount) return;
+    const correctCount = Array.from(allQuizAnswers.values()).filter(Boolean).length;
+    const accuracy = (correctCount / totalQuizCount) * 100;
+    if (accuracy > 80) {
+      addXP(150, `Topic mastered at ${Math.round(accuracy)}% — +150 XP unlocked!`);
+      setTopicBonusAwarded(true);
+    }
+  }, [allQuizAnswers, totalQuizCount, topicBonusAwarded, addXP]);
 
   const handleTabViewed = useCallback((index: number) => {
-    // Tab viewing is tracked but doesn't affect completion
     console.log("Tab viewed:", index);
   }, []);
+
+  // Find first incorrect quiz section for retake CTA (must be before early return)
+  const firstIncorrectSectionId = useMemo(() => {
+    for (const [sectionId, quizIds] of sectionQuizMap.entries()) {
+      for (const qId of quizIds) {
+        if (allQuizAnswers.has(qId) && !allQuizAnswers.get(qId)) {
+          return sectionId;
+        }
+      }
+    }
+    return null;
+  }, [sectionQuizMap, allQuizAnswers]);
 
   if (!topic) {
     return (
@@ -121,9 +221,25 @@ const TopicDetail = () => {
 
   const Icon = topic.icon;
 
+  // Accuracy for completion callout
+  const totalAnswered = allQuizAnswers.size;
+  const correctCount = Array.from(allQuizAnswers.values()).filter(Boolean).length;
+  const accuracy = totalQuizCount > 0 ? Math.round((correctCount / totalQuizCount) * 100) : 0;
+  const allQuizzesAttempted = totalAnswered >= totalQuizCount && totalQuizCount > 0;
+
+  // Section data for nav
+  const navSections = topic.sections.map((s) => ({ id: s.id, title: s.title }));
+
   return (
     <Layout>
-      <div className="container mx-auto px-4 py-6 sm:py-8 sm:px-6 lg:px-8 max-w-3xl">
+      {/* SectionNav */}
+      <SectionNav
+        sections={navSections}
+        masteredSections={masteredSections}
+        activeSectionId={activeSectionId}
+      />
+
+      <div className="container mx-auto px-4 py-6 sm:py-8 sm:px-6 lg:pl-[240px] lg:pr-8 max-w-3xl lg:max-w-none">
         {/* Disclaimer Banner - Top */}
         <DisclaimerBanner variant="top" />
 
@@ -146,7 +262,7 @@ const TopicDetail = () => {
         </Breadcrumb>
 
         {/* Topic Header */}
-        <header className="mb-8 pb-6 border-b border-border">
+        <header className="mb-8 pb-6 border-b border-border lg:max-w-3xl">
           {/* Progress indicator */}
           <LessonProgress
             sectionsViewed={sectionsViewed}
@@ -181,11 +297,11 @@ const TopicDetail = () => {
         </header>
 
         {/* Linear Scrolling Sections */}
-        <div className="mb-10">
+        <div className="mb-10 lg:max-w-3xl">
           {topic.sections.map((section, index) => (
-            <TopicSection 
-              key={section.id} 
-              section={section} 
+            <TopicSection
+              key={section.id}
+              section={section}
               index={index}
               onTabViewed={handleTabViewed}
               onCardFlip={handleCardFlip}
@@ -195,10 +311,33 @@ const TopicDetail = () => {
         </div>
 
         {/* Completion Section */}
-        <div className="mb-10 py-8 border-t border-border space-y-6">
-          {isComplete ? (
+        <div className="mb-10 py-8 border-t border-border space-y-6 lg:max-w-3xl">
+          {isComplete && topicBonusAwarded ? (
             <TopicCallout type="youveGotThis">
-              🎉 Excellent work! You've completed all sections, flipped all flashcards, and passed all quizzes for {topic.title.toLowerCase()}. You're ready to move on!
+              🎉 Excellent work! You mastered {topic.title.toLowerCase()} at {accuracy}% accuracy and earned the +150 XP bonus! You're ready to move on!
+            </TopicCallout>
+          ) : isComplete && allQuizzesAttempted && accuracy > 80 ? (
+            <TopicCallout type="youveGotThis">
+              🎉 Excellent work! You've completed all sections for {topic.title.toLowerCase()}. You're ready to move on!
+            </TopicCallout>
+          ) : allQuizzesAttempted && accuracy >= 70 && accuracy <= 79 ? (
+            <TopicCallout type="rememberThis">
+              <div className="space-y-3">
+                <p>You're at {accuracy}% — retake missed questions to unlock the +150 XP mastery bonus!</p>
+                {firstIncorrectSectionId && (
+                  <Button
+                    variant="duo"
+                    size="sm"
+                    onClick={() => document.getElementById(firstIncorrectSectionId)?.scrollIntoView({ behavior: "smooth" })}
+                  >
+                    Review Missed
+                  </Button>
+                )}
+              </div>
+            </TopicCallout>
+          ) : allQuizzesAttempted && accuracy <= 80 ? (
+            <TopicCallout type="rememberThis">
+              You're at {accuracy}% — retake missed questions to earn the +150 XP bonus!
             </TopicCallout>
           ) : (
             <TopicCallout type="rememberThis">
@@ -214,7 +353,7 @@ const TopicDetail = () => {
         </div>
 
         {/* Secondary Navigation */}
-        <nav className="py-6 border-t border-border">
+        <nav className="py-6 border-t border-border lg:max-w-3xl">
           <div className="flex flex-col sm:flex-row gap-3">
             {prev && (
               <Button variant="outline" asChild className="flex-1">

@@ -1,9 +1,10 @@
 import { useParams, Link, Navigate, useNavigate } from "react-router-dom";
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback, useMemo, useRef } from "react";
 import { Layout } from "@/components/Layout";
 import { TopicCallout } from "@/components/topics/TopicCallout";
 import { TopicSection } from "@/components/topics/TopicSection";
 import { StickyProgressBar } from "@/components/topics/StickyProgressBar";
+import { SectionNav } from "@/components/topics/SectionNav";
 import { useXP } from "@/hooks/useXP";
 import { LevelProgressionButton } from "@/components/topics/LevelProgressionButton";
 import { 
@@ -24,6 +25,14 @@ import {
 } from "@/components/ui/breadcrumb";
 import { cn } from "@/lib/utils";
 import { Clock, ArrowLeft, ChevronLeft, ChevronRight, Lightbulb, BookOpen, GraduationCap, TrendingUp, Award } from "lucide-react";
+
+// Helper: count quiz questions in a section's blocks
+function countSectionQuizzes(section: { blocks?: { type: string; quiz?: { id: string } }[] }): string[] {
+  if (!section.blocks) return [];
+  return section.blocks
+    .filter((b) => b.type === "quiz" && b.quiz?.id)
+    .map((b) => b.quiz!.id);
+}
 
 const levelConfig: Record<CategoryLevel, {
   icon: typeof GraduationCap;
@@ -59,44 +68,77 @@ const SubsectionDetail = () => {
     ? getSubsectionContentFromCurriculum(level, topicSlug, subsectionSlug) 
     : undefined;
   
-  // Get rich section content if available
   const richSections = level && topicSlug 
     ? getTopicSections(level, topicSlug)
     : undefined;
   
-  // Track flipped flashcards and quiz answers for progress
+  // Progress tracking
   const [flippedCards, setFlippedCards] = useState<Set<string>>(new Set());
   const [answeredQuizzes, setAnsweredQuizzes] = useState<Set<string>>(new Set());
   const [tabsViewed, setTabsViewed] = useState<Set<number>>(new Set());
-  
-  // Progress tracking (simple: mark viewed sections)
   const [sectionsViewed, setSectionsViewed] = useState<Set<string>>(new Set());
-  const totalSections = richSections ? richSections.length : 4; // Rich sections or default 4 blocks
+  const totalSections = richSections ? richSections.length : 4;
 
-  // Scroll to top on route change
+  // Mastery tracking
+  const [masteredSections, setMasteredSections] = useState<Set<string>>(new Set());
+  const [sectionCorrect, setSectionCorrect] = useState<Map<string, Set<string>>>(new Map());
+  const [allQuizAnswers, setAllQuizAnswers] = useState<Map<string, boolean>>(new Map());
+  const [topicBonusAwarded, setTopicBonusAwarded] = useState(false);
+  const [activeSectionId, setActiveSectionId] = useState<string | null>(null);
+
+  // Build section quiz map
+  const sectionQuizMap = useMemo(() => {
+    if (!richSections) return new Map<string, string[]>();
+    const m = new Map<string, string[]>();
+    richSections.forEach((s) => m.set(s.id, countSectionQuizzes(s)));
+    return m;
+  }, [richSections]);
+
+  const totalQuizCount = useMemo(() => {
+    let c = 0;
+    sectionQuizMap.forEach((ids) => (c += ids.length));
+    return c;
+  }, [sectionQuizMap]);
+
+  // Scroll to top on route change & reset
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
     setSectionsViewed(new Set());
     setFlippedCards(new Set());
     setAnsweredQuizzes(new Set());
     setTabsViewed(new Set());
+    setMasteredSections(new Set());
+    setSectionCorrect(new Map());
+    setAllQuizAnswers(new Map());
+    setTopicBonusAwarded(false);
+    setActiveSectionId(null);
   }, [subsectionSlug, topicSlug]);
 
-  const { gainSectionXP, gainFlashcardXP, gainQuizXP } = useXP();
+  const { gainSectionMasteryXP, gainFlashcardXP, gainQuizXP, addXP } = useXP();
 
-  // Track section visibility
+  const masteredRef = useRef(masteredSections);
+  masteredRef.current = masteredSections;
+
+  // Track section visibility — mastery for quiz-free sections
   useEffect(() => {
-    const viewedRef = sectionsViewed;
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting && !viewedRef.has(entry.target.id)) {
-            setSectionsViewed(prev => {
+          if (entry.isIntersecting) {
+            const sectionId = entry.target.id;
+            setActiveSectionId(sectionId);
+            setSectionsViewed((prev) => {
+              if (prev.has(sectionId)) return prev;
               const next = new Set(prev);
-              next.add(entry.target.id);
+              next.add(sectionId);
+              // Auto-master quiz-free sections
+              const quizIds = sectionQuizMap.get(sectionId) || [];
+              if (quizIds.length === 0 && !masteredRef.current.has(sectionId)) {
+                gainSectionMasteryXP();
+                setMasteredSections((ms) => new Set(ms).add(sectionId));
+              }
               return next;
             });
-            gainSectionXP();
           }
         });
       },
@@ -109,17 +151,15 @@ const SubsectionDetail = () => {
         if (el) observer.observe(el);
       });
     } else {
-      const defaultSections = ['objective-section', 'overview-section', 'details-section', 'analogy-section'];
-      defaultSections.forEach(id => {
+      ['objective-section', 'overview-section', 'details-section', 'analogy-section'].forEach(id => {
         const el = document.getElementById(id);
         if (el) observer.observe(el);
       });
     }
 
     return () => observer.disconnect();
-  }, [subsectionSlug, topicSlug, richSections, gainSectionXP]);
+  }, [subsectionSlug, topicSlug, richSections, sectionQuizMap, gainSectionMasteryXP]);
 
-  // Handler callbacks for interactive elements
   const handleCardFlip = useCallback((cardId: string) => {
     setFlippedCards(prev => {
       if (prev.has(cardId)) return prev;
@@ -130,8 +170,46 @@ const SubsectionDetail = () => {
 
   const handleQuizAnswer = useCallback((questionId: string, correct: boolean) => {
     setAnsweredQuizzes(prev => new Set(prev).add(questionId));
-    if (correct) gainQuizXP(true);
-  }, [gainQuizXP]);
+
+    setAllQuizAnswers((prev) => {
+      const next = new Map(prev);
+      if (!next.has(questionId) || correct) next.set(questionId, correct);
+      return next;
+    });
+
+    if (correct) {
+      gainQuizXP(true);
+      // Check section mastery
+      for (const [sectionId, quizIds] of sectionQuizMap.entries()) {
+        if (quizIds.includes(questionId)) {
+          setSectionCorrect((prev) => {
+            const next = new Map(prev);
+            const set = new Set(next.get(sectionId) || []);
+            set.add(questionId);
+            next.set(sectionId, set);
+            if (set.size === quizIds.length && !masteredRef.current.has(sectionId)) {
+              gainSectionMasteryXP();
+              setMasteredSections((ms) => new Set(ms).add(sectionId));
+            }
+            return next;
+          });
+          break;
+        }
+      }
+    }
+  }, [gainQuizXP, sectionQuizMap, gainSectionMasteryXP]);
+
+  // Topic completion bonus
+  useEffect(() => {
+    if (topicBonusAwarded || totalQuizCount === 0) return;
+    if (allQuizAnswers.size < totalQuizCount) return;
+    const correctCount = Array.from(allQuizAnswers.values()).filter(Boolean).length;
+    const accuracy = (correctCount / totalQuizCount) * 100;
+    if (accuracy > 80) {
+      addXP(150, `Topic mastered at ${Math.round(accuracy)}% — +150 XP unlocked!`);
+      setTopicBonusAwarded(true);
+    }
+  }, [allQuizAnswers, totalQuizCount, topicBonusAwarded, addXP]);
 
   const handleTabViewed = useCallback((index: number) => {
     setTabsViewed(prev => new Set(prev).add(index));
@@ -139,7 +217,6 @@ const SubsectionDetail = () => {
 
   const progress = Math.round((sectionsViewed.size / totalSections) * 100);
   
-  // Navigation
   const nextSubsection = level && topicSlug && subsectionSlug 
     ? getAdjacentSubsection(level, topicSlug, subsectionSlug, 'next')
     : null;
@@ -159,9 +236,26 @@ const SubsectionDetail = () => {
   const config = levelConfig[category.level];
   const Icon = config.icon;
 
+  // Nav sections for SectionNav
+  const navSections = richSections
+    ? richSections.map((s) => ({ id: s.id, title: s.title }))
+    : [
+        { id: "objective-section", title: "Learning Objective" },
+        { id: "overview-section", title: "Overview" },
+        { id: "details-section", title: "Key Details" },
+        { id: "analogy-section", title: "Think of it this way" },
+      ];
+
   return (
     <Layout>
-      <div className="container mx-auto px-4 py-6 sm:py-10 sm:px-6 lg:px-8 max-w-4xl pb-24">
+      {/* SectionNav */}
+      <SectionNav
+        sections={navSections}
+        masteredSections={masteredSections}
+        activeSectionId={activeSectionId}
+      />
+
+      <div className="container mx-auto px-4 py-6 sm:py-10 sm:px-6 lg:pl-[240px] lg:pr-8 max-w-4xl lg:max-w-none pb-24">
         {/* Breadcrumb */}
         <Breadcrumb className="mb-6">
           <BreadcrumbList>
@@ -197,7 +291,7 @@ const SubsectionDetail = () => {
         </Link>
 
         {/* Header */}
-        <div className="mb-8 pb-6 border-b border-border">
+        <div className="mb-8 pb-6 border-b border-border lg:max-w-3xl">
           <div className="flex items-start gap-4 mb-4">
             <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-primary/10 text-primary">
               <Icon className="h-7 w-7" />
@@ -226,10 +320,9 @@ const SubsectionDetail = () => {
           </div>
         </div>
 
-        {/* Content Blocks - Rich content or fallback layout */}
-        <div className="space-y-8">
+        {/* Content Blocks */}
+        <div className="space-y-8 lg:max-w-3xl">
           {richSections ? (
-            /* Rich interactive content with tabs, flashcards, quizzes */
             richSections.map((section, index) => (
               <TopicSection
                 key={section.id}
@@ -241,40 +334,26 @@ const SubsectionDetail = () => {
               />
             ))
           ) : (
-            /* Default 4-block layout for topics without rich content */
             <>
-              {/* Objective Block */}
               <section id="objective-section" className="rounded-lg border border-border bg-card shadow-sm p-5 sm:p-6">
                 <div className="flex items-center gap-3 mb-4">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 text-primary font-semibold text-lg">
-                    1
-                  </div>
+                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 text-primary font-semibold text-lg">1</div>
                   <h2 className="text-xl font-bold text-foreground">Learning Objective</h2>
                 </div>
-                <p className="text-lg text-muted-foreground leading-relaxed">
-                  {subsection.objective}
-                </p>
+                <p className="text-lg text-muted-foreground leading-relaxed">{subsection.objective}</p>
               </section>
 
-              {/* Overview Block */}
               <section id="overview-section" className="rounded-lg border border-border bg-card shadow-sm p-5 sm:p-6">
                 <div className="flex items-center gap-3 mb-4">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 text-primary font-semibold text-lg">
-                    2
-                  </div>
+                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 text-primary font-semibold text-lg">2</div>
                   <h2 className="text-xl font-bold text-foreground">Overview</h2>
                 </div>
-                <p className="text-base sm:text-lg text-muted-foreground leading-relaxed">
-                  {subsection.overview}
-                </p>
+                <p className="text-base sm:text-lg text-muted-foreground leading-relaxed">{subsection.overview}</p>
               </section>
 
-              {/* Key Details Block */}
               <section id="details-section" className="rounded-lg border border-border bg-card shadow-sm p-5 sm:p-6">
                 <div className="flex items-center gap-3 mb-4">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 text-primary font-semibold text-lg">
-                    3
-                  </div>
+                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 text-primary font-semibold text-lg">3</div>
                   <h2 className="text-xl font-bold text-foreground">Key Details</h2>
                 </div>
                 <ul className="space-y-3">
@@ -287,7 +366,6 @@ const SubsectionDetail = () => {
                 </ul>
               </section>
 
-              {/* Analogy Callout */}
               <section id="analogy-section">
                 <TopicCallout type="proTip">
                   <div className="flex items-start gap-3">
@@ -300,7 +378,6 @@ const SubsectionDetail = () => {
                 </TopicCallout>
               </section>
 
-              {/* Features placeholder */}
               {subsection.features && subsection.features !== "Placeholder features" && (
                 <section className="rounded-lg border border-dashed border-border bg-muted/30 p-5 sm:p-6">
                   <div className="flex items-center gap-2 mb-2">
@@ -315,7 +392,7 @@ const SubsectionDetail = () => {
         </div>
 
         {/* Navigation */}
-        <div className="mt-12 pt-6 border-t border-border">
+        <div className="mt-12 pt-6 border-t border-border lg:max-w-3xl">
           <div className="flex flex-col sm:flex-row gap-4 justify-between items-center">
             {prevSubsection ? (
               <Button 
@@ -330,7 +407,6 @@ const SubsectionDetail = () => {
               <div />
             )}
             
-            {/* Level Progression Button - inline on all A&P, Pharmacology, Respiratory, and Patient Assessment topics */}
             {(topicSlug?.includes("anatomy-and-physiology") || topicSlug?.includes("pharmacology") || topicSlug?.includes("respiratory-emergencies") || topicSlug?.includes("patient-assessment") || topicSlug?.includes("shock-management") || topicSlug?.includes("pathophysiology") || topicSlug?.includes("advanced-airway") || topicSlug?.includes("cardiac-monitoring") || topicSlug?.includes("12-lead-ecg") || topicSlug?.includes("copd-vs-chf") || topicSlug?.includes("asthma-vs-anaphylaxis") || topicSlug?.includes("pulmonary-edema")) && (
               <LevelProgressionButton 
                 currentLevel={category.level}
@@ -357,7 +433,6 @@ const SubsectionDetail = () => {
             )}
           </div>
 
-          {/* Completion celebration card - only at Paramedic level end */}
           {(topicSlug?.includes("anatomy-and-physiology") || topicSlug?.includes("pharmacology") || topicSlug?.includes("respiratory-emergencies") || topicSlug?.includes("patient-assessment") || topicSlug?.includes("shock-management") || topicSlug?.includes("pathophysiology") || topicSlug?.includes("advanced-airway") || topicSlug?.includes("cardiac-monitoring") || topicSlug?.includes("12-lead-ecg") || topicSlug?.includes("copd-vs-chf") || topicSlug?.includes("asthma-vs-anaphylaxis") || topicSlug?.includes("pulmonary-edema")) && 
            !nextSubsection && category.level === "paramedic" && (
             <LevelProgressionButton 
