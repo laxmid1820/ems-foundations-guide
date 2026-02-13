@@ -5,7 +5,7 @@ import { useStreak } from "@/hooks/useStreak";
 
 interface XPState {
   total: number;
-  lastGain: { amount: number; timestamp: number } | null;
+  lastGain: { amount: number; timestamp: number; reason: string } | null;
 }
 
 export function useXP() {
@@ -23,10 +23,10 @@ export function useXP() {
   }, [profile?.xp_total]);
 
   const addXP = useCallback(
-    async (amount: number) => {
+    async (amount: number, reason = "XP earned!") => {
       if (amount <= 0) return;
       const newTotal = xp.total + amount;
-      setXP({ total: newTotal, lastGain: { amount, timestamp: Date.now() } });
+      setXP({ total: newTotal, lastGain: { amount, timestamp: Date.now(), reason } });
 
       if (user) {
         await supabase
@@ -43,13 +43,14 @@ export function useXP() {
 
   const gainQuizXP = useCallback(
     (correct: boolean, isRetry = false) => {
-      addXP(correct ? (isRetry ? 5 : 10) : 0);
+      if (!correct) return;
+      addXP(isRetry ? 5 : 10, isRetry ? "Nice retry!" : "Great answer!");
     },
     [addXP],
   );
 
-  const gainSectionXP = useCallback(() => addXP(5), [addXP]);
-  const gainFlashcardXP = useCallback(() => addXP(2), [addXP]);
+  const gainSectionXP = useCallback(() => addXP(5, "Section viewed!"), [addXP]);
+  const gainFlashcardXP = useCallback(() => addXP(2, "Flashcard mastered!"), [addXP]);
 
   return { xp: xp.total, lastGain: xp.lastGain, gainQuizXP, gainSectionXP, gainFlashcardXP, addXP };
 }
