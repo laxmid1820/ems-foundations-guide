@@ -3,6 +3,8 @@ import { useEffect, useState, useCallback, useMemo, useRef } from "react";
 import { Layout } from "@/components/Layout";
 import { ConfettiEffect } from "@/components/gamification/ConfettiEffect";
 import { XPSlam } from "@/components/gamification/XPSlam";
+import { AchievementBadge } from "@/components/gamification/AchievementBadge";
+import { ModuleCompletionCeremony } from "@/components/gamification/ModuleCompletionCeremony";
 import { TopicCallout } from "@/components/topics/TopicCallout";
 import { TopicSection } from "@/components/topics/TopicSection";
 
@@ -26,7 +28,7 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 import { cn } from "@/lib/utils";
-import { Clock, ArrowLeft, ChevronLeft, ChevronRight, Lightbulb, BookOpen, GraduationCap, TrendingUp, Award } from "lucide-react";
+import { Clock, ArrowLeft, ChevronLeft, ChevronRight, Lightbulb, BookOpen, GraduationCap, TrendingUp, Award, Lock } from "lucide-react";
 
 // Helper: count quiz questions in a section's blocks
 function countSectionQuizzes(section: { blocks?: { type: string; quiz?: { id: string } }[] }): string[] {
@@ -201,17 +203,43 @@ const SubsectionDetail = () => {
     }
   }, [gainQuizXP, sectionQuizMap, gainSectionMasteryXP]);
 
-  // Topic completion bonus
-  useEffect(() => {
-    if (topicBonusAwarded || totalQuizCount === 0) return;
-    if (allQuizAnswers.size < totalQuizCount) return;
-    const correctCount = Array.from(allQuizAnswers.values()).filter(Boolean).length;
-    const accuracy = (correctCount / totalQuizCount) * 100;
-    if (accuracy > 80) {
-      addXP(150, `Topic mastered at ${Math.round(accuracy)}% — +150 XP unlocked!`);
-      setTopicBonusAwarded(true);
+  // Ceremony state
+  const [showCeremony, setShowCeremony] = useState(false);
+
+  const handleModuleComplete = useCallback(() => {
+    addXP(5, "Module completed!");
+    setShowCeremony(true);
+  }, [addXP]);
+
+  const handleCeremonyComplete = useCallback(() => {
+    addXP(150, "Topic mastered — +150 XP unlocked!");
+    setTopicBonusAwarded(true);
+    setShowCeremony(false);
+  }, [addXP]);
+
+  // Gate last section behind prior quiz mastery
+  const allPriorQuizzesPerfect = useMemo(() => {
+    if (!richSections || richSections.length < 2) return true;
+    const priorSections = richSections.slice(0, -1);
+    for (const s of priorSections) {
+      const quizIds = sectionQuizMap.get(s.id) || [];
+      const correctSet = sectionCorrect.get(s.id);
+      if (quizIds.length > 0 && (!correctSet || correctSet.size < quizIds.length)) {
+        return false;
+      }
     }
-  }, [allQuizAnswers, totalQuizCount, topicBonusAwarded, addXP]);
+    return true;
+  }, [richSections, sectionQuizMap, sectionCorrect]);
+
+  // Check if last section quizzes are all perfect
+  const lastSectionPerfect = useMemo(() => {
+    if (!richSections || richSections.length === 0) return false;
+    const lastSection = richSections[richSections.length - 1];
+    const quizIds = sectionQuizMap.get(lastSection.id) || [];
+    if (quizIds.length === 0) return false;
+    const correctSet = sectionCorrect.get(lastSection.id);
+    return correctSet ? correctSet.size >= quizIds.length : false;
+  }, [richSections, sectionQuizMap, sectionCorrect]);
 
   const handleTabViewed = useCallback((index: number) => {
     setTabsViewed(prev => new Set(prev).add(index));
@@ -440,9 +468,20 @@ const SubsectionDetail = () => {
           )}
         </div>
 
-        {/* Topic mastery celebration */}
-        <ConfettiEffect trigger={topicBonusAwarded} intensity="big" />
-        <XPSlam trigger={topicBonusAwarded} amount={150} />
+        {/* Module Completion Ceremony */}
+        <ModuleCompletionCeremony trigger={showCeremony} onComplete={handleCeremonyComplete} />
+
+        {/* Post-mastery callout */}
+        {topicBonusAwarded && (
+          <div className="mt-6 lg:max-w-3xl">
+            <TopicCallout type="youveGotThis">
+              <div className="space-y-3">
+                <p>🎉 Excellent work! You mastered this module and earned the +150 XP bonus!</p>
+                <AchievementBadge variant="topic-mastered" size="md" />
+              </div>
+            </TopicCallout>
+          </div>
+        )}
 
         {/* Navigation */}
         <div className="mt-12 pt-6 border-t border-border lg:max-w-3xl">
