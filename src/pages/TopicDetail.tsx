@@ -112,7 +112,7 @@ const TopicDetail = () => {
               // Auto-master quiz-free sections on view
               const quizIds = sectionQuizMap.get(sectionId) || [];
               if (quizIds.length === 0 && !masteredRef.current.has(sectionId)) {
-                gainSectionMasteryXP();
+                // Visual checkmark only — no XP for quiz-free sections
                 setMasteredSections((ms) => new Set(ms).add(sectionId));
               }
               return [...prev, sectionId];
@@ -287,10 +287,11 @@ const TopicDetail = () => {
       const flippedInSection = Array.from(flashcardsFlipped).filter(
         (id) => id.startsWith(`${s.id}-card-`)
       ).length;
-      const total = quizCount * 10 + flashcardCount * 2 + 15;
+      const masteryBonus = quizCount > 0 ? 15 : 0;
+      const total = quizCount * 10 + flashcardCount * 2 + masteryBonus;
       const correct = sectionCorrect.get(s.id)?.size || 0;
       const mastered = masteredSections.has(s.id);
-      const earned = correct * 10 + flippedInSection * 2 + (mastered ? 15 : 0);
+      const earned = correct * 10 + flippedInSection * 2 + (mastered && quizCount > 0 ? 15 : 0);
       m.set(s.id, { earned, total });
     });
     return m;
@@ -421,10 +422,14 @@ const TopicDetail = () => {
               }
               const quizIds = sectionQuizMap.get(section.id) || [];
               const quizCount = quizIds.length;
-              const xpTotal = quizCount * 10 + 15;
+              const flashcardCount = section.blocks?.filter(b => b.type === "flashcards")
+                .reduce((sum, b) => sum + (b.flashcards?.length || 0), 0) || 0;
+              const flippedInSection = flashcardsFlipped.filter(id => id.startsWith(`${section.id}-card-`)).length;
+              const masteryBonus = quizCount > 0 ? 15 : 0;
+              const xpTotal = quizCount * 10 + flashcardCount * 2 + masteryBonus;
               const correctCount = sectionCorrect.get(section.id)?.size || 0;
               const mastered = masteredSections.has(section.id);
-              const xpEarned = correctCount * 10 + (mastered ? 15 : 0);
+              const xpEarned = correctCount * 10 + flippedInSection * 2 + (mastered && quizCount > 0 ? 15 : 0);
               const progress = quizCount > 0 ? (correctCount / quizCount) * 100 : (mastered ? 100 : 0);
               return (
                 <TopicSection
