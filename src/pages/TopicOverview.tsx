@@ -8,7 +8,7 @@ import { LevelProgressionButton } from "@/components/topics/LevelProgressionButt
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { StickyProgressBar } from "@/components/topics/StickyProgressBar";
+
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -199,8 +199,6 @@ const TopicOverview = () => {
         )}
       </div>
 
-      {/* Progress Bar */}
-      <StickyProgressBar progress={0} sectionsViewed={0} totalSections={0} />
     </Layout>
   );
 };
@@ -358,11 +356,6 @@ function TopicOverviewWithContent({
         </div>
       </div>
 
-      <StickyProgressBar 
-        progress={progress}
-        sectionsViewed={sectionsViewed.size}
-        totalSections={totalSections}
-      />
     </Layout>
   );
 }
