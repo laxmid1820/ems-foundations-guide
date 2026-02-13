@@ -4,10 +4,11 @@ interface ProgressRingProps {
   progress: number;
   size?: number;
   strokeWidth?: number;
+  strokeColor?: string;
   className?: string;
 }
 
-export function ProgressRing({ progress, size = 120, strokeWidth = 10, className }: ProgressRingProps) {
+export function ProgressRing({ progress, size = 120, strokeWidth = 10, strokeColor, className }: ProgressRingProps) {
   const radius = (size - strokeWidth) / 2;
   const circumference = 2 * Math.PI * radius;
   const offset = circumference - (Math.min(100, Math.max(0, progress)) / 100) * circumference;
@@ -28,7 +29,7 @@ export function ProgressRing({ progress, size = 120, strokeWidth = 10, className
           cy={size / 2}
           r={radius}
           fill="none"
-          stroke="hsl(var(--success))"
+          stroke={strokeColor ?? "hsl(var(--success))"}
           strokeWidth={strokeWidth}
           strokeLinecap="round"
           strokeDasharray={circumference}
