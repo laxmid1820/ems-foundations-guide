@@ -158,45 +158,6 @@ export function TopicSection({
         )}
       </div>
 
-      {/* XP Footer */}
-      {sectionXPTotal > 0 && (
-        <div className="flex items-center justify-between px-5 py-3 border-t border-border bg-muted/30">
-          <TooltipProvider delayDuration={300}>
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <div className="flex items-center gap-2 text-xs font-bold cursor-help">
-                  <Zap className="h-3.5 w-3.5 text-xp" />
-                  <span className="text-muted-foreground">
-                    {sectionXPEarned}/{sectionXPTotal} XP
-                  </span>
-                </div>
-              </TooltipTrigger>
-              <TooltipContent side="top" className="max-w-[260px] text-center">
-                {(() => {
-                  const quizCount = Math.round((sectionXPTotal - 15) / 10);
-                  if (quizCount > 0) {
-                    return `${quizCount} question${quizCount !== 1 ? 's' : ''} × 10 XP + 15 mastery bonus = ${sectionXPTotal} XP — master every quiz to earn it all!`;
-                  }
-                  return "View this section to earn 15 mastery XP!";
-                })()}
-              </TooltipContent>
-            </Tooltip>
-          </TooltipProvider>
-          <div className="relative">
-            <TopicProgressRing
-              progress={sectionProgress}
-              size={32}
-              strokeWidth={3}
-              showMessage={false}
-            />
-            {isMastered && (
-              <div className="absolute inset-0 flex items-center justify-center">
-                <Check className="h-3.5 w-3.5 text-xp" />
-              </div>
-            )}
-          </div>
-        </div>
-      )}
 
       {/* Confetti on mastery */}
       <ConfettiEffect trigger={isMastered} />
