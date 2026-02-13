@@ -387,29 +387,60 @@ const SubsectionDetail = () => {
         {/* Content Blocks */}
         <div className="space-y-8 lg:max-w-3xl">
           {richSections ? (
-            richSections.map((section, index) => {
-              const quizIds = sectionQuizMap.get(section.id) || [];
-              const quizCount = quizIds.length;
-              const xpTotal = quizCount * 10 + 15;
-              const correctCount = sectionCorrect.get(section.id)?.size || 0;
-              const mastered = masteredSections.has(section.id);
-              const xpEarned = correctCount * 10 + (mastered ? 15 : 0);
-              const progress = quizCount > 0 ? (correctCount / quizCount) * 100 : (mastered ? 100 : 0);
-              return (
-                <TopicSection
-                  key={section.id}
-                  section={section}
-                  index={index}
-                  sectionXPEarned={xpEarned}
-                  sectionXPTotal={xpTotal}
-                  sectionProgress={progress}
-                  isMastered={mastered}
-                  onTabViewed={handleTabViewed}
-                  onCardFlip={handleCardFlip}
-                  onQuizAnswer={handleQuizAnswer}
-                />
-              );
-            })
+            <>
+              {richSections.map((section, index) => {
+                const isLast = index === richSections.length - 1;
+                // Gate last section
+                if (isLast && !allPriorQuizzesPerfect) {
+                  return (
+                    <section key={section.id} className="mb-6 rounded-2xl border-2 border-dashed border-xp/30 bg-xp/5 p-8 text-center">
+                      <Lock className="h-8 w-8 text-xp/50 mx-auto mb-3" />
+                      <p className="font-bold text-foreground mb-1">Final Knowledge Check</p>
+                      <p className="text-sm text-muted-foreground">
+                        Answer all section quizzes correctly to unlock
+                      </p>
+                    </section>
+                  );
+                }
+                const quizIds = sectionQuizMap.get(section.id) || [];
+                const quizCount = quizIds.length;
+                const xpTotal = quizCount * 10 + 15;
+                const correctCount = sectionCorrect.get(section.id)?.size || 0;
+                const mastered = masteredSections.has(section.id);
+                const xpEarned = correctCount * 10 + (mastered ? 15 : 0);
+                const progress = quizCount > 0 ? (correctCount / quizCount) * 100 : (mastered ? 100 : 0);
+                return (
+                  <TopicSection
+                    key={section.id}
+                    section={section}
+                    index={index}
+                    sectionXPEarned={xpEarned}
+                    sectionXPTotal={xpTotal}
+                    sectionProgress={progress}
+                    isMastered={mastered}
+                    onTabViewed={handleTabViewed}
+                    onCardFlip={handleCardFlip}
+                    onQuizAnswer={handleQuizAnswer}
+                  />
+                );
+              })}
+
+              {/* Done with Module button */}
+              {allPriorQuizzesPerfect && lastSectionPerfect && !topicBonusAwarded && (
+                <div className="mt-8 space-y-3">
+                  <p className="text-sm font-medium text-muted-foreground text-center">
+                    Finish strong! Completing the module unlocks your +150 XP mastery bonus and badge.
+                  </p>
+                  <Button
+                    size="lg"
+                    className="w-full bg-xp text-xp-foreground hover:bg-xp/90 rounded-2xl uppercase tracking-wide font-extrabold shadow-[0_4px_0_hsl(var(--xp)/0.6)] hover:shadow-[0_2px_0_hsl(var(--xp)/0.6)] hover:translate-y-[2px] active:shadow-none active:translate-y-[4px] transition-all"
+                    onClick={handleModuleComplete}
+                  >
+                    Done with Module
+                  </Button>
+                </div>
+              )}
+            </>
           ) : (
             <>
               <section id="objective-section" className="rounded-lg border border-border bg-card shadow-sm p-5 sm:p-6">
