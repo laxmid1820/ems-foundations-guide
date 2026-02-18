@@ -4,6 +4,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "@/contexts/AuthContext";
+import { DemoProvider } from "@/contexts/DemoContext";
 import Index from "./pages/Index";
 import Dashboard from "./pages/Dashboard";
 import Topics from "./pages/Topics";
@@ -15,12 +16,14 @@ import Simulations from "./pages/Simulations";
 import CardiacArrestSim from "./pages/CardiacArrestSim";
 import Quizzes from "./pages/Quizzes";
 import Auth from "./pages/Auth";
+import Pricing from "./pages/Pricing";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
+    <DemoProvider>
     <AuthProvider>
       <TooltipProvider>
         <Toaster />
@@ -39,12 +42,14 @@ const App = () => (
             <Route path="/simulations" element={<Simulations />} />
             <Route path="/simulations/cardiac-arrest" element={<CardiacArrestSim />} />
             <Route path="/quizzes" element={<Quizzes />} />
+            <Route path="/pricing" element={<Pricing />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
       </TooltipProvider>
     </AuthProvider>
+    </DemoProvider>
   </QueryClientProvider>
 );
 
