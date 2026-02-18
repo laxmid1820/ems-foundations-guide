@@ -10,7 +10,30 @@ serve(async (req) => {
   if (req.method === "OPTIONS") return new Response(null, { headers: corsHeaders });
 
   try {
-    const { level, domain, limit = 20, include_answers = false } = await req.json();
+    // Authenticate user
+    const authHeader = req.headers.get("Authorization");
+    if (!authHeader) {
+      return new Response(JSON.stringify({ error: "Unauthorized" }), {
+        status: 401,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
+
+    const supabaseUser = createClient(
+      Deno.env.get("SUPABASE_URL")!,
+      Deno.env.get("SUPABASE_ANON_KEY")!,
+      { global: { headers: { Authorization: authHeader } } }
+    );
+
+    const { data: { user }, error: userError } = await supabaseUser.auth.getUser();
+    if (userError || !user) {
+      return new Response(JSON.stringify({ error: "Unauthorized" }), {
+        status: 401,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
+
+    const { level, domain, limit = 20 } = await req.json();
 
     if (!level || !["emt", "aemt", "paramedic"].includes(level)) {
       return new Response(JSON.stringify({ error: "Invalid level" }), {
@@ -19,14 +42,15 @@ serve(async (req) => {
       });
     }
 
+    const validatedLimit = Math.min(Math.max(1, parseInt(limit) || 20), 200);
+
     const supabase = createClient(
       Deno.env.get("SUPABASE_URL")!,
       Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!
     );
 
-    const selectFields = include_answers
-      ? "id, level, domain, question_type, question_text, options, nremt_domain, difficulty, tags, correct_answer, explanation"
-      : "id, level, domain, question_type, question_text, options, nremt_domain, difficulty, tags";
+    // Never include answers — they are only revealed after submission
+    const selectFields = "id, level, domain, question_type, question_text, options, nremt_domain, difficulty, tags";
 
     let query = supabase
       .from("quiz_questions")
@@ -37,20 +61,18 @@ serve(async (req) => {
       query = query.eq("nremt_domain", domain);
     }
 
-    // Random selection via ordering
     const { data, error } = await query.limit(200);
 
     if (error) throw error;
 
-    // Shuffle and take `limit`
-    const shuffled = (data || []).sort(() => Math.random() - 0.5).slice(0, limit);
+    const shuffled = (data || []).sort(() => Math.random() - 0.5).slice(0, validatedLimit);
 
     return new Response(JSON.stringify({ questions: shuffled }), {
       headers: { ...corsHeaders, "Content-Type": "application/json" },
     });
   } catch (e) {
     console.error("get-quiz error:", e);
-    return new Response(JSON.stringify({ error: e.message }), {
+    return new Response(JSON.stringify({ error: "An error occurred processing your request" }), {
       status: 500,
       headers: { ...corsHeaders, "Content-Type": "application/json" },
     });

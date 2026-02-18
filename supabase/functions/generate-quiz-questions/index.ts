@@ -25,7 +25,9 @@ serve(async (req) => {
     const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");
     if (!LOVABLE_API_KEY) throw new Error("LOVABLE_API_KEY not configured");
 
-    const { level, domain, count = 25 } = await req.json();
+    const body = await req.json();
+    const { level, domain } = body;
+    const count = Math.min(Math.max(1, parseInt(body.count) || 25), 50);
 
     if (!level || !["emt", "aemt", "paramedic"].includes(level)) {
       return new Response(JSON.stringify({ error: "Invalid level" }), {
@@ -164,7 +166,7 @@ NREMT domains to use:
     );
   } catch (e) {
     console.error("generate-quiz-questions error:", e);
-    return new Response(JSON.stringify({ error: e.message }), {
+    return new Response(JSON.stringify({ error: "An error occurred generating questions" }), {
       status: 500,
       headers: { ...corsHeaders, "Content-Type": "application/json" },
     });

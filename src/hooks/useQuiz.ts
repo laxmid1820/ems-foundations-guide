@@ -101,7 +101,7 @@ export function useQuiz() {
 
     try {
       const { data, error: fnError } = await supabase.functions.invoke("get-quiz", {
-        body: { level: effectiveLevel, domain, limit, include_answers: immediateAnswers },
+        body: { level: effectiveLevel, domain, limit },
       });
 
       if (fnError) throw fnError;

@@ -147,7 +147,7 @@ serve(async (req) => {
     );
   } catch (e) {
     console.error("submit-quiz error:", e);
-    return new Response(JSON.stringify({ error: e.message }), {
+    return new Response(JSON.stringify({ error: "An error occurred processing your request" }), {
       status: 500,
       headers: { ...corsHeaders, "Content-Type": "application/json" },
     });
