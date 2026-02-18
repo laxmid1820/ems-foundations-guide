@@ -17,6 +17,7 @@ import CardiacArrestSim from "./pages/CardiacArrestSim";
 import Quizzes from "./pages/Quizzes";
 import Auth from "./pages/Auth";
 import Pricing from "./pages/Pricing";
+import Demo from "./pages/Demo";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -43,6 +44,8 @@ const App = () => (
             <Route path="/simulations/cardiac-arrest" element={<CardiacArrestSim />} />
             <Route path="/quizzes" element={<Quizzes />} />
             <Route path="/pricing" element={<Pricing />} />
+            <Route path="/demo" element={<Demo />} />
+            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
