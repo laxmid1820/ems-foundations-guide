@@ -1,6 +1,7 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Layout } from "@/components/Layout";
 import { Button } from "@/components/ui/button";
+import { useDemo } from "@/contexts/DemoContext";
 import { 
   BookOpen, 
   CheckCircle2, 
@@ -10,7 +11,8 @@ import {
   Sparkles,
   Target,
   Users,
-  Zap
+  Zap,
+  Eye
 } from "lucide-react";
 
 const benefits = [
@@ -39,6 +41,14 @@ const features = [
 ];
 
 const Index = () => {
+  const { enterDemoMode } = useDemo();
+  const navigate = useNavigate();
+
+  const handleTryDemo = () => {
+    enterDemoMode();
+    navigate("/topics");
+  };
+
   return (
     <Layout>
       {/* Hero Section */}
@@ -74,6 +84,18 @@ const Index = () => {
                   <span>{feature}</span>
                 </div>
               ))}
+            </div>
+
+            {/* Demo CTA */}
+            <div className="mb-6">
+              <Button
+                onClick={handleTryDemo}
+                size="lg"
+                className="gap-2 text-base px-10 bg-accent text-accent-foreground hover:bg-accent/90 rounded-2xl font-extrabold shadow-[0_4px_0_hsl(var(--accent)/0.5)] hover:shadow-[0_2px_0_hsl(var(--accent)/0.5)] hover:translate-y-[2px] active:shadow-none active:translate-y-[4px] transition-all uppercase tracking-wide"
+              >
+                <Eye className="h-5 w-5" />
+                Try Demo Mode – No Account Needed
+              </Button>
             </div>
 
             {/* CTA Buttons */}
