@@ -12,26 +12,8 @@ Think of it like a house with four rooms. Two rooms upstairs (the atria) and two
 **Why does this matter for EMS?**
 When you're assessing a patient, understanding this basic layout helps you make sense of what you're seeing and hearing. Heart sounds, pulses, blood pressure—they all connect back to this simple pump doing its job.`,
     blocks: [
-      {
-        type: "quiz",
-        quiz: {
-          id: "emt-heart-intro-q1",
-          question: "How many chambers does the heart have?",
-          options: ["Two", "Three", "Four", "Six"],
-          correctIndex: 2,
-          explanation: "The heart has four chambers—two atria (upper) that receive blood and two ventricles (lower) that pump blood out. Think of it like a house with four rooms."
-        }
-      },
-      {
-        type: "quiz",
-        quiz: {
-          id: "emt-heart-intro-q2",
-          question: "Which chambers of the heart pump blood OUT?",
-          options: ["Atria", "Ventricles", "Valves", "Septum"],
-          correctIndex: 1,
-          explanation: "The ventricles (bottom chambers) are the pumping chambers. The atria (top chambers) receive blood. Blood flows from atria down into ventricles, then gets pumped out."
-        }
-      }
+      { type: "quiz", quiz: { id: "emt-heart-intro-q1", question: "How many chambers does the heart have?", options: ["Two", "Three", "Four", "Six"], correctIndex: 2, explanation: "The heart has four chambers—two atria (upper) that receive blood and two ventricles (lower) that pump blood out. Think of it like a house with four rooms." } },
+      { type: "quiz", quiz: { id: "emt-heart-intro-q2", question: "Which chambers of the heart pump blood OUT?", options: ["Atria", "Ventricles", "Valves", "Septum"], correctIndex: 1, explanation: "The ventricles (bottom chambers) are the pumping chambers. The atria (top chambers) receive blood. Blood flows from atria down into ventricles, then gets pumped out." } }
     ],
     keyPoints: [
       "The heart is a muscular pump with four chambers",
@@ -54,35 +36,73 @@ The left side is like a fire hose. It receives oxygen-rich blood from the lungs 
 This is why the left ventricle has thicker walls. It needs more muscle to push blood all the way around the body.`,
     blocks: [
       {
-        type: "quiz",
-        quiz: {
-          id: "emt-twosides-q1",
-          question: "Which side of the heart pumps blood to the lungs?",
-          options: ["Left side", "Right side", "Both sides equally", "Neither side"],
-          correctIndex: 1,
-          explanation: "The right side is the 'lung pump'—it receives used blood from the body and sends it to the lungs to pick up fresh oxygen. Think: Right = Respiratory."
-        }
+        type: "tabs",
+        tabs: [
+          {
+            label: "Right Side",
+            content: "The right side is the low-pressure pump. It receives used, deoxygenated blood and sends it to the lungs.",
+            bullets: [
+              "Right atrium receives blood from the body via the vena cava",
+              "Right ventricle pumps blood to the lungs via the pulmonary arteries",
+              "Lower pressure—the lungs are nearby and delicate",
+              "Thinner walls than the left side",
+              "Clinical connection: Right-sided heart failure causes fluid backup in the body (peripheral edema)"
+            ]
+          },
+          {
+            label: "Left Side",
+            content: "The left side is the high-pressure pump. It receives oxygenated blood from the lungs and sends it to the entire body.",
+            bullets: [
+              "Left atrium receives oxygenated blood from the lungs via the pulmonary veins",
+              "Left ventricle pumps blood to the body via the aorta",
+              "Much higher pressure—must reach fingertips and toes",
+              "Thickest walls of all chambers",
+              "Clinical connection: Left-sided heart failure causes fluid backup in the lungs (pulmonary edema)"
+            ]
+          }
+        ]
       },
-      {
-        type: "quiz",
-        quiz: {
-          id: "emt-twosides-q2",
-          question: "Why is the left ventricle's wall thicker than the right?",
-          options: [
-            "It holds more blood",
-            "It pumps blood farther—to the whole body",
-            "It beats faster",
-            "It has more valves"
-          ],
-          correctIndex: 1,
-          explanation: "The left ventricle must generate enough pressure to push blood through the entire body—a much longer trip than the right ventricle's short journey to the lungs. More work requires more muscle."
-        }
-      }
+      { type: "quiz", quiz: { id: "emt-twosides-q1", question: "Which side of the heart pumps blood to the lungs?", options: ["Left side", "Right side", "Both sides equally", "Neither side"], correctIndex: 1, explanation: "The right side is the 'lung pump'—it receives used blood from the body and sends it to the lungs to pick up fresh oxygen. Think: Right = Respiratory." } },
+      { type: "quiz", quiz: { id: "emt-twosides-q2", question: "Why is the left ventricle's wall thicker than the right?", options: ["It holds more blood", "It pumps blood farther—to the whole body", "It beats faster", "It has more valves"], correctIndex: 1, explanation: "The left ventricle must generate enough pressure to push blood through the entire body—a much longer trip than the right ventricle's short journey to the lungs. More work requires more muscle." } }
     ],
     keyPoints: [
       "Right side: low-pressure pump to the lungs",
       "Left side: high-pressure pump to the body",
       "Left ventricle is thicker due to greater workload"
+    ],
+    rememberThis: "Right = Respiratory destination (lungs). Left = Loaded with oxygen for the body. The first letters match—R to R, L to L!"
+  },
+  {
+    id: "heart-chambers-detail",
+    title: "The Four Chambers Up Close",
+    content: `Now that you know the two sides, let's look at each chamber individually. Each has a specific role, and knowing them helps you understand what happens when things go wrong.
+
+**Right Atrium** — The first stop. Used blood from the body arrives here through two large veins: the superior vena cava (from above) and the inferior vena cava (from below).
+
+**Right Ventricle** — Receives blood from the right atrium and pumps it to the lungs through the pulmonary arteries. It doesn't need much force—the lungs are right next door.
+
+**Left Atrium** — Freshly oxygenated blood from the lungs arrives here through four pulmonary veins.
+
+**Left Ventricle** — The powerhouse. Pumps oxygenated blood through the aorta to every tissue in the body. This chamber does the most work and has the thickest walls.`,
+    blocks: [
+      {
+        type: "flashcards",
+        flashcards: [
+          { id: "heart-chambers-detail-card-0", front: "Right Atrium", back: "Upper right chamber. Receives deoxygenated blood from the body via the superior and inferior vena cava. Thin-walled receiving chamber." },
+          { id: "heart-chambers-detail-card-1", front: "Right Ventricle", back: "Lower right chamber. Pumps blood to the lungs via the pulmonary arteries. Lower pressure than the left side. Wall is thinner than left ventricle." },
+          { id: "heart-chambers-detail-card-2", front: "Left Atrium", back: "Upper left chamber. Receives oxygen-rich blood from the lungs via the pulmonary veins (4 total). Thin-walled receiving chamber." },
+          { id: "heart-chambers-detail-card-3", front: "Left Ventricle", back: "Lower left chamber. Pumps oxygenated blood to the entire body via the aorta. Thickest wall of all chambers—works the hardest." },
+          { id: "heart-chambers-detail-card-4", front: "Aorta", back: "Largest artery in the body. Carries oxygenated blood from the left ventricle to all body tissues. Arches up and curves down through the chest and abdomen." },
+          { id: "heart-chambers-detail-card-5", front: "Vena Cava (Superior & Inferior)", back: "Two large veins that return deoxygenated blood from the body to the right atrium. Superior drains head/arms; Inferior drains abdomen/legs." }
+        ]
+      },
+      { type: "quiz", quiz: { id: "emt-chambers-q1", question: "Which chamber receives deoxygenated blood from the body?", options: ["Left atrium", "Right atrium", "Left ventricle", "Right ventricle"], correctIndex: 1, explanation: "The right atrium is the first stop for blood returning from the body. Deoxygenated blood enters via the superior and inferior vena cava." } },
+      { type: "quiz", quiz: { id: "emt-chambers-q2", question: "How many pulmonary veins carry blood from the lungs to the left atrium?", options: ["One", "Two", "Four", "Six"], correctIndex: 2, explanation: "Four pulmonary veins—two from each lung—carry oxygenated blood to the left atrium. These are unique because they're the only veins that carry oxygenated blood." } }
+    ],
+    keyPoints: [
+      "Right atrium = first stop for used blood from the body",
+      "Left ventricle = the powerhouse that feeds the entire body",
+      "Four pulmonary veins return oxygenated blood to the left atrium"
     ]
   },
   {
@@ -105,141 +125,189 @@ This is why the left ventricle has thicker walls. It needs more muscle to push b
 And then the cycle repeats—over and over, every second of every day.`,
     blocks: [
       {
-        type: "quiz",
-        quiz: {
-          id: "emt-circuit-q1",
-          question: "After leaving the right ventricle, where does blood go?",
-          options: ["To the body via the aorta", "To the lungs via the pulmonary arteries", "To the left atrium directly", "To the brain"],
-          correctIndex: 1,
-          explanation: "The right ventricle pumps deoxygenated blood to the lungs through the pulmonary arteries. In the lungs, blood picks up oxygen and drops off carbon dioxide before returning to the heart."
-        }
+        type: "tabs",
+        tabs: [
+          {
+            label: "Pulmonary Circuit",
+            content: "The loop between heart and lungs. Purpose: Pick up oxygen, drop off carbon dioxide.",
+            bullets: [
+              "Route: Right ventricle → Pulmonary arteries → Lungs → Pulmonary veins → Left atrium",
+              "Low pressure—lungs are delicate and nearby",
+              "Blood spends only seconds in lung capillaries",
+              "Gas exchange: CO₂ out, O₂ in at the alveolar level",
+              "Clinical connection: Pulmonary embolism blocks this circuit"
+            ]
+          },
+          {
+            label: "Systemic Circuit",
+            content: "The loop between heart and body. Purpose: Deliver oxygen and nutrients, pick up waste.",
+            bullets: [
+              "Route: Left ventricle → Aorta → Body tissues → Vena cava → Right atrium",
+              "High pressure—must reach from head to toes",
+              "Travels through approximately 60,000 miles of blood vessels",
+              "Oxygen and nutrients drop off at capillary beds",
+              "Clinical connection: Shock affects systemic perfusion"
+            ]
+          }
+        ]
       },
-      {
-        type: "quiz",
-        quiz: {
-          id: "emt-circuit-q2",
-          question: "Which large artery carries oxygenated blood from the heart to the rest of the body?",
-          options: ["Vena cava", "Pulmonary artery", "Aorta", "Pulmonary vein"],
-          correctIndex: 2,
-          explanation: "The aorta is the largest artery in the body. It receives oxygenated blood from the left ventricle and distributes it to every organ and tissue."
-        }
-      }
+      { type: "quiz", quiz: { id: "emt-circuit-q1", question: "After leaving the right ventricle, where does blood go?", options: ["To the body via the aorta", "To the lungs via the pulmonary arteries", "To the left atrium directly", "To the brain"], correctIndex: 1, explanation: "The right ventricle pumps deoxygenated blood to the lungs through the pulmonary arteries. In the lungs, blood picks up oxygen and drops off carbon dioxide before returning to the heart." } },
+      { type: "quiz", quiz: { id: "emt-circuit-q2", question: "Which large artery carries oxygenated blood from the heart to the rest of the body?", options: ["Vena cava", "Pulmonary artery", "Aorta", "Pulmonary vein"], correctIndex: 2, explanation: "The aorta is the largest artery in the body. It receives oxygenated blood from the left ventricle and distributes it to every organ and tissue." } }
     ],
     keyPoints: [
       "Blood flows in a continuous loop: body → heart → lungs → heart → body",
       "Pulmonary arteries carry blood TO the lungs",
       "Pulmonary veins carry blood FROM the lungs"
     ],
-    rememberThis: "Here's a memory trick: Arteries carry blood AWAY from the heart (both start with 'A'). This is true everywhere in the body."
+    rememberThis: "Arteries carry blood AWAY from the heart (both start with 'A'). This is true everywhere in the body—including the confusing pulmonary arteries that carry deoxygenated blood."
   },
   {
-    id: "heart-sounds",
-    title: "What You'll Hear – Heart Sounds",
-    content: `When you listen to a patient's heart, you're hearing the valves doing their job.
+    id: "valves-and-sounds",
+    title: "Heart Valves and Sounds",
+    content: `Between each chamber—and at the exits—are one-way doors called valves. They prevent blood from flowing backward. Without them, every heartbeat would lose efficiency.
 
-**"Lub-dub, lub-dub"**
-This is the normal heart rhythm. Each sound is a valve closing:
+**The Four Valves:**
+• **Tricuspid valve**: Between right atrium and right ventricle
+• **Pulmonary valve**: Between right ventricle and pulmonary artery
+• **Mitral (bicuspid) valve**: Between left atrium and left ventricle
+• **Aortic valve**: Between left ventricle and aorta
 
-• **Lub** (first sound): The valves between atria and ventricles close
-• **Dub** (second sound): The valves leaving the heart close
+**What You Hear:**
+When you listen to a patient's heart, you're hearing these valves closing:
 
-When these sounds are regular and consistent, that's a good sign. When they're irregular, too fast, too slow, or have extra sounds—that's information telling you something's different.
+• **"Lub" (S1)**: The AV valves close (tricuspid + mitral) as ventricles begin to contract
+• **"Dub" (S2)**: The semilunar valves close (pulmonary + aortic) as ventricles relax
 
-For now, just focus on recognizing normal. We'll talk about abnormal rhythms later.`,
+Regular, consistent "lub-dub" = good sign. Irregular, too fast, too slow, or extra sounds = something to investigate.`,
     blocks: [
       {
-        type: "quiz",
-        quiz: {
-          id: "emt-sounds-q1",
-          question: "What produces the normal 'lub-dub' heart sounds?",
-          options: ["Blood flowing through arteries", "Heart valves closing", "The heart muscle contracting", "Air moving through the lungs"],
-          correctIndex: 1,
-          explanation: "Heart sounds are made by valves closing. 'Lub' is the AV valves closing as ventricles contract. 'Dub' is the semilunar valves closing as ventricles relax."
-        }
+        type: "flashcards",
+        flashcards: [
+          { id: "valves-and-sounds-card-0", front: "Tricuspid Valve", back: "Between right atrium and right ventricle. Has three leaflets (tri = three). Prevents backflow from ventricle to atrium during contraction." },
+          { id: "valves-and-sounds-card-1", front: "Pulmonary Valve", back: "Between right ventricle and pulmonary artery. Semilunar valve. Prevents blood from flowing back into the right ventricle after it's pumped to the lungs." },
+          { id: "valves-and-sounds-card-2", front: "Mitral (Bicuspid) Valve", back: "Between left atrium and left ventricle. Has two leaflets (bi = two). The most commonly affected valve in valve disease." },
+          { id: "valves-and-sounds-card-3", front: "Aortic Valve", back: "Between left ventricle and aorta. Semilunar valve. Prevents oxygenated blood from flowing back into the left ventricle after ejection." },
+          { id: "valves-and-sounds-card-4", front: "S1 ('Lub')", back: "First heart sound. Caused by the AV valves closing (tricuspid and mitral) at the START of ventricular contraction (systole)." },
+          { id: "valves-and-sounds-card-5", front: "S2 ('Dub')", back: "Second heart sound. Caused by the semilunar valves closing (pulmonary and aortic) at the END of ventricular contraction, beginning of diastole (relaxation)." }
+        ]
       },
-      {
-        type: "quiz",
-        quiz: {
-          id: "emt-sounds-q2",
-          question: "If heart sounds are irregular instead of a steady 'lub-dub,' what does this suggest?",
-          options: ["Normal variation", "A possible rhythm abnormality", "The stethoscope is broken", "The patient is breathing too fast"],
-          correctIndex: 1,
-          explanation: "Irregular heart sounds suggest the heart's rhythm may be abnormal. While not all irregularities are dangerous, they warrant further assessment and monitoring."
-        }
-      }
+      { type: "quiz", quiz: { id: "emt-valves-q1", question: "What produces the normal 'lub-dub' heart sounds?", options: ["Blood flowing through arteries", "Heart valves closing", "The heart muscle contracting", "Air moving through the lungs"], correctIndex: 1, explanation: "Heart sounds are made by valves closing. 'Lub' (S1) is the AV valves closing as ventricles contract. 'Dub' (S2) is the semilunar valves closing as ventricles relax." } },
+      { type: "quiz", quiz: { id: "emt-valves-q2", question: "Which valve sits between the left atrium and left ventricle?", options: ["Tricuspid", "Pulmonary", "Mitral (bicuspid)", "Aortic"], correctIndex: 2, explanation: "The mitral (bicuspid) valve has two leaflets and sits between the left atrium and left ventricle. It's the most commonly affected valve in heart disease." } }
     ],
     keyPoints: [
-      "Normal heart sounds: regular 'lub-dub' pattern",
-      "Each sound is a valve closing",
-      "Listen for regularity and consistency"
+      "Four valves prevent backflow and keep blood moving forward",
+      "AV valves (tricuspid + mitral) separate atria from ventricles",
+      "Semilunar valves (pulmonary + aortic) guard the exits"
     ],
     proTip: "Practice listening to heart sounds whenever you can—on yourself, family, friends (with permission!). The more 'normal' you hear, the easier it is to recognize 'abnormal.'"
   },
   {
-    id: "knowledge-check",
-    title: "Check Your Understanding",
-    content: `Let's make sure the key concepts are sticking. Don't worry about getting everything perfect—this is just practice.`,
+    id: "arteries-veins-capillaries",
+    title: "Blood Vessels – Arteries, Veins, and Capillaries",
+    content: `Blood vessels are the roads of the cardiovascular system. There are three types, each with a specific job:
+
+**Arteries** — Carry blood AWAY from the heart (remember: Artery = Away). They have thick, muscular walls to handle high pressure. They branch into smaller and smaller vessels called arterioles.
+
+**Veins** — Carry blood TOWARD the heart. They have thinner walls and contain one-way valves to prevent backflow—especially important in the legs where blood must travel uphill against gravity.
+
+**Capillaries** — The tiniest vessels, connecting arteries to veins. Their walls are only one cell thick, allowing oxygen, nutrients, and waste to pass between blood and tissues. This is where the actual "delivery" happens.
+
+**The Key Exception:**
+Pulmonary arteries carry deoxygenated blood (to the lungs). Pulmonary veins carry oxygenated blood (from the lungs). The naming is based on direction, not oxygen content.`,
     blocks: [
       {
-        type: "quiz",
-        quiz: {
-          id: "emt-heart-q1",
-          question: "Which side of the heart pumps blood to the lungs?",
-          options: [
-            "Left side",
-            "Right side",
-            "Both sides equally",
-            "Neither—blood flows passively"
-          ],
-          correctIndex: 1,
-          explanation: "The right side of the heart pumps blood to the lungs (pulmonary circulation). The left side pumps to the body. Remember: Right = Respiratory destination!"
-        }
+        type: "tabs",
+        tabs: [
+          {
+            label: "Arteries",
+            content: "High-pressure vessels that carry blood away from the heart.",
+            bullets: [
+              "Thick, muscular, elastic walls to handle pressure",
+              "Pulsate with each heartbeat—this is what you feel as a pulse",
+              "Branch into smaller arterioles",
+              "Major arteries: aorta, carotid, femoral, radial, brachial",
+              "When damaged, arterial bleeding is bright red and spurting"
+            ]
+          },
+          {
+            label: "Veins",
+            content: "Low-pressure vessels that return blood to the heart.",
+            bullets: [
+              "Thinner walls than arteries",
+              "Contain one-way valves to prevent backflow",
+              "Rely on skeletal muscle contraction to help push blood upward",
+              "Major veins: vena cava, jugular, femoral, saphenous",
+              "When damaged, venous bleeding is dark red and steady"
+            ]
+          },
+          {
+            label: "Capillaries",
+            content: "Microscopic vessels where gas and nutrient exchange occurs.",
+            bullets: [
+              "Walls are only one cell thick—allows diffusion",
+              "Connect arterioles to venules",
+              "Where oxygen leaves the blood and enters tissues",
+              "Where carbon dioxide and waste enter the blood",
+              "Capillary refill time is a clinical assessment tool"
+            ]
+          }
+        ]
       },
-      {
-        type: "quiz",
-        quiz: {
-          id: "emt-heart-q2",
-          question: "Why is the left ventricle thicker than the right?",
-          options: [
-            "It holds more blood",
-            "It beats faster",
-            "It pumps blood farther (to the whole body)",
-            "It's a birth defect in most people"
-          ],
-          correctIndex: 2,
-          explanation: "The left ventricle has to pump blood all the way around the body—a much longer journey than the right ventricle's trip to the nearby lungs. More work = more muscle!"
-        }
-      },
-      {
-        type: "quiz",
-        quiz: {
-          id: "emt-heart-q3",
-          question: "What is the function of the atria?",
-          options: ["Pump blood to the body", "Receive incoming blood", "Generate electrical impulses", "Filter blood"],
-          correctIndex: 1,
-          explanation: "The atria are the receiving chambers of the heart. The right atrium receives deoxygenated blood from the body, and the left atrium receives oxygenated blood from the lungs."
-        }
-      },
-      {
-        type: "quiz",
-        quiz: {
-          id: "emt-heart-q4",
-          question: "Blood returning from the body enters the heart through which vessels?",
-          options: ["Pulmonary veins", "Aorta", "Vena cava (superior and inferior)", "Coronary arteries"],
-          correctIndex: 2,
-          explanation: "The superior and inferior vena cava are large veins that return deoxygenated blood from the upper and lower body to the right atrium of the heart."
-        }
-      },
-      {
-        type: "quiz",
-        quiz: {
-          id: "emt-heart-q5",
-          question: "Which circuit sends blood from the heart to the lungs and back?",
-          options: ["Systemic circuit", "Coronary circuit", "Pulmonary circuit", "Lymphatic circuit"],
-          correctIndex: 2,
-          explanation: "The pulmonary circuit moves blood from the right ventricle to the lungs for gas exchange, then back to the left atrium. The systemic circuit handles body-wide blood delivery."
-        }
-      }
+      { type: "quiz", quiz: { id: "emt-vessels-q1", question: "What is the primary function of capillaries?", options: ["Carry blood away from the heart", "Return blood to the heart", "Exchange oxygen, nutrients, and waste between blood and tissues", "Generate blood pressure"], correctIndex: 2, explanation: "Capillaries are the exchange vessels. Their walls are one cell thick, allowing oxygen and nutrients to diffuse out to tissues, and carbon dioxide and waste to diffuse in. This is the whole point of circulation." } },
+      { type: "quiz", quiz: { id: "emt-vessels-q2", question: "Why do veins have one-way valves?", options: ["To increase blood pressure", "To prevent backflow since they operate at low pressure", "To filter blood", "To speed up blood flow"], correctIndex: 1, explanation: "Veins operate at low pressure. Without valves, blood would pool in the legs due to gravity. The valves ensure blood keeps moving toward the heart. When these valves fail, varicose veins develop." } }
+    ],
+    keyPoints: [
+      "Arteries = away from heart (thick walls, high pressure, pulsatile)",
+      "Veins = toward heart (thinner walls, valves, low pressure)",
+      "Capillaries = exchange vessels (one cell thick, where delivery happens)"
+    ],
+    rememberThis: "When checking capillary refill on a patient, you're testing how well the cardiovascular system is perfusing the tissues. Normal is less than 2 seconds. Delayed refill suggests poor perfusion."
+  },
+  {
+    id: "connecting-to-patient-care",
+    title: "Connecting Heart Knowledge to Patient Care",
+    content: `Everything you've learned connects directly to what you'll see in the field. Let's make those connections:
+
+**Pulse Assessment:**
+When you feel a radial pulse, you're feeling the pressure wave from the left ventricle's contraction traveling through the arterial system. A strong, regular pulse means the heart is pumping effectively. A weak, rapid pulse means it's struggling.
+
+**Blood Pressure:**
+Systolic pressure (top number) = the force when the left ventricle contracts. Diastolic pressure (bottom number) = the resting pressure between beats. Both relate directly to heart function and blood vessel resistance.
+
+**Skin Signs:**
+• Pale, cool, clammy skin = blood is being shunted away from the skin to vital organs (compensated shock)
+• Warm, pink, dry skin = good perfusion
+• Cyanosis (bluish tint) = not enough oxygen in the blood
+
+**Heart Rate Clues:**
+• Tachycardia (fast) = the heart is trying to compensate for something—blood loss, hypoxia, pain, anxiety
+• Bradycardia (slow) = possible heart block, hypothermia, or medication effect`,
+    blocks: [
+      { type: "quiz", quiz: { id: "emt-connect-q1", question: "A patient with a weak, rapid pulse most likely has:", options: ["Normal cardiovascular function", "Possible inadequate perfusion or shock", "A strong heart with good output", "Low blood pressure from sleep"], correctIndex: 1, explanation: "A weak, rapid pulse indicates the heart is beating fast to compensate for inadequate perfusion. The weakness means each beat isn't generating enough pressure—a classic sign of shock or cardiovascular compromise." } },
+      { type: "quiz", quiz: { id: "emt-connect-q2", question: "Pale, cool, clammy skin in a patient suggests:", options: ["Good perfusion", "Allergic reaction", "Blood is being redirected to vital organs", "Hypothermia only"], correctIndex: 2, explanation: "The body redirects blood away from the skin and toward the brain, heart, and lungs when perfusion is threatened. This vasoconstriction makes the skin pale, cool, and clammy—a key sign of compensated shock." } }
+    ],
+    keyPoints: [
+      "Pulse quality tells you about heart function and perfusion",
+      "Blood pressure reflects cardiac output and vessel resistance",
+      "Skin signs are your window into perfusion status"
+    ],
+    proTip: "On every patient, make it a habit to assess pulse rate AND quality, skin color AND temperature, and capillary refill. These three assessments together paint a picture of cardiovascular status."
+  },
+  {
+    id: "knowledge-check",
+    title: "Knowledge Check",
+    content: `Let's make sure the key concepts are sticking. These questions cover the essentials you'll need for patient assessment and cardiac emergencies.`,
+    blocks: [
+      { type: "quiz", quiz: { id: "emt-heart-kc-q1", question: "Which side of the heart pumps blood to the lungs?", options: ["Left side", "Right side", "Both sides equally", "Neither—blood flows passively"], correctIndex: 1, explanation: "The right side of the heart pumps blood to the lungs (pulmonary circulation). The left side pumps to the body. Remember: Right = Respiratory destination!" } },
+      { type: "quiz", quiz: { id: "emt-heart-kc-q2", question: "What is the function of the atria?", options: ["Pump blood to the body", "Receive incoming blood", "Generate electrical impulses", "Filter blood"], correctIndex: 1, explanation: "The atria are the receiving chambers of the heart. The right atrium receives deoxygenated blood from the body, and the left atrium receives oxygenated blood from the lungs." } },
+      { type: "quiz", quiz: { id: "emt-heart-kc-q3", question: "Blood returning from the body enters the heart through which vessels?", options: ["Pulmonary veins", "Aorta", "Vena cava (superior and inferior)", "Coronary arteries"], correctIndex: 2, explanation: "The superior and inferior vena cava are large veins that return deoxygenated blood from the upper and lower body to the right atrium of the heart." } },
+      { type: "quiz", quiz: { id: "emt-heart-kc-q4", question: "Which circuit sends blood from the heart to the lungs and back?", options: ["Systemic circuit", "Coronary circuit", "Pulmonary circuit", "Lymphatic circuit"], correctIndex: 2, explanation: "The pulmonary circuit moves blood from the right ventricle to the lungs for gas exchange, then back to the left atrium. The systemic circuit handles body-wide blood delivery." } },
+      { type: "quiz", quiz: { id: "emt-heart-kc-q5", question: "Where does the exchange of oxygen and nutrients between blood and tissues occur?", options: ["Arteries", "Veins", "Capillaries", "Aorta"], correctIndex: 2, explanation: "Capillaries are the exchange vessels—their walls are one cell thick, allowing oxygen and nutrients to pass out to tissues and waste products to pass in. This is the purpose of the entire cardiovascular system." } }
+    ],
+    keyPoints: [
+      "Right atrium receives blood from the body",
+      "Pulmonary circuit handles lung-bound blood",
+      "Capillaries are where the real exchange happens"
     ]
   },
   {
@@ -247,45 +315,20 @@ For now, just focus on recognizing normal. We'll talk about abnormal rhythms lat
     title: "You've Got the Basics!",
     content: `That's the foundation of heart anatomy and blood flow. You now understand:
 
-• The heart is a four-chambered pump
-• The right side sends blood to the lungs
-• The left side sends blood to the body
-• Blood flows in a continuous circuit
-• Heart sounds tell you the valves are working
+• The heart is a four-chambered pump with two sides doing two jobs
+• The right side sends blood to the lungs (low pressure)
+• The left side sends blood to the body (high pressure)
+• Four valves prevent backflow—you hear them as "lub-dub"
+• Blood flows in two continuous circuits: pulmonary and systemic
+• Three types of blood vessels: arteries (away), veins (toward), capillaries (exchange)
+• Pulse, blood pressure, and skin signs connect directly to heart function
 
 This might seem simple, but these concepts are the building blocks for everything else—cardiac emergencies, shock, rhythm interpretation, and more.
 
 **What's Next?**
-When you're ready, the AEMT section adds more detail about the electrical system and how cardiac output works. But there's no rush—make sure this foundation feels solid first.`,
-    blocks: [
-      {
-        type: "quiz",
-        quiz: {
-          id: "emt-wrapup-q1",
-          question: "Which statement best describes the heart's function?",
-          options: ["It filters blood", "It produces oxygen", "It pumps blood through the body", "It stores blood"],
-          correctIndex: 2,
-          explanation: "The heart is fundamentally a pump. It continuously pumps blood through two circuits—pulmonary (to lungs) and systemic (to body)—to deliver oxygen and remove waste."
-        }
-      },
-      {
-        type: "quiz",
-        quiz: {
-          id: "emt-wrapup-q2",
-          question: "What is the correct order of blood flow through the heart?",
-          options: [
-            "Left atrium → left ventricle → lungs → right atrium → right ventricle → body",
-            "Right atrium → right ventricle → lungs → left atrium → left ventricle → body",
-            "Right ventricle → right atrium → lungs → left ventricle → left atrium → body",
-            "Left ventricle → lungs → right ventricle → body"
-          ],
-          correctIndex: 1,
-          explanation: "Deoxygenated blood flows: right atrium → right ventricle → lungs (picks up O₂) → left atrium → left ventricle → body. Then the cycle repeats."
-        }
-      }
-    ],
+When you're ready, move on to Respiratory System Basics to understand the other half of oxygen delivery. Or jump to the AEMT section to add detail about the electrical system and cardiac output. There's no rush—make sure this foundation feels solid first.`,
     keyPoints: [
-      "You've learned the essential structure and function",
+      "You've learned the essential structure, function, and clinical connections",
       "These basics support all advanced cardiac topics",
       "Take your time—solid foundations matter most"
     ],

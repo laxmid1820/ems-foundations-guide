@@ -124,6 +124,13 @@ export const curriculumContent: CurriculumContent = [
         ]
       },
       {
+        slug: "heart-and-blood-flow-basics",
+        title: "Heart and Blood Flow Basics",
+        description: "Learn how the heart pumps blood through your body—the foundation of every cardiac assessment you'll do.",
+        estimatedMinutes: 20,
+        subsections: []
+      },
+      {
         slug: "respiratory-emergencies-emt",
         title: "EMT Respiratory Emergencies",
         description: "Recognition and BLS management of respiratory distress, including oxygen therapy and airway interventions.",
