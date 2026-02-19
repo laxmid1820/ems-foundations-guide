@@ -66,9 +66,17 @@ DOMAIN WEIGHTING: Clinical Judgment (34-38%), Medical/Obstetrics/Gynecology (24-
 
 ${levelRules[level]}
 
-DIFFICULTY DISTRIBUTION: Max 20% difficulty 1 (recall — basic facts only), 55–60% difficulty 2 (application — scenario-based, patient management), 20–25% difficulty 3 (analysis/clinical judgment — complex presentations, differential reasoning). Prioritize difficulty 2 and 3. Never exceed 20% difficulty 1 in any batch.
+DIFFICULTY DISTRIBUTION (STRICT — NEVER VIOLATE):
+- Difficulty 1 (pure recall — basic facts, definitions): MAXIMUM 20% of the batch. For a batch of 25 this means at most 5 questions.
+- Difficulty 2 (application — scenario-based, patient management, "most appropriate next step"): 55–60% of questions. This is the primary difficulty level.
+- Difficulty 3 (analysis / clinical judgment — complex presentations, differential diagnosis, multi-system reasoning): 20–25% of questions.
+If you find yourself writing a basic fact question, ask whether you can reframe it as a scenario — always prefer the scenario version.
 
-EXPLANATION FORMAT: 2–4 sentences maximum. Lead with the clinical reasoning for the correct answer, briefly state why the key distractor is wrong, and end with the field or NREMT relevance. Be direct and encouraging. No bullet lists inside explanations.
+EXPLANATION FORMAT (MANDATORY — EXACTLY 2–3 SENTENCES, NO EXCEPTIONS):
+- Sentence 1: State WHY the correct answer is clinically correct. Use specific physiology or protocol reasoning, not vague language.
+- Sentence 2: State WHY the most tempting wrong answer (top distractor) is incorrect. Be specific about the clinical error it represents.
+- Sentence 3 (include when truly useful): Why this concept matters on the NREMT or in real prehospital care. Skip this only if sentences 1–2 already fully cover relevance.
+NEVER use bullet lists, numbered lists, or headers inside an explanation. Write in flowing prose. Tone: direct, confident, encouraging. Maximum 4 sentences total.
 
 OUTPUT REQUIREMENTS — each question object must have exactly these fields:
 - question_type: "mc" | "multi" | "ordered"
@@ -126,7 +134,7 @@ Generate exactly ${count} questions now. Begin generation.`;
                           },
                         },
                         correct_answer: { type: "string", description: "mc: exact text of the correct choice. multi: comma-separated correct letters e.g. 'A,C,D'. ordered: comma-separated items in correct sequence." },
-                        explanation: { type: "string", description: "2–4 sentences max. State why the correct answer is right, why the top distractor is wrong, and why it matters in the field or on the NREMT. Direct and encouraging tone. No bullet points." },
+                        explanation: { type: "string", description: "EXACTLY 2–3 sentences (4 max). Sentence 1: why the correct answer is clinically correct (specific physiology/protocol). Sentence 2: why the top distractor is wrong (specific clinical error). Sentence 3 (optional): NREMT or field relevance. Flowing prose only — no bullets, no lists, no headers. Direct, confident, encouraging tone." },
                         nremt_domain: { type: "string", description: "The NREMT domain this question belongs to" },
                         difficulty: { type: "number", description: "1 for recall, 2 for application, 3 for analysis" },
                         tags: { type: "array", items: { type: "string" }, description: "REQUIRED. 2–5 specific clinical topic tags, lowercase and hyphenated. Examples: primary-assessment, airway-obstruction, hemorrhagic-shock, pediatric-airway, spinal-immobilization. Never return an empty array." },
@@ -189,10 +197,25 @@ Generate exactly ${count} questions now. Begin generation.`;
 
     console.log(`AI generated ${questions.length} questions. First question_type: ${questions[0]?.question_type}`);
 
+    // Compute difficulty distribution
+    const diffStats = { d1: 0, d2: 0, d3: 0 };
+    for (const q of questions) {
+      if (q.difficulty === 1) diffStats.d1++;
+      else if (q.difficulty === 2) diffStats.d2++;
+      else if (q.difficulty === 3) diffStats.d3++;
+    }
+    const total = questions.length;
+    const diffDistribution = {
+      recall:      { count: diffStats.d1, pct: Math.round((diffStats.d1 / total) * 100) },
+      application: { count: diffStats.d2, pct: Math.round((diffStats.d2 / total) * 100) },
+      analysis:    { count: diffStats.d3, pct: Math.round((diffStats.d3 / total) * 100) },
+    };
+    console.log(`Difficulty distribution: D1=${diffStats.d1} D2=${diffStats.d2} D3=${diffStats.d3} of ${total}`);
+
     // Dry run — return questions without inserting
     if (dryRun) {
       return new Response(
-        JSON.stringify({ dry_run: true, count: questions.length, questions }),
+        JSON.stringify({ dry_run: true, count: questions.length, diffDistribution, questions }),
         { headers: { ...corsHeaders, "Content-Type": "application/json" } }
       );
     }
@@ -230,7 +253,7 @@ Generate exactly ${count} questions now. Begin generation.`;
     if (insertError) throw insertError;
 
     return new Response(
-      JSON.stringify({ generated: inserted?.length || 0, level }),
+      JSON.stringify({ generated: inserted?.length || 0, level, diffDistribution }),
       { headers: { ...corsHeaders, "Content-Type": "application/json" } }
     );
   } catch (e) {
