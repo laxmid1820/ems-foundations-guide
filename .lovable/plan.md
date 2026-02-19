@@ -1,119 +1,59 @@
 
+## Goal
+Generate 100 new questions for each of the 3 certification levels (EMT, AEMT, Paramedic), bringing each bank from its current count (~239, ~265, ~234) significantly closer to the new 1,000-question target. This requires a batch-orchestration approach since the edge function is capped at 50 questions per call.
 
-# Script to Fix All Flashcard IDs in subtopicContent.ts
+## Current State
+- EMT: ~239 questions
+- AEMT: ~265 questions
+- Paramedic: ~234 questions
+- Edge function cap: 50 questions per single call (hardcoded `Math.min(..., 50)`)
+- New target: 1,000 per level
 
-## Approach
+## Approach: Admin Generation Panel
 
-A Node.js script that reads `subtopicContent.ts` as raw text and uses a two-pass regex strategy to find every flashcard block, determine its parent section ID, and rewrite the card `id` fields in place.
+Since generating 100 questions per level requires multiple sequential calls (e.g., 4 batches of 25), the cleanest solution is to build a hidden admin panel at `/admin/generate` that:
 
-## Why a text-based approach (not import)
+1. **Shows current bank counts** per level with a progress bar toward 1,000
+2. **Has a "Generate 100" button** per level (or "Generate All 3 Levels")
+3. **Runs batches automatically** — fires 4 sequential calls of 25 questions each per level, showing real-time progress (e.g., "Batch 2/4 complete — 50 questions added")
+4. **Shows a live running total** after each batch completes
 
-The file uses TypeScript types (`TopicSection[]`) and path aliases (`@/data/topics`), so it can't be directly `require()`d by Node. A regex-based find-and-replace on the raw file text is the safest and simplest approach.
+## What Changes
 
-## Script logic
+### 1. New page: `src/pages/AdminGenerate.tsx`
+- Protected by checking if the logged-in user is the project owner (can use a hardcoded allowed email or just keep the page unlisted)
+- Displays a card per level (EMT / AEMT / Paramedic) showing:
+  - Current count / 1,000 target with a progress bar
+  - "Generate 100" button
+  - Live status log (batch progress)
+- Orchestrates 4× calls to the `generate-quiz-questions` edge function (25 questions per batch) per level
+- Refreshes counts after each batch
 
-1. Read `src/data/subtopicContent.ts` as a UTF-8 string
-2. Build a map of every section's `id` by scanning for the pattern: `{\n    id: "some-section-id",` (top-level section objects)
-3. For each `type: "flashcards"` block, walk backwards to find the nearest parent section `id`
-4. Within each flashcards array, find every card `id: "..."` and replace it with `{sectionId}-card-{index}`
-5. Skip cards already matching `{sectionId}-card-\d+`
-6. Write the result to `src/data/subtopicContent.fixed.ts` for review (not overwriting the original)
-7. Print a summary: how many blocks processed, how many IDs renamed, how many skipped
+### 2. Update `supabase/functions/generate-quiz-questions/index.ts`
+- Raise the per-call cap from 50 → 50 (keeping it at 50 is fine; batches of 25 are safer and stay well within timeout limits)
+- No change needed here — 25 per batch is already within the current cap
 
-## The script file
+### 3. Update `src/App.tsx`
+- Add route `/admin/generate` → `<AdminGenerate />`
 
-Create: `scripts/fix-flashcard-ids.mjs` (ES module, runs with `node scripts/fix-flashcard-ids.mjs`)
-
-```javascript
-import { readFileSync, writeFileSync } from 'fs';
-import { resolve } from 'path';
-
-const filePath = resolve('src/data/subtopicContent.ts');
-let src = readFileSync(filePath, 'utf-8');
-
-let totalRenamed = 0;
-let totalSkipped = 0;
-let blocksProcessed = 0;
-
-// Match each flashcards block with its flashcards array content
-// Strategy: find `type: "flashcards"` then capture the flashcards array
-const flashcardsBlockRe = /type:\s*"flashcards",\s*\n\s*flashcards:\s*\[([\s\S]*?)\]\s*\n\s*\}/g;
-
-let match;
-while ((match = flashcardsBlockRe.exec(src)) !== null) {
-  const blockStart = match.index;
-  
-  // Walk backwards from blockStart to find the parent section id
-  const preceding = src.slice(0, blockStart);
-  const sectionIdMatch = preceding.match(/id:\s*"([^"]+)"[^]*$/);
-  
-  // Find the nearest section-level id (indented at 4 spaces, top-level in array)
-  const allSectionIds = [...preceding.matchAll(/^\s{4}id:\s*"([^"]+)"/gm)];
-  const parentSectionId = allSectionIds.length > 0 
-    ? allSectionIds[allSectionIds.length - 1][1] 
-    : null;
-  
-  if (!parentSectionId) continue;
-  
-  blocksProcessed++;
-  
-  // Find all card ids within this flashcards array
-  const arrayContent = match[1];
-  let cardIndex = 0;
-  const fixedArray = arrayContent.replace(/id:\s*"([^"]+)"/g, (idMatch, oldId) => {
-    const correctId = `${parentSectionId}-card-${cardIndex}`;
-    cardIndex++;
-    if (oldId === correctId) {
-      totalSkipped++;
-      return idMatch;
-    }
-    totalRenamed++;
-    return `id: "${correctId}"`;
-  });
-  
-  // Replace the array content in the source
-  src = src.slice(0, match.index + match[0].indexOf(arrayContent)) 
-      + fixedArray 
-      + src.slice(match.index + match[0].indexOf(arrayContent) + arrayContent.length);
-}
-
-// Write to .fixed.ts for review
-const outPath = resolve('src/data/subtopicContent.fixed.ts');
-writeFileSync(outPath, src, 'utf-8');
-
-console.log(`Done!`);
-console.log(`Blocks processed: ${blocksProcessed}`);
-console.log(`IDs renamed: ${totalRenamed}`);  
-console.log(`IDs already correct (skipped): ${totalSkipped}`);
-console.log(`Output: ${outPath}`);
-console.log(`\nReview the .fixed.ts file, then rename it to replace the original.`);
+## Generation Math
+```text
+100 questions per level = 4 batches × 25 questions each
+3 levels × 4 batches = 12 total API calls
+Each call ~15-30 seconds → sequential per level, all 3 levels can run in parallel
+Estimated total time: ~2-3 minutes
 ```
 
-## How to apply safely
+## UI Flow
+```text
+[Admin Generate Page]
+  ├── EMT  [239 / 1000] [████░░░░░░░] [Generate 100 ▶]
+  │         Generating... Batch 1/4 ✓  Batch 2/4 ✓  Batch 3/4...
+  ├── AEMT [265 / 1000] [████░░░░░░░] [Generate 100 ▶]
+  └── NRP  [234 / 1000] [████░░░░░░░] [Generate 100 ▶]
+  
+  [Generate All Levels] — triggers all 3 simultaneously
+```
 
-1. Run: `node scripts/fix-flashcard-ids.mjs`
-2. Review `src/data/subtopicContent.fixed.ts` -- diff it against the original
-3. Verify no content (text, questions, answers) was changed -- only `id: "..."` fields inside flashcard objects
-4. Replace: `mv src/data/subtopicContent.fixed.ts src/data/subtopicContent.ts`
-5. Test in browser: open any topic, flip flashcards, confirm sidebar rings update correctly
-6. Delete the script: `rm scripts/fix-flashcard-ids.mjs`
-
-## Files created
-
-| File | Purpose |
-|------|---------|
-| `scripts/fix-flashcard-ids.mjs` | One-time fix script |
-
-## Files NOT touched
-
-- `TopicDetail.tsx`, `SubsectionDetail.tsx`, `SectionNav.tsx`
-- Any hooks, components, or UI files
-- No database migrations
-- The original `subtopicContent.ts` is not overwritten (script outputs to `.fixed.ts`)
-
-## Edge cases handled
-
-- Cards already matching the correct pattern are skipped (idempotent)
-- Multiple flashcard blocks in the same section get independent zero-based indexing per block
-- Section IDs at different nesting levels (the script matches 4-space indented `id:` lines, which are the section-level objects in the arrays)
-
+## Security
+The admin page will be unlisted (no nav link), accessible only by direct URL. For additional protection, the page can check the logged-in user's email matches a hardcoded admin email before showing any controls.
