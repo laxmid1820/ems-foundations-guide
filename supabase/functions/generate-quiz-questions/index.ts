@@ -37,6 +37,7 @@ serve(async (req) => {
     const body = await req.json();
     const { level, domain } = body;
     const count = Math.min(Math.max(1, parseInt(body.count) || 25), 50);
+    const dryRun = body.dry_run === true;
 
     if (!level || !["emt", "aemt", "paramedic"].includes(level)) {
       return new Response(JSON.stringify({ error: "Invalid level" }), {
@@ -99,32 +100,32 @@ Generate exactly ${count} questions now. Begin generation.`;
             type: "function",
             function: {
               name: "store_questions",
-              description: "Store generated quiz questions",
+              description: "Store the generated quiz questions array",
               parameters: {
                 type: "object",
                 properties: {
                   questions: {
                     type: "array",
+                    description: "Array of quiz question objects",
                     items: {
                       type: "object",
                       properties: {
-                        question_type: { type: "string", enum: ["mc", "multi", "ordered"] },
-                        question_text: { type: "string" },
+                        question_type: { type: "string", description: "mc, multi, or ordered" },
+                        question_text: { type: "string", description: "The full question text, scenario-based when appropriate" },
                         options: {
                           type: "object",
-                          description: "mc: {type:'mc', choices:[4 strings]}. multi: {type:'multi', choices:['A text','B text',...]}. ordered: {type:'ordered', items:[strings in any order]}",
                           properties: {
-                            type: { type: "string", enum: ["mc", "multi", "ordered"] },
-                            choices: { type: "array", items: { type: "string" } },
-                            items: { type: "array", items: { type: "string" } },
+                            type: { type: "string", description: "mc, multi, or ordered" },
+                            choices: { type: "array", items: { type: "string" }, description: "For mc: exactly 4 answer choices. For multi: 4-5 labeled answer choices like 'A. text', 'B. text'" },
+                            items: { type: "array", items: { type: "string" }, description: "For ordered type: steps in shuffled order" },
                           },
                         },
-                        correct_answer: { type: "string", description: "mc: exact text of correct choice. multi: comma-separated correct letters e.g. 'A,C,D'. ordered: comma-separated items in correct sequence." },
-                        explanation: { type: "string", description: "Clinical reasoning explaining why the answer is correct and why wrong choices are plausible mistakes. Include field relevance." },
-                        nremt_domain: { type: "string", description: "EMT domains: Primary Assessment, Patient Treatment and Transport, Scene Size-Up and Safety, Operations, Secondary Assessment. AEMT/Paramedic domains: Clinical Judgment, Medical/Obstetrics/Gynecology, Cardiology & Resuscitation, Airway/Respiration/Ventilation, Trauma, EMS Operations" },
-                        difficulty: { type: "number", enum: [1, 2, 3], description: "1=recall, 2=application, 3=analysis/clinical judgment" },
+                        correct_answer: { type: "string", description: "mc: exact text of the correct choice. multi: comma-separated correct letters e.g. 'A,C,D'. ordered: comma-separated items in correct sequence." },
+                        explanation: { type: "string", description: "Clinical reasoning for the correct answer and why distractors are wrong" },
+                        nremt_domain: { type: "string", description: "The NREMT domain this question belongs to" },
+                        difficulty: { type: "number", description: "1 for recall, 2 for application, 3 for analysis" },
                         tags: { type: "array", items: { type: "string" } },
-                        level: { type: "string", enum: ["emt", "aemt", "paramedic"] },
+                        level: { type: "string", description: "emt, aemt, or paramedic" },
                       },
                     },
                   },
@@ -156,14 +157,39 @@ Generate exactly ${count} questions now. Begin generation.`;
     }
 
     const aiData = await response.json();
-    const toolCall = aiData.choices?.[0]?.message?.tool_calls?.[0];
-    if (!toolCall) throw new Error("No tool call in AI response");
+    console.log("AI response finish_reason:", aiData.choices?.[0]?.finish_reason);
+    console.log("AI tool_calls present:", !!aiData.choices?.[0]?.message?.tool_calls);
 
-    const parsed = JSON.parse(toolCall.function.arguments);
+    const toolCall = aiData.choices?.[0]?.message?.tool_calls?.[0];
+    if (!toolCall) {
+      // Log the raw message content to diagnose fallback
+      console.error("No tool call. Raw message:", JSON.stringify(aiData.choices?.[0]?.message).slice(0, 1000));
+      throw new Error("No tool call in AI response");
+    }
+
+    let parsed: any;
+    try {
+      parsed = JSON.parse(toolCall.function.arguments);
+    } catch (e) {
+      console.error("Failed to parse tool arguments:", toolCall.function.arguments?.slice(0, 500));
+      throw new Error("Failed to parse AI tool call arguments");
+    }
+
     const questions = parsed.questions;
 
     if (!questions || !Array.isArray(questions) || questions.length === 0) {
-      throw new Error("No questions generated");
+      console.error("Parsed tool args:", JSON.stringify(parsed).slice(0, 500));
+      throw new Error("No questions in tool call response");
+    }
+
+    console.log(`AI generated ${questions.length} questions. First question_type: ${questions[0]?.question_type}`);
+
+    // Dry run — return questions without inserting
+    if (dryRun) {
+      return new Response(
+        JSON.stringify({ dry_run: true, count: questions.length, questions }),
+        { headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
     }
 
     // Insert into database
@@ -173,7 +199,7 @@ Generate exactly ${count} questions now. Begin generation.`;
     );
 
     const rows = questions.map((q: any) => ({
-      level,
+      level: q.level || level,
       domain: q.nremt_domain,
       question_type: q.question_type,
       question_text: q.question_text,
