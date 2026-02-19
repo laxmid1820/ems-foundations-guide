@@ -66,7 +66,9 @@ DOMAIN WEIGHTING: Clinical Judgment (34-38%), Medical/Obstetrics/Gynecology (24-
 
 ${levelRules[level]}
 
-DIFFICULTY DISTRIBUTION: 25% difficulty 1 (recall), 55% difficulty 2 (application), 20% difficulty 3 (analysis/clinical judgment).
+DIFFICULTY DISTRIBUTION: Max 20% difficulty 1 (recall — basic facts only), 55–60% difficulty 2 (application — scenario-based, patient management), 20–25% difficulty 3 (analysis/clinical judgment — complex presentations, differential reasoning). Prioritize difficulty 2 and 3. Never exceed 20% difficulty 1 in any batch.
+
+EXPLANATION FORMAT: 2–4 sentences maximum. Lead with the clinical reasoning for the correct answer, briefly state why the key distractor is wrong, and end with the field or NREMT relevance. Be direct and encouraging. No bullet lists inside explanations.
 
 OUTPUT REQUIREMENTS — each question object must have exactly these fields:
 - question_type: "mc" | "multi" | "ordered"
@@ -124,7 +126,7 @@ Generate exactly ${count} questions now. Begin generation.`;
                           },
                         },
                         correct_answer: { type: "string", description: "mc: exact text of the correct choice. multi: comma-separated correct letters e.g. 'A,C,D'. ordered: comma-separated items in correct sequence." },
-                        explanation: { type: "string", description: "Clinical reasoning for the correct answer and why distractors are wrong" },
+                        explanation: { type: "string", description: "2–4 sentences max. State why the correct answer is right, why the top distractor is wrong, and why it matters in the field or on the NREMT. Direct and encouraging tone. No bullet points." },
                         nremt_domain: { type: "string", description: "The NREMT domain this question belongs to" },
                         difficulty: { type: "number", description: "1 for recall, 2 for application, 3 for analysis" },
                         tags: { type: "array", items: { type: "string" }, description: "REQUIRED. 2–5 specific clinical topic tags, lowercase and hyphenated. Examples: primary-assessment, airway-obstruction, hemorrhagic-shock, pediatric-airway, spinal-immobilization. Never return an empty array." },
