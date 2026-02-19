@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
-import { CheckCircle, Circle, Loader2, Zap, AlertTriangle } from "lucide-react";
+import { CheckCircle, Circle, Loader2, Zap, AlertTriangle, BarChart3 } from "lucide-react";
 
 const ADMIN_EMAIL = "your-admin@email.com"; // Change this to your email
 const TARGET = 1000;
@@ -14,10 +14,22 @@ const PER_BATCH = 25;
 
 type Level = "emt" | "aemt" | "paramedic";
 
+interface DiffDistribution {
+  recall:      { count: number; pct: number };
+  application: { count: number; pct: number };
+  analysis:    { count: number; pct: number };
+}
+
+interface BatchResult {
+  status: "pending" | "running" | "done" | "error";
+  added: number;
+  diffDistribution?: DiffDistribution;
+}
+
 interface LevelState {
   count: number;
   generating: boolean;
-  batches: { status: "pending" | "running" | "done" | "error"; added: number }[];
+  batches: BatchResult[];
   error: string | null;
 }
 
@@ -119,6 +131,7 @@ export default function AdminGenerate() {
 
         const data = await res.json();
         const added = data.generated || 0;
+        const diffDistribution: DiffDistribution | undefined = data.diffDistribution;
         totalAdded += added;
 
         // Mark batch done and refresh counts
@@ -127,7 +140,7 @@ export default function AdminGenerate() {
           [level]: {
             ...prev[level],
             batches: prev[level].batches.map((b, idx) =>
-              idx === i ? { status: "done", added } : b
+              idx === i ? { status: "done", added, diffDistribution } : b
             ),
           },
         }));
@@ -215,6 +228,19 @@ export default function AdminGenerate() {
           const batchesStarted = state.batches.length > 0;
           const doneBatches = state.batches.filter(b => b.status === "done").length;
           const totalNewAdded = state.batches.reduce((s, b) => s + b.added, 0);
+          // Aggregate difficulty distribution across all completed batches
+          const aggDiff = state.batches.reduce(
+            (acc, b) => {
+              if (b.diffDistribution) {
+                acc.d1 += b.diffDistribution.recall.count;
+                acc.d2 += b.diffDistribution.application.count;
+                acc.d3 += b.diffDistribution.analysis.count;
+              }
+              return acc;
+            },
+            { d1: 0, d2: 0, d3: 0 }
+          );
+          const aggTotal = aggDiff.d1 + aggDiff.d2 + aggDiff.d3;
 
           return (
             <Card key={key} className="border-border">
@@ -294,6 +320,36 @@ export default function AdminGenerate() {
                         <AlertTriangle className="h-3 w-3 shrink-0" />
                         {state.error}
                       </p>
+                    )}
+                    {aggTotal > 0 && (
+                      <div className="mt-3 pt-2 border-t border-border/50">
+                        <div className="flex items-center gap-1.5 mb-1.5">
+                          <BarChart3 className="h-3 w-3 text-muted-foreground" />
+                          <span className="text-xs font-medium text-muted-foreground">Difficulty Distribution</span>
+                        </div>
+                        <div className="flex gap-3 flex-wrap text-xs">
+                          <span className="flex items-center gap-1">
+                            <span className="inline-block w-2 h-2 rounded-full bg-muted-foreground/50" />
+                            <span className="text-muted-foreground">Recall D1:</span>
+                            <span className={aggTotal > 0 && Math.round((aggDiff.d1 / aggTotal) * 100) > 20 ? "text-destructive font-semibold" : "text-foreground font-medium"}>
+                              {aggDiff.d1} ({aggTotal > 0 ? Math.round((aggDiff.d1 / aggTotal) * 100) : 0}%)
+                            </span>
+                            {aggTotal > 0 && Math.round((aggDiff.d1 / aggTotal) * 100) > 20 && (
+                              <AlertTriangle className="h-3 w-3 text-destructive" />
+                            )}
+                          </span>
+                          <span className="flex items-center gap-1">
+                            <span className="inline-block w-2 h-2 rounded-full bg-primary/70" />
+                            <span className="text-muted-foreground">Application D2:</span>
+                            <span className="text-foreground font-medium">{aggDiff.d2} ({aggTotal > 0 ? Math.round((aggDiff.d2 / aggTotal) * 100) : 0}%)</span>
+                          </span>
+                          <span className="flex items-center gap-1">
+                            <span className="inline-block w-2 h-2 rounded-full bg-primary" />
+                            <span className="text-muted-foreground">Analysis D3:</span>
+                            <span className="text-foreground font-medium">{aggDiff.d3} ({aggTotal > 0 ? Math.round((aggDiff.d3 / aggTotal) * 100) : 0}%)</span>
+                          </span>
+                        </div>
+                      </div>
                     )}
                     {!state.generating && !state.error && doneBatches === BATCHES && (
                       <p className="text-xs text-green-600 dark:text-green-400 font-medium mt-1">
