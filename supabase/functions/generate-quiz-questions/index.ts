@@ -6,6 +6,8 @@ const corsHeaders = {
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type, x-supabase-client-platform, x-supabase-client-platform-version, x-supabase-client-runtime, x-supabase-client-runtime-version",
 };
 
+const DAILY_CAP = 200; // max new questions per level per calendar day (UTC)
+
 const SYSTEM_PROMPT = `You are an expert EMS instructor with 9 years of field experience as both an EMT and Paramedic, and 7 years teaching at Pierce College as an evaluator, SEI, and paramedic instructor.
 
 Your core teaching style is:
@@ -36,7 +38,6 @@ serve(async (req) => {
 
     const body = await req.json();
     const { level, domain } = body;
-    // dry_run caps at 3 questions so it completes well within the 30s HTTP limit
     const dryRun = body.dry_run === true;
     const count = dryRun
       ? Math.min(Math.max(1, parseInt(body.count) || 3), 3)
@@ -48,6 +49,61 @@ serve(async (req) => {
         headers: { ...corsHeaders, "Content-Type": "application/json" },
       });
     }
+
+    // ── Daily cap enforcement (skip for dry_run) ──────────────────────────────
+    const supabase = createClient(
+      Deno.env.get("SUPABASE_URL")!,
+      Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!
+    );
+
+    const todayUTC = new Date().toISOString().slice(0, 10); // YYYY-MM-DD
+
+    let usedToday = 0;
+    if (!dryRun) {
+      const { data: logRow, error: logErr } = await supabase
+        .from("daily_generation_log")
+        .select("count")
+        .eq("date", todayUTC)
+        .eq("level", level)
+        .maybeSingle();
+
+      if (logErr) {
+        console.error("Error reading daily_generation_log:", logErr);
+        // Non-fatal: continue without cap if we can't read the log
+      } else {
+        usedToday = logRow?.count ?? 0;
+      }
+
+      const remaining = DAILY_CAP - usedToday;
+      if (remaining <= 0) {
+        return new Response(
+          JSON.stringify({
+            error: `Daily limit reached for ${level.toUpperCase()}`,
+            daily_cap: DAILY_CAP,
+            used_today: usedToday,
+            remaining_today: 0,
+            cap_hit: true,
+          }),
+          {
+            status: 429,
+            headers: { ...corsHeaders, "Content-Type": "application/json" },
+          }
+        );
+      }
+
+      // Clamp the requested count to the remaining allowance
+      // (so a batch of 25 won't push you over if only 10 remain)
+      const allowed = Math.min(count, remaining);
+      if (allowed < count) {
+        console.log(`Daily cap: clamping count from ${count} to ${allowed} for ${level}`);
+      }
+      // Re-assign for the generation below
+      (body as any)._clamped_count = allowed;
+    }
+
+    const effectiveCount = !dryRun && (body as any)._clamped_count !== undefined
+      ? (body as any)._clamped_count
+      : count;
 
     const domainFilter = domain || "mixed domains per level weighting";
     const levelLabel = level.toUpperCase() === "AEMT" ? "AEMT" : level.charAt(0).toUpperCase() + level.slice(1);
@@ -62,7 +118,7 @@ DOMAIN WEIGHTING: Clinical Judgment (31-35%), Medical/Obstetrics/Gynecology (25-
 DOMAIN WEIGHTING: Clinical Judgment (34-38%), Medical/Obstetrics/Gynecology (24-28%), Cardiology & Resuscitation (10-14%), Airway/Respiration/Ventilation (8-12%), EMS Operations (8-12%), Trauma (6-10%).`,
     };
 
-    const userPrompt = `Generate exactly ${count} NREMT-style practice questions for the ${levelLabel} certification level.${domainFilter !== "mixed domains per level weighting" ? ` Focus on: ${domainFilter}.` : ""}
+    const userPrompt = `Generate exactly ${effectiveCount} NREMT-style practice questions for the ${levelLabel} certification level.${domainFilter !== "mixed domains per level weighting" ? ` Focus on: ${domainFilter}.` : ""}
 
 ${levelRules[level]}
 
@@ -94,7 +150,7 @@ QUESTION TYPE STRUCTURES:
 - multi: options = { "type": "multi", "choices": ["A text", "B text", "C text", "D text", "E text"] }. correct_answer = comma-separated correct letters (e.g. "B,C,E").
 - ordered: options = { "type": "ordered", "items": ["Step 1", "Step 2", "Step 3", ...] }. correct_answer = comma-separated items in correct order.
 
-Generate exactly ${count} questions now. Begin generation.`;
+Generate exactly ${effectiveCount} questions now. Begin generation.`;
 
     const response = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
       method: "POST",
@@ -140,9 +196,11 @@ Generate exactly ${count} questions now. Begin generation.`;
                         tags: { type: "array", items: { type: "string" }, description: "REQUIRED. 2–5 specific clinical topic tags, lowercase and hyphenated. Examples: primary-assessment, airway-obstruction, hemorrhagic-shock, pediatric-airway, spinal-immobilization. Never return an empty array." },
                         level: { type: "string", description: "emt, aemt, or paramedic" },
                       },
+                      required: ["question_type", "question_text", "options", "correct_answer", "explanation", "nremt_domain", "difficulty", "tags", "level"],
                     },
                   },
                 },
+                required: ["questions"],
               },
             },
           },
@@ -175,7 +233,6 @@ Generate exactly ${count} questions now. Begin generation.`;
 
     const toolCall = aiData.choices?.[0]?.message?.tool_calls?.[0];
     if (!toolCall) {
-      // Log the raw message content to diagnose fallback
       console.error("No tool call. Raw message:", JSON.stringify(aiData.choices?.[0]?.message).slice(0, 1000));
       throw new Error("No tool call in AI response");
     }
@@ -212,7 +269,7 @@ Generate exactly ${count} questions now. Begin generation.`;
     };
     console.log(`Difficulty distribution: D1=${diffStats.d1} D2=${diffStats.d2} D3=${diffStats.d3} of ${total}`);
 
-    // Dry run — return questions without inserting
+    // Dry run — return questions without inserting or updating the log
     if (dryRun) {
       return new Response(
         JSON.stringify({ dry_run: true, count: questions.length, diffDistribution, questions }),
@@ -221,13 +278,7 @@ Generate exactly ${count} questions now. Begin generation.`;
     }
 
     // Insert into database
-    const supabase = createClient(
-      Deno.env.get("SUPABASE_URL")!,
-      Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!
-    );
-
     const rows = questions.map((q: any) => {
-      // Enforce non-empty tags — fall back to a slugified domain if the model returned []
       const tags: string[] = Array.isArray(q.tags) && q.tags.length > 0
         ? q.tags
         : [q.nremt_domain?.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "") || "untagged"];
@@ -252,8 +303,36 @@ Generate exactly ${count} questions now. Begin generation.`;
 
     if (insertError) throw insertError;
 
+    const generatedCount = inserted?.length || 0;
+
+    // ── Update daily_generation_log ───────────────────────────────────────────
+    // Upsert: increment the count atomically using a manual read-then-write.
+    // (Supabase JS client doesn't support increment in upsert directly.)
+    const newTotal = usedToday + generatedCount;
+    const { error: upsertErr } = await supabase
+      .from("daily_generation_log")
+      .upsert(
+        { date: todayUTC, level, count: newTotal, updated_at: new Date().toISOString() },
+        { onConflict: "date,level" }
+      );
+
+    if (upsertErr) {
+      // Log but don't fail the request — questions are already inserted
+      console.error("Failed to update daily_generation_log:", upsertErr);
+    }
+
+    const remainingAfter = Math.max(0, DAILY_CAP - newTotal);
+    console.log(`Daily log updated: ${newTotal}/${DAILY_CAP} used for ${level} on ${todayUTC}. Remaining: ${remainingAfter}`);
+
     return new Response(
-      JSON.stringify({ generated: inserted?.length || 0, level, diffDistribution }),
+      JSON.stringify({
+        generated: generatedCount,
+        level,
+        diffDistribution,
+        daily_cap: DAILY_CAP,
+        used_today: newTotal,
+        remaining_today: remainingAfter,
+      }),
       { headers: { ...corsHeaders, "Content-Type": "application/json" } }
     );
   } catch (e) {

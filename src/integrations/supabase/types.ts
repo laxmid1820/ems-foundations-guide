@@ -14,6 +14,30 @@ export type Database = {
   }
   public: {
     Tables: {
+      daily_generation_log: {
+        Row: {
+          count: number
+          date: string
+          id: string
+          level: string
+          updated_at: string
+        }
+        Insert: {
+          count?: number
+          date: string
+          id?: string
+          level: string
+          updated_at?: string
+        }
+        Update: {
+          count?: number
+          date?: string
+          id?: string
+          level?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           airway_progress: number
