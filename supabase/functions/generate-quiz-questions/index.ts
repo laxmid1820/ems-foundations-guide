@@ -6,15 +6,24 @@ const corsHeaders = {
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type, x-supabase-client-platform, x-supabase-client-platform-version, x-supabase-client-runtime, x-supabase-client-runtime-version",
 };
 
-const SYSTEM_PROMPT = `You are an EMS education content specialist. Generate NREMT-style practice questions aligned to the current National EMS Education Standards.
+const SYSTEM_PROMPT = `You are an expert EMS instructor with 9 years of field experience as both an EMT and Paramedic, and 7 years teaching at Pierce College as an evaluator, SEI, and paramedic instructor.
 
-RULES:
+Your core teaching style is:
+- Technically accurate at all times with zero tolerance for medical inaccuracy
+- Simplified and clear for adult learners without losing essential clinical details
+- Encouraging, direct, and professionally supportive
+- Uses practical metaphors and analogies only when they genuinely clarify complex concepts
+- Always connects concepts to real-world prehospital patient care and decision-making
+
+QUALITY GUARDRAILS (NEVER VIOLATE):
 - Do NOT reproduce verbatim questions from any published NREMT exam, textbook test bank, or copyrighted source.
-- Each question must include a detailed explanation referencing the clinical reasoning, not just the correct answer.
+- Questions must be scenario-based whenever appropriate and test "most appropriate next step" or "which finding is most concerning" style thinking.
+- All distractors must be plausible real-world clinical mistakes an EMT/AEMT/Paramedic would actually make.
+- Never use placeholder text (e.g., "Option A", "Choice 1").
+- Explanations must be clear, direct, explain the clinical reasoning, and state why the concept matters on the NREMT and in the field.
 - For drug dosages or clinical thresholds, append: "Verify with your agency protocols."
-- Tag each question with its NREMT domain.
-- Question types: multiple-choice (mc, 4 options), multiple-response (multi, select-all-that-apply with 4-5 options), and technology-enhanced items (ordered, ranked steps).
-- Difficulty: 1 (recall), 2 (application), 3 (analysis).
+- Use metaphors and analogies only when they genuinely improve understanding — never force them.
+- Prioritize patient safety, clinical judgment, and real-world field decision-making in every question and explanation.
 - Never include "AI-generated", "created by AI", or similar disclosures.
 - Each question must be unique and clinically accurate.`;
 
@@ -36,20 +45,42 @@ serve(async (req) => {
       });
     }
 
-    const domainFilter = domain || "mixed across all 5 NREMT domains";
+    const domainFilter = domain || "mixed domains per level weighting";
     const levelLabel = level.toUpperCase() === "AEMT" ? "AEMT" : level.charAt(0).toUpperCase() + level.slice(1);
 
-    const userPrompt = `Generate exactly ${count} NREMT-style practice questions for the ${levelLabel} certification level. Focus on: ${domainFilter}.
+    // Level-specific question type and domain weighting rules
+    const levelRules: Record<string, string> = {
+      emt: `QUESTION TYPE MIX: 82% mc, 13% multi, 5% ordered.
+DOMAIN WEIGHTING: Primary Assessment (39-43%), Patient Treatment and Transport (20-24%), Scene Size-Up and Safety (15-19%), Operations (10-14%), Secondary Assessment (5-9%).`,
+      aemt: `QUESTION TYPE MIX: 72% mc, 18% multi, 10% ordered.
+DOMAIN WEIGHTING: Clinical Judgment (31-35%), Medical/Obstetrics/Gynecology (25-29%), Cardiology & Resuscitation (11-15%), Airway/Respiration/Ventilation (9-13%), Trauma (7-11%), EMS Operations (6-10%).`,
+      paramedic: `QUESTION TYPE MIX: 65% mc, 22% multi, 13% ordered.
+DOMAIN WEIGHTING: Clinical Judgment (34-38%), Medical/Obstetrics/Gynecology (24-28%), Cardiology & Resuscitation (10-14%), Airway/Respiration/Ventilation (8-12%), EMS Operations (8-12%), Trauma (6-10%).`,
+    };
 
-Mix question types: approximately 60% multiple-choice (mc), 25% multiple-response (multi), 15% ordered-response (ordered).
-Mix difficulties: 30% difficulty 1, 50% difficulty 2, 20% difficulty 3.
+    const userPrompt = `Generate exactly ${count} NREMT-style practice questions for the ${levelLabel} certification level.${domainFilter !== "mixed domains per level weighting" ? ` Focus on: ${domainFilter}.` : ""}
 
-NREMT domains to use:
-- Airway, Respiration, and Ventilation
-- Cardiology and Resuscitation
-- Trauma
-- Medical / Obstetrics and Gynecology
-- EMS Operations`;
+${levelRules[level]}
+
+DIFFICULTY DISTRIBUTION: 25% difficulty 1 (recall), 55% difficulty 2 (application), 20% difficulty 3 (analysis/clinical judgment).
+
+OUTPUT REQUIREMENTS — each question object must have exactly these fields:
+- question_type: "mc" | "multi" | "ordered"
+- question_text: string (scenario-based when appropriate)
+- options: object (see structures below)
+- correct_answer: string
+- explanation: string (clinical reasoning + why it matters on NREMT and in the field)
+- nremt_domain: string
+- difficulty: 1 | 2 | 3
+- tags: string[]
+- level: "${level}"
+
+QUESTION TYPE STRUCTURES:
+- mc: options = { "type": "mc", "choices": ["option1", "option2", "option3", "option4"] } — exactly 4 realistic clinical options. correct_answer = exact text of the correct choice.
+- multi: options = { "type": "multi", "choices": ["A text", "B text", "C text", "D text", "E text"] }. correct_answer = comma-separated correct letters (e.g. "B,C,E").
+- ordered: options = { "type": "ordered", "items": ["Step 1", "Step 2", "Step 3", ...] }. correct_answer = comma-separated items in correct order.
+
+Generate exactly ${count} questions now. Begin generation.`;
 
     const response = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
       method: "POST",
@@ -77,22 +108,23 @@ NREMT domains to use:
                     items: {
                       type: "object",
                       properties: {
-                        question_type: { type: "string", description: "mc, multi, or ordered" },
+                        question_type: { type: "string", enum: ["mc", "multi", "ordered"] },
                         question_text: { type: "string" },
                         options: {
                           type: "object",
+                          description: "mc: {type:'mc', choices:[4 strings]}. multi: {type:'multi', choices:['A text','B text',...]}. ordered: {type:'ordered', items:[strings in any order]}",
                           properties: {
-                            type: { type: "string", description: "mc, multi, or ordered" },
+                            type: { type: "string", enum: ["mc", "multi", "ordered"] },
                             choices: { type: "array", items: { type: "string" } },
                             items: { type: "array", items: { type: "string" } },
-                            correctCount: { type: "number" },
                           },
                         },
-                        correct_answer: { type: "string", description: "For mc: the correct choice text. For multi: comma-separated correct choices. For ordered: comma-separated items in correct order." },
-                        explanation: { type: "string" },
-                        nremt_domain: { type: "string", description: "One of: Airway Respiration and Ventilation, Cardiology and Resuscitation, Trauma, Medical Obstetrics and Gynecology, EMS Operations" },
-                        difficulty: { type: "number", description: "1, 2, or 3" },
+                        correct_answer: { type: "string", description: "mc: exact text of correct choice. multi: comma-separated correct letters e.g. 'A,C,D'. ordered: comma-separated items in correct sequence." },
+                        explanation: { type: "string", description: "Clinical reasoning explaining why the answer is correct and why wrong choices are plausible mistakes. Include field relevance." },
+                        nremt_domain: { type: "string", description: "EMT domains: Primary Assessment, Patient Treatment and Transport, Scene Size-Up and Safety, Operations, Secondary Assessment. AEMT/Paramedic domains: Clinical Judgment, Medical/Obstetrics/Gynecology, Cardiology & Resuscitation, Airway/Respiration/Ventilation, Trauma, EMS Operations" },
+                        difficulty: { type: "number", enum: [1, 2, 3], description: "1=recall, 2=application, 3=analysis/clinical judgment" },
                         tags: { type: "array", items: { type: "string" } },
+                        level: { type: "string", enum: ["emt", "aemt", "paramedic"] },
                       },
                     },
                   },
