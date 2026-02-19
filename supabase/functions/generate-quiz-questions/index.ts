@@ -36,8 +36,11 @@ serve(async (req) => {
 
     const body = await req.json();
     const { level, domain } = body;
-    const count = Math.min(Math.max(1, parseInt(body.count) || 25), 50);
+    // dry_run caps at 3 questions so it completes well within the 30s HTTP limit
     const dryRun = body.dry_run === true;
+    const count = dryRun
+      ? Math.min(Math.max(1, parseInt(body.count) || 3), 3)
+      : Math.min(Math.max(1, parseInt(body.count) || 25), 50);
 
     if (!level || !["emt", "aemt", "paramedic"].includes(level)) {
       return new Response(JSON.stringify({ error: "Invalid level" }), {
@@ -73,7 +76,7 @@ OUTPUT REQUIREMENTS — each question object must have exactly these fields:
 - explanation: string (clinical reasoning + why it matters on NREMT and in the field)
 - nremt_domain: string
 - difficulty: 1 | 2 | 3
-- tags: string[]
+- tags: string[] — REQUIRED, NEVER empty. Include 2–5 specific clinical topic tags relevant to the question (e.g. ["primary-assessment", "airway-obstruction", "hypoxia", "pediatric-patient"]). Tags must be lowercase, hyphenated, specific — never generic like "ems" or "medical".
 - level: "${level}"
 
 QUESTION TYPE STRUCTURES:
@@ -124,7 +127,7 @@ Generate exactly ${count} questions now. Begin generation.`;
                         explanation: { type: "string", description: "Clinical reasoning for the correct answer and why distractors are wrong" },
                         nremt_domain: { type: "string", description: "The NREMT domain this question belongs to" },
                         difficulty: { type: "number", description: "1 for recall, 2 for application, 3 for analysis" },
-                        tags: { type: "array", items: { type: "string" } },
+                        tags: { type: "array", items: { type: "string" }, description: "REQUIRED. 2–5 specific clinical topic tags, lowercase and hyphenated. Examples: primary-assessment, airway-obstruction, hemorrhagic-shock, pediatric-airway, spinal-immobilization. Never return an empty array." },
                         level: { type: "string", description: "emt, aemt, or paramedic" },
                       },
                     },
@@ -198,18 +201,24 @@ Generate exactly ${count} questions now. Begin generation.`;
       Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!
     );
 
-    const rows = questions.map((q: any) => ({
-      level: q.level || level,
-      domain: q.nremt_domain,
-      question_type: q.question_type,
-      question_text: q.question_text,
-      options: q.options,
-      correct_answer: q.correct_answer,
-      explanation: q.explanation,
-      nremt_domain: q.nremt_domain,
-      difficulty: q.difficulty,
-      tags: q.tags || [],
-    }));
+    const rows = questions.map((q: any) => {
+      // Enforce non-empty tags — fall back to a slugified domain if the model returned []
+      const tags: string[] = Array.isArray(q.tags) && q.tags.length > 0
+        ? q.tags
+        : [q.nremt_domain?.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "") || "untagged"];
+      return {
+        level: q.level || level,
+        domain: q.nremt_domain,
+        question_type: q.question_type,
+        question_text: q.question_text,
+        options: q.options,
+        correct_answer: q.correct_answer,
+        explanation: q.explanation,
+        nremt_domain: q.nremt_domain,
+        difficulty: q.difficulty,
+        tags,
+      };
+    });
 
     const { data: inserted, error: insertError } = await supabase
       .from("quiz_questions")
